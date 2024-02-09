@@ -1,0 +1,31 @@
+.root {
+  min-block-size: 100cqb;
+  display: grid;
+
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  grid-template-areas:
+    "navbar header"
+    "navbar main"
+    "navbar footer";
+}
+
+.main {
+  grid-area: main;
+}
+
+/* || MEDIA QUERIES */
+
+/* Small devices (landscape phones, less than 768px) */
+@media screen and (max-width: 767.98px) {
+  .root {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    grid-template-areas:
+      "navbar header"
+      "main   main"
+      "footer footer";
+  }
+}

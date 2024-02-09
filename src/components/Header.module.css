@@ -1,0 +1,31 @@
+.header {
+  grid-area: header;
+  display: flex;
+  gap: var(--size-3);
+  align-items: center;
+  justify-content: space-between;
+  text-align: end;
+  background: var(--surface-2);
+  color: var(--brand);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+}
+
+/* || MEDIA QUERIES */
+
+/* Small devices (landscape phones, less than 768px) */
+@media screen and (max-width: 767.98px) {
+  .header {
+    padding-inline: var(--size-3) var(--size-1);
+    padding-block: var(--size-1);
+    border-block-end: var(--border-size-4) solid var(--surface-1);
+  }
+
+  .header > h1 {
+    font-size: var(--font-size-4);
+    line-height: var(--font-lineheight-0);
+  }
+}
