@@ -1,6 +1,6 @@
 // layouts and pages
-import ViewAllProducts from "../ui/pages/products/ViewAllProducts";
+import ViewAllProducts from "@/ui/pages/products/ViewAllProducts";
 
-export default function Home() {
+export default function Page() {
   return <ViewAllProducts />;
 }

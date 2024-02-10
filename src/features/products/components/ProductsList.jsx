@@ -6,11 +6,11 @@ import prisma from "@/lib/db/prisma";
 
 // components
 import ProductCard from "./ProductCard";
-import NotFound from "../../../components/NotFound";
+import NotFound from "@/components/NotFound";
 
 export default async function ProductsList() {
-  // const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
-  const products = await prisma.product.findMany({ where: { price: 9 }, orderBy: { id: "desc" } });
+  // Retrieve all of the products from an external source (database)
+  const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
 
   return (
     <section className={styles["products-list"]}>

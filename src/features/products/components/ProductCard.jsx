@@ -12,7 +12,7 @@ import clsx from "clsx";
 import PriceTag from "./PriceTag";
 
 // assets
-import { lusitana } from "../../../assets/fonts";
+import { lusitana } from "@/assets/fonts";
 
 export default function ProductCard({ product }) {
   // Ensure the product exists

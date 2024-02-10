@@ -1,0 +1,15 @@
+.single-product-view {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+
+  display: grid;
+  gap: var(--size-3);
+
+  box-shadow: var(--shadow-6);
+}
