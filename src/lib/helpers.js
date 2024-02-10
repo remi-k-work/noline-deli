@@ -17,3 +17,8 @@ export function compute(ms) {
   const startTime = performance.now();
   while (performance.now() - startTime < ms) {}
 }
+
+// Format the price from cents to dollars using usd currency
+export function formatPrice(priceInCents) {
+  return (priceInCents / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
+}

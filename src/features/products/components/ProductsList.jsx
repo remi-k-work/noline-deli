@@ -5,14 +5,16 @@ import styles from "./ProductsList.module.css";
 import prisma from "@/lib/db/prisma";
 
 // components
-import ProductCard from "../../products/components/ProductCard";
+import ProductCard from "./ProductCard";
+import NotFound from "../../../components/NotFound";
 
 export default async function ProductsList() {
-  const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
+  // const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
+  const products = await prisma.product.findMany({ where: { price: 9 }, orderBy: { id: "desc" } });
 
   return (
     <section className={styles["products-list"]}>
-      <ProductCard product={products[0]} />
+      {products.length > 0 ? products.map((product) => <ProductCard key={product.id} product={product} />) : <NotFound message={"Products were not found!"} />}
     </section>
   );
 }

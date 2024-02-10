@@ -1,0 +1,14 @@
+.not-found {
+  margin-inline: auto;
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+  opacity: 0;
+  animation:
+    var(--animation-shake-y),
+    var(--animation-fade-in) forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-2);
+}
