@@ -15,4 +15,25 @@ model Product {
   price       Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  // A product can have many cart items? (that was added by Prisma automatically)
+  CartItem CartItem[]
+}
+
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // A cart can have many cart items
+  CartItem CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String  @db.ObjectId
+  quantity  Int
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId    String  @db.ObjectId
 }

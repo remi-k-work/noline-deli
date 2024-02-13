@@ -2,30 +2,36 @@
 import styles from "./SingleProductView.module.css";
 
 // next
-import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 // prisma and db access
-import prisma from "@/lib/db/prisma";
+import { getProduct } from "@/features/products/productsDb";
+
+// server actions and mutations
+import { addToCart } from "@/features/cart/cartActions";
 
 // other libraries
 import clsx from "clsx";
 
 // components
-import NotFound from "@/components/NotFound";
 import PriceTag from "./PriceTag";
+import AddToCartButton from "@/features/cart/components/AddToCartButton";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
 export default async function SingleProductView({ productId }) {
   // Get all the information you need about this particular product
-  const product = await prisma.product.findUnique({ where: { id: productId } });
+  const product = await getProduct(productId);
 
   // Ensure the product exists
   if (!product) {
-    return <NotFound message={"Product not found!"} />;
+    notFound();
   }
+
+  // Pass additional arguments to a server action
+  const addToCartWithArgs = addToCart.bind(null, productId);
 
   const { id, name, description, imageUrl, price, createdAt, updatedAt } = product;
 
@@ -35,6 +41,9 @@ export default async function SingleProductView({ productId }) {
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
       <p>{description}</p>
       <PriceTag priceInCents={price} />
+      <form action={addToCartWithArgs}>
+        <AddToCartButton productId={productId} />
+      </form>
     </article>
   );
 }
