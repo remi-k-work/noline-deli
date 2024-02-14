@@ -9,7 +9,7 @@ import { useFormStatus } from "react-dom";
 // other libraries
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 
-export default function AddToCartButton({ productId }) {
+export default function AddToCartButton() {
   // To be able to display a pending status while the form is being submitted
   const { pending } = useFormStatus();
 

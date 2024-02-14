@@ -42,7 +42,7 @@ export default async function SingleProductView({ productId }) {
       <p>{description}</p>
       <PriceTag priceInCents={price} />
       <form action={addToCartWithArgs}>
-        <AddToCartButton productId={productId} />
+        <AddToCartButton />
       </form>
     </article>
   );

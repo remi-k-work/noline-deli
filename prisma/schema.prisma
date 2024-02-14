@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Product {
@@ -16,8 +17,9 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // A product can have many cart items? (that was added by Prisma automatically)
-  CartItem CartItem[]
+  // The same product can belong to many cart items
+  // (it contains a list of all cart items this product belongs to)
+  cartItems CartItem[]
 }
 
 model Cart {
@@ -26,7 +28,7 @@ model Cart {
   updatedAt DateTime @updatedAt
 
   // A cart can have many cart items
-  CartItem CartItem[]
+  cartItems CartItem[]
 }
 
 model CartItem {
