@@ -7,6 +7,7 @@ import styles from "./AddToCartButton.module.css";
 import { useFormStatus } from "react-dom";
 
 // other libraries
+import clsx from "clsx";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 export default function AddToCartButton() {
@@ -14,11 +15,18 @@ export default function AddToCartButton() {
   const { pending } = useFormStatus();
 
   return (
-    <section className={styles["add-to-cart-button"]}>
-      <button type="submit" className="btn btn-primary" disabled={pending}>
-        <ShoppingCartIcon width={24} height={24} />
-        Add to Cart
-      </button>
-    </section>
+    <button type="submit" className={clsx(styles["add-to-cart-button"], "btn btn-primary")} disabled={pending}>
+      {pending ? (
+        <>
+          <span className="loading loading-spinner"></span>
+          Please Wait...
+        </>
+      ) : (
+        <>
+          <ShoppingCartIcon width={24} height={24} />
+          Add to Cart
+        </>
+      )}
+    </button>
   );
 }

@@ -1,7 +1,10 @@
 "use server";
 
+// next
+import { revalidatePath } from "next/cache";
+
 // prisma and db access
-import { getCart, incCartItemQty, setCartItemQty } from "./cartDb";
+import { getCart, incCartItemQty, newCartItem } from "./cartDb";
 
 // other libraries
 import { waait } from "@/lib/helpers";
@@ -16,9 +19,11 @@ export async function addToCart(productId) {
   if (articleInCart) {
     // Yes, the article is in our cart already; simply increase its quantity by one
     await incCartItemQty(cart.id, articleInCart.id);
+  } else {
+    // Otherwise, add this new article (cart item) to our cart for the first time
+    await newCartItem(cart.id, productId);
   }
 
-  // const cart = (await getCart()) ?? (await createCart());
-  // await waait();
-  // console.log("Hello from server action", productId, formData);
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath("/products/[productId]");
 }

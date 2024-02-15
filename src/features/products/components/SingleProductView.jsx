@@ -8,15 +8,12 @@ import { notFound } from "next/navigation";
 // prisma and db access
 import { getProduct } from "@/features/products/productsDb";
 
-// server actions and mutations
-import { addToCart } from "@/features/cart/cartActions";
-
 // other libraries
 import clsx from "clsx";
 
 // components
 import PriceTag from "./PriceTag";
-import AddToCartButton from "@/features/cart/components/AddToCartButton";
+import AddToCartForm from "@/features/cart/components/AddToCartForm";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -30,9 +27,6 @@ export default async function SingleProductView({ productId }) {
     notFound();
   }
 
-  // Pass additional arguments to a server action
-  const addToCartWithArgs = addToCart.bind(null, productId);
-
   const { id, name, description, imageUrl, price, createdAt, updatedAt } = product;
 
   return (
@@ -41,9 +35,7 @@ export default async function SingleProductView({ productId }) {
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
       <p>{description}</p>
       <PriceTag priceInCents={price} />
-      <form action={addToCartWithArgs}>
-        <AddToCartButton />
-      </form>
+      <AddToCartForm productId={productId} />
     </article>
   );
 }

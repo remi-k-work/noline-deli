@@ -4,25 +4,46 @@ import { cookies } from "next/headers";
 // prisma and db access
 import prisma from "@/lib/db/prisma";
 
+// Increment the cart item quantity by one
 export async function incCartItemQty(cartId, cartItemId) {
+  // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   await prisma.cart.update({
     where: { id: cartId },
     data: { updatedAt: new Date(), cartItems: { update: { where: { id: cartItemId }, data: { quantity: { increment: 1 } } } } },
   });
-  //await prisma.cart.update({ where: { id: cartId }, data: { cartItems: { update: { where: { id: cartItemId }, data: { quantity: { increment: 1 } } } } } });
 }
 
+// Decrement the cart item quantity by one
+export async function decCartItemQty(cartId, cartItemId) {
+  // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
+  await prisma.cart.update({
+    where: { id: cartId },
+    data: { updatedAt: new Date(), cartItems: { update: { where: { id: cartItemId }, data: { quantity: { decrement: 1 } } } } },
+  });
+}
+
+// Set the cart item quantity to the provided value
 export async function setCartItemQty(cartId, cartItemId, quantity) {
-  await prisma.cart.update({ where: { id: cartId }, data: { cartItems: { update: { where: { id: cartItemId }, data: { quantity } } } } });
+  // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
+  await prisma.cart.update({
+    where: { id: cartId },
+    data: { updatedAt: new Date(), cartItems: { update: { where: { id: cartItemId }, data: { quantity } } } },
+  });
+}
+
+// Create a new cart item within the chosen cart using the provided product
+export async function newCartItem(cartId, productId) {
+  // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
+  await prisma.cart.update({ where: { id: cartId }, data: { updatedAt: new Date(), cartItems: { create: { productId, quantity: 1 } } } });
 }
 
 // Get an existing or brand-new empty cart from our database
 export async function getCart() {
   // Try obtaining the current cart's id from a session cookie
-  //const localCartId = cookies().get("localCartId")?.value;
+  const localCartId = cookies().get("localCartId")?.value;
 
   // *** TEST CODE ***
-  const localCartId = "65ca1b9965d1d06986703c29";
+  // const localCartId = "65ca1b9965d1d06986703c29";
   // *** TEST CODE ***
 
   // If the cart exists, obtain its contents, which should include cart items and product information
