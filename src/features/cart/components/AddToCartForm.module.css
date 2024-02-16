@@ -1,3 +1,17 @@
 .add-to-cart-form {
-  color: var(--text-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-2);
+}
+
+.add-to-cart-form__feedback {
+  background: var(--surface-3);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+  border-radius: var(--radius-3);
+
+  display: grid;
+  gap: var(--size-2);
+
+  box-shadow: var(--shadow-6);
 }

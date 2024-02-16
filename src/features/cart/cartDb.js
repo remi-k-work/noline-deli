@@ -61,11 +61,20 @@ export async function getCart() {
   }
 
   // Use the cart's minimal state to derive extra data such as cart size and subtotal
-  const totalQty = cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
-  const subTotal = cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity * cartItem.product.price, 0);
+  const totalQty = deriveTotalQty(cart);
+  const subTotal = deriveSubTotal(cart);
 
   const derivedCart = { ...cart, totalQty, subTotal };
 
   // Finally, return the existing cart
   return derivedCart;
+}
+
+// Use the cart's minimal state to derive extra data such as cart size and subtotal
+export function deriveTotalQty(cart) {
+  return cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
+}
+
+export function deriveSubTotal(cart) {
+  return cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity * cartItem.product.price, 0);
 }
