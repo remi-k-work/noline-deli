@@ -1,6 +1,3 @@
-// layouts and pages
-import ViewAllProducts from "@/ui/pages/products/ViewAllProducts";
-
 export default function Page() {
-  return <ViewAllProducts />;
+  return <h2>Home Page</h2>;
 }

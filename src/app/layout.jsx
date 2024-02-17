@@ -6,11 +6,16 @@ import "open-props/normalize";
 
 import "./globals.css";
 
+// component css styles
+import styles from "./layout.module.css";
+
 // other libraries
 import clsx from "clsx";
 
-// layouts and pages
-import Root from "@/ui/layouts/Root";
+// components
+import Header from "@/components/Header";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 // assets
 import { inter } from "@/assets/fonts";
@@ -23,8 +28,11 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, "antialiased")}>
-        <Root>{children}</Root>
+      <body className={clsx(styles["layout"], inter.className, "antialiased")}>
+        <Header />
+        <NavBar />
+        <main className={styles["main"]}>{children}</main>
+        <Footer />
       </body>
     </html>
   );

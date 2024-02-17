@@ -12,7 +12,7 @@ export default function NavBar() {
           <Link href={"/"}>Home</Link>
         </li>
         <li>
-          <Link href={"/"}>
+          <Link href={"/products"}>
             <span className={styles["navbar__view-all-posts"]}></span>
           </Link>
         </li>

@@ -3,10 +3,6 @@ import styles from "./SingleProductView.module.css";
 
 // next
 import Image from "next/image";
-import { notFound } from "next/navigation";
-
-// prisma and db access
-import { getProduct } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
@@ -18,13 +14,11 @@ import AddToCartForm from "@/features/cart/components/AddToCartForm";
 // assets
 import { lusitana } from "@/assets/fonts";
 
-export default async function SingleProductView({ productId }) {
-  // Get all the information you need about this particular product
-  const product = await getProduct(productId);
-
+export default function SingleProductView({ product }) {
   // Ensure the product exists
   if (!product) {
-    notFound();
+    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
+    return null;
   }
 
   const { id, name, description, imageUrl, price, createdAt, updatedAt } = product;
@@ -35,7 +29,7 @@ export default async function SingleProductView({ productId }) {
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
       <p>{description}</p>
       <PriceTag priceInCents={price} />
-      <AddToCartForm productId={productId} />
+      <AddToCartForm productId={id} />
     </article>
   );
 }

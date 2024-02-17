@@ -1,11 +1,14 @@
+// component css styles
+import styles from "./page.module.css";
+
 // next
 import { notFound } from "next/navigation";
 
 // prisma and db access
 import { getProduct } from "@/features/products/productsDb";
 
-// layouts and pages
-import ViewProductDetails from "@/ui/pages/products/ViewProductDetails";
+// components
+import SingleProductView from "@/features/products/components/SingleProductView";
 
 export async function generateMetadata({ params: { productId } }) {
   // Get all the information you need about this particular product
@@ -13,6 +16,7 @@ export async function generateMetadata({ params: { productId } }) {
 
   // Ensure the product exists
   if (!product) {
+    // Missing resource: redirect users to the 404 page
     notFound();
   }
 
@@ -27,6 +31,19 @@ export async function generateMetadata({ params: { productId } }) {
   };
 }
 
-export default function Page({ params: { productId } }) {
-  return <ViewProductDetails productId={productId} />;
+export default async function Page({ params: { productId } }) {
+  // Get all the information you need about this particular product
+  const product = await getProduct(productId);
+
+  // Ensure the product exists
+  if (!product) {
+    // Missing resource: redirect users to the 404 page
+    notFound();
+  }
+
+  return (
+    <article className={styles["page"]}>
+      <SingleProductView product={product} />
+    </article>
+  );
 }
