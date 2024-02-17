@@ -11,7 +11,6 @@ import { useFormState } from "react-dom";
 import { addToCart } from "@/features/cart/cartActions";
 
 // other libraries
-import { formatPrice } from "@/lib/helpers";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 // components
@@ -43,7 +42,7 @@ export default function AddToCartForm({ productId }) {
           </header>
           <footer>
             <p className="text-sm">
-              Your cart now has <b>{formState.totalQty}</b> items.
+              Your cart now has <span className="text-info">{formState.totalQty}</span> items.
             </p>
           </footer>
         </section>

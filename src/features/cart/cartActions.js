@@ -4,7 +4,7 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, incCartItemQty, newCartItem, deriveTotalQty, deriveSubTotal } from "./cartDb";
+import { getCart, incCartItemQty, newCartItem } from "./cartDb";
 
 // other libraries
 import { waait } from "@/lib/helpers";
@@ -29,8 +29,6 @@ export async function addToCart(productId, formState) {
 
   // Get the recently modified cart state so we may provide feedback to the user
   const { totalQty, subTotal } = await getCart();
-  console.log(formState);
+
   return { ...formState, status: "succeeded", totalQty, subTotal };
-  //console.log({ ...formState, status: "succeeded", totalQty, subTotal });
-  //return { success: true, message: "Missing Fields. Failed to Create Invoice." };
 }
