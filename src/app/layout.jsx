@@ -22,7 +22,8 @@ import { inter } from "@/assets/fonts";
 
 export const metadata = {
   title: "NoLine-Deli",
-  description: "Welcome to our online store!",
+  description:
+    "NoLine-Deli: Your European deli delivered! Enjoy fresh, organic, high-quality European foods at home, no matter where you are in the US. Find Polish favorites like pierogi & kielbasa, plus breads, coffees, desserts & more. We cater to individual needs & welcome your suggestions!",
 };
 
 export default function Layout({ children }) {

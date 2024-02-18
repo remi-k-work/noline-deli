@@ -8,6 +8,10 @@ import { allProducts } from "@/features/products/productsDb";
 import ProductsList from "@/features/products/components/ProductsList";
 import NotFound from "@/components/NotFound";
 
+export const metadata = {
+  title: "NoLine-Deli ► Our Merchandise",
+};
+
 export default async function Page() {
   // Retrieve all of the products from an external source (database)
   const products = await allProducts();
