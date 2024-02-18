@@ -50,6 +50,15 @@ export async function getCart() {
   const cart = localCartId ? await prisma.cart.findUnique({ where: { id: localCartId }, include: { cartItems: { include: { product: true } } } }) : null;
 
   if (!cart) {
+    // Will we be able to set a new cart's id in a session cookie?
+    try {
+      // Remember that cookies can only be modified in a server action or route handler
+      cookies().set("localCartId", "************************");
+    } catch (error) {
+      // Calling this from a server component will result in an error; exit with null immediately
+      return null;
+    }
+
     // The cart does not yet exist; establish a new, empty one for this session
     const newCart = await prisma.cart.create({ data: {} });
 
