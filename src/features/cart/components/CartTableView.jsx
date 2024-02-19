@@ -27,11 +27,13 @@ export default function CartTableView({ cart }) {
     <table className={styles["cart-table-view"]}>
       <thead className={clsx(lusitana.className, "font-bold")}>
         <tr>
-          <th>Thumbnail</th>
-          <th>Name/Description</th>
+          <th>Item</th>
+          <th className="text-start">Name and Description</th>
           <th>Price</th>
+          <th>&nbsp;</th>
           <th>Qty</th>
-          <th>Total</th>
+          <th>&nbsp;</th>
+          <th className="text-end">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -41,16 +43,18 @@ export default function CartTableView({ cart }) {
       </tbody>
       <tfoot>
         <tr>
-          <td colSpan={4} className="text-end">
-            Total Qty
+          <td colSpan={4} className={clsx(lusitana.className, "text-end text-xl font-bold")}>
+            Total Qty:
           </td>
-          <td>{totalQty}</td>
+          <td className={clsx(lusitana.className, "text-xl font-bold")}>{totalQty}</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
-          <td colSpan={4} className="text-end">
-            Subtotal
+          <td colSpan={6} className={clsx(lusitana.className, "text-end text-xl font-bold")}>
+            Subtotal:
           </td>
-          <td>{formatPrice(subTotal)}</td>
+          <td className={clsx(lusitana.className, "text-end text-xl font-bold")}>{formatPrice(subTotal)}</td>
         </tr>
       </tfoot>
     </table>

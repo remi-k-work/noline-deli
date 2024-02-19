@@ -21,7 +21,7 @@ export default function ProductCard({ product }) {
     return null;
   }
 
-  const { id, name, description, imageUrl, price, createdAt, updatedAt } = product;
+  const { id, name, description, imageUrl, price, createdAt } = product;
 
   // A product that was introduced less than 7 days ago is deemed new
   const isNew = Date.now() - new Date(createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;

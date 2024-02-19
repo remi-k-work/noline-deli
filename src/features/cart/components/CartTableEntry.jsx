@@ -9,6 +9,10 @@ import Image from "next/image";
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
 
+// components
+import IncCartItemQtyForm from "./IncCartItemQtyForm";
+import DecCartItemQtyForm from "./DecCartItemQtyForm";
+
 export default function CartTableEntry({ cartItem }) {
   // Ensure the cart item exists
   if (!cartItem) {
@@ -27,14 +31,20 @@ export default function CartTableEntry({ cartItem }) {
   return (
     <tr className={styles["cart-table-entry"]}>
       <td>
-        <Link href={`/products/${productId}`} className="transition-shadow hover:shadow-xl">
-          <Image src={imageUrl} width={160} height={100} alt={name} className="rounded-lg object-cover" />
+        <Link href={`/products/${productId}`}>
+          <Image src={imageUrl} width={160} height={100} alt={name} className="m-auto rounded-lg object-cover" />
         </Link>
       </td>
-      <td>{name}</td>
+      <td className="text-start">{name}</td>
       <td>{formatPrice(price)}</td>
+      <td>
+        <DecCartItemQtyForm cartItemId={id} />
+      </td>
       <td>{quantity}</td>
-      <td>{formatPrice(quantity * price)}</td>
+      <td>
+        <IncCartItemQtyForm cartItemId={id} />
+      </td>
+      <td className="text-end">{formatPrice(quantity * price)}</td>
     </tr>
   );
 }

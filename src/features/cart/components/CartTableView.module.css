@@ -1,12 +1,33 @@
 .cart-table-view {
   inline-size: 100%;
-  max-inline-size: var(--size-content-3);
   margin-inline: auto;
 
   background: var(--surface-2);
-  padding-inline: var(--size-3);
-  padding-block: var(--size-3);
   border-radius: var(--radius-3);
 
   box-shadow: var(--shadow-6);
+
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.cart-table-view th {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+
+  background: var(--surface-3);
+  color: var(--text-2);
+}
+
+.cart-table-view td {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+}
+
+.cart-table-view tr:nth-child(even) td {
+  background: var(--surface-4);
+}
+
+.cart-table-view tr:nth-child(odd) td {
+  background: var(--surface-3);
 }

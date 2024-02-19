@@ -4,10 +4,30 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, incCartItemQty, newCartItem } from "./cartDb";
+import { getCart, decCartItemQty, incCartItemQty, newCartItem } from "./cartDb";
 
 // other libraries
 import { waait } from "@/lib/helpers";
+
+export async function decArticleByOne(cartItemId) {
+  // Get an existing or brand-new empty cart from our database
+  const cart = await getCart();
+
+  await decCartItemQty(cart.id, cartItemId);
+
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath("/cart");
+}
+
+export async function incArticleByOne(cartItemId) {
+  // Get an existing or brand-new empty cart from our database
+  const cart = await getCart();
+
+  await incCartItemQty(cart.id, cartItemId);
+
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath("/cart");
+}
 
 export async function addToCart(productId, formState) {
   // Get an existing or brand-new empty cart from our database
