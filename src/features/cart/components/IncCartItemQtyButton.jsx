@@ -15,7 +15,7 @@ export default function IncCartItemQtyButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" className={clsx(styles["inc-cart-item-qty-button"], "btn btn-primary")} disabled={pending}>
+    <button type="submit" className={clsx(styles["inc-cart-item-qty-button"], "btn btn-circle btn-secondary")} disabled={pending}>
       {pending ? <span className="loading loading-spinner"></span> : <PlusCircleIcon width={24} height={24} />}
     </button>
   );

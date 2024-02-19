@@ -1,4 +1,6 @@
 .not-found {
+  max-inline-size: var(--size-content-3);
+
   margin-inline: auto;
   padding-inline: var(--size-3);
   padding-block: var(--size-3);

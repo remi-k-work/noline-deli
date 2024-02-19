@@ -34,6 +34,7 @@ export default function CartTableView({ cart }) {
           <th>Qty</th>
           <th>&nbsp;</th>
           <th className="text-end">Total</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>

@@ -4,29 +4,48 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, decCartItemQty, incCartItemQty, newCartItem } from "./cartDb";
+import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "./cartDb";
 
 // other libraries
 import { waait } from "@/lib/helpers";
+
+export async function deleteCartArticle(cartItemId) {
+  // Get an existing or brand-new empty cart from our database
+  const cart = await getCart();
+
+  // Remove this cart item completely from our shopping basket
+  await delCartItem(cart.id, cartItemId);
+
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath("/cart");
+}
 
 export async function decArticleByOne(cartItemId) {
   // Get an existing or brand-new empty cart from our database
   const cart = await getCart();
 
-  await decCartItemQty(cart.id, cartItemId);
+  // Find the specified cart item, decrease its amount by one, and maintain it inside the 0 < q < 100 limit
+  const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
+  if (cartItem && cartItem.quantity > 1) {
+    await decCartItemQty(cart.id, cartItemId);
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/cart");
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/cart");
+  }
 }
 
 export async function incArticleByOne(cartItemId) {
   // Get an existing or brand-new empty cart from our database
   const cart = await getCart();
 
-  await incCartItemQty(cart.id, cartItemId);
+  // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
+  const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
+  if (cartItem && cartItem.quantity < 99) {
+    await incCartItemQty(cart.id, cartItemId);
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/cart");
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/cart");
+  }
 }
 
 export async function addToCart(productId, formState) {
@@ -38,7 +57,10 @@ export async function addToCart(productId, formState) {
 
   if (articleInCart) {
     // Yes, the article is in our cart already; simply increase its quantity by one
-    await incCartItemQty(cart.id, articleInCart.id);
+    if (articleInCart.quantity < 99) {
+      // Keep the quantity (amount) inside the 0 < q < 100 limit
+      await incCartItemQty(cart.id, articleInCart.id);
+    }
   } else {
     // Otherwise, add this new article (cart item) to our cart for the first time
     await newCartItem(cart.id, productId);
