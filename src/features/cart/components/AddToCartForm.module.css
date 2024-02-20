@@ -15,3 +15,7 @@
 
   box-shadow: var(--shadow-6);
 }
+
+.add-to-cart-button {
+  color: inherit;
+}

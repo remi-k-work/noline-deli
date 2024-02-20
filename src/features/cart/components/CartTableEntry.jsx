@@ -10,9 +10,7 @@ import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
 
 // components
-import IncCartItemQtyForm from "./IncCartItemQtyForm";
-import DecCartItemQtyForm from "./DecCartItemQtyForm";
-import DelCartItemForm from "./DelCartItemForm";
+import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./CartTableForms";
 
 export default function CartTableEntry({ cartItem }) {
   // Ensure the cart item exists
@@ -45,10 +43,10 @@ export default function CartTableEntry({ cartItem }) {
       <td>
         <IncCartItemQtyForm cartItemId={id} />
       </td>
-      <td className="text-end">{formatPrice(quantity * price)}</td>
       <td>
         <DelCartItemForm cartItemId={id} />
       </td>
+      <td className="text-end">{formatPrice(quantity * price)}</td>
     </tr>
   );
 }

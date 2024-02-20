@@ -1,9 +1,6 @@
 // component css styles
 import styles from "./CartTableView.module.css";
 
-// next
-import Image from "next/image";
-
 // other libraries
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
@@ -33,8 +30,8 @@ export default function CartTableView({ cart }) {
           <th>&nbsp;</th>
           <th>Qty</th>
           <th>&nbsp;</th>
-          <th className="text-end">Total</th>
           <th>&nbsp;</th>
+          <th className="text-end">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -50,9 +47,10 @@ export default function CartTableView({ cart }) {
           <td className={clsx(lusitana.className, "text-xl font-bold")}>{totalQty}</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
-          <td colSpan={6} className={clsx(lusitana.className, "text-end text-xl font-bold")}>
+          <td colSpan={7} className={clsx(lusitana.className, "text-end text-xl font-bold")}>
             Subtotal:
           </td>
           <td className={clsx(lusitana.className, "text-end text-xl font-bold")}>{formatPrice(subTotal)}</td>

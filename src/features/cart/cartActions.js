@@ -67,7 +67,7 @@ export async function addToCart(productId, formState) {
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/products/[productId]");
+  revalidatePath("/products/[productId]", "page");
 
   // Get the recently modified cart state so we may provide feedback to the user
   const { totalQty, subTotal } = await getCart();

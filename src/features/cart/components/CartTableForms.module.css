@@ -1,0 +1,29 @@
+.inc-cart-item-qty-form {
+  display: block;
+}
+
+.inc-cart-item-qty-button {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
+  box-shadow: var(--shadow-4);
+}
+
+.dec-cart-item-qty-form {
+  display: block;
+}
+
+.dec-cart-item-qty-button {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
+  box-shadow: var(--shadow-4);
+}
+
+.del-cart-item-form {
+  display: block;
+}
+
+.del-cart-item-button {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
+  box-shadow: var(--shadow-4);
+}
