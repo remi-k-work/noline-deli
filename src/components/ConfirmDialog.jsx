@@ -26,7 +26,7 @@ const ConfirmDialog = forwardRef(({ message, onConfirmed }, ref) => {
         <p className="py-4">{message}</p>
         <div className="modal-action">
           <form method="dialog">
-            <button type="submit" className="btn btn-primary m-4" onClick={() => onConfirmed && onConfirmed()}>
+            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed && onConfirmed()}>
               <HandThumbUpIcon width={24} height={24} />
               Confirm
             </button>

@@ -33,7 +33,7 @@ function IncCartItemQtyButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" className={clsx(styles["inc-cart-item-qty-button"], "btn btn-circle btn-secondary")} disabled={pending}>
+    <button type="submit" className={clsx(styles["inc-cart-item-qty-button"], "btn btn-secondary")} disabled={pending}>
       {pending ? <span className="loading loading-spinner"></span> : <PlusCircleIcon width={24} height={24} />}
     </button>
   );
@@ -55,7 +55,7 @@ function DecCartItemQtyButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" className={clsx(styles["dec-cart-item-qty-button"], "btn btn-circle btn-secondary")} disabled={pending}>
+    <button type="submit" className={clsx(styles["dec-cart-item-qty-button"], "btn btn-secondary")} disabled={pending}>
       {pending ? <span className="loading loading-spinner"></span> : <MinusCircleIcon width={24} height={24} />}
     </button>
   );
@@ -95,7 +95,7 @@ function DelCartItemButton({ onDelCartItemClicked }) {
   return (
     <button
       type="button"
-      className={clsx(styles["del-cart-item-button"], "btn btn-circle btn-warning")}
+      className={clsx(styles["del-cart-item-button"], "btn btn-warning")}
       disabled={pending}
       onClick={() => onDelCartItemClicked && onDelCartItemClicked()}
     >

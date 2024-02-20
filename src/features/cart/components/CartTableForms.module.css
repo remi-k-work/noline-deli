@@ -3,8 +3,12 @@
 }
 
 .inc-cart-item-qty-button {
-  padding-inline: var(--size-2);
-  padding-block: var(--size-1);
+  inline-size: auto;
+  block-size: auto;
+  padding-inline: 0;
+  padding-block: 0;
+  min-inline-size: 0;
+  min-block-size: 0;
   box-shadow: var(--shadow-4);
 }
 
@@ -13,8 +17,12 @@
 }
 
 .dec-cart-item-qty-button {
-  padding-inline: var(--size-2);
-  padding-block: var(--size-1);
+  inline-size: auto;
+  block-size: auto;
+  padding-inline: 0;
+  padding-block: 0;
+  min-inline-size: 0;
+  min-block-size: 0;
   box-shadow: var(--shadow-4);
 }
 
@@ -23,7 +31,11 @@
 }
 
 .del-cart-item-button {
-  padding-inline: var(--size-2);
-  padding-block: var(--size-1);
+  inline-size: auto;
+  block-size: auto;
+  padding-inline: 0;
+  padding-block: 0;
+  min-inline-size: 0;
+  min-block-size: 0;
   box-shadow: var(--shadow-4);
 }

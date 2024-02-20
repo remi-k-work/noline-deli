@@ -7,8 +7,31 @@
 
   box-shadow: var(--shadow-6);
 
+  table-layout: fixed;
   border-collapse: collapse;
   text-align: center;
+}
+
+.cart-table-view thead th:nth-child(1) {
+  inline-size: 30%;
+  text-align: start;
+}
+
+.cart-table-view thead th:nth-child(2) {
+  inline-size: 20%;
+}
+
+.cart-table-view thead th:nth-child(3) {
+  inline-size: 20%;
+}
+
+.cart-table-view thead th:nth-child(4) {
+  inline-size: 20%;
+  text-align: end;
+}
+
+.cart-table-view thead th:nth-child(5) {
+  inline-size: 10%;
 }
 
 .cart-table-view th {
