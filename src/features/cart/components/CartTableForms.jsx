@@ -4,6 +4,7 @@
 import styles from "./CartTableForms.module.css";
 
 // react
+import { useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 // server actions and mutations
@@ -12,6 +13,9 @@ import { incArticleByOne, decArticleByOne, deleteCartArticle } from "@/features/
 // other libraries
 import clsx from "clsx";
 import { PlusCircleIcon, MinusCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+
+// components
+import ConfirmDialog from "@/components/ConfirmDialog";
 
 export function IncCartItemQtyForm({ cartItemId }) {
   // Pass additional arguments to a server action
@@ -61,19 +65,40 @@ export function DelCartItemForm({ cartItemId }) {
   // Pass additional arguments to a server action
   const deleteCartArticleWithArgs = deleteCartArticle.bind(null, cartItemId);
 
+  const delCartItemFormRef = useRef(null);
+  const confirmDialogRef = useRef(null);
+
+  function handleDelCartItemClicked() {
+    const confirmDialog = confirmDialogRef.current;
+    confirmDialog.showModal();
+  }
+
+  function handleConfirmed() {
+    const delCartItemForm = delCartItemFormRef.current;
+    delCartItemForm.requestSubmit();
+  }
+
   return (
-    <form action={deleteCartArticleWithArgs} className={styles["del-cart-item-form"]}>
-      <DelCartItemButton />
-    </form>
+    <>
+      <form ref={delCartItemFormRef} action={deleteCartArticleWithArgs} className={styles["del-cart-item-form"]}>
+        <DelCartItemButton onDelCartItemClicked={handleDelCartItemClicked} />
+      </form>
+      <ConfirmDialog ref={confirmDialogRef} message={"Are you certain you want to remove this article?"} onConfirmed={handleConfirmed} />
+    </>
   );
 }
 
-function DelCartItemButton() {
+function DelCartItemButton({ onDelCartItemClicked }) {
   // To be able to display a pending status while the form is being submitted
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" className={clsx(styles["del-cart-item-button"], "btn btn-circle btn-warning")} disabled={pending}>
+    <button
+      type="button"
+      className={clsx(styles["del-cart-item-button"], "btn btn-circle btn-warning")}
+      disabled={pending}
+      onClick={() => onDelCartItemClicked && onDelCartItemClicked()}
+    >
       {pending ? <span className="loading loading-spinner"></span> : <XCircleIcon width={24} height={24} />}
     </button>
   );

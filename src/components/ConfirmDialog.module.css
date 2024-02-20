@@ -1,0 +1,14 @@
+.confirm-dialog {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+}
+
+.confirm-dialog__title-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
+}
