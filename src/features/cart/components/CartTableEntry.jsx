@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 // other libraries
-import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
 
 // components
@@ -29,13 +28,13 @@ export default function CartTableEntry({ cartItem }) {
 
   return (
     <tr className={styles["cart-table-entry"]}>
-      <td className="text-start">
+      <td>
         <Link href={`/products/${productId}`}>
-          <Image src={imageUrl} width={160} height={100} alt={name} className="rounded-lg object-cover" />
+          <Image src={imageUrl} width={640} height={400} alt={name} className="w-auto rounded-lg object-cover" />
           <p>{name}</p>
         </Link>
       </td>
-      <td className="text-xs sm:text-base">{formatPrice(price)}</td>
+      <td>{formatPrice(price)}</td>
       <td>
         <div className="flex flex-col place-content-center gap-1 sm:flex-row sm:gap-3">
           <IncCartItemQtyForm cartItemId={id} />
@@ -43,7 +42,7 @@ export default function CartTableEntry({ cartItem }) {
           <DecCartItemQtyForm cartItemId={id} />
         </div>
       </td>
-      <td className="text-end text-xs sm:text-base">{formatPrice(quantity * price)}</td>
+      <td>{formatPrice(quantity * price)}</td>
       <td>
         <DelCartItemForm cartItemId={id} />
       </td>

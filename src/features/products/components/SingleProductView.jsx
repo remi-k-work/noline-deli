@@ -25,7 +25,7 @@ export default function SingleProductView({ product }) {
 
   return (
     <article className={styles["single-product-view"]}>
-      <Image src={imageUrl} width={640} height={400} alt={name} className="rounded-lg" priority />
+      <Image src={imageUrl} width={640} height={400} alt={name} className="w-auto rounded-lg object-cover" priority />
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
       <p>{description}</p>
       <PriceTag priceInCents={price} />

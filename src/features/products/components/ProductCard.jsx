@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
     <article className={styles["product-card"]}>
       <Link href={`/products/${id}`} className="card w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure>
-          <Image src={imageUrl} width={640} height={400} alt={name} className="object-cover" />
+          <Image src={imageUrl} width={640} height={400} alt={name} className="w-auto object-cover" />
         </figure>
         <div className="card-body">
           <h3 className={clsx(lusitana.className, "card-title text-3xl")}>{name}</h3>

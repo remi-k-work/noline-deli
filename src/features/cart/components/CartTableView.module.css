@@ -4,7 +4,6 @@
 
   background: var(--surface-2);
   border-radius: var(--radius-3);
-
   box-shadow: var(--shadow-6);
 
   table-layout: fixed;
@@ -18,7 +17,7 @@
 }
 
 .cart-table-view thead th:nth-child(2) {
-  inline-size: 20%;
+  inline-size: 15%;
 }
 
 .cart-table-view thead th:nth-child(3) {
@@ -26,12 +25,19 @@
 }
 
 .cart-table-view thead th:nth-child(4) {
-  inline-size: 20%;
+  inline-size: 25%;
   text-align: end;
 }
 
 .cart-table-view thead th:nth-child(5) {
   inline-size: 10%;
+}
+
+.cart-table-view__subtotal {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: end;
+  overflow: clip;
 }
 
 .cart-table-view th {
