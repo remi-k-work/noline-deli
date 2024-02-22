@@ -8,7 +8,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
-export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
+export default function Paginate({ currentPage, itemsPerPage, totalItems, pathname, searchParams }) {
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
   const nextPageNumber = currentPage !== Math.ceil(totalItems / itemsPerPage) ? currentPage + 1 : currentPage;
 
@@ -17,27 +17,37 @@ export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
     pageNumbers.push(i);
   }
 
+  // Create href urls that respect the current pathname and previously used search params
+  const params = new URLSearchParams(searchParams);
+  params.set("page", prevPageNumber);
+  const prevPageHref = `${pathname}?${params.toString()}`;
+  params.set("page", nextPageNumber);
+  const nextPageHref = `${pathname}?${params.toString()}`;
+
   return (
     // Do not render anything if there are no items to display
     totalItems > 0 && (
       <section className={styles["paginate"]}>
-        <Link href={`?page=${prevPageNumber}`} className={styles["paginate__prev"]}>
+        <Link href={prevPageHref} className={styles["paginate__prev"]}>
           <BackwardIcon width={24} height={24} />
         </Link>
         <div className={styles["paginate__pages"]}>
-          {pageNumbers.map((pageNumber) =>
-            pageNumber === currentPage ? (
+          {pageNumbers.map((pageNumber) => {
+            params.set("page", pageNumber);
+            const currPageHref = `${pathname}?${params.toString()}`;
+
+            return pageNumber === currentPage ? (
               <span key={pageNumber} className={clsx(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
                 {pageNumber}
               </span>
             ) : (
-              <Link key={pageNumber} href={`?page=${pageNumber}`} className={styles["paginate__page-number"]}>
+              <Link key={pageNumber} href={currPageHref} className={styles["paginate__page-number"]}>
                 {pageNumber}
               </Link>
-            ),
-          )}
+            );
+          })}
         </div>
-        <Link href={`?page=${nextPageNumber}`} className={styles["paginate__next"]}>
+        <Link href={nextPageHref} className={styles["paginate__next"]}>
           <ForwardIcon width={24} height={24} />
         </Link>
       </section>

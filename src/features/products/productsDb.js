@@ -29,3 +29,18 @@ export async function allProductsWithPagination(currentPage, itemsPerPage) {
   const products = await prisma.product.findMany({ orderBy: { id: "desc" }, skip: indexOfFirstItem, take: itemsPerPage });
   return products;
 }
+
+// Search our products for a certain keyword in either the name or description sections
+export async function searchProducts(keyword, currentPage, itemsPerPage) {
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const foundProductsAll = await prisma.product.findMany({
+    where: { OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }] },
+    orderBy: { id: "desc" },
+  });
+
+  const foundProductsPage = foundProductsAll.slice(indexOfFirstItem, indexOfLastItem);
+
+  return { totalItems: foundProductsAll.length, products: foundProductsPage };
+}
