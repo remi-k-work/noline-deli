@@ -15,3 +15,17 @@ export async function allProducts() {
   const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
   return products;
 }
+
+// Count the total number of products we have
+export async function allProductsCount() {
+  return await prisma.product.count();
+}
+
+// Retrieve all products from an external source (database) using offset pagination
+export async function allProductsWithPagination(currentPage, itemsPerPage) {
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const products = await prisma.product.findMany({ orderBy: { id: "desc" }, skip: indexOfFirstItem, take: itemsPerPage });
+  return products;
+}

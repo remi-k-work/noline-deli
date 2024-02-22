@@ -1,0 +1,70 @@
+.paginate {
+  color: var(--text-2);
+  display: flex;
+  gap: var(--size-2);
+}
+
+.paginate__prev,
+.paginate__next {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+  border-radius: var(--radius-3);
+  border-block-start: var(--border-size-1) dotted var(--surface-2);
+  border-block-end: var(--border-size-1) dotted var(--surface-2);
+  transition: all 0.5s var(--ease-3);
+}
+
+.paginate__prev:hover,
+.paginate__next:hover {
+  background: var(--surface-2);
+  color: var(--text-1);
+  border-block-start: var(--border-size-1) solid var(--surface-3);
+  border-block-end: var(--border-size-1) solid var(--surface-3);
+}
+
+.paginate__prev > svg,
+.paginate__next > svg {
+  margin: auto;
+}
+
+.paginate__pages {
+  flex: 9;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  padding-inline: 0;
+  gap: var(--size-2);
+}
+
+.paginate__page-number {
+  flex: 0 1 var(--size-8);
+  text-align: center;
+  cursor: pointer;
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+  border-radius: var(--radius-3);
+  border-block-start: var(--border-size-1) dotted var(--surface-2);
+  border-block-end: var(--border-size-1) dotted var(--surface-2);
+  transition: all 0.5s var(--ease-3);
+}
+
+.paginate__page-number:hover {
+  background: var(--surface-2);
+  color: var(--text-1);
+  border-block-start: var(--border-size-1) solid var(--surface-3);
+  border-block-end: var(--border-size-1) solid var(--surface-3);
+}
+
+.paginate__page-number--current {
+  background: var(--surface-2);
+  color: var(--text-1);
+  cursor: not-allowed;
+  border-block-start: var(--border-size-1) solid var(--surface-3);
+  border-block-end: var(--border-size-1) solid var(--surface-3);
+  transition: none;
+}
