@@ -1,3 +1,7 @@
 export default function Loading() {
-  return <span className="loading loading-dots loading-lg m-auto block" />;
+  return (
+    <div className="grid h-full place-content-center">
+      <span className="loading loading-dots loading-lg m-auto block" />
+    </div>
+  );
 }

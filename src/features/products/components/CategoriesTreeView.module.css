@@ -1,0 +1,11 @@
+.categories-tree-view {
+  background: rgb(0, 71, 110);
+}
+
+.categories-list {
+  list-style: none;
+}
+
+.categories-item {
+  color: #fff;
+}
