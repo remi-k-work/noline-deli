@@ -4,9 +4,6 @@ import styles from "./Header.module.css";
 // next
 import Link from "next/link";
 
-// prisma and db access
-import { getCart } from "@/features/cart/cartDb";
-
 // other libraries
 import clsx from "clsx";
 
@@ -17,10 +14,7 @@ import SearchPanel from "./SearchPanel";
 // assets
 import { lusitana } from "@/assets/fonts";
 
-export default async function Header() {
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-
+export default function Header({ cart }) {
   return (
     <header className={clsx(styles["header"], "navbar")}>
       <div className="flex-1">

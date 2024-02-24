@@ -9,6 +9,10 @@ import "open-props/style";
 // component css styles
 import styles from "./layout.module.css";
 
+// prisma and db access
+import { getCart } from "@/features/cart/cartDb";
+import { allCategories } from "@/features/products/productsDb";
+
 // other libraries
 import clsx from "clsx";
 
@@ -26,12 +30,18 @@ export const metadata = {
     "NoLine-Deli: Your European deli delivered! Enjoy fresh, organic, high-quality European foods at home, no matter where you are in the US. Find Polish favorites like pierogi & kielbasa, plus breads, coffees, desserts & more. We cater to individual needs & welcome your suggestions!",
 };
 
-export default function Layout({ children }) {
+export default async function Layout({ children }) {
+  // Get an existing or brand-new empty cart from our database
+  const cart = await getCart();
+
+  // Retrieve all of the categories from an external source (database)
+  const categories = await allCategories();
+
   return (
     <html lang="en">
       <body className={clsx(styles["layout"], inter.className, "antialiased")}>
-        <Header />
-        <NavBar />
+        <Header cart={cart} />
+        <NavBar categories={categories} />
         <main className={styles["main"]}>{children}</main>
         <Footer />
       </body>

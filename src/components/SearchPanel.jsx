@@ -29,6 +29,7 @@ export default function SearchPanel() {
     <label className={clsx(styles["search-panel"], "input input-bordered")}>
       <input
         type="search"
+        name="search"
         size={25}
         maxLength={50}
         aria-label="Search"

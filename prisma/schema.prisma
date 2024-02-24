@@ -8,18 +8,46 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String?
+  email String? @unique
+
+  // A user can create many categories and products
+  categories Category[]
+  products   Product[]
+}
+
+model Category {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdBy String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // A category can have many products (it can belong to many products)
+  products CategoriesOnProducts[]
+
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   imageUrl    String
   price       Int
+  createdBy   String   @db.ObjectId
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // The same product can belong to many cart items
-  // (it contains a list of all cart items this product belongs to)
-  cartItems CartItem[]
+  // A product can have many categories (it can belong to many categories)
+  categories CategoriesOnProducts[]
+
+  // A product can have many carts (it can belong to many carts)
+  carts CartsOnProducts[]
+
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model Cart {
@@ -27,14 +55,23 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // A cart can have many cart items
-  cartItems CartItem[]
+  // A cart can have many products (it can belong to many products)
+  cartItems CartsOnProducts[]
 }
 
-model CartItem {
+model CategoriesOnProducts {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  productId  String @db.ObjectId
+  categoryId String @db.ObjectId
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model CartsOnProducts {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  cartId    String @db.ObjectId
   productId String @db.ObjectId
+  cartId    String @db.ObjectId
   quantity  Int
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)

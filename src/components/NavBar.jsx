@@ -7,46 +7,14 @@ import Link from "next/link";
 // components
 import CategoriesTreeView from "@/features/products/components/CategoriesTreeView";
 
-const categoriesList = [
-  {
-    label: "Sweets",
-    href: "/",
-    subCategories: [
-      {
-        label: "Chocoalte",
-        href: "/",
-      },
-      {
-        label: "Candy",
-        href: "/",
-      },
-      {
-        label: "Bars",
-        href: "/",
-      },
-    ],
-  },
-  {
-    label: "Beverages",
-    href: "/",
-    subCategories: [
-      {
-        label: "Diet",
-        href: "/",
-      },
-      {
-        label: "Pepsi",
-        href: "/",
-      },
-      {
-        label: "Cola",
-        href: "/",
-      },
-    ],
-  },
-];
+export default function NavBar({ categories }) {
+  const subCategories = [];
+  for (const category of categories) {
+    const { id, name } = category;
+    subCategories.push({ label: name, href: `/products/${name}` });
+  }
+  const categoriesList = [{ label: "All Products", href: "/products", subCategories: subCategories }];
 
-export default function NavBar() {
   return (
     <nav className={styles["navbar"]}>
       <CategoriesTreeView categoriesList={categoriesList} />

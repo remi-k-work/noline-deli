@@ -44,16 +44,14 @@ function CategoriesItem({ categoriesItem }) {
 
   return (
     <li className={styles["categories-item"]}>
-      <details open>
-        {subCategories.length > 0 ? (
-          <>
-            <summary>{label}</summary>
-            <CategoriesList categoriesList={subCategories} />
-          </>
-        ) : (
-          <Link href={href}>{label}</Link>
-        )}
-      </details>
+      {subCategories.length > 0 ? (
+        <details open>
+          <summary>{label}</summary>
+          <CategoriesList categoriesList={subCategories} />
+        </details>
+      ) : (
+        <Link href={href}>{label}</Link>
+      )}
     </li>
   );
 }

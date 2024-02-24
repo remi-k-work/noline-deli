@@ -10,6 +10,12 @@ export const getProduct = cache(async (productId) => {
   return product;
 });
 
+// Retrieve all of the categories from an external source (database)
+export async function allCategories() {
+  const categories = await prisma.category.findMany({ orderBy: { id: "desc" } });
+  return categories;
+}
+
 // Retrieve all of the products from an external source (database)
 export async function allProducts() {
   const products = await prisma.product.findMany({ orderBy: { id: "desc" } });
