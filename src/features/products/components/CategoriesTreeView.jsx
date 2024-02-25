@@ -7,10 +7,25 @@ import Link from "next/link";
 // other libraries
 import clsx from "clsx";
 
-export default function CategoriesTreeView({ categoriesList = [] }) {
-  if (categoriesList.length === 0) {
+export default function CategoriesTreeView({ categories = [] }) {
+  if (categories.length === 0) {
     return null;
   }
+
+  // Create a product category tree in the format specified by this component:
+  // [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]
+  const productCategories = [];
+  for (const { name: categoryName, subCategories } of categories) {
+    productCategories.push({ label: categoryName, href: `/products/${encodeURIComponent(categoryName)}/`, subCategories: [] });
+    for (const { name: subCategoryName } of subCategories) {
+      productCategories.at(-1).subCategories.push({
+        label: subCategoryName,
+        href: `/products/${encodeURIComponent(categoryName)}/${encodeURIComponent(subCategoryName)}`,
+        subCategories: [],
+      });
+    }
+  }
+  const categoriesList = [{ label: "All Products", href: "/products", subCategories: productCategories }];
 
   return (
     <article className={clsx(styles["categories-tree-view"], "menu rounded-box bg-base-200")}>

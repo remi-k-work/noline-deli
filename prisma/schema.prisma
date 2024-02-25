@@ -8,14 +8,21 @@ datasource db {
   relationMode = "prisma"
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   name  String?
   email String? @unique
+  role  Role    @default(USER)
 
-  // A user can create many categories and products
-  categories Category[]
-  products   Product[]
+  // A user can create many categories, subcategories, and products
+  categories    Category[]
+  subCategories SubCategory[]
+  products      Product[]
 }
 
 model Category {
@@ -25,10 +32,28 @@ model Category {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // A category can have many subcategories (it can belong to many subcategories)
+  subCategories SubCategory[]
+
   // A category can have many products (it can belong to many products)
   products CategoriesOnProducts[]
 
   user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model SubCategory {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String   @db.ObjectId
+  name       String   @unique
+  createdBy  String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // A subcategory can have many products (it can belong to many products)
+  products SubCategoriesOnProducts[]
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model Product {
@@ -44,6 +69,9 @@ model Product {
   // A product can have many categories (it can belong to many categories)
   categories CategoriesOnProducts[]
 
+  // A product can have many subcategories (it can belong to many subcategories)
+  subCategories SubCategoriesOnProducts[]
+
   // A product can have many carts (it can belong to many carts)
   carts CartsOnProducts[]
 
@@ -55,7 +83,7 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // A cart can have many products (it can belong to many products)
+  // A cart can have many products/cart items (it can belong to many products/cart items)
   cartItems CartsOnProducts[]
 }
 
@@ -66,6 +94,15 @@ model CategoriesOnProducts {
 
   product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model SubCategoriesOnProducts {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  productId     String @db.ObjectId
+  subCategoryId String @db.ObjectId
+
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
 }
 
 model CartsOnProducts {

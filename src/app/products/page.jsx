@@ -25,10 +25,7 @@ export default async function Page({ searchParams, searchParams: { page = "1" } 
   const itemsPerPage = 10;
 
   // Retrieve all products from an external source (database) using offset pagination
-  const products = await allProductsWithPagination(currentPage, itemsPerPage);
-
-  // Determine the total number of items for pagination as well
-  const totalItems = await allProductsCount();
+  const { totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage);
 
   return (
     <article className={styles["page"]}>

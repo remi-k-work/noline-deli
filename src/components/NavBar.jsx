@@ -8,16 +8,9 @@ import Link from "next/link";
 import CategoriesTreeView from "@/features/products/components/CategoriesTreeView";
 
 export default function NavBar({ categories }) {
-  const subCategories = [];
-  for (const category of categories) {
-    const { id, name } = category;
-    subCategories.push({ label: name, href: `/products/${name}` });
-  }
-  const categoriesList = [{ label: "All Products", href: "/products", subCategories: subCategories }];
-
   return (
     <nav className={styles["navbar"]}>
-      <CategoriesTreeView categoriesList={categoriesList} />
+      <CategoriesTreeView categories={categories} />
       <ul className={styles["navbar__list"]}>
         <li>
           <Link href={"/"}>Home</Link>
