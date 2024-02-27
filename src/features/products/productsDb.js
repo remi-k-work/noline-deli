@@ -31,6 +31,52 @@ export async function allProducts() {
   return products;
 }
 
+// Retrieve all products by category
+export async function allProductsByCategory(categoryId, currentPage, itemsPerPage) {
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const products = await prisma.product.findMany({
+    where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } },
+    orderBy: { id: "desc" },
+    skip: indexOfFirstItem,
+    take: itemsPerPage,
+  });
+
+  return {
+    totalItems: await prisma.product.count({ where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } } }),
+    products,
+  };
+}
+
+// Retrieve all products by category and subcategory
+export async function allProductsByCategoryAndSubCategory(categoryId, subCategoryId, currentPage, itemsPerPage) {
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const products = await prisma.product.findMany({
+    where: {
+      categories: { some: { category: { is: { id: categoryId } } } },
+      subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
+      user: { role: "ADMIN" },
+    },
+    orderBy: { id: "desc" },
+    skip: indexOfFirstItem,
+    take: itemsPerPage,
+  });
+
+  return {
+    totalItems: await prisma.product.count({
+      where: {
+        categories: { some: { category: { is: { id: categoryId } } } },
+        subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
+        user: { role: "ADMIN" },
+      },
+    }),
+    products,
+  };
+}
+
 // Retrieve all products from an external source (database) using offset pagination
 export async function allProductsWithPagination(currentPage, itemsPerPage) {
   const indexOfLastItem = currentPage * itemsPerPage;

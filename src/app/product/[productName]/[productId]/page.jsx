@@ -29,7 +29,7 @@ export async function generateMetadata({ params: { productId } }) {
   const { name, description, imageUrl } = product;
 
   return {
-    title: `NoLine-Deli ► ${name}`,
+    title: `NoLine-Deli ► Product Details ► ${name}`,
     description: description,
     openGraph: {
       images: [{ url: imageUrl }],
@@ -47,9 +47,11 @@ export default async function Page({ params: { productId } }) {
     notFound();
   }
 
+  const { name } = product;
+
   return (
     <article className={styles["page"]}>
-      <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Product Details</h3>
+      <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Product Details ► {name}</h3>
       <SingleProductView product={product} />
     </article>
   );
