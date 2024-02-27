@@ -10,6 +10,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
+import { routeToCart } from "@/features/cart/helpers";
 
 export default function CartIndicator({ cart }) {
   // Ensure the cart exists
@@ -33,7 +34,7 @@ export default function CartIndicator({ cart }) {
           <span className="text-lg font-bold">{totalQty} Item(s)</span>
           <span className="text-info">Subtotal: {formatPrice(subTotal)}</span>
           <div className="card-actions">
-            <Link href={"/cart"} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
+            <Link href={routeToCart} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
               View Cart
             </Link>
           </div>

@@ -7,6 +7,7 @@ import Image from "next/image";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
+import { routeToProductDetails } from "@/features/products/helpers";
 
 // components
 import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./CartTableForms";
@@ -29,7 +30,7 @@ export default function CartTableEntry({ cartItem }) {
   return (
     <tr className={styles["cart-table-entry"]}>
       <td>
-        <Link href={`/products/${productId}`}>
+        <Link href={routeToProductDetails(name, productId)}>
           <Image src={imageUrl} width={640} height={400} alt={name} className="w-auto rounded-lg object-cover" />
           <p>{name}</p>
         </Link>

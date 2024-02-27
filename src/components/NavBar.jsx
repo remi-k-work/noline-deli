@@ -4,6 +4,9 @@ import styles from "./NavBar.module.css";
 // next
 import Link from "next/link";
 
+// other libraries
+import { routeToAllProducts } from "@/features/products/helpers";
+
 // components
 import CategoriesTreeView from "@/features/products/components/CategoriesTreeView";
 
@@ -16,7 +19,7 @@ export default function NavBar({ categories }) {
           <Link href={"/"}>Home</Link>
         </li>
         <li>
-          <Link href={"/products"}>
+          <Link href={routeToAllProducts}>
             <span className={styles["navbar__view-all-posts"]}></span>
           </Link>
         </li>

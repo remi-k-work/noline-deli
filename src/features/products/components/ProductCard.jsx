@@ -7,6 +7,7 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
+import { routeToProductDetails } from "@/features/products/helpers";
 
 // components
 import PriceTag from "./PriceTag";
@@ -28,7 +29,7 @@ export default function ProductCard({ product }) {
 
   return (
     <article className={styles["product-card"]}>
-      <Link href={`/products/${id}`} className="card w-full bg-base-100 transition-shadow hover:shadow-xl">
+      <Link href={routeToProductDetails(name, id)} className="card w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure>
           <Image src={imageUrl} width={640} height={400} alt={name} className="w-auto object-cover" />
         </figure>

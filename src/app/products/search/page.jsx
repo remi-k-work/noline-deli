@@ -6,6 +6,7 @@ import { searchProducts } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
+import { pathToProductsSearch } from "@/features/products/helpers";
 
 // components
 import Paginate from "@/components/Paginate";
@@ -30,9 +31,9 @@ export default async function Page({ searchParams, searchParams: { keyword = "",
   return (
     <article className={styles["page"]}>
       <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Search Results</h3>
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={"/products/search"} searchParams={searchParams} />
+      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={pathToProductsSearch} searchParams={searchParams} />
       {products.length > 0 ? <ProductsList products={products} /> : <NotFound message={"Products were not found!"} />}
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={"/products/search"} searchParams={searchParams} />
+      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={pathToProductsSearch} searchParams={searchParams} />
     </article>
   );
 }
