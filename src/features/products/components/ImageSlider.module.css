@@ -1,0 +1,47 @@
+.image-slider {
+  inline-size: 100%;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-slider__arrow {
+  position: absolute;
+  color: #fff;
+  filter: drop-shadow(0px 0px 5px #666);
+}
+
+.image-slider__arrow--left {
+  inset-inline-start: 1rem;
+}
+
+.image-slider__arrow--right {
+  inset-inline-end: 1rem;
+}
+
+.image-slider__indicators {
+  position: absolute;
+  inset-block-end: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.image-slider-indicator {
+  background-color: #000;
+  inline-size: 1rem;
+  block-size: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 5px #666);
+}
+
+.image-slider-indicator--active {
+  background-color: #fff;
+}

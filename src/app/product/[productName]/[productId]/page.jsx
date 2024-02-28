@@ -9,6 +9,7 @@ import { getProduct } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
+import { routeToProductImage } from "@/features/products/helpers";
 
 // components
 import SingleProductView from "@/features/products/components/SingleProductView";
@@ -32,7 +33,7 @@ export async function generateMetadata({ params: { productId } }) {
     title: `NoLine-Deli ► Product Details ► ${name}`,
     description: description,
     openGraph: {
-      images: [{ url: imageUrl }],
+      images: [{ url: routeToProductImage(imageUrl) }],
     },
   };
 }

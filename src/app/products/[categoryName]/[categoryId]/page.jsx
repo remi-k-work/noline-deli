@@ -23,7 +23,7 @@ export async function generateMetadata({ params: { categoryName } }) {
 export default async function Page({ params: { categoryName, categoryId }, searchParams, searchParams: { page = "1" } }) {
   // Set the pagination data
   const currentPage = Number(page);
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
 
   // Retrieve all of the products by category
   const { totalItems, products } = await allProductsByCategory(categoryId, currentPage, itemsPerPage);

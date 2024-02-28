@@ -7,7 +7,7 @@ import prisma from "@/lib/db/prisma";
 // Get all the information you need about this particular product
 export const getProduct = cache(async (productId) => {
   // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins
-  const product = await prisma.product.findUnique({ where: { id: productId, user: { role: "ADMIN" } } });
+  const product = await prisma.product.findUnique({ where: { id: productId, user: { role: "ADMIN" } }, include: { moreImages: true } });
 
   // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
   return product;

@@ -19,10 +19,11 @@ model User {
   email String? @unique
   role  Role    @default(USER)
 
-  // A user can create many categories, subcategories, and products
+  // A user can create many categories, subcategories, products, and product images
   categories    Category[]
   subCategories SubCategory[]
   products      Product[]
+  productImages ProductImage[]
 }
 
 model Category {
@@ -66,6 +67,9 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  // A product can have many images (it can belong to many images)
+  moreImages ProductImage[]
+
   // A product can have many categories (it can belong to many categories)
   categories CategoriesOnProducts[]
 
@@ -76,6 +80,18 @@ model Product {
   carts CartsOnProducts[]
 
   user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model ProductImage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  imageUrl  String
+  createdBy String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model Cart {
