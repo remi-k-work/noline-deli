@@ -20,19 +20,19 @@ export const metadata = {
   title: "NoLine-Deli ► Our Merchandise",
 };
 
-export default async function Page({ searchParams, searchParams: { page = "1" } }) {
+export default async function Page({ searchParams, searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" } }) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
 
   // Retrieve all products from an external source (database) using offset pagination
-  const { totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage);
+  const { totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage, sort_by_field, sort_by_order);
 
   return (
     <article className={styles["page"]}>
       <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Our Merchandise</h3>
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={routeToAllProducts} searchParams={searchParams} />
-      {products.length > 0 ? <ProductsList products={products} /> : <NotFound message={"Products were not found!"} />}
+      {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} pathname={routeToAllProducts} searchParams={searchParams} />
     </article>
   );

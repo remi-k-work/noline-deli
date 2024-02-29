@@ -20,13 +20,24 @@ export async function generateMetadata({ params: { categoryName, subCategoryName
   return { title: `NoLine-Deli ► Our Merchandise ► ${decodeURIComponent(categoryName)} ► ${decodeURIComponent(subCategoryName)}` };
 }
 
-export default async function Page({ params: { categoryName, categoryId, subCategoryName, subCategoryId }, searchParams, searchParams: { page = "1" } }) {
+export default async function Page({
+  params: { categoryName, categoryId, subCategoryName, subCategoryId },
+  searchParams,
+  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" },
+}) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
 
   // Retrieve all products by category and subcategory
-  const { totalItems, products } = await allProductsByCategoryAndSubCategory(categoryId, subCategoryId, currentPage, itemsPerPage);
+  const { totalItems, products } = await allProductsByCategoryAndSubCategory(
+    categoryId,
+    subCategoryId,
+    currentPage,
+    itemsPerPage,
+    sort_by_field,
+    sort_by_order,
+  );
 
   return (
     <article className={styles["page"]}>
@@ -40,7 +51,7 @@ export default async function Page({ params: { categoryName, categoryId, subCate
         pathname={routeToProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId)}
         searchParams={searchParams}
       />
-      {products.length > 0 ? <ProductsList products={products} /> : <NotFound message={"Products were not found!"} />}
+      {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
       <Paginate
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

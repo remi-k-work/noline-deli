@@ -11,6 +11,7 @@
 .image-slider__arrow {
   position: absolute;
   color: #fff;
+  cursor: pointer;
   filter: drop-shadow(0px 0px 5px #666);
 }
 
@@ -42,6 +43,7 @@
   filter: drop-shadow(0px 0px 5px #666);
 }
 
-.image-slider-indicator--active {
+.image-slider-indicator--current {
   background-color: #fff;
+  cursor: not-allowed;
 }

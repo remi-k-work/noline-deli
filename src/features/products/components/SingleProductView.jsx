@@ -27,12 +27,16 @@ export default function SingleProductView({ product }) {
 
   return (
     <article className={styles["single-product-view"]}>
-      <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-96 w-auto rounded-lg object-cover" priority />
+      {/* Display the picture slider when there are several images for a product */}
+      {moreImages.length > 0 ? (
+        <ImageSlider productName={name} moreImages={[{ imageUrl }, ...moreImages]} />
+      ) : (
+        <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-96 w-auto rounded-lg object-cover" priority />
+      )}
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
       <p>{description}</p>
       <PriceTag priceInCents={price} />
       <AddToCartForm productId={id} />
-      <ImageSlider productName={name} moreImages={moreImages} />
     </article>
   );
 }

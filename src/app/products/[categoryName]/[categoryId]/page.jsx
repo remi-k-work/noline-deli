@@ -20,13 +20,17 @@ export async function generateMetadata({ params: { categoryName } }) {
   return { title: `NoLine-Deli ► Our Merchandise ► ${decodeURIComponent(categoryName)}` };
 }
 
-export default async function Page({ params: { categoryName, categoryId }, searchParams, searchParams: { page = "1" } }) {
+export default async function Page({
+  params: { categoryName, categoryId },
+  searchParams,
+  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" },
+}) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
 
   // Retrieve all of the products by category
-  const { totalItems, products } = await allProductsByCategory(categoryId, currentPage, itemsPerPage);
+  const { totalItems, products } = await allProductsByCategory(categoryId, currentPage, itemsPerPage, sort_by_field, sort_by_order);
 
   return (
     <article className={styles["page"]}>
@@ -38,7 +42,7 @@ export default async function Page({ params: { categoryName, categoryId }, searc
         pathname={routeToProductsByCategory(categoryName, categoryId)}
         searchParams={searchParams}
       />
-      {products.length > 0 ? <ProductsList products={products} /> : <NotFound message={"Products were not found!"} />}
+      {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
       <Paginate
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

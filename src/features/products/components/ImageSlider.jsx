@@ -43,9 +43,23 @@ export default function ImageSlider({ productName, moreImages = [] }) {
       />
       {moreImages.map(({ imageUrl }, slideIndex) =>
         currentSlide === slideIndex ? (
-          <Image key={slideIndex} src={routeToProductImage(imageUrl)} width={640} height={400} alt={productName} className="h-96 w-auto object-cover" />
+          <Image
+            key={slideIndex}
+            src={routeToProductImage(imageUrl)}
+            width={640}
+            height={400}
+            alt={productName}
+            className="h-96 w-auto rounded-lg object-cover"
+          />
         ) : (
-          <Image key={slideIndex} src={routeToProductImage(imageUrl)} width={640} height={400} alt={productName} className="hidden h-96 w-auto object-cover" />
+          <Image
+            key={slideIndex}
+            src={routeToProductImage(imageUrl)}
+            width={640}
+            height={400}
+            alt={productName}
+            className="hidden h-96 w-auto rounded-lg object-cover"
+          />
         ),
       )}
       <ArrowRightCircleIcon
@@ -57,9 +71,9 @@ export default function ImageSlider({ productName, moreImages = [] }) {
       <footer className={styles["image-slider__indicators"]}>
         {moreImages.map((_, slideIndex) =>
           currentSlide === slideIndex ? (
-            <button key={slideIndex} type="button" className={clsx(styles["image-slider-indicator"], styles["image-slider-indicator--active"])} />
+            <span key={slideIndex} className={clsx(styles["image-slider-indicator"], styles["image-slider-indicator--current"])} />
           ) : (
-            <button key={slideIndex} type="button" className={styles["image-slider-indicator"]} />
+            <span key={slideIndex} className={styles["image-slider-indicator"]} onClick={() => setCurrentSlide(slideIndex)} />
           ),
         )}
       </footer>
