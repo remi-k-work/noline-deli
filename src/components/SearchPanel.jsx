@@ -23,7 +23,7 @@ export default function SearchPanel() {
       <input
         type="search"
         name="search"
-        size={25}
+        size={15}
         maxLength={50}
         aria-label="Search"
         placeholder="Search"

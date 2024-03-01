@@ -1,6 +1,6 @@
 .products-list {
   display: grid;
-  gap: var(--size-2);
+  gap: var(--size-4);
 }
 
 .products-list__items {
@@ -11,7 +11,7 @@
 }
 
 .products-list__items--list-mode {
-  gap: var(--size-2);
+  gap: var(--size-8);
 
   grid-template-columns: none;
 }

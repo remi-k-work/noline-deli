@@ -28,25 +28,27 @@ export default function ProductCard({ product, listMode = false }) {
   const isNew = Date.now() - new Date(createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;
 
   return listMode ? (
-    <article className={clsx(styles["product-card"], styles["product-card--list-mode"])}>
+    <article className={clsx(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
       <Link href={routeToProductDetails(name, id)} className="card card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
-        <figure>
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-48 w-auto object-cover" />
+        <figure className="flex-none">
+          {isNew && <span className="badge indicator-item badge-secondary indicator-start">NEW</span>}
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-72 object-cover" />
         </figure>
         <div className="card-body">
-          <h3 className={clsx(lusitana.className, "card-title text-3xl")}>{name}</h3>
-          {isNew && <span className="badge badge-secondary">NEW</span>}
-          <p>{description}</p>
-          <PriceTag priceInCents={price} />
+          <h3 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h3>
+          <p>{description.substring(0, 150)}...</p>
+          <div className="card-actions justify-end">
+            <PriceTag priceInCents={price} />
+          </div>
         </div>
       </Link>
     </article>
   ) : (
     <article className={clsx(styles["product-card"], "indicator")}>
       <Link href={routeToProductDetails(name, id)} className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
-        <figure>
-          {isNew && <span className="badge indicator-item badge-secondary">NEW</span>}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-28 w-auto object-cover" />
+        <figure className="flex-none">
+          {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
         </figure>
         <div className="card-body">
           <h3 className={clsx(lusitana.className, "card-title text-lg")}>{name}</h3>

@@ -5,5 +5,6 @@
 }
 
 .product-card--list-mode {
-  max-inline-size: var(--size-content-3);
+  margin-inline: 0;
+  max-inline-size: none;
 }
