@@ -31,7 +31,7 @@ export default function CartTableEntry({ cartItem }) {
     <tr className={styles["cart-table-entry"]}>
       <td>
         <Link href={routeToProductDetails(name, productId)}>
-          <Image src={routeToProductImage(imageUrl)} width={160} height={100} alt={name} className="h-24 w-auto rounded-lg object-cover" />
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-24 w-auto rounded-lg object-cover" />
           <p>{name}</p>
         </Link>
       </td>

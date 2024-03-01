@@ -28,7 +28,8 @@ export const routeToProductsSearch = (keyword) => {
   return `${pathToProductsSearch}?${params.toString()}`;
 };
 
-export const routeToProductImage = (imageUrl) => `/product-images${imageUrl}?t=${Date.now()}`;
+// export const routeToProductImage = (imageUrl) => `/product-images${imageUrl}?t=${Date.now()}`;
+export const routeToProductImage = (imageUrl) => `/product-images${imageUrl}`;
 
 // Create a product category tree in the format that is needed by the categories tree view component
 // [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]

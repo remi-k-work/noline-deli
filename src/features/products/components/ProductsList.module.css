@@ -7,5 +7,11 @@
   display: grid;
   gap: var(--size-8);
 
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-2)), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
+}
+
+.products-list__items--list-mode {
+  gap: var(--size-2);
+
+  grid-template-columns: none;
 }

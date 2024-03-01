@@ -9,6 +9,10 @@ import { useState } from "react";
 // next
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
+// other libraries
+import clsx from "clsx";
+import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/react/24/solid";
+
 // components
 import ProductCard from "./ProductCard";
 
@@ -25,12 +29,23 @@ export default function ProductsList({ totalProducts, products }) {
     replace(`${pathname}?${params.toString()}`);
   }
 
+  function handleViewModeChanged(ev) {
+    const params = new URLSearchParams(searchParams);
+    params.set("view_mode", ev.target.checked ? "list" : "grid");
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <section className={styles["products-list"]}>
       <header className="flex w-full place-items-center gap-4">
+        <label className="flex flex-none cursor-pointer place-items-center gap-2">
+          <TableCellsIcon width={24} height={24} />
+          <input type="checkbox" name="viewMode" className="toggle" onChange={handleViewModeChanged} checked={searchParams.get("view_mode") === "list"} />
+          <QueueListIcon width={24} height={24} />
+        </label>
         <span className="divider divider-start flex-1">{totalProducts} Product(s) Found</span>
-        <span className="flex-none">
-          <span>Sort By:</span>
+        <span className="flex flex-none place-items-center">
+          <ArrowsUpDownIcon width={24} height={24} />
           <select
             name="sortBy"
             className="select"
@@ -46,9 +61,9 @@ export default function ProductsList({ totalProducts, products }) {
           </select>
         </span>
       </header>
-      <section className={styles["products-list__items"]}>
+      <section className={clsx(styles["products-list__items"], searchParams.get("view_mode") === "list" && styles["products-list__items--list-mode"])}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} listMode={searchParams.get("view_mode") === "list"} />
         ))}
       </section>
     </section>

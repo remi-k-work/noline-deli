@@ -1,5 +1,9 @@
 .product-card {
   inline-size: 100%;
-  max-inline-size: var(--size-content-2);
+  max-inline-size: var(--size-content-1);
   margin-inline: auto;
+}
+
+.product-card--list-mode {
+  max-inline-size: var(--size-content-3);
 }
