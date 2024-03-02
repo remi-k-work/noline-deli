@@ -13,9 +13,20 @@ export const getProduct = cache(async (productId) => {
   return product;
 });
 
-export async function getDataForFilters() {
-  const aggregations = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { user: { role: "ADMIN" } } });
-  console.log(aggregations);
+// Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
+export async function getProductFilterData() {
+  const [
+    byCompanyList,
+    {
+      _min: { price: priceRangeMin },
+      _max: { price: priceRangeMax },
+    },
+  ] = await Promise.all([
+    prisma.brand.findMany({ where: { user: { role: "ADMIN" } }, orderBy: { name: "asc" } }),
+    prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { user: { role: "ADMIN" } } }),
+  ]);
+
+  return { byCompanyList, priceRangeMin, priceRangeMax };
 }
 
 // Retrieve all of the categories from an external source (database)
