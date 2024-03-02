@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 // prisma and db access
-import { allProductsWithPagination } from "@/features/products/productsDb";
+import { allProductsWithPagination, getDataForFilters } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
@@ -27,6 +27,14 @@ export default async function Page({ searchParams, searchParams: { page = "1", s
 
   // Retrieve all products from an external source (database) using offset pagination
   const { totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage, sort_by_field, sort_by_order);
+
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  await getDataForFilters();
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
 
   return (
     <article className={styles["page"]}>

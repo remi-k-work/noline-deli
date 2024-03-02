@@ -13,6 +13,11 @@ export const getProduct = cache(async (productId) => {
   return product;
 });
 
+export async function getDataForFilters() {
+  const aggregations = await prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { user: { role: "ADMIN" } } });
+  console.log(aggregations);
+}
+
 // Retrieve all of the categories from an external source (database)
 export async function allCategories() {
   // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins

@@ -19,11 +19,26 @@ model User {
   email String? @unique
   role  Role    @default(USER)
 
-  // A user can create many categories, subcategories, products, and product images
+  // A user can create many brands, categories, subcategories, products, and product images
+  brands        Brand[]
   categories    Category[]
   subCategories SubCategory[]
   products      Product[]
   productImages ProductImage[]
+}
+
+model Brand {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  logoUrl   String?
+  createdBy String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // A brand can have many products (it can belong to many products)
+  products Product[]
+
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model Category {
@@ -58,17 +73,16 @@ model SubCategory {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  imageUrl    String
-  price       Int
-  createdBy   String   @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // A product can have many images (it can belong to many images)
-  moreImages ProductImage[]
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandId      String?  @db.ObjectId
+  name         String
+  description  String
+  imageUrl     String
+  price        Int
+  freeShipping Boolean  @default(false)
+  createdBy    String   @db.ObjectId
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // A product can have many categories (it can belong to many categories)
   categories CategoriesOnProducts[]
@@ -76,10 +90,14 @@ model Product {
   // A product can have many subcategories (it can belong to many subcategories)
   subCategories SubCategoriesOnProducts[]
 
+  // A product can have many images (it can belong to many images)
+  moreImages ProductImage[]
+
   // A product can have many carts (it can belong to many carts)
   carts CartsOnProducts[]
 
-  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  brand Brand? @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  user  User   @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model ProductImage {

@@ -3,9 +3,6 @@
 // component css styles
 import styles from "./ProductsList.module.css";
 
-// react
-import { useState } from "react";
-
 // next
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
