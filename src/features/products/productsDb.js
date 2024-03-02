@@ -32,17 +32,17 @@ export async function allProductsByCategory(categoryId, currentPage, itemsPerPag
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const products = await prisma.product.findMany({
-    where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } },
-    orderBy: { [sortByField]: sortByOrder },
-    skip: indexOfFirstItem,
-    take: itemsPerPage,
-  });
+  const [totalItems, products] = await Promise.all([
+    prisma.product.count({ where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } } }),
+    prisma.product.findMany({
+      where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } },
+      orderBy: { [sortByField]: sortByOrder },
+      skip: indexOfFirstItem,
+      take: itemsPerPage,
+    }),
+  ]);
 
-  return {
-    totalItems: await prisma.product.count({ where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } } }),
-    products,
-  };
+  return { totalItems, products };
 }
 
 // Retrieve all products by category and subcategory
@@ -50,27 +50,27 @@ export async function allProductsByCategoryAndSubCategory(categoryId, subCategor
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const products = await prisma.product.findMany({
-    where: {
-      categories: { some: { category: { is: { id: categoryId } } } },
-      subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
-      user: { role: "ADMIN" },
-    },
-    orderBy: { [sortByField]: sortByOrder },
-    skip: indexOfFirstItem,
-    take: itemsPerPage,
-  });
-
-  return {
-    totalItems: await prisma.product.count({
+  const [totalItems, products] = await Promise.all([
+    prisma.product.count({
       where: {
         categories: { some: { category: { is: { id: categoryId } } } },
         subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
         user: { role: "ADMIN" },
       },
     }),
-    products,
-  };
+    prisma.product.findMany({
+      where: {
+        categories: { some: { category: { is: { id: categoryId } } } },
+        subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
+        user: { role: "ADMIN" },
+      },
+      orderBy: { [sortByField]: sortByOrder },
+      skip: indexOfFirstItem,
+      take: itemsPerPage,
+    }),
+  ]);
+
+  return { totalItems, products };
 }
 
 // Retrieve all products from an external source (database) using offset pagination
@@ -78,16 +78,17 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins
-  const products = await prisma.product.findMany({
-    where: { user: { role: "ADMIN" } },
-    orderBy: { [sortByField]: sortByOrder },
-    skip: indexOfFirstItem,
-    take: itemsPerPage,
-  });
+  const [totalItems, products] = await Promise.all([
+    prisma.product.count({ where: { user: { role: "ADMIN" } } }),
+    prisma.product.findMany({
+      where: { user: { role: "ADMIN" } },
+      orderBy: { [sortByField]: sortByOrder },
+      skip: indexOfFirstItem,
+      take: itemsPerPage,
+    }),
+  ]);
 
-  // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
-  return { totalItems: await prisma.product.count({ where: { user: { role: "ADMIN" } } }), products };
+  return { totalItems, products };
 }
 
 // Search our products for a certain keyword in either the name or description sections
@@ -95,14 +96,23 @@ export async function searchProducts(keyword, currentPage, itemsPerPage, sortByF
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins
-  const foundProductsAll = await prisma.product.findMany({
-    where: { user: { role: "ADMIN" }, OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }] },
-    orderBy: { [sortByField]: sortByOrder },
-  });
+  const [totalItems, products] = await Promise.all([
+    prisma.product.count({
+      where: {
+        user: { role: "ADMIN" },
+        OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
+      },
+    }),
+    prisma.product.findMany({
+      where: {
+        user: { role: "ADMIN" },
+        OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
+      },
+      orderBy: { [sortByField]: sortByOrder },
+      skip: indexOfFirstItem,
+      take: itemsPerPage,
+    }),
+  ]);
 
-  const foundProductsPage = foundProductsAll.slice(indexOfFirstItem, indexOfLastItem);
-
-  // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
-  return { totalItems: foundProductsAll.length, products: foundProductsPage };
+  return { totalItems, products };
 }

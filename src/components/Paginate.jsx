@@ -1,14 +1,20 @@
+"use client";
+
 // component css styles
 import styles from "./Paginate.module.css";
 
 // next
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
-export default function Paginate({ currentPage, itemsPerPage, totalItems, pathname, searchParams }) {
+export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
   const nextPageNumber = currentPage !== Math.ceil(totalItems / itemsPerPage) ? currentPage + 1 : currentPage;
 

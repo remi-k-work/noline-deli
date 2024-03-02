@@ -31,11 +31,8 @@ export const metadata = {
 };
 
 export default async function Layout({ children }) {
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-
-  // Retrieve all of the categories from an external source (database)
-  const categories = await allCategories();
+  // Fetch all data in parallel if possible and pass it down to components that require it
+  const [cart, categories] = await Promise.all([getCart(), allCategories()]);
 
   return (
     <html lang="en">

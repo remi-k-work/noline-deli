@@ -6,7 +6,6 @@ import { allProductsByCategory } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductsByCategory } from "@/features/products/helpers";
 
 // components
 import Paginate from "@/components/Paginate";
@@ -20,11 +19,7 @@ export async function generateMetadata({ params: { categoryName } }) {
   return { title: `NoLine-Deli ► Our Merchandise ► ${decodeURIComponent(categoryName)}` };
 }
 
-export default async function Page({
-  params: { categoryName, categoryId },
-  searchParams,
-  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" },
-}) {
+export default async function Page({ params: { categoryName, categoryId }, searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" } }) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
@@ -35,21 +30,9 @@ export default async function Page({
   return (
     <article className={styles["page"]}>
       <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Our Merchandise ► {decodeURIComponent(categoryName)}</h3>
-      <Paginate
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-        pathname={routeToProductsByCategory(categoryName, categoryId)}
-        searchParams={searchParams}
-      />
+      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
       {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
-      <Paginate
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-        pathname={routeToProductsByCategory(categoryName, categoryId)}
-        searchParams={searchParams}
-      />
+      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
     </article>
   );
 }
