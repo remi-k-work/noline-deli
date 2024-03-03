@@ -1,3 +1,19 @@
 .product-filter {
-  background: rgb(0, 71, 110);
+  inline-size: 100%;
+
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.product-filter > label {
+  color: var(--text-2);
+  padding-block: var(--size-4) var(--size-1);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-9);
+  text-transform: uppercase;
 }

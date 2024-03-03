@@ -28,8 +28,8 @@ export default function SearchPanel() {
         aria-label="Search"
         placeholder="Search"
         className="grow"
-        onChange={(ev) => handleSearch(ev.target.value)}
         defaultValue={searchParams.get("keyword")?.toString()}
+        onChange={(ev) => handleSearch(ev.target.value)}
       />
       <MagnifyingGlassCircleIcon width={24} height={24} />
     </label>

@@ -37,7 +37,13 @@ export default function ProductsList({ totalProducts, products }) {
       <header className="flex w-full place-items-center gap-4">
         <label className="flex flex-none cursor-pointer place-items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <input type="checkbox" name="viewMode" className="toggle" onChange={handleViewModeChanged} checked={searchParams.get("view_mode") === "list"} />
+          <input
+            type="checkbox"
+            name="viewMode"
+            className="toggle"
+            defaultChecked={searchParams.get("view_mode") === "list"}
+            onChange={handleViewModeChanged}
+          />
           <QueueListIcon width={24} height={24} />
         </label>
         <span className="divider divider-start flex-1">{totalProducts} Product(s) Found</span>
@@ -46,8 +52,8 @@ export default function ProductsList({ totalProducts, products }) {
           <select
             name="sortBy"
             className="select"
-            onChange={handleSortByChanged}
             defaultValue={`${searchParams.get("sort_by_field")}|${searchParams.get("sort_by_order")}`}
+            onChange={handleSortByChanged}
           >
             <option value={"id|desc"}>Date (Newest)</option>
             <option value={"id|asc"}>Date (Oldest)</option>
