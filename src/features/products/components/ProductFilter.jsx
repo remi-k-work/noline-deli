@@ -12,6 +12,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 // other libraries
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function ProductFilter({ byCompanyList, priceRangeMin, priceRangeMax }) {
   const pathname = usePathname();
@@ -19,28 +20,44 @@ export default function ProductFilter({ byCompanyList, priceRangeMin, priceRange
   const { replace } = useRouter();
 
   // Current price range output
-  const [priceRangeOutput, setPriceRangeOutput] = useState(priceRangeMax);
+  const [priceRangeOutput, setPriceRangeOutput] = useState(searchParams.get("price_below") ?? priceRangeMax);
 
-  function handleByCompanyChanged(ev) {
+  const handleByCompanyChanged = useDebouncedCallback((ev) => {
     const params = new URLSearchParams(searchParams);
     params.set("brand_id", ev.target.value);
-    replace(`${pathname}?${params.toString()}`);
-  }
 
-  function handlePriceRangeChanged(ev) {
+    // When a filter changes, reset the pagination position
+    params.delete("page");
+
+    replace(`${pathname}?${params.toString()}`);
+  }, 600);
+
+  const handlePriceRangeChanged = useDebouncedCallback((ev) => {
     const priceRangeBelow = Number(ev.target.value);
     setPriceRangeOutput(priceRangeBelow);
 
     const params = new URLSearchParams(searchParams);
     params.set("price_below", priceRangeBelow);
-    replace(`${pathname}?${params.toString()}`);
-  }
 
-  function handleFreeShippingChanged(ev) {
-    const params = new URLSearchParams(searchParams);
-    params.set("free_shipping", ev.target.checked);
+    // When a filter changes, reset the pagination position
+    params.delete("page");
+
     replace(`${pathname}?${params.toString()}`);
-  }
+  }, 600);
+
+  const handleFreeShippingChanged = useDebouncedCallback((ev) => {
+    const params = new URLSearchParams(searchParams);
+    if (ev.target.checked) {
+      params.set("free_shipping", ev.target.checked);
+    } else {
+      params.delete("free_shipping");
+    }
+
+    // When a filter changes, reset the pagination position
+    params.delete("page");
+
+    replace(`${pathname}?${params.toString()}`);
+  }, 600);
 
   return (
     <form className={clsx(styles["product-filter"])}>

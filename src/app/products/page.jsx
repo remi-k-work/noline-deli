@@ -19,13 +19,23 @@ export const metadata = {
   title: "NoLine-Deli ► Our Merchandise",
 };
 
-export default async function Page({ searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" } }) {
+export default async function Page({
+  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc", brand_id = null, price_below = null, free_shipping = null },
+}) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
 
   // Retrieve all products from an external source (database) using offset pagination
-  const { totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage, sort_by_field, sort_by_order);
+  const { totalItems, products } = await allProductsWithPagination(
+    currentPage,
+    itemsPerPage,
+    sort_by_field,
+    sort_by_order,
+    brand_id,
+    Number(price_below),
+    Boolean(free_shipping),
+  );
 
   return (
     <article className={styles["page"]}>

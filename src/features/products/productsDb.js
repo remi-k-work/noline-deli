@@ -6,7 +6,8 @@ import prisma from "@/lib/db/prisma";
 
 // Get all the information you need about this particular product
 export const getProduct = cache(async (productId) => {
-  // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins
+  // A user can create many brands, categories, subcategories, products, and product images
+  // Therefore, live content should only come from trusted admins
   const product = await prisma.product.findUnique({ where: { id: productId, user: { role: "ADMIN" } }, include: { moreImages: true } });
 
   // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
@@ -31,10 +32,7 @@ export async function getProductFilterData() {
 
 // Retrieve all of the categories from an external source (database)
 export async function allCategories() {
-  // Any user can create categories, subcategories, and products; therefore, live content should only come from trusted admins
   const categories = await prisma.category.findMany({ where: { user: { role: "ADMIN" } }, include: { subCategories: true }, orderBy: { id: "desc" } });
-
-  // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
   return categories;
 }
 
@@ -85,14 +83,26 @@ export async function allProductsByCategoryAndSubCategory(categoryId, subCategor
 }
 
 // Retrieve all products from an external source (database) using offset pagination
-export async function allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder) {
+export async function allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const [totalItems, products] = await Promise.all([
-    prisma.product.count({ where: { user: { role: "ADMIN" } } }),
+    prisma.product.count({
+      where: {
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
+        user: { role: "ADMIN" },
+      },
+    }),
     prisma.product.findMany({
-      where: { user: { role: "ADMIN" } },
+      where: {
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
+        user: { role: "ADMIN" },
+      },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,
