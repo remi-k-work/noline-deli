@@ -14,17 +14,22 @@ import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
 import { useDebouncedCallback } from "use-debounce";
 
-export default function ProductFilter({ byCompanyList, priceRangeMin, priceRangeMax }) {
+export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceBelowMax }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  // Current price range output
-  const [priceRangeOutput, setPriceRangeOutput] = useState(searchParams.get("price_below") ?? priceRangeMax);
+  const defByCompanyList = searchParams.get("brand_id") ?? "";
+  const defByPriceBelow = searchParams.get("price_below") ?? byPriceBelowMax;
+  const defByFreeShipping = searchParams.get("free_shipping") === "true";
 
-  const handleByCompanyChanged = useDebouncedCallback((ev) => {
+  // Current by price below output value
+  const [byPriceBelow, setByPriceBelow] = useState(defByPriceBelow);
+
+  const handleByCompanyChanged = useDebouncedCallback((byBrandId) => {
+    // Set the by brand id filter and store its state in search params
     const params = new URLSearchParams(searchParams);
-    params.set("brand_id", ev.target.value);
+    params.set("brand_id", byBrandId);
 
     // When a filter changes, reset the pagination position
     params.delete("page");
@@ -32,12 +37,13 @@ export default function ProductFilter({ byCompanyList, priceRangeMin, priceRange
     replace(`${pathname}?${params.toString()}`);
   }, 600);
 
-  const handlePriceRangeChanged = useDebouncedCallback((ev) => {
-    const priceRangeBelow = Number(ev.target.value);
-    setPriceRangeOutput(priceRangeBelow);
+  const handleByPriceBelowChanged = useDebouncedCallback((byPriceBelow) => {
+    // Update the current by price below output value
+    setByPriceBelow(byPriceBelow);
 
+    // Set the by price below filter and store its state in search params
     const params = new URLSearchParams(searchParams);
-    params.set("price_below", priceRangeBelow);
+    params.set("price_below", byPriceBelow);
 
     // When a filter changes, reset the pagination position
     params.delete("page");
@@ -45,10 +51,11 @@ export default function ProductFilter({ byCompanyList, priceRangeMin, priceRange
     replace(`${pathname}?${params.toString()}`);
   }, 600);
 
-  const handleFreeShippingChanged = useDebouncedCallback((ev) => {
+  const handleByFreeShippingChanged = useDebouncedCallback((byFreeShipping) => {
+    // Set the by free shipping filter and store its state in search params
     const params = new URLSearchParams(searchParams);
-    if (ev.target.checked) {
-      params.set("free_shipping", ev.target.checked);
+    if (byFreeShipping) {
+      params.set("free_shipping", byFreeShipping);
     } else {
       params.delete("free_shipping");
     }
@@ -59,15 +66,31 @@ export default function ProductFilter({ byCompanyList, priceRangeMin, priceRange
     replace(`${pathname}?${params.toString()}`);
   }, 600);
 
+  const handleClearFiltersClicked = useDebouncedCallback(() => {
+    // Update the current by price below output value
+    setByPriceBelow(byPriceBelowMax);
+
+    // Remove all the filters
+    const params = new URLSearchParams(searchParams);
+    params.delete("brand_id");
+    params.delete("price_below");
+    params.delete("free_shipping");
+
+    // When a filter changes, reset the pagination position
+    params.delete("page");
+
+    replace(`${pathname}?${params.toString()}`);
+  }, 600);
+
   return (
     <form className={clsx(styles["product-filter"])}>
-      <label htmlFor={"by-company-list"}>Company Name</label>
+      <label htmlFor="byCompanyList">Company Name</label>
       <select
-        id={"by-company-list"}
-        name={"by-company-list"}
+        id="byCompanyList"
+        name="byCompanyList"
         className="select"
-        defaultValue={searchParams.get("brand_id") ?? ""}
-        onChange={handleByCompanyChanged}
+        defaultValue={defByCompanyList}
+        onChange={(ev) => handleByCompanyChanged(ev.target.value)}
       >
         <option value="">All</option>
         {byCompanyList.map((byCompany) => {
@@ -79,35 +102,35 @@ export default function ProductFilter({ byCompanyList, priceRangeMin, priceRange
           );
         })}
       </select>
-      <label htmlFor={"price-range"}>Price Below</label>
-      <output htmlFor={"price-range"} name={"price-range-output"}>
-        {formatPrice(priceRangeOutput)}
+      <label htmlFor="byPriceBelow">Price Below</label>
+      <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
+        {formatPrice(byPriceBelow)}
       </output>
       <input
         type="range"
-        id={"price-range"}
-        name={"price-range"}
-        min={priceRangeMin}
-        max={priceRangeMax}
+        id="byPriceBelow"
+        name="byPriceBelow"
+        min={byPriceBelowMin}
+        max={byPriceBelowMax}
         step={100}
         className="range"
-        defaultValue={searchParams.get("price_below") ?? priceRangeMax}
-        onChange={handlePriceRangeChanged}
+        defaultValue={defByPriceBelow}
+        onChange={(ev) => handleByPriceBelowChanged(Number(ev.target.value))}
       />
       <div className="mt-4 flex w-full place-items-center gap-4">
-        <label htmlFor={"free-shipping"} className="flex-1">
+        <label htmlFor="byFreeShipping" className="flex-1">
           Free Shipping
         </label>
         <input
           type="checkbox"
-          id={"free-shipping"}
-          name={"free-shipping"}
+          id="byFreeShipping"
+          name="byFreeShipping"
           className="checkbox"
-          defaultChecked={searchParams.get("free_shipping") === "true"}
-          onChange={handleFreeShippingChanged}
+          defaultChecked={defByFreeShipping}
+          onChange={(ev) => handleByFreeShippingChanged(ev.target.checked)}
         />
       </div>
-      <button type="reset" className="btn btn-warning m-4">
+      <button type="reset" className="btn btn-warning m-4" onClick={handleClearFiltersClicked}>
         Clear Filters
       </button>
     </form>

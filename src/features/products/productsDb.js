@@ -19,15 +19,15 @@ export async function getProductFilterData() {
   const [
     byCompanyList,
     {
-      _min: { price: priceRangeMin },
-      _max: { price: priceRangeMax },
+      _min: { price: byPriceBelowMin },
+      _max: { price: byPriceBelowMax },
     },
   ] = await Promise.all([
     prisma.brand.findMany({ where: { user: { role: "ADMIN" } }, orderBy: { name: "asc" } }),
     prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { user: { role: "ADMIN" } } }),
   ]);
 
-  return { byCompanyList, priceRangeMin, priceRangeMax };
+  return { byCompanyList, byPriceBelowMin, byPriceBelowMax };
 }
 
 // Retrieve all of the categories from an external source (database)
@@ -91,7 +91,7 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
     prisma.product.count({
       where: {
         brandId: byBrandId ? { equals: byBrandId } : undefined,
-        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
         freeShipping: byFreeShipping ? { equals: true } : undefined,
         user: { role: "ADMIN" },
       },
@@ -99,7 +99,7 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
     prisma.product.findMany({
       where: {
         brandId: byBrandId ? { equals: byBrandId } : undefined,
-        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
         freeShipping: byFreeShipping ? { equals: true } : undefined,
         user: { role: "ADMIN" },
       },

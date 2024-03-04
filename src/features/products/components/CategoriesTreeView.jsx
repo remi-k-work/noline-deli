@@ -1,8 +1,11 @@
+"use client";
+
 // component css styles
 import styles from "./CategoriesTreeView.module.css";
 
 // next
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
@@ -35,6 +38,8 @@ function CategoriesList({ categoriesList = [] }) {
 }
 
 function CategoriesItem({ categoriesItem }) {
+  const searchParams = useSearchParams();
+
   // Ensure the categories item exists
   if (!categoriesItem) {
     // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
@@ -48,12 +53,12 @@ function CategoriesItem({ categoriesItem }) {
       {subCategories.length > 0 ? (
         <details open>
           <summary>
-            <Link href={href}>{label}</Link>
+            <Link href={`${href}?${searchParams}`}>{label}</Link>
           </summary>
           <CategoriesList categoriesList={subCategories} />
         </details>
       ) : (
-        <Link href={href}>{label}</Link>
+        <Link href={`${href}?${searchParams}`}>{label}</Link>
       )}
     </li>
   );

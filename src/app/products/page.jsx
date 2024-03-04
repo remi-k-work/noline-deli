@@ -33,8 +33,8 @@ export default async function Page({
     sort_by_field,
     sort_by_order,
     brand_id,
-    Number(price_below),
-    Boolean(free_shipping),
+    price_below,
+    free_shipping,
   );
 
   return (
