@@ -38,7 +38,15 @@ function CategoriesList({ categoriesList = [] }) {
 }
 
 function CategoriesItem({ categoriesItem }) {
+  // Make sure to carry over currently used search params (product filter, viewing settings)
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
+  // When navigating to a new place, reset the pagination position
+  params.delete("page");
+
+  // Also, do not carry over any state from the search mode
+  params.delete("keyword");
 
   // Ensure the categories item exists
   if (!categoriesItem) {
@@ -53,12 +61,12 @@ function CategoriesItem({ categoriesItem }) {
       {subCategories.length > 0 ? (
         <details open>
           <summary>
-            <Link href={`${href}?${searchParams}`}>{label}</Link>
+            <Link href={`${href}?${params.toString()}`}>{label}</Link>
           </summary>
           <CategoriesList categoriesList={subCategories} />
         </details>
       ) : (
-        <Link href={`${href}?${searchParams}`}>{label}</Link>
+        <Link href={`${href}?${params.toString()}`}>{label}</Link>
       )}
     </li>
   );

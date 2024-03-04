@@ -16,7 +16,7 @@ export default function SearchPanel() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((keyword) => replace(routeToProductsSearch(keyword)), 600);
+  const handleSearch = useDebouncedCallback((keyword) => replace(routeToProductsSearch(keyword, searchParams)), 600);
 
   return (
     <label className={clsx(styles["search-panel"], "input input-bordered")}>

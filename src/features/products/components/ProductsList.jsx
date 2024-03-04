@@ -18,6 +18,7 @@ export default function ProductsList({ totalProducts, products }) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
+  // If feasible, load the default values for the viewing settings from the search params
   const isListMode = searchParams.get("view_mode") === "list";
   const defSortBy =
     searchParams.has("sort_by_field") && searchParams.has("sort_by_order")
@@ -25,6 +26,7 @@ export default function ProductsList({ totalProducts, products }) {
       : "id|desc";
 
   function handleSortByChanged([sortByField, sortByOrder]) {
+    // Set the viewing settings and save their state in search params
     const params = new URLSearchParams(searchParams);
     params.set("sort_by_field", sortByField);
     params.set("sort_by_order", sortByOrder);
@@ -32,6 +34,7 @@ export default function ProductsList({ totalProducts, products }) {
   }
 
   function handleViewModeChanged(isListMode) {
+    // Set the viewing settings and save their state in search params
     const params = new URLSearchParams(searchParams);
     params.set("view_mode", isListMode ? "list" : "grid");
     replace(`${pathname}?${params.toString()}`);

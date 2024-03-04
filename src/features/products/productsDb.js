@@ -37,14 +37,28 @@ export async function allCategories() {
 }
 
 // Retrieve all products by category
-export async function allProductsByCategory(categoryId, currentPage, itemsPerPage, sortByField, sortByOrder) {
+export async function allProductsByCategory(categoryId, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const [totalItems, products] = await Promise.all([
-    prisma.product.count({ where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } } }),
+    prisma.product.count({
+      where: {
+        categories: { some: { category: { is: { id: categoryId } } } },
+        user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
+      },
+    }),
     prisma.product.findMany({
-      where: { categories: { some: { category: { is: { id: categoryId } } } }, user: { role: "ADMIN" } },
+      where: {
+        categories: { some: { category: { is: { id: categoryId } } } },
+        user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
+      },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,
@@ -55,7 +69,17 @@ export async function allProductsByCategory(categoryId, currentPage, itemsPerPag
 }
 
 // Retrieve all products by category and subcategory
-export async function allProductsByCategoryAndSubCategory(categoryId, subCategoryId, currentPage, itemsPerPage, sortByField, sortByOrder) {
+export async function allProductsByCategoryAndSubCategory(
+  categoryId,
+  subCategoryId,
+  currentPage,
+  itemsPerPage,
+  sortByField,
+  sortByOrder,
+  byBrandId,
+  byPriceBelow,
+  byFreeShipping,
+) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -65,6 +89,9 @@ export async function allProductsByCategoryAndSubCategory(categoryId, subCategor
         categories: { some: { category: { is: { id: categoryId } } } },
         subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
         user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
       },
     }),
     prisma.product.findMany({
@@ -72,6 +99,9 @@ export async function allProductsByCategoryAndSubCategory(categoryId, subCategor
         categories: { some: { category: { is: { id: categoryId } } } },
         subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
         user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
       },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
@@ -90,18 +120,18 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
   const [totalItems, products] = await Promise.all([
     prisma.product.count({
       where: {
+        user: { role: "ADMIN" },
         brandId: byBrandId ? { equals: byBrandId } : undefined,
         price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
         freeShipping: byFreeShipping ? { equals: true } : undefined,
-        user: { role: "ADMIN" },
       },
     }),
     prisma.product.findMany({
       where: {
+        user: { role: "ADMIN" },
         brandId: byBrandId ? { equals: byBrandId } : undefined,
         price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
         freeShipping: byFreeShipping ? { equals: true } : undefined,
-        user: { role: "ADMIN" },
       },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
@@ -113,7 +143,7 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
 }
 
 // Search our products for a certain keyword in either the name or description sections
-export async function searchProducts(keyword, currentPage, itemsPerPage, sortByField, sortByOrder) {
+export async function searchProducts(keyword, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -121,12 +151,18 @@ export async function searchProducts(keyword, currentPage, itemsPerPage, sortByF
     prisma.product.count({
       where: {
         user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },
     }),
     prisma.product.findMany({
       where: {
         user: { role: "ADMIN" },
+        brandId: byBrandId ? { equals: byBrandId } : undefined,
+        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },
       orderBy: { [sortByField]: sortByOrder },

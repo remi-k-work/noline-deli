@@ -18,8 +18,13 @@ export const routeToProductsByCategoryAndSubCategory = (categoryName, categoryId
 export const routeToProductDetails = (productName, productId) => `${pathToProduct}/${encodeURIComponent(productName)}/${productId}`;
 
 // Products search route with the attached search params like keyword
-export const routeToProductsSearch = (keyword) => {
-  const params = new URLSearchParams();
+export const routeToProductsSearch = (keyword, searchParams) => {
+  // Make sure to carry over currently used search params (product filter, viewing settings)
+  const params = new URLSearchParams(searchParams);
+
+  // When navigating to a new place, reset the pagination position
+  params.delete("page");
+
   if (keyword) {
     params.set("keyword", keyword);
   } else {

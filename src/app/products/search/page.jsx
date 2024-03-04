@@ -19,13 +19,15 @@ export const metadata = {
   title: "NoLine-Deli ► Search Results",
 };
 
-export default async function Page({ searchParams: { keyword = "", page = "1", sort_by_field = "id", sort_by_order = "desc" } }) {
+export default async function Page({
+  searchParams: { keyword = "", page = "1", sort_by_field = "id", sort_by_order = "desc", brand_id = null, price_below = null, free_shipping = null },
+}) {
   // Set the pagination data
   const currentPage = Number(page);
   const itemsPerPage = 10;
 
   // Search our products for a certain keyword in either the name or description sections
-  const { totalItems, products } = await searchProducts(keyword, currentPage, itemsPerPage, sort_by_field, sort_by_order);
+  const { totalItems, products } = await searchProducts(keyword, currentPage, itemsPerPage, sort_by_field, sort_by_order, brand_id, price_below, free_shipping);
 
   return (
     <article className={styles["page"]}>

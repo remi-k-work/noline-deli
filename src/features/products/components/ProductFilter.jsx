@@ -19,6 +19,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
+  // If feasible, load the default values for the product filter from the search params
   const defByCompanyList = searchParams.get("brand_id") ?? "";
   const defByPriceBelow = searchParams.get("price_below") ?? byPriceBelowMax;
   const defByFreeShipping = searchParams.get("free_shipping") === "true";
@@ -27,7 +28,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   const [byPriceBelow, setByPriceBelow] = useState(defByPriceBelow);
 
   const handleByCompanyChanged = useDebouncedCallback((byBrandId) => {
-    // Set the by brand id filter and store its state in search params
+    // Set the filter and save its state in search params
     const params = new URLSearchParams(searchParams);
     params.set("brand_id", byBrandId);
 
@@ -41,7 +42,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
     // Update the current by price below output value
     setByPriceBelow(byPriceBelow);
 
-    // Set the by price below filter and store its state in search params
+    // Set the filter and save its state in search params
     const params = new URLSearchParams(searchParams);
     params.set("price_below", byPriceBelow);
 
@@ -52,7 +53,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   }, 600);
 
   const handleByFreeShippingChanged = useDebouncedCallback((byFreeShipping) => {
-    // Set the by free shipping filter and store its state in search params
+    // Set the filter and save its state in search params
     const params = new URLSearchParams(searchParams);
     if (byFreeShipping) {
       params.set("free_shipping", byFreeShipping);

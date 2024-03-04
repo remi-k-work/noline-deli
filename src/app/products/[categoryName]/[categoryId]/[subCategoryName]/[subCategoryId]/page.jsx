@@ -21,7 +21,7 @@ export async function generateMetadata({ params: { categoryName, subCategoryName
 
 export default async function Page({
   params: { categoryName, categoryId, subCategoryName, subCategoryId },
-  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc" },
+  searchParams: { page = "1", sort_by_field = "id", sort_by_order = "desc", brand_id = null, price_below = null, free_shipping = null },
 }) {
   // Set the pagination data
   const currentPage = Number(page);
@@ -35,6 +35,9 @@ export default async function Page({
     itemsPerPage,
     sort_by_field,
     sort_by_order,
+    brand_id,
+    price_below,
+    free_shipping,
   );
 
   return (
