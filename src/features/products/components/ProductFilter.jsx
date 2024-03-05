@@ -14,6 +14,9 @@ import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
 import { useDebouncedCallback } from "use-debounce";
 
+// assets
+import { lusitana } from "@/assets/fonts";
+
 export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceBelowMax }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -84,56 +87,59 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   }, 600);
 
   return (
-    <form className={clsx(styles["product-filter"])}>
-      <label htmlFor="byCompanyList">Company Name</label>
-      <select
-        id="byCompanyList"
-        name="byCompanyList"
-        className="select"
-        defaultValue={defByCompanyList}
-        onChange={(ev) => handleByCompanyChanged(ev.target.value)}
-      >
-        <option value="">All</option>
-        {byCompanyList.map((byCompany) => {
-          const { id, name } = byCompany;
-          return (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          );
-        })}
-      </select>
-      <label htmlFor="byPriceBelow">Price Below</label>
-      <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
-        {formatPrice(byPriceBelow)}
-      </output>
-      <input
-        type="range"
-        id="byPriceBelow"
-        name="byPriceBelow"
-        min={byPriceBelowMin}
-        max={byPriceBelowMax}
-        step={100}
-        className="range"
-        defaultValue={defByPriceBelow}
-        onChange={(ev) => handleByPriceBelowChanged(Number(ev.target.value))}
-      />
-      <div className="mt-4 flex w-full place-items-center gap-4">
-        <label htmlFor="byFreeShipping" className="flex-1">
-          Free Shipping
-        </label>
+    <article className={styles["product-filter"]}>
+      <h4 className={clsx(lusitana.className, "text-xl")}>Filter Products</h4>
+      <form className={styles["product-filter__form"]}>
+        <label htmlFor="byCompanyList">Company Name</label>
+        <select
+          id="byCompanyList"
+          name="byCompanyList"
+          className="select"
+          defaultValue={defByCompanyList}
+          onChange={(ev) => handleByCompanyChanged(ev.target.value)}
+        >
+          <option value="">All</option>
+          {byCompanyList.map((byCompany) => {
+            const { id, name } = byCompany;
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </select>
+        <label htmlFor="byPriceBelow">Price Below</label>
+        <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
+          {formatPrice(byPriceBelow)}
+        </output>
         <input
-          type="checkbox"
-          id="byFreeShipping"
-          name="byFreeShipping"
-          className="checkbox"
-          defaultChecked={defByFreeShipping}
-          onChange={(ev) => handleByFreeShippingChanged(ev.target.checked)}
+          type="range"
+          id="byPriceBelow"
+          name="byPriceBelow"
+          min={byPriceBelowMin}
+          max={byPriceBelowMax}
+          step={100}
+          className="range"
+          defaultValue={defByPriceBelow}
+          onChange={(ev) => handleByPriceBelowChanged(Number(ev.target.value))}
         />
-      </div>
-      <button type="reset" className="btn btn-warning m-4" onClick={handleClearFiltersClicked}>
-        Clear Filters
-      </button>
-    </form>
+        <div className="mt-4 flex w-full place-items-center gap-4">
+          <label htmlFor="byFreeShipping" className="flex-1">
+            Free Shipping
+          </label>
+          <input
+            type="checkbox"
+            id="byFreeShipping"
+            name="byFreeShipping"
+            className="checkbox"
+            defaultChecked={defByFreeShipping}
+            onChange={(ev) => handleByFreeShippingChanged(ev.target.checked)}
+          />
+        </div>
+        <button type="reset" className="btn btn-warning m-4" onClick={handleClearFiltersClicked}>
+          Clear Filters
+        </button>
+      </form>
+    </article>
   );
 }

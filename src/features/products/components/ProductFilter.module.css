@@ -1,16 +1,30 @@
 .product-filter {
   inline-size: 100%;
 
+  background: var(--surface-2);
+}
+
+.product-filter > h4 {
+  background: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  box-shadow: var(--shadow-6);
+  font-weight: var(--font-weight-9);
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
+  margin-block-end: var(--size-2);
+}
+
+.product-filter__form {
   background: var(--surface-3);
   padding-inline: var(--size-3);
-  padding-block: var(--size-3);
-  border-radius: var(--radius-3);
 
   display: flex;
   flex-direction: column;
 }
 
-.product-filter > label {
+.product-filter__form > label {
   color: var(--text-2);
   padding-block: var(--size-4) var(--size-1);
   font-size: var(--font-size-0);

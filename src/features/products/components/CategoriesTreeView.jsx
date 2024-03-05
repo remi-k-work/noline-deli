@@ -11,13 +11,17 @@ import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import { getCategoriesTreeViewData } from "@/features/products/helpers";
 
+// assets
+import { lusitana } from "@/assets/fonts";
+
 export default function CategoriesTreeView({ categories = [] }) {
   if (categories.length === 0) {
     return null;
   }
 
   return (
-    <article className={clsx(styles["categories-tree-view"], "menu rounded-box bg-base-200")}>
+    <article className={clsx(styles["categories-tree-view"], "menu p-0")}>
+      <h4 className={clsx(lusitana.className, "text-xl")}>Browse by Category</h4>
       <CategoriesList categoriesList={getCategoriesTreeViewData(categories)} />
     </article>
   );
