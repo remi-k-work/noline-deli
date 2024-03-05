@@ -30,6 +30,7 @@ export async function generateMetadata({ params: { productId } }) {
   const { name, description, imageUrl } = product;
 
   return {
+    metadataBase: new URL(process.env.WEBSITE_URL),
     title: `NoLine-Deli ► Product Details ► ${name}`,
     description: description,
     openGraph: {
