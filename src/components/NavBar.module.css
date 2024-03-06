@@ -1,5 +1,12 @@
 .navbar {
   grid-area: navbar;
   background: var(--surface-2);
-  z-index: 2;
+}
+
+.navbar__panels {
+  display: grid;
+  gap: var(--size-6);
+
+  position: sticky;
+  inset-block-start: 0;
 }
