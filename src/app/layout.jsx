@@ -5,6 +5,8 @@ import "open-props/style";
 
 /* optional imports that use the props */
 // import "open-props/normalize";
+import "open-props/masks/edges";
+import "open-props/masks/corner-cuts";
 
 // component css styles
 import styles from "./layout.module.css";
