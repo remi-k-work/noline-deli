@@ -5,7 +5,7 @@ import { cache } from "react";
 import prisma from "@/lib/db/prisma";
 
 // Get all the information you need about this particular product
-export const getProduct = cache(async (productId) => {
+export const getProduct = cache(async (productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
   const product = await prisma.product.findUnique({ where: { id: productId, user: { role: "ADMIN" } }, include: { moreImages: true } });
@@ -37,7 +37,16 @@ export async function allCategories() {
 }
 
 // Retrieve all products by category
-export async function allProductsByCategory(categoryId, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
+export async function allProductsByCategory(
+  categoryId: string,
+  currentPage: number,
+  itemsPerPage: number,
+  sortByField: string,
+  sortByOrder: string,
+  byBrandId: string | null,
+  byPriceBelow: number | null,
+  byFreeShipping: boolean | null,
+) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -70,15 +79,15 @@ export async function allProductsByCategory(categoryId, currentPage, itemsPerPag
 
 // Retrieve all products by category and subcategory
 export async function allProductsByCategoryAndSubCategory(
-  categoryId,
-  subCategoryId,
-  currentPage,
-  itemsPerPage,
-  sortByField,
-  sortByOrder,
-  byBrandId,
-  byPriceBelow,
-  byFreeShipping,
+  categoryId: string,
+  subCategoryId: string,
+  currentPage: number,
+  itemsPerPage: number,
+  sortByField: string,
+  sortByOrder: string,
+  byBrandId: string | null,
+  byPriceBelow: number | null,
+  byFreeShipping: boolean | null,
 ) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -113,7 +122,15 @@ export async function allProductsByCategoryAndSubCategory(
 }
 
 // Retrieve all products from an external source (database) using offset pagination
-export async function allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
+export async function allProductsWithPagination(
+  currentPage: number,
+  itemsPerPage: number,
+  sortByField: string,
+  sortByOrder: string,
+  byBrandId: string | null,
+  byPriceBelow: number | null,
+  byFreeShipping: boolean | null,
+) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
@@ -143,7 +160,16 @@ export async function allProductsWithPagination(currentPage, itemsPerPage, sortB
 }
 
 // Search our products for a certain keyword in either the name or description sections
-export async function searchProducts(keyword, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping) {
+export async function searchProducts(
+  keyword: string,
+  currentPage: number,
+  itemsPerPage: number,
+  sortByField: string,
+  sortByOrder: string,
+  byBrandId: string | null,
+  byPriceBelow: number | null,
+  byFreeShipping: boolean | null,
+) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
