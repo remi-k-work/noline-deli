@@ -9,6 +9,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
+import { routeCarrySearchParams } from "@/lib/helpers";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
 export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
@@ -24,11 +25,8 @@ export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
   }
 
   // Create href urls that respect the current pathname and previously used search params
-  const params = new URLSearchParams(searchParams);
-  params.set("page", prevPageNumber);
-  const prevPageHref = `${pathname}?${params.toString()}`;
-  params.set("page", nextPageNumber);
-  const nextPageHref = `${pathname}?${params.toString()}`;
+  const prevPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", prevPageNumber]]);
+  const nextPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", nextPageNumber]]);
 
   return (
     // Do not render anything if there are no items to display
@@ -39,8 +37,7 @@ export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
         </Link>
         <div className={styles["paginate__pages"]}>
           {pageNumbers.map((pageNumber) => {
-            params.set("page", pageNumber);
-            const currPageHref = `${pathname}?${params.toString()}`;
+            const currPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", pageNumber]]);
 
             return pageNumber === currentPage ? (
               <span key={pageNumber} className={clsx(styles["paginate__page-number"], styles["paginate__page-number--current"])}>

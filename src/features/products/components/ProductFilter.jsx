@@ -11,7 +11,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
-import { formatPrice } from "@/lib/helpers";
+import { formatPrice, routeCarrySearchParams } from "@/lib/helpers";
 import { useDebouncedCallback } from "use-debounce";
 
 // assets
@@ -31,59 +31,29 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   const [byPriceBelow, setByPriceBelow] = useState(defByPriceBelow);
 
   const handleByCompanyChanged = useDebouncedCallback((byBrandId) => {
-    // Set the filter and save its state in search params
-    const params = new URLSearchParams(searchParams);
-    params.set("brand_id", byBrandId);
-
-    // When a filter changes, reset the pagination position
-    params.delete("page");
-
-    replace(`${pathname}?${params.toString()}`);
+    // Set the filter and save its state in search params; also reset the pagination position
+    replace(routeCarrySearchParams(pathname, searchParams, ["page"], [["brand_id", byBrandId]]));
   }, 600);
 
   const handleByPriceBelowChanged = useDebouncedCallback((byPriceBelow) => {
     // Update the current by price below output value
     setByPriceBelow(byPriceBelow);
 
-    // Set the filter and save its state in search params
-    const params = new URLSearchParams(searchParams);
-    params.set("price_below", byPriceBelow);
-
-    // When a filter changes, reset the pagination position
-    params.delete("page");
-
-    replace(`${pathname}?${params.toString()}`);
+    // Set the filter and save its state in search params; also reset the pagination position
+    replace(routeCarrySearchParams(pathname, searchParams, ["page"], [["price_below", byPriceBelow]]));
   }, 600);
 
   const handleByFreeShippingChanged = useDebouncedCallback((byFreeShipping) => {
-    // Set the filter and save its state in search params
-    const params = new URLSearchParams(searchParams);
-    if (byFreeShipping) {
-      params.set("free_shipping", byFreeShipping);
-    } else {
-      params.delete("free_shipping");
-    }
-
-    // When a filter changes, reset the pagination position
-    params.delete("page");
-
-    replace(`${pathname}?${params.toString()}`);
+    // Set the filter and save its state in search params; also reset the pagination position
+    replace(routeCarrySearchParams(pathname, searchParams, ["page"], [["free_shipping", byFreeShipping]]));
   }, 600);
 
   const handleClearFiltersClicked = useDebouncedCallback(() => {
     // Update the current by price below output value
     setByPriceBelow(byPriceBelowMax);
 
-    // Remove all the filters
-    const params = new URLSearchParams(searchParams);
-    params.delete("brand_id");
-    params.delete("price_below");
-    params.delete("free_shipping");
-
-    // When a filter changes, reset the pagination position
-    params.delete("page");
-
-    replace(`${pathname}?${params.toString()}`);
+    // Remove all the filters; also reset the pagination position
+    replace(routeCarrySearchParams(pathname, searchParams, ["brand_id", "price_below", "free_shipping", "page"]));
   }, 600);
 
   return (

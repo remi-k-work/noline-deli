@@ -9,10 +9,14 @@ import { useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
+import { routeCarrySearchParams } from "@/lib/helpers";
 import { getCategoriesTreeViewData } from "@/features/products/helpers";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+
+// types
+import { CategoriesItemProps, CategoriesListProps } from "../../../../types";
 
 export default function CategoriesTreeView({ categories = [] }) {
   if (categories.length === 0) {
@@ -27,7 +31,7 @@ export default function CategoriesTreeView({ categories = [] }) {
   );
 }
 
-function CategoriesList({ categoriesList = [] }) {
+function CategoriesList({ categoriesList = [] }: CategoriesListProps) {
   if (categoriesList.length === 0) {
     return null;
   }
@@ -41,16 +45,9 @@ function CategoriesList({ categoriesList = [] }) {
   );
 }
 
-function CategoriesItem({ categoriesItem }) {
+function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
   // Make sure to carry over currently used search params (product filter, viewing settings)
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-
-  // When navigating to a new place, reset the pagination position
-  params.delete("page");
-
-  // Also, do not carry over any state from the search mode
-  params.delete("keyword");
 
   // Ensure the categories item exists
   if (!categoriesItem) {
@@ -65,12 +62,16 @@ function CategoriesItem({ categoriesItem }) {
       {subCategories.length > 0 ? (
         <details open>
           <summary>
-            <Link href={`${href}?${params.toString()}`}>{label}</Link>
+            {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
+            <Link href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}>{label}</Link>
           </summary>
           <CategoriesList categoriesList={subCategories} />
         </details>
       ) : (
-        <Link href={`${href}?${params.toString()}`}>{label}</Link>
+        <>
+          {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
+          <Link href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}>{label}</Link>
+        </>
       )}
     </li>
   );

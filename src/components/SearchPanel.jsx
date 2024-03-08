@@ -10,13 +10,17 @@ import { useSearchParams, useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
-import { routeToProductsSearch } from "@/features/products/helpers";
+import { routeCarrySearchParams } from "@/lib/helpers";
+import { pathToProductsSearch } from "@/features/products/helpers";
 
 export default function SearchPanel() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((keyword) => replace(routeToProductsSearch(keyword, searchParams)), 600);
+  const handleSearch = useDebouncedCallback(
+    (keyword) => replace(routeCarrySearchParams(pathToProductsSearch, searchParams, ["page"], [["keyword", keyword]])),
+    600,
+  );
 
   return (
     <label className={clsx(styles["search-panel"], "input input-bordered")}>

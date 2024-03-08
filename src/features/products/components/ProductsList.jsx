@@ -8,6 +8,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
+import { routeCarrySearchParams } from "@/lib/helpers";
 import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/react/24/solid";
 
 // components
@@ -27,17 +28,17 @@ export default function ProductsList({ totalProducts, products }) {
 
   function handleSortByChanged([sortByField, sortByOrder]) {
     // Set the viewing settings and save their state in search params
-    const params = new URLSearchParams(searchParams);
-    params.set("sort_by_field", sortByField);
-    params.set("sort_by_order", sortByOrder);
-    replace(`${pathname}?${params.toString()}`);
+    replace(
+      routeCarrySearchParams(pathname, searchParams, undefined, [
+        ["sort_by_field", sortByField],
+        ["sort_by_order", sortByOrder],
+      ]),
+    );
   }
 
   function handleViewModeChanged(isListMode) {
     // Set the viewing settings and save their state in search params
-    const params = new URLSearchParams(searchParams);
-    params.set("view_mode", isListMode ? "list" : "grid");
-    replace(`${pathname}?${params.toString()}`);
+    replace(routeCarrySearchParams(pathname, searchParams, undefined, [["view_mode", isListMode ? "list" : "grid"]]));
   }
 
   return (
