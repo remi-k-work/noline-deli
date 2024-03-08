@@ -12,6 +12,7 @@ import clsx from "clsx";
 
 // components
 import ProductExcerpt from "@/features/products/components/ProductExcerpt";
+import BrandPreview from "@/features/products/components/BrandPreview";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -50,6 +51,9 @@ export default async function Page() {
 
         <section className={styles["dashboard__featured-brands"]}>
           <h4 className={clsx(lusitana.className, "text-xl")}>Featured Brands</h4>
+          {featuredBrands.map((featuredBrand) => (
+            <BrandPreview key={featuredBrand.id} brand={featuredBrand} />
+          ))}
         </section>
 
         <article className={styles["dashboard__totals"]}>
