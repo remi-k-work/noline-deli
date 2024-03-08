@@ -7,6 +7,7 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
+import { formatPrice } from "@/lib/helpers";
 import { routeToProductDetails, routeToProductImage } from "@/features/products/helpers";
 
 // types
@@ -27,7 +28,7 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
       <Link href={routeToProductDetails(name, id)} className={styles["product-excerpt__image"]}>
         <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-24 w-auto rounded-lg object-cover" />
       </Link>
-      <div className={styles["product-excerpt__price"]}>{price}</div>
+      <div className={styles["product-excerpt__price"]}>{formatPrice(price)}</div>
       <h3 className={styles["product-excerpt__name"]}>
         <Link href={routeToProductDetails(name, id)}>{name}</Link>
       </h3>

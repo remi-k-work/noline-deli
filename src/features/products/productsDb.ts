@@ -14,6 +14,20 @@ export const getProduct = cache(async (productId: string) => {
   return product;
 });
 
+// Collect all of the necessary data for our dashboard (like featured products and brands)
+export async function getDashboardData() {
+  // Fetch all of the products first, then scramble them, and then select three random ones (same idea for brands)
+  const [allProducts, allBrands] = await Promise.all([
+    prisma.product.findMany({ where: { user: { role: "ADMIN" } } }),
+    prisma.brand.findMany({ where: { user: { role: "ADMIN" } } }),
+  ]);
+
+  const featuredProducts = allProducts.sort(() => Math.random() - 0.5).slice(0, 3);
+  const featuredBrands = allBrands.sort(() => Math.random() - 0.5).slice(0, 3);
+
+  return { featuredProducts, featuredBrands, totalProducts: allProducts.length, totalBrands: allBrands.length };
+}
+
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
 export async function getProductFilterData() {
   const [

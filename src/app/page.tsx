@@ -4,14 +4,23 @@ import styles from "./page.module.css";
 // next
 import Image from "next/image";
 
+// prisma and db access
+import { getDashboardData } from "@/features/products/productsDb";
+
 // other libraries
 import clsx from "clsx";
+
+// components
+import ProductExcerpt from "@/features/products/components/ProductExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 import hero from "@/assets/hero.jpg";
 
 export default async function Page() {
+  // Get all the information you need about this particular product
+  const { featuredProducts, featuredBrands, totalProducts, totalBrands } = await getDashboardData();
+
   return (
     <article className={styles["page"]}>
       <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>
@@ -34,6 +43,9 @@ export default async function Page() {
       <article className={styles["dashboard"]}>
         <section className={styles["dashboard__featured-products"]}>
           <h4 className={clsx(lusitana.className, "text-xl")}>Featured Products</h4>
+          {featuredProducts.map((featuredProduct) => (
+            <ProductExcerpt key={featuredProduct.id} product={featuredProduct} />
+          ))}
         </section>
 
         <section className={styles["dashboard__featured-brands"]}>
@@ -43,12 +55,12 @@ export default async function Page() {
         <article className={styles["dashboard__totals"]}>
           <section className={styles["dashboard-totals__total-products"]}>
             <h4 className={clsx(lusitana.className, "text-xl")}>Total Products</h4>
-            <h5>100</h5>
+            <h5>{totalProducts}</h5>
           </section>
 
-          <section className={styles["dashboard-totals__total-users"]}>
-            <h4 className={clsx(lusitana.className, "text-xl")}>Total Users</h4>
-            <h5>100</h5>
+          <section className={styles["dashboard-totals__total-brands"]}>
+            <h4 className={clsx(lusitana.className, "text-xl")}>Total Brands</h4>
+            <h5>{totalBrands}</h5>
           </section>
         </article>
       </article>

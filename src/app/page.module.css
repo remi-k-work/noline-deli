@@ -83,7 +83,7 @@
   font-size: var(--font-size-6);
 }
 
-.dashboard-totals__total-users {
+.dashboard-totals__total-brands {
   display: grid;
   gap: var(--size-4);
   place-items: center;
@@ -91,7 +91,7 @@
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.dashboard-totals__total-users > h4 {
+.dashboard-totals__total-brands > h4 {
   place-self: stretch;
   max-inline-size: var(--size-header-1);
   background: var(--heading-gradient-1);
@@ -102,7 +102,7 @@
   box-shadow: var(--shadow-6);
 }
 
-.dashboard-totals__total-users > h5 {
+.dashboard-totals__total-brands > h5 {
   font-size: var(--font-size-6);
 }
 
