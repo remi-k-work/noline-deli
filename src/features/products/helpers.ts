@@ -6,9 +6,12 @@ export const pathToProduct = "/product";
 export const pathToProducts = "/products";
 export const pathToProductDetails = `${pathToProduct}/[productId]`;
 export const pathToProductsSearch = `${pathToProducts}/search`;
+export const pathToProductsBrand = `${pathToProducts}/brand`;
 
 // Functions that create proper routes and their params
 export const routeToAllProducts = "/products";
+
+export const routeToAllProductsByBrand = (brandName: string, brandId: string) => `${pathToProductsBrand}/${encodeURIComponent(brandName)}/${brandId}`;
 
 // Incorporate the category name in the url to make it search-engine-friendly
 export const routeToProductsByCategory = (categoryName: string, categoryId: string) => `${pathToProducts}/${encodeURIComponent(categoryName)}/${categoryId}`;

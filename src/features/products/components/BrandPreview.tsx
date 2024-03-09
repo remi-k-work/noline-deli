@@ -7,7 +7,7 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
-import { routeToBrandLogo } from "@/features/products/helpers";
+import { routeToBrandLogo, routeToAllProductsByBrand } from "@/features/products/helpers";
 import { EyeIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -33,7 +33,7 @@ export default function BrandPreview({ brand }: BrandPreviewProps) {
           className="object-contain"
         />
       </header>
-      <Link href={"/"} className={styles["brand-preview__view-brand"]}>
+      <Link href={routeToAllProductsByBrand(name, id)} className={styles["brand-preview__view-brand"]}>
         <EyeIcon width={24} height={24} />
         {name}
       </Link>
