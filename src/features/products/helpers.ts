@@ -1,4 +1,5 @@
 // types
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { CategoriesTreeViewInputData, CategoriesTreeViewCategory } from "../../../types";
 
 // Paths that may contain a dynamic segment required by the revalidate path functionality (server actions)
@@ -25,7 +26,7 @@ export const routeToProductDetails = (productName: string, productId: string) =>
 
 // export const routeToProductImage = (imageUrl: string) => `/product-images${imageUrl}?t=${Date.now()}`;
 export const routeToProductImage = (imageUrl: string) => `/product-images${imageUrl}`;
-export const routeToBrandLogo = (logoUrl: string | null) => (logoUrl ? `/brand-logos${logoUrl}` : null);
+export const routeToBrandLogo = (logoUrl: string | null) => (logoUrl ? `/brand-logos${logoUrl}` : "");
 
 // Create a product category tree in the format that is needed by the categories tree view component
 // [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]
