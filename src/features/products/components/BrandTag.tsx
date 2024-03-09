@@ -1,5 +1,5 @@
 // component css styles
-import styles from "./BrandPreview.module.css";
+import styles from "./BrandTag.module.css";
 
 // next
 import Link from "next/link";
@@ -10,9 +10,9 @@ import clsx from "clsx";
 import { routeToBrandLogo, routeToAllProductsByBrand } from "@/features/products/helpers";
 
 // types
-import { BrandPreviewProps } from "../../../../types";
+import { BrandTagProps } from "../../../../types";
 
-export default function BrandPreview({ brand }: BrandPreviewProps) {
+export default function BrandTag({ brand }: BrandTagProps) {
   // Ensure the brand exists
   if (!brand) {
     // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
@@ -22,10 +22,12 @@ export default function BrandPreview({ brand }: BrandPreviewProps) {
   const { id, name, logoUrl } = brand;
 
   return (
-    <article className={styles["brand-preview"]}>
-      <Link href={routeToAllProductsByBrand(name, id)} className="transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
+    <article className={styles["brand-tag"]}>
+      <header className="flex-1">Brand:</header>
+      <footer className={clsx(styles["brand-tag__name"], "flex-none")}>{name}</footer>
+      <Link href={routeToAllProductsByBrand(name, id)} className="flex-none transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
-          <header className={styles["brand-preview__logo"]}>
+          <div className={styles["brand-tag__logo"]}>
             <Image
               src={routeToBrandLogo(logoUrl)}
               fill={true}
@@ -33,9 +35,8 @@ export default function BrandPreview({ brand }: BrandPreviewProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-contain"
             />
-          </header>
+          </div>
         )}
-        <footer className={styles["brand-preview__name"]}>{name}</footer>
       </Link>
     </article>
   );

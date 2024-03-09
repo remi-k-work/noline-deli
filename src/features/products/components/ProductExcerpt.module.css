@@ -5,7 +5,7 @@
 
   display: grid;
   grid-template-columns: [bck-start img-start nam-start] auto [img-end prc-start] auto [prc-end] auto [nam-end bck-end];
-  grid-template-rows: [prc-start bck-start img-start] auto [prc-end] 50px [nam-start] auto [img-end] auto [nam-end] auto var(--size-3) [bck-end];
+  grid-template-rows: [prc-start bck-start img-start] auto [prc-end] 7rem [nam-start] auto [img-end] auto [nam-end] auto var(--size-3) [bck-end];
 }
 
 .product-excerpt__image {

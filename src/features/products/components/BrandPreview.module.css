@@ -3,32 +3,29 @@
   max-inline-size: var(--size-content-1);
   margin-inline: auto;
 
-  background: var(--surface-2);
+  background: var(--surface-3);
   padding-inline: var(--size-3);
   padding-block: var(--size-3);
-  border-radius: var(--radius-3);
 
   display: grid;
   gap: var(--size-3);
 
   box-shadow: var(--shadow-6);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
 .brand-preview__logo {
-  inline-size: 100%;
+  inline-size: var(--size-12);
   block-size: var(--size-12);
   position: relative;
 
-  background: var(--surface-4);
+  background: var(--surface-1);
   box-shadow: var(--inner-shadow-4);
   overflow: clip;
-  -webkit-mask: var(--mask-edge-scoop-top);
+  -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
-.brand-preview__view-brand {
+.brand-preview__name {
   color: var(--text-2);
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  gap: var(--size-1);
+  text-align: center;
 }

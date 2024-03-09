@@ -25,13 +25,14 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
   return (
     <article className={styles["product-excerpt"]}>
       <div className={styles["product-excerpt__background"]}></div>
-      <Link href={routeToProductDetails(name, id)} className={styles["product-excerpt__image"]}>
-        <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-24 w-auto rounded-lg object-cover" />
+      <Link
+        href={routeToProductDetails(name, id)}
+        className={clsx(styles["product-excerpt__image"], "transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
+      >
+        <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
       </Link>
       <div className={styles["product-excerpt__price"]}>{formatPrice(price)}</div>
-      <h3 className={styles["product-excerpt__name"]}>
-        <Link href={routeToProductDetails(name, id)}>{name}</Link>
-      </h3>
+      <h3 className={styles["product-excerpt__name"]}>{name}</h3>
     </article>
   );
 }

@@ -1,0 +1,24 @@
+.brand-tag {
+  inline-size: 100%;
+
+  padding-inline: var(--size-3);
+  padding-block: var(--size-1);
+
+  display: flex;
+  gap: var(--size-3);
+  place-items: center;
+
+  box-shadow: var(--inner-shadow-2);
+}
+
+.brand-tag__logo {
+  inline-size: var(--size-12);
+  block-size: var(--size-8);
+  position: relative;
+  overflow: clip;
+}
+
+.brand-tag__name {
+  color: var(--text-2);
+  text-align: center;
+}

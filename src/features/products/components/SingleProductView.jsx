@@ -6,10 +6,11 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductImage } from "@/features/products/helpers";
+import { routeToProductImage, routeToBrandLogo } from "@/features/products/helpers";
 
 // components
 import ImageSlider from "./ImageSlider";
+import BrandTag from "./BrandTag";
 import PriceTag from "./PriceTag";
 import AddToCartForm from "@/features/cart/components/AddToCartForm";
 
@@ -23,7 +24,7 @@ export default function SingleProductView({ product }) {
     return null;
   }
 
-  const { id, name, description, imageUrl, price, moreImages } = product;
+  const { id, name, description, imageUrl, price, moreImages, brand } = product;
 
   return (
     <article className={styles["single-product-view"]}>
@@ -34,6 +35,7 @@ export default function SingleProductView({ product }) {
         <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-96 w-auto rounded-lg object-cover" priority />
       )}
       <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
+      <BrandTag brand={brand} />
       <p>{description}</p>
       <PriceTag priceInCents={price} />
       <AddToCartForm productId={id} />

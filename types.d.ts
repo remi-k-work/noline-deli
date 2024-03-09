@@ -12,6 +12,10 @@ interface BrandPreviewProps {
   brand: Brand;
 }
 
+interface BrandTagProps {
+  brand: Brand;
+}
+
 interface CategoriesListProps {
   categoriesList: CategoriesTreeViewCategory[];
 }

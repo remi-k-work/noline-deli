@@ -49,15 +49,17 @@ export default async function Page({
   return (
     <article className={styles["page"]}>
       <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Our Merchandise ► {decodeURIComponent(brandName)}</h3>
-      <header className="relative h-48 w-full overflow-clip">
-        <Image
-          src={routeToBrandLogo(logoUrl)}
-          fill={true}
-          alt={name}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-contain"
-        />
-      </header>
+      {logoUrl && (
+        <header className="relative h-48 w-full overflow-clip">
+          <Image
+            src={routeToBrandLogo(logoUrl)}
+            fill={true}
+            alt={name}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain"
+          />
+        </header>
+      )}
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
       {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />

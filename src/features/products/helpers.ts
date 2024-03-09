@@ -25,7 +25,7 @@ export const routeToProductDetails = (productName: string, productId: string) =>
 
 // export const routeToProductImage = (imageUrl: string) => `/product-images${imageUrl}?t=${Date.now()}`;
 export const routeToProductImage = (imageUrl: string) => `/product-images${imageUrl}`;
-export const routeToBrandLogo = (logoUrl: string | null) => `/brand-logos${logoUrl}`;
+export const routeToBrandLogo = (logoUrl: string | null) => (logoUrl ? `/brand-logos${logoUrl}` : null);
 
 // Create a product category tree in the format that is needed by the categories tree view component
 // [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]
