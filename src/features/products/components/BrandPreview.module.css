@@ -8,9 +8,8 @@
   padding-block: var(--size-3);
 
   display: grid;
-  gap: var(--size-3);
+  place-items: center;
 
-  box-shadow: var(--shadow-6);
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 
@@ -22,6 +21,7 @@
   background: var(--surface-1);
   box-shadow: var(--inner-shadow-4);
   overflow: clip;
+
   -webkit-mask: var(--mask-corner-cut-circles-1);
 }
 

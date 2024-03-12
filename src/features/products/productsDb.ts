@@ -8,7 +8,10 @@ import prisma from "@/lib/db/prisma";
 export const getProduct = cache(async (productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
-  const product = await prisma.product.findUnique({ where: { id: productId, user: { role: "ADMIN" } }, include: { moreImages: true, brand: true } });
+  const product = await prisma.product.findUnique({
+    where: { id: productId, user: { role: "ADMIN" } },
+    include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+  });
 
   // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer
   return product;
@@ -23,7 +26,10 @@ export const getBrand = cache(async (brandId: string) => {
 export async function getDashboardData() {
   // Fetch all of the products first, then scramble them, and then select three random ones (same idea for brands)
   const [allProducts, allBrands] = await Promise.all([
-    prisma.product.findMany({ where: { user: { role: "ADMIN" } } }),
+    prisma.product.findMany({
+      where: { user: { role: "ADMIN" } },
+      include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+    }),
     prisma.brand.findMany({ where: { user: { role: "ADMIN" } } }),
   ]);
 

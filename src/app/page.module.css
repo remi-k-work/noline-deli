@@ -18,109 +18,113 @@
 
 .dashboard {
   clear: both;
-  display: grid;
-  gap: var(--size-8);
-  place-items: center;
   background: var(--dashboard-gradient);
   margin-block-start: var(--size-6);
+
   padding-inline: var(--size-fluid-3) var(--size-fluid-3);
-  padding-block: var(--size-3) var(--size-3);
+  padding-block: var(--size-2) var(--size-2);
+
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
+}
 
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
+.dashboard > h4 {
+  inline-size: 100%;
+  max-inline-size: none;
+
+  background: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--inner-shadow-4);
+  font-weight: var(--font-weight-9);
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
+  margin-block-start: var(--size-4);
 }
 
 .dashboard__featured-products {
-  display: grid;
-  gap: var(--size-4);
-  place-items: center;
-  background: var(--surface-2);
-  -webkit-mask: var(--mask-corner-cut-circles-1);
-}
-
-.dashboard__featured-products > h4 {
-  place-self: stretch;
-  max-inline-size: var(--size-header-1);
-  background: var(--heading-gradient-1);
-  color: var(--text-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
-  text-align: center;
-  box-shadow: var(--shadow-6);
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
+}
+
+.dashboard__featured-brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
 }
 
 .dashboard__totals {
-  place-self: stretch;
-  display: grid;
-  gap: var(--size-4);
-  place-items: center;
-
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-3);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  margin-block-start: var(--size-3);
 }
 
 .dashboard-totals__total-products {
-  display: grid;
-  gap: var(--size-4);
-  place-items: center;
-  background: var(--surface-2);
-  -webkit-mask: var(--mask-corner-cut-circles-1);
+  inline-size: 100%;
+  max-inline-size: var(--size-content-1);
+  margin-inline: auto;
 }
 
 .dashboard-totals__total-products > h4 {
-  place-self: stretch;
-  max-inline-size: var(--size-header-1);
+  inline-size: 100%;
+  max-inline-size: none;
+
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
   text-align: center;
-  box-shadow: var(--shadow-6);
+  box-shadow: var(--inner-shadow-4);
+  font-weight: var(--font-weight-9);
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
 }
 
 .dashboard-totals__total-products > h5 {
   font-size: var(--font-size-6);
+  text-align: center;
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
 }
 
 .dashboard-totals__total-brands {
-  display: grid;
-  gap: var(--size-4);
-  place-items: center;
-  background: var(--surface-2);
-  -webkit-mask: var(--mask-corner-cut-circles-1);
+  inline-size: 100%;
+  max-inline-size: var(--size-content-1);
+  margin-inline: auto;
 }
 
 .dashboard-totals__total-brands > h4 {
-  place-self: stretch;
-  max-inline-size: var(--size-header-1);
+  inline-size: 100%;
+  max-inline-size: none;
+
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
   padding-block: var(--size-2) var(--size-2);
   text-align: center;
-  box-shadow: var(--shadow-6);
+  box-shadow: var(--inner-shadow-4);
+  font-weight: var(--font-weight-9);
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
 }
 
 .dashboard-totals__total-brands > h5 {
   font-size: var(--font-size-6);
-}
-
-.dashboard__featured-brands {
-  display: grid;
-  gap: var(--size-4);
-  place-items: center;
-  background: var(--surface-2);
-  -webkit-mask: var(--mask-corner-cut-circles-1);
-}
-
-.dashboard__featured-brands > h4 {
-  place-self: stretch;
-  max-inline-size: var(--size-header-1);
-  background: var(--heading-gradient-1);
-  color: var(--text-2);
-  padding-inline: var(--size-2) var(--size-2);
-  padding-block: var(--size-2) var(--size-2);
   text-align: center;
-  box-shadow: var(--shadow-6);
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
 }

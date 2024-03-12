@@ -42,15 +42,15 @@ export default async function Page() {
         </p>
       </header>
       <article className={styles["dashboard"]}>
+        <h4 className={clsx(lusitana.className, "text-xl")}>Featured Products</h4>
         <section className={styles["dashboard__featured-products"]}>
-          <h4 className={clsx(lusitana.className, "text-xl")}>Featured Products</h4>
           {featuredProducts.map((featuredProduct) => (
             <ProductExcerpt key={featuredProduct.id} product={featuredProduct} />
           ))}
         </section>
 
+        <h4 className={clsx(lusitana.className, "text-xl")}>Featured Brands</h4>
         <section className={styles["dashboard__featured-brands"]}>
-          <h4 className={clsx(lusitana.className, "text-xl")}>Featured Brands</h4>
           {featuredBrands.map((featuredBrand) => (
             <BrandPreview key={featuredBrand.id} brand={featuredBrand} />
           ))}

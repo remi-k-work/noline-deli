@@ -1,11 +1,14 @@
 .product-excerpt {
   inline-size: 100%;
-  max-inline-size: var(--size-content-1);
+  max-inline-size: var(--size-content-2);
   margin-inline: auto;
 
   display: grid;
-  grid-template-columns: [bck-start img-start nam-start] auto [img-end prc-start] auto [prc-end] auto [nam-end bck-end];
-  grid-template-rows: [prc-start bck-start img-start] auto [prc-end] 7rem [nam-start] auto [img-end] auto [nam-end] auto var(--size-3) [bck-end];
+
+  grid-template-columns: [bck-start img-start nam-start inf-start] auto [img-end prc-start] auto [prc-end] auto [nam-end bck-end inf-end];
+  grid-template-rows:
+    [prc-start bck-start img-start inf-start] auto [prc-end] var(--size-9) [nam-start] auto [img-end] auto [nam-end] auto var(--size-3)
+    [bck-end inf-end];
 }
 
 .product-excerpt__image {
@@ -14,8 +17,6 @@
 
 .product-excerpt__image > img {
   border-radius: var(--radius-round);
-  background: var(--surface-1);
-  box-shadow: var(--inner-shadow-4);
 }
 
 .product-excerpt__background {
@@ -27,21 +28,30 @@
 
 .product-excerpt__name {
   grid-area: nam;
-  max-inline-size: var(--size-content-1);
+  align-self: center;
+
+  max-inline-size: var(--size-content-2);
   font-size: var(--font-size-2);
   background: var(--surface-3);
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
   border-radius: var(--radius-blob-2);
   box-shadow: var(--inner-shadow-4);
+  text-align: center;
 }
 
 .product-excerpt__price {
   grid-area: prc;
+  align-self: center;
+
   background: var(--surface-4);
   padding-inline: var(--size-1);
   padding-block: var(--size-1);
   border-radius: var(--radius-blob-2);
   text-align: center;
   box-shadow: var(--shadow-5);
+}
+
+.product-excerpt__more-info {
+  grid-area: inf;
 }

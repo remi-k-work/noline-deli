@@ -5,6 +5,7 @@
 }
 
 .confirm-dialog__title-bar {
+  max-inline-size: none;
   display: flex;
   align-items: center;
   gap: var(--size-2);

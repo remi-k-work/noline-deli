@@ -5,6 +5,7 @@
   padding-block: var(--size-1);
 
   display: flex;
+  flex-wrap: wrap;
   gap: var(--size-3);
   place-items: center;
 

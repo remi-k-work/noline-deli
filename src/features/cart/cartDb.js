@@ -53,7 +53,20 @@ export async function getCart() {
   // *** TEST CODE ***
 
   // If the cart exists, obtain its contents, which should include cart items and product information
-  const cart = localCartId ? await prisma.cart.findUnique({ where: { id: localCartId }, include: { cartItems: { include: { product: true } } } }) : null;
+  const cart = localCartId
+    ? await prisma.cart.findUnique({
+        where: { id: localCartId },
+        include: {
+          cartItems: {
+            include: {
+              product: {
+                include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+              },
+            },
+          },
+        },
+      })
+    : null;
 
   if (!cart) {
     // Will we be able to set a new cart's id in a session cookie?
