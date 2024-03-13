@@ -26,6 +26,7 @@
 .cart-table-entry-image {
   inline-size: 100%;
   display: grid;
+  place-items: start;
 
   grid-template-columns: [inf-start] var(--size-3) [img-start] auto [img-end inf-end];
   grid-template-rows: [inf-start] var(--size-3) [img-start] auto [img-end inf-end];

@@ -145,7 +145,7 @@ h1 {
 }
 
 h2 {
-  max-inline-size: var(--size-header-2);
+  max-inline-size: var(--size-header-3);
 }
 
 h3,

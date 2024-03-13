@@ -48,7 +48,7 @@ export default async function Page({
 
   return (
     <article className={styles["page"]}>
-      <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>Our Merchandise ► {decodeURIComponent(brandName)}</h3>
+      <h2 className={clsx(lusitana.className, "mb-8 text-4xl")}>Our Merchandise ► {decodeURIComponent(brandName)}</h2>
       {logoUrl && (
         <header className="relative h-48 w-full overflow-clip">
           <Image

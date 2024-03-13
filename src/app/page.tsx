@@ -24,9 +24,9 @@ export default async function Page() {
 
   return (
     <article className={styles["page"]}>
-      <h3 className={clsx(lusitana.className, "mb-8 text-4xl")}>
+      <h2 className={clsx(lusitana.className, "mb-8 text-4xl")}>
         Bringing Europe&apos;s taste and quality directly to your table, one happy customer at a time!
-      </h3>
+      </h2>
       <header className={styles["hero"]}>
         <Image src={hero} alt={"Hero"} />
         <p>

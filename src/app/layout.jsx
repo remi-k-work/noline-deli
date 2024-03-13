@@ -38,11 +38,23 @@ export default async function Layout({ children }) {
 
   return (
     <html lang="en">
-      <body className={clsx(styles["layout"], inter.className, "antialiased")}>
-        <Header cart={cart} />
-        <NavBar categories={categories} productFilterData={productFilterData} />
-        <main className={styles["main"]}>{children}</main>
-        <Footer />
+      <body className={clsx(inter.className, "antialiased")}>
+        <div className="drawer lg:drawer-open">
+          <input id="navBar" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content">
+            <div className={styles["layout"]}>
+              <Header cart={cart} />
+              <main className={styles["main"]}>{children}</main>
+              <Footer />
+            </div>
+          </div>
+          <div className="drawer-side z-40">
+            <label htmlFor="navBar" aria-label="close sidebar" className="drawer-overlay"></label>
+            <div className="min-h-full w-96">
+              <NavBar categories={categories} productFilterData={productFilterData} />
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );
