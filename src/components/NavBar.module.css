@@ -2,4 +2,5 @@
   background: var(--surface-2);
   min-block-size: 100vh;
   min-block-size: 100svh;
+  min-block-size: 100dvh;
 }

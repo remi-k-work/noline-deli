@@ -12,6 +12,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 // other libraries
 import clsx from "clsx";
 import { formatPrice, routeCarrySearchParams } from "@/lib/helpers";
+import { pathToProducts } from "@/features/products/helpers";
 import { useDebouncedCallback } from "use-debounce";
 
 // assets
@@ -55,6 +56,11 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
     // Remove all the filters; also reset the pagination position
     replace(routeCarrySearchParams(pathname, searchParams, ["brand_id", "price_below", "free_shipping", "page"]));
   }, 600);
+
+  // Show a product filter only when displaying a bunch of products
+  if (!pathname.includes(pathToProducts)) {
+    return null;
+  }
 
   return (
     <article className={styles["product-filter"]}>

@@ -36,7 +36,7 @@ export default function ProductCard({ product, listMode = false }) {
         </figure>
         <div className="card-body">
           <h3 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h3>
-          <p>{description.substring(0, 150)}...</p>
+          <p>{description.substring(0, 250)}...</p>
           <div className="card-actions justify-end">
             <PriceTag priceInCents={price} />
           </div>

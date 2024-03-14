@@ -19,7 +19,7 @@ export default function Footer() {
           <p>
             NoLine-Deli Ltd.
             <br />
-            &quot;Taste of Home, Delivered since 1992&quot;
+            Taste of Home, Delivered since 1992
           </p>
         </aside>
         <nav>
@@ -49,7 +49,7 @@ export default function Footer() {
           <p>
             NoLine-Deli Ltd.
             <br />
-            &quot;Taste of Home, Delivered since 1992&quot;
+            Taste of Home, Delivered since 1992
           </p>
         </aside>
       </div>

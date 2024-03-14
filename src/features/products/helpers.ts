@@ -1,5 +1,4 @@
 // types
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { CategoriesTreeViewInputData, CategoriesTreeViewCategory } from "../../../types";
 
 // Paths that may contain a dynamic segment required by the revalidate path functionality (server actions)
