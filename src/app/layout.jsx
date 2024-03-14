@@ -50,7 +50,7 @@ export default async function Layout({ children }) {
           </div>
           <div className="drawer-side z-40">
             <label htmlFor="navBar" aria-label="close sidebar" className="drawer-overlay"></label>
-            <div className="min-h-full w-96">
+            <div className="min-h-full w-80">
               <NavBar categories={categories} productFilterData={productFilterData} />
             </div>
           </div>

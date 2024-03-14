@@ -31,7 +31,7 @@ export default function Header({ cart }) {
           <Bars4Icon width={24} height={24} />
         </label>
       </div>
-      <div className="flex-none">
+      <div className="hidden flex-none lg:block">
         <SearchPanel />
       </div>
     </header>

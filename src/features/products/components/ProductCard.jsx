@@ -29,10 +29,10 @@ export default function ProductCard({ product, listMode = false }) {
 
   return listMode ? (
     <article className={clsx(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
-      <Link href={routeToProductDetails(name, id)} className="card card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
+      <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-start">NEW</span>}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-72 object-cover" />
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-full object-cover" />
         </figure>
         <div className="card-body">
           <h3 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h3>

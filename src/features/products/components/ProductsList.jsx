@@ -43,13 +43,13 @@ export default function ProductsList({ totalProducts, products }) {
 
   return (
     <section className={styles["products-list"]}>
-      <header className="flex w-full place-items-center gap-4">
+      <header className="mb-4 flex w-full flex-wrap place-items-center justify-end gap-4">
         <label className="flex flex-none cursor-pointer place-items-center gap-2">
           <TableCellsIcon width={24} height={24} />
           <input type="checkbox" name="viewMode" className="toggle" defaultChecked={isListMode} onChange={(ev) => handleViewModeChanged(ev.target.checked)} />
           <QueueListIcon width={24} height={24} />
         </label>
-        <span className="divider divider-start flex-1">{totalProducts} Product(s) Found</span>
+        <span className="flex-1 text-end lg:divider lg:divider-start">{totalProducts} Product(s) Found</span>
         <span className="flex flex-none place-items-center">
           <ArrowsUpDownIcon width={24} height={24} />
           <select name="sortBy" className="select" defaultValue={defSortBy} onChange={(ev) => handleSortByChanged(ev.target.value.split("|"))}>
