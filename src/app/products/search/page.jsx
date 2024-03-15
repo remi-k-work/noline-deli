@@ -31,7 +31,7 @@ export default async function Page({
 
   return (
     <article className={styles["page"]}>
-      <h2 className={clsx(lusitana.className, "mb-8 text-3xl lg:text-4xl")}>Search Results</h2>
+      <h2 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Search Results ► &quot;{keyword}&quot;</h2>
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
       {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />

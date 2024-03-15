@@ -42,7 +42,7 @@ export default async function Page({
 
   return (
     <article className={styles["page"]}>
-      <h2 className={clsx(lusitana.className, "mb-8 text-3xl lg:text-4xl")}>
+      <h2 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
         Our Merchandise ► {decodeURIComponent(categoryName)} ► {decodeURIComponent(subCategoryName)}
       </h2>
       <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />

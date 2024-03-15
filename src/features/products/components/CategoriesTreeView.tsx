@@ -5,7 +5,7 @@ import styles from "./CategoriesTreeView.module.css";
 
 // next
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
@@ -47,6 +47,7 @@ function CategoriesList({ categoriesList = [] }: CategoriesListProps) {
 
 function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
   // Make sure to carry over currently used search params (product filter, viewing settings)
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   // Ensure the categories item exists
@@ -63,14 +64,28 @@ function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
         <details open>
           <summary>
             {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
-            <Link href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}>{label}</Link>
+            {/* Also auto-hide the drawer after the user makes the selection */}
+            <Link
+              href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}
+              onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
+              className={clsx({ "font-bold text-accent": pathname === href })}
+            >
+              {label}
+            </Link>
           </summary>
           <CategoriesList categoriesList={subCategories} />
         </details>
       ) : (
         <>
           {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
-          <Link href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}>{label}</Link>
+          {/* Also auto-hide the drawer after the user makes the selection */}
+          <Link
+            href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}
+            onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
+            className={clsx({ "font-bold text-accent": pathname === href })}
+          >
+            {label}
+          </Link>
         </>
       )}
     </li>

@@ -21,7 +21,7 @@ export default function Header({ cart }) {
     <header className={clsx(styles["header"], "navbar z-30 flex-wrap gap-4")}>
       <div className="flex-1">
         <Link href={"/"}>
-          <h1 className={clsx(lusitana.className, "text-4xl lg:text-5xl")}>NoLine-Deli</h1>
+          <h1 className={clsx(lusitana.className, "text-3xl lg:text-4xl")}>NoLine-Deli</h1>
         </Link>
       </div>
       <div className="flex-none">
@@ -35,7 +35,7 @@ export default function Header({ cart }) {
       <div className="hidden flex-none lg:block">
         <SearchPanel />
       </div>
-      <div className="flex-none">
+      <div className="btn btn-square btn-ghost flex-none">
         <ThemeSwitcher />
       </div>
     </header>

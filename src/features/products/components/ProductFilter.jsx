@@ -4,7 +4,7 @@
 import styles from "./ProductFilter.module.css";
 
 // react
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // next
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
@@ -30,6 +30,11 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
 
   // Current by price below output value
   const [byPriceBelow, setByPriceBelow] = useState(defByPriceBelow);
+
+  useEffect(() => {
+    // Keep the current by price below output value in sync with search params
+    setByPriceBelow(defByPriceBelow);
+  }, [defByPriceBelow]);
 
   const handleByCompanyChanged = useDebouncedCallback((byBrandId) => {
     // Set the filter and save its state in search params; also reset the pagination position

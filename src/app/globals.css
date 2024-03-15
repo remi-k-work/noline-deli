@@ -2,46 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* light */
-  --brand-light: var(--orange-6);
-  --link-light: var(--indigo-7);
-  --link-visited-light: var(--purple-7);
-  --text-1-light: var(--gray-12);
-  --text-2-light: var(--gray-7);
-  --surface-1-light: var(--gray-0);
-  --surface-2-light: var(--gray-2);
-  --surface-3-light: var(--gray-3);
-  --surface-4-light: var(--gray-4);
-  --scrollthumb-color-light: var(--gray-7);
-  /* form validation colors */
-  --form-field-alert-bg-light: var(--red-12);
-  --form-field-alert-tx-light: var(--yellow-9);
-  /* gradients */
-  --heading-gradient-1-light: var(--gradient-5);
-  --dashboard-gradient-light: var(--gradient-15);
-
-  /* dark */
-  --brand-dark: var(--orange-3);
-  --link-dark: var(--indigo-3);
-  --link-visited-dark: var(--purple-3);
-  --text-1-dark: var(--gray-0);
-  --text-2-dark: var(--gray-4);
-  --surface-1-dark: var(--gray-9);
-  --surface-2-dark: var(--gray-8);
-  --surface-3-dark: var(--gray-7);
-  --surface-4-dark: var(--gray-6);
-  --scrollthumb-color-dark: var(--gray-6);
-  /* form validation colors */
-  --form-field-alert-bg-dark: var(--yellow-9);
-  --form-field-alert-tx-dark: var(--red-12);
-  /* gradients */
-  --heading-gradient-1-dark: var(--gradient-23);
-  --dashboard-gradient-dark: var(--gradient-16);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
+    /* light */
+    --brand-light: var(--orange-6);
+    --link-light: var(--indigo-7);
+    --link-visited-light: var(--purple-7);
+    --text-1-light: var(--gray-12);
+    --text-2-light: var(--gray-7);
+    --surface-1-light: var(--gray-0);
+    --surface-2-light: var(--gray-2);
+    --surface-3-light: var(--gray-3);
+    --surface-4-light: var(--gray-4);
+    --scrollthumb-color-light: var(--gray-7);
+    /* form validation colors */
+    --form-field-alert-bg-light: var(--red-12);
+    --form-field-alert-tx-light: var(--yellow-9);
+    /* gradients */
+    --heading-gradient-1-light: var(--gradient-5);
+    --dashboard-gradient-light: var(--gradient-15);
+
+    /* dark */
+    --brand-dark: var(--orange-3);
+    --link-dark: var(--indigo-3);
+    --link-visited-dark: var(--purple-3);
+    --text-1-dark: var(--gray-0);
+    --text-2-dark: var(--gray-4);
+    --surface-1-dark: var(--gray-9);
+    --surface-2-dark: var(--gray-8);
+    --surface-3-dark: var(--gray-7);
+    --surface-4-dark: var(--gray-6);
+    --scrollthumb-color-dark: var(--gray-6);
+    /* form validation colors */
+    --form-field-alert-bg-dark: var(--yellow-9);
+    --form-field-alert-tx-dark: var(--red-12);
+    /* gradients */
+    --heading-gradient-1-dark: var(--gradient-23);
+    --dashboard-gradient-dark: var(--gradient-16);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --brand: var(--brand-dark);
+      --link: var(--link-dark);
+      --link-visited: var(--link-visited-dark);
+      --text-1: var(--text-1-dark);
+      --text-2: var(--text-2-dark);
+      --surface-1: var(--surface-1-dark);
+      --surface-2: var(--surface-2-dark);
+      --surface-3: var(--surface-3-dark);
+      --surface-4: var(--surface-4-dark);
+      --form-field-alert-bg: var(--form-field-alert-bg-dark);
+      --form-field-alert-tx: var(--form-field-alert-tx-dark);
+      --heading-gradient-1: var(--heading-gradient-1-dark);
+      --dashboard-gradient: var(--dashboard-gradient-dark);
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --brand: var(--brand-light);
+      --link: var(--link-light);
+      --link-visited: var(--link-visited-light);
+      --text-1: var(--text-1-light);
+      --text-2: var(--text-2-light);
+      --surface-1: var(--surface-1-light);
+      --surface-2: var(--surface-2-light);
+      --surface-3: var(--surface-3-light);
+      --surface-4: var(--surface-4-light);
+      --form-field-alert-bg: var(--form-field-alert-bg-light);
+      --form-field-alert-tx: var(--form-field-alert-tx-light);
+      --heading-gradient-1: var(--heading-gradient-1-light);
+      --dashboard-gradient: var(--dashboard-gradient-light);
+    }
+  }
+
+  :root[data-theme="coffee"] {
     --brand: var(--brand-dark);
     --link: var(--link-dark);
     --link-visited: var(--link-visited-dark);
@@ -56,10 +92,8 @@
     --heading-gradient-1: var(--heading-gradient-1-dark);
     --dashboard-gradient: var(--dashboard-gradient-dark);
   }
-}
 
-@media (prefers-color-scheme: light) {
-  :root {
+  :root[data-theme="retro"] {
     --brand: var(--brand-light);
     --link: var(--link-light);
     --link-visited: var(--link-visited-light);
@@ -74,81 +108,49 @@
     --heading-gradient-1: var(--heading-gradient-1-light);
     --dashboard-gradient: var(--dashboard-gradient-light);
   }
-}
 
-:root[data-theme="coffee"] {
-  --brand: var(--brand-dark);
-  --link: var(--link-dark);
-  --link-visited: var(--link-visited-dark);
-  --text-1: var(--text-1-dark);
-  --text-2: var(--text-2-dark);
-  --surface-1: var(--surface-1-dark);
-  --surface-2: var(--surface-2-dark);
-  --surface-3: var(--surface-3-dark);
-  --surface-4: var(--surface-4-dark);
-  --form-field-alert-bg: var(--form-field-alert-bg-dark);
-  --form-field-alert-tx: var(--form-field-alert-tx-dark);
-  --heading-gradient-1: var(--heading-gradient-1-dark);
-  --dashboard-gradient: var(--dashboard-gradient-dark);
-}
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-1);
+    line-height: var(--font-lineheight-2);
+    min-block-size: 100vh;
+    min-block-size: 100svh;
+    min-block-size: 100dvh;
+    margin-inline: 0;
+    margin-block: 0;
+    padding-inline: 0;
+    padding-block: 0;
 
-:root[data-theme="retro"] {
-  --brand: var(--brand-light);
-  --link: var(--link-light);
-  --link-visited: var(--link-visited-light);
-  --text-1: var(--text-1-light);
-  --text-2: var(--text-2-light);
-  --surface-1: var(--surface-1-light);
-  --surface-2: var(--surface-2-light);
-  --surface-3: var(--surface-3-light);
-  --surface-4: var(--surface-4-light);
-  --form-field-alert-bg: var(--form-field-alert-bg-light);
-  --form-field-alert-tx: var(--form-field-alert-tx-light);
-  --heading-gradient-1: var(--heading-gradient-1-light);
-  --dashboard-gradient: var(--dashboard-gradient-light);
-}
+    background: var(--surface-1);
+    color: var(--text-1);
+  }
 
-body {
-  font-family: var(--font-sans);
-  font-size: var(--font-size-1);
-  line-height: var(--font-lineheight-2);
-  min-block-size: 100vh;
-  min-block-size: 100svh;
-  min-block-size: 100dvh;
-  margin-inline: 0;
-  margin-block: 0;
-  padding-inline: 0;
-  padding-block: 0;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
 
-  background: var(--surface-1);
-  color: var(--text-1);
-}
+  h1 {
+    max-inline-size: var(--size-header-1);
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-}
+  h2 {
+    max-inline-size: var(--size-header-3);
+  }
 
-h1 {
-  max-inline-size: var(--size-header-1);
-}
+  h3,
+  h4,
+  h5,
+  h6 {
+    max-inline-size: var(--size-header-3);
+  }
 
-h2 {
-  max-inline-size: var(--size-header-3);
-}
-
-h3,
-h4,
-h5,
-h6 {
-  max-inline-size: var(--size-header-3);
-}
-
-p {
-  max-inline-size: var(--size-content-3);
-  text-wrap: pretty;
+  p {
+    max-inline-size: var(--size-content-3);
+    text-wrap: pretty;
+  }
 }
