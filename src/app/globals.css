@@ -55,8 +55,6 @@
     --form-field-alert-tx: var(--form-field-alert-tx-dark);
     --heading-gradient-1: var(--heading-gradient-1-dark);
     --dashboard-gradient: var(--dashboard-gradient-dark);
-
-    color-scheme: dark;
   }
 }
 
@@ -75,12 +73,10 @@
     --form-field-alert-tx: var(--form-field-alert-tx-light);
     --heading-gradient-1: var(--heading-gradient-1-light);
     --dashboard-gradient: var(--dashboard-gradient-light);
-
-    color-scheme: light;
   }
 }
 
-:root[color-scheme="dark"] {
+:root[data-theme="coffee"] {
   --brand: var(--brand-dark);
   --link: var(--link-dark);
   --link-visited: var(--link-visited-dark);
@@ -94,11 +90,9 @@
   --form-field-alert-tx: var(--form-field-alert-tx-dark);
   --heading-gradient-1: var(--heading-gradient-1-dark);
   --dashboard-gradient: var(--dashboard-gradient-dark);
-
-  color-scheme: dark;
 }
 
-:root[color-scheme="light"] {
+:root[data-theme="retro"] {
   --brand: var(--brand-light);
   --link: var(--link-light);
   --link-visited: var(--link-visited-light);
@@ -112,8 +106,6 @@
   --form-field-alert-tx: var(--form-field-alert-tx-light);
   --heading-gradient-1: var(--heading-gradient-1-light);
   --dashboard-gradient: var(--dashboard-gradient-light);
-
-  color-scheme: light;
 }
 
 body {

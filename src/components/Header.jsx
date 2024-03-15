@@ -11,6 +11,7 @@ import { Bars4Icon } from "@heroicons/react/24/solid";
 // components
 import CartIndicator from "@/features/cart/components/CartIndicator";
 import SearchPanel from "./SearchPanel";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -33,6 +34,9 @@ export default function Header({ cart }) {
       </div>
       <div className="hidden flex-none lg:block">
         <SearchPanel />
+      </div>
+      <div className="flex-none">
+        <ThemeSwitcher />
       </div>
     </header>
   );

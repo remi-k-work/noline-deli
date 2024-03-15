@@ -1,0 +1,13 @@
+.theme-switcher {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.theme-switcher button {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.theme-switcher svg {
+  max-inline-size: none;
+}
