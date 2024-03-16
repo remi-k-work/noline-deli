@@ -34,7 +34,7 @@ export default function SingleProductView({ product }) {
       ) : (
         <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-96 w-auto rounded-lg object-cover" priority />
       )}
-      <h3 className={clsx(lusitana.className, "text-4xl")}>{name}</h3>
+      <h2 className={clsx(lusitana.className, "text-4xl")}>{name}</h2>
       <BrandTag brand={brand} />
       <p>{description}</p>
       <PriceTag priceInCents={price} />

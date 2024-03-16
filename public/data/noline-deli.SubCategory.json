@@ -1,0 +1,252 @@
+[{
+  "_id": {
+    "$oid": "65da36b1f3d21a8b69d8849c"
+  },
+  "categoryId": {
+    "$oid": "65d9e642b31e9f9d87fedc58"
+  },
+  "name": "Men's Shoes",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T18:34:25.403Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-24T18:37:24.348Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65da36e6f3d21a8b69d884a2"
+  },
+  "categoryId": {
+    "$oid": "65d9e642b31e9f9d87fedc58"
+  },
+  "name": "Women's Shoes",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T18:35:18.057Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-24T18:37:35.867Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65da37a5f3d21a8b69d884b4"
+  },
+  "categoryId": {
+    "$oid": "65d9e77eb31e9f9d87fedc74"
+  },
+  "name": "Classical",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T18:38:29.118Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-24T18:37:42.209Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65da37e9f3d21a8b69d884be"
+  },
+  "categoryId": {
+    "$oid": "65d9e77eb31e9f9d87fedc74"
+  },
+  "name": "Jazz",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T18:39:36.640Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-24T18:39:02.400Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65da384af3d21a8b69d884c8"
+  },
+  "categoryId": {
+    "$oid": "65d9e77eb31e9f9d87fedc74"
+  },
+  "name": "Rock",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T18:41:14.101Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-24T18:40:42.479Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1ae04766da0fa0ce15cee"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Large 200g",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:45:39.918Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:48:12.913Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1ae44766da0fa0ce15cf4"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Small 40g",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:46:43.564Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:48:12.913Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1ae89766da0fa0ce15cfa"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Medium 100g Milk",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:47:53.431Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:48:51.847Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1aef8766da0fa0ce15d06"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Medium 100g Other",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:49:43.621Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:48:57.729Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1af75766da0fa0ce15d0c"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Medium 100g Dark",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:51:49.009Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:51:07.915Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1afb9766da0fa0ce15d12"
+  },
+  "categoryId": {
+    "$oid": "65f1acb6766da0fa0ce15ce7"
+  },
+  "name": "Premium 100-220g",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:52:56.890Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T13:51:54.227Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f442193d5a70bf25adb148"
+  },
+  "categoryId": {
+    "$oid": "65f4415f3d5a70bf25adb141"
+  },
+  "name": "Full Dinner Menu",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T12:42:01.257Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T12:39:21.142Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4428c3d5a70bf25adb14e"
+  },
+  "categoryId": {
+    "$oid": "65f4415f3d5a70bf25adb141"
+  },
+  "name": "Trays",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T12:43:56.213Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T12:42:04.119Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f443023d5a70bf25adb154"
+  },
+  "categoryId": {
+    "$oid": "65f4415f3d5a70bf25adb141"
+  },
+  "name": "Sweet Tables",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T12:45:53.830Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T12:44:02.716Z"
+  }
+}]

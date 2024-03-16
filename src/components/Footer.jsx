@@ -4,10 +4,8 @@ import styles from "./Footer.module.css";
 // next
 import Image from "next/image";
 
-// other libraries
-import clsx from "clsx";
-
 // assets
+import { lusitana } from "@/assets/fonts";
 import logo from "@/assets/logo.svg";
 
 export default function Footer() {
@@ -16,7 +14,7 @@ export default function Footer() {
       <div className="hidden lg:footer">
         <aside>
           <Image src={logo} alt={"Logo"} className="h-14 w-14" />
-          <p>
+          <p className={lusitana.className}>
             NoLine-Deli Ltd.
             <br />
             Taste of Home, Delivered since 1992
@@ -46,7 +44,7 @@ export default function Footer() {
       <div className="footer footer-center lg:hidden">
         <aside className="flex place-items-center gap-4">
           <Image src={logo} alt={"Logo"} className="h-14 w-14" />
-          <p>
+          <p className={lusitana.className}>
             NoLine-Deli Ltd.
             <br />
             Taste of Home, Delivered since 1992

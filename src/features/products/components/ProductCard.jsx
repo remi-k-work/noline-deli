@@ -35,7 +35,7 @@ export default function ProductCard({ product, listMode = false }) {
           <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-72 object-cover" />
         </figure>
         <div className="card-body">
-          <h3 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h3>
+          <h2 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h2>
           <p>{description.substring(0, 250)}...</p>
           <div className="card-actions justify-end">
             <PriceTag priceInCents={price} />
@@ -51,7 +51,7 @@ export default function ProductCard({ product, listMode = false }) {
           <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
         </figure>
         <div className="card-body">
-          <h3 className={clsx(lusitana.className, "card-title text-lg")}>{name}</h3>
+          <h2 className={clsx(lusitana.className, "card-title text-lg")}>{name}</h2>
           <div className="card-actions justify-end">
             <PriceTag priceInCents={price} />
           </div>

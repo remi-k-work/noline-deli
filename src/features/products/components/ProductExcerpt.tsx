@@ -36,7 +36,7 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
         <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
       </Link>
       <div className={clsx(styles["product-excerpt__price"], "z-10")}>{formatPrice(price)}</div>
-      <h3 className={clsx(styles["product-excerpt__name"], "z-10")}>{name}</h3>
+      <h2 className={clsx(styles["product-excerpt__name"], "z-10")}>{name}</h2>
       <div className={clsx(styles["product-excerpt__more-info"], "collapse collapse-plus")}>
         <input type="checkbox" name="moreInfo" />
         <div className="collapse-title text-end text-2xl">

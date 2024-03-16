@@ -53,7 +53,7 @@ export default async function Page({ params: { productId } }) {
 
   return (
     <article className={styles["page"]}>
-      <h2 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {name}</h2>
+      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {name}</h1>
       <SingleProductView product={product} />
     </article>
   );

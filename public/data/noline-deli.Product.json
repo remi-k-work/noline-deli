@@ -1,0 +1,1560 @@
+[{
+  "_id": {
+    "$oid": "65d9e98ab31e9f9d87fedc88"
+  },
+  "name": "Test Product nr 1",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-11T11:34:33.491Z"
+  },
+  "brandId": null,
+  "freeShipping": true
+},
+{
+  "_id": {
+    "$oid": "65d9eb7bb31e9f9d87fedc9e"
+  },
+  "name": "Test Product nr 2",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge. Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T11:01:08.401Z"
+  },
+  "brandId": {
+    "$oid": "65e3056245dcd13d0e946a2d"
+  },
+  "freeShipping": true
+},
+{
+  "_id": {
+    "$oid": "65d9ebbfb31e9f9d87fedca3"
+  },
+  "name": "Test Product nr 3",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T11:01:08.401Z"
+  },
+  "brandId": {
+    "$oid": "65e3058245dcd13d0e946a32"
+  },
+  "freeShipping": true
+},
+{
+  "_id": {
+    "$oid": "65de07d50e7267ccef293dfd"
+  },
+  "name": "Test Product nr 4",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:53:41.262Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de07e20e7267ccef293dfe"
+  },
+  "name": "Test Product nr 5",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:54:07.535Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de07ed0e7267ccef293dff"
+  },
+  "name": "Test Product nr 6",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:54:07.535Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de07f80e7267ccef293e00"
+  },
+  "name": "Test Product nr 7",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08020e7267ccef293e01"
+  },
+  "name": "Test Product nr 8",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de080c0e7267ccef293e02"
+  },
+  "name": "Test Product nr 9",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08210e7267ccef293e03"
+  },
+  "name": "Test Product nr 10",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08290e7267ccef293e04"
+  },
+  "name": "Test Product nr 11",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08320e7267ccef293e05"
+  },
+  "name": "Test Product nr 12",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3056245dcd13d0e946a2d"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de083c0e7267ccef293e06"
+  },
+  "name": "Test Product nr 13",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3056245dcd13d0e946a2d"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08450e7267ccef293e07"
+  },
+  "name": "Test Product nr 14",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3056245dcd13d0e946a2d"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de084e0e7267ccef293e08"
+  },
+  "name": "Test Product nr 15",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3059645dcd13d0e946a37"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08560e7267ccef293e09"
+  },
+  "name": "Test Product nr 16",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3059645dcd13d0e946a37"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de085e0e7267ccef293e0a"
+  },
+  "name": "Test Product nr 17",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3059645dcd13d0e946a37"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08660e7267ccef293e0b"
+  },
+  "name": "Test Product nr 18",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e3059645dcd13d0e946a37"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08750e7267ccef293e0c"
+  },
+  "name": "Test Product nr 19",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e384d552f5d2baebe8eddd"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de087b0e7267ccef293e0d"
+  },
+  "name": "Test Product nr 20",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e384d552f5d2baebe8eddd"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08890e7267ccef293e0e"
+  },
+  "name": "Test Product nr 21",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-09T12:56:34.299Z"
+  },
+  "brandId": {
+    "$oid": "65e384d552f5d2baebe8eddd"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08a30e7267ccef293e0f"
+  },
+  "name": "Test Product nr 21",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08aa0e7267ccef293e10"
+  },
+  "name": "Test Product nr 22",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08b10e7267ccef293e11"
+  },
+  "name": "Test Product nr 23",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08b90e7267ccef293e12"
+  },
+  "name": "Test Product nr 24",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08c10e7267ccef293e13"
+  },
+  "name": "Test Product nr 25",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08ca0e7267ccef293e14"
+  },
+  "name": "Test Product nr 26",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08d20e7267ccef293e15"
+  },
+  "name": "Test Product nr 27",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08d90e7267ccef293e16"
+  },
+  "name": "Test Product nr 28",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08e00e7267ccef293e17"
+  },
+  "name": "Test Product nr 29",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08ea0e7267ccef293e18"
+  },
+  "name": "Test Product nr 30",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-1.jpg",
+  "price": 9999,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:05:14.044Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08f20e7267ccef293e19"
+  },
+  "name": "Test Product nr 31",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-2.jpg",
+  "price": 7595,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:13:31.122Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65de08f90e7267ccef293e1a"
+  },
+  "name": "Test Product nr 32",
+  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge.",
+  "imageUrl": "/test-product-3.jpg",
+  "price": 12995,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-02-24T13:14:39.512Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-02T10:59:29.144Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b0c4766da0fa0ce15d19"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with WW wafer 245g",
+  "description": "Classic WW in the form of a chocolate bar are crunchy and delicious wafers layered with nut filling covered with milk chocolate from Wedel. An ideal companion for small, everyday pleasures which, thanks to its unique form, you can easily share with your loved ones. Cocoa originally comes from tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/e733fb99156f928ed943d12c02c20712d204ff23.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T13:57:24.087Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:32:50.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b3c6766da0fa0ce15d33"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with Tiramisu filling 293g",
+  "description": "Traditional Italian Tiramisu flavor encased in milk Wedel chocolate. A perfect combination for lovers of unique desserts. Literally translated from Italian, the name of the dessert means \"lift my spirits\" or \"cheer me up.\" And it seems that is the case because tiramisu is a dream come true for many chocoholics.",
+  "imageUrl": "/ebe22642d888b98681fc9e2586b7bb748c6dd88d.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T14:10:14.418Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:32:50.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b5db766da0fa0ce15d48"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with Crème Brûlée filling 289g",
+  "description": "Milk chocolate coating with creamy vanilla Crème Brûlée filling. perfect for those who are looking for an extra chocolate experience. The first recipe for crème brûlée was published in 1961. We're not entirely sure who invented this now-iconic dessert. The British, French, and Spanish are all contending. But the fact is that the first written-down recipe comes from a cookbook by French chef François Massialot.",
+  "imageUrl": "/325101ee3399faef6eacdc4e5b06dc2464eb8524.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T14:19:07.192Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:32:50.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b6f1766da0fa0ce15d5d"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with Panna Cotta filling 287g",
+  "description": "Milk chocolate with a soft, creamy filling and fruit mousse inspired by a northern Italian dessert, Panna Cotta. Panna Cotta was originally square. The original recipe comes from Piedmont and was most likely created early in the last century. It is said to have been invented by a Hungarian woman living in Italy. The dessert was square or rectangular in shape, and over time it began to be prepared in round molds.",
+  "imageUrl": "/e58cea7d3e8fc1eec97f60f37863496d87e750bc.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T14:23:45.040Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:21:08.308Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b878766da0fa0ce15d72"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with Brownie filling 290g",
+  "description": "The most famous American dessert and the most famous Polish chocolate are perfect for all who are looking for an extra chocolate experience. The intense taste of a brownie softened with velvety milky Wedel chocolate provides a great moment of pleasure in American style. A brownie is an intense-flavor cake with dark chocolate. The special moist texture of this treat is the result of a happy mistake. One time, its accidental inventor, the American Mildred Schrumpf, forgot to add baking powder.",
+  "imageUrl": "/b1e1b4477c56bb92fe2083e5a666b8c1cabfc38c.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T14:30:16.261Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:32:50.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1b9c8766da0fa0ce15d8b"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with “Bajeczny” filling 290g",
+  "description": "“Bajeczny” in a chocolate bar? A dreamy and creamy nutty filling with wafer chunks is a temptation you won’t resist. Every minute, the E. Wedel factory produces approximately 500 chocolate bars.",
+  "imageUrl": "/99cec19e8c3751e21a83ac3a750462169221245e.png",
+  "price": 1095,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T14:35:51.783Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T14:33:45.345Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f2f732fa8a1e4d21f027"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Classic milk chocolate 40g",
+  "description": "A unique chocolate recipe in a smaller, more convenient format. Wedel—the highest quality and best flavor known for generations. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+  "imageUrl": "/46dadf524ff2a54bdddc66e50a6968657b981619.png",
+  "price": 1299,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T18:39:51.171Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T18:36:52.391Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f46832fa8a1e4d21f03c"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Milk chocolate with hazelnuts 40g",
+  "description": "Original Wedel chocolate with chopped hazelnuts in a smaller, more convenient format. An absolute classic among sweets. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/93b70eeae90be27d3ba12193186b84795f6c4b04.png",
+  "price": 1299,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T18:45:59.761Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T18:43:34.909Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f5b532fa8a1e4d21f051"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Mild dark chocolate 50% cocoa 40g",
+  "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste in a smaller, more convenient format. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/96c6707f31e1d8a4b7e60bf507424e552fdf676a.png",
+  "price": 1299,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T18:51:32.896Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T18:49:17.260Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f72a32fa8a1e4d21f067"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Snack So Salty Milk chocolate with salty crispy cereals 85g",
+  "description": "Milk chocolate with salty crisps is the perfect solution for lovers of extreme combinations—in this case, salty and sweet. Wedel’s smooth milk classic chocolate, enhanced with salty, crunchy additives, creates a new, surprising combination that is hard to break away from. The history of chocolate is nearly 4,000 years old, with its origins in ancient Mesoamerica.",
+  "imageUrl": "/c33cd08676bcbddcca01b185917aa8c09a9bda3c.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T18:57:45.905Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T18:54:46.542Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f88f32fa8a1e4d21f07c"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Snack Fizzy Cola Cola flavour milk chocolate with popping Candy 90g",
+  "description": "The combination of the refreshing taste of cola with Wedel’s milk classic chocolate and an unexpected shooting addition makes each cube full of excitement and surprise. Delight in the intense taste while simultaneously experiencing the unforgettable effect of popping candy sugar on your palate. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+  "imageUrl": "/f0040c9713432db4c2520a1a801fc5ac617e9f2f.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:03:42.993Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:00:59.628Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1f9f032fa8a1e4d21f091"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Snack So Sour Milk chocolate with sour lemon filling 100g",
+  "description": "Our milk chocolate stuffed with extra-sour lemon filling is a combination of velvety milk chocolate with an intense and refreshing taste of lemon. Indulge in this unique combination of sweetness and acidity that will enliven your palate and emphasize the variety of flavors. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/ebaf13bb04ee8c7218d06ef6273df91e99555929.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:09:36.254Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:07:10.593Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1fb4632fa8a1e4d21f0a7"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Snack Pop-Corn Milk chocolate with pop-corn 90g",
+  "description": "Popcorn-flavored milk chocolate with crisps is one of Wedel’s latest innovations. It offers a delightful fusion of classic Wedel milk chocolate with a hint of popcorn and saliness, inspired by the young ones' favorite snacks. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+  "imageUrl": "/86ed7cd1705829e393c871e9fe02be755c8cdc1e.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:15:17.643Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:13:16.652Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1fc7732fa8a1e4d21f0bc"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Snack Bubble Gum Milk chocolate with buble gum flavour jellies 90g",
+  "description": "Discover milk chocolate with bubble gum flavor—a combination of sweet milk chocolate with a cheerful touch of bubble gum. This chocolate has a perfect creamy texture and intense flavor that will take you to the carefree world of childhood. Immerse yourself in the pleasure of chocolate delight and enliven your palate with this unique flavor composition. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+  "imageUrl": "/a13066a31f9082dbac3c3c4f3fe8c5c942b26775.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:20:23.344Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:17:49.628Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f1ffc732fa8a1e4d21f0d6"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Extra milk chocolate 80g",
+  "description": "Continuing Wedel’s tradition of chocolate manufacture, we created the new extra milk chocolate. It has a smooth, delicate texture that melts in your mouth. Its balanced chocolate-milk flavor will enliven your taste buds. See if you like it as much as we do! The French word “bonbon” means sweet. In the 18th century, the custom of storing candies in small, decorative containers—then usually made of ceramics or faience—spread from France to other European countries.",
+  "imageUrl": "/8f04d07b14b8ad3a1551ea3af3a1d7a22d522944.png",
+  "price": 1495,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:34:31.096Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:32:20.373Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f200d232fa8a1e4d21f0eb"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "White chocolate 80g",
+  "description": "Stands out not only with color but also with taste. It’s delicious. Especially appreciated by those with a severe case of sweet tooth. In the last week of October, as many as 40,000 tons of chocolate were sold! To give you a comparison: 21,000 metric tons of sweets are sold in the week preceding St. Valentine’s Day! But why such a huge demand for chocolate treats at the end of October? The reason is the increasingly popular Halloween and the “trick-or-treat” tradition.",
+  "imageUrl": "/49d240e43929a79977129075cafa679ec897ff15.png",
+  "price": 1525,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:38:58.035Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:36:31.411Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f201c532fa8a1e4d21f100"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Caramel white chocolate 80g",
+  "description": "First in Poland, solid white caramel chocolate. The secret of Karmellove lies in chocolate of the highest quality with an intense caramel flavor packed in a crispy bar. Until recently, there were only three types of chocolate: dark, white, and milk. However, E. Wedel has created white caramel chocolate, a kind of chocolate with an unusual taste and color. Its taste and aroma result, among others, from the caramelization of milk and sugar.",
+  "imageUrl": "/59fa56a629004ecc081cd3a739341eb7f82ad472.png",
+  "price": 1525,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:43:00.816Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:40:43.101Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f202db32fa8a1e4d21f115"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Mild dark chocolate 50% cocoa 90g",
+  "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/e4fe7d6614374328808c8b692bc9b5909f514f0f.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:47:39.355Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:45:43.699Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f203c632fa8a1e4d21f129"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Dark chocolate 64% cocoa content 90g",
+  "description": "What gives Wedel chocolate its strong taste? Cocoa is from Ghana. This is what makes Wedel chocolate extremely flavorful. It’s a bestseller in Poland and a must-eat for every chocolate fan. “Adventures of Maciuś or the Chocolate Victory by Wedel” was a children’s book published before the war. It told the story of a boy sitting on a zebra and his adventures in Africa. The book featured coloring pictures and drawings by K. Mackiewicz.",
+  "imageUrl": "/1e192bcf135544619b6633c475f609da93d2314b.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:51:33.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:49:10.139Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f2047d32fa8a1e4d21f13e"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Extra dark chocolate 80% 80g",
+  "description": "The most intense dark chocolate in the Wedel product range, created for those who look for sophisticated delight.",
+  "imageUrl": "/4777fbb8f8144e4ff9f27fd1d1d066da6ab58036.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:54:36.955Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:52:48.375Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f2054632fa8a1e4d21f152"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Dark chocolate with raspberries and wafer flakes 80g",
+  "description": "Original Wedel dark chocolate bar with raspberries and wafer pieces. The dry taste is balanced with the intensity of the additions, thanks to which the bar gains its uniqueness. Wedel's logo with the zebra was created in 1926. It was designed by Leonetto Capiello, an Italian poster artist who worked mainly in Paris. The artist created posters for brands such as Pirelli and Campari. His distinctive style put Wedel on the top shelf of European design at that time.",
+  "imageUrl": "/6718fd287c4ed997846f75f009fd2865c15888bd.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T19:57:57.679Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:56:05.809Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f2062332fa8a1e4d21f167"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Dark chocolate with hazelnuts and peanuts 90g",
+  "description": "Dark chocolate with hazelnuts is a classic taste in a new version. Pleasantly melting dark chocolate with hazelnut will make every moment of pleasure even more enjoyable. See if you like it! The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
+  "imageUrl": "/79ed95ed832488124037e6fbcea87d240a812fef.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:01:39.041Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T19:59:39.273Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f206d832fa8a1e4d21f17c"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Dark chocolate with strawberry filling 100g",
+  "description": "All strawberry lovers will definitely be pleased. The very well-known and liked strawberry filling is now available in dark chocolate. This is a proposal for those who are looking for a fresh and fruity taste with a perfectly balanced, deep taste in dark chocolate. In the 17th century, King Louis XIV of France ordered the crossing of two wild strawberry varieties. As a result, the strawberries we know today were created. We have to admit it turned out really delicious!",
+  "imageUrl": "/b1a10fd91ca8bf92a739b137db9742b2353687c6.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:04:40.049Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:03:01.616Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f2079d32fa8a1e4d21f192"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Dark chocolate with coconut filling 100g",
+  "description": "Coconut delight fills every square of dark Wedel chocolate. Is there anything more one can crave? E. Wedel became a partner of the European Football Championships in 2012. For this occasion, 400 kg of chocolate were used to create a chocolate sculpture of the National Stadium as well as chocolate replicas of the winning cup.",
+  "imageUrl": "/fab370aea9c203702f303e8de713ea21942f1a48.png",
+  "price": 1699,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:07:56.759Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:06:22.917Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f2087d32fa8a1e4d21f1a7"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Premium dark chocolate with Red Currant",
+  "description": "A unique combination of intense Wedel dark chocolate with sour red currant is an ideal proposition for lovers of original flavors. In the form of a thin chocolate bar packed in an elegant cardboard box, perfect for a gift. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+  "imageUrl": "/06fecdf892754c27fe07c641e3aae01c344564c7.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:11:40.639Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:13:24.027Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f20a5a32fa8a1e4d21f1bf"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Premium extra dark chocolate 80% cocoa",
+  "description": "Savory chocolate with 80% Ghanaian cocoa content in a thin chocolate bar packed in an elegant cardboard box. In Belgium, as many as 17,000 people are involved in chocolate manufacturing. And it is this country that is considered the kingdom of chocolate. Belgians produce more than 170,000 tons of chocolate each year and eat more than 70,000 tons.",
+  "imageUrl": "/f3edeccca5fb1d5ab42276c249234d16bb3118ac.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:19:37.867Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:17:38.498Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f20b5032fa8a1e4d21f1d4"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Premium dark chocolate with Hazelnuts & Salty Caramel",
+  "description": "Excellent dark chocolate with caramelized hazelnuts and salted caramel chunks in a special thin bar packed in an elegant cardboard box. The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
+  "imageUrl": "/364a190e998b674fedf6b79ad127b63982e9d364.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:23:44.303Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:22:00.542Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f20c0a32fa8a1e4d21f1ea"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "Premium dark chocolate with Orange",
+  "description": "A perfect combination of Wedel dark chocolate with orange chunks in a special thin bar packed in an elegant cardboard box. The word \"chocolate\" is derived from the Aztec \"Xocolatl,\"  meaning \"bitter water.\" Why did the Aztecs not associate chocolate with sweetness? Most likely because they drank a brew of cocoa beans to which they added corn and chili peppers.",
+  "imageUrl": "/a30791c25d18fac5dcdd752994dcc156a3a1d963.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:26:49.748Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:28:19.815Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f20d1d32fa8a1e4d21f202"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "“Jedyna” Chocolate 100g",
+  "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor ‘Czekolada Jedyna’ is a product invented by Jan Wedel, whose packaging was designed by the famous illustrator Karol Śliwka. It is worth noting that this chocolate is still produced and available in the same design.",
+  "imageUrl": "/a8afd855ea490d16bc572717900111742b9c525b.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:31:24.794Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:29:25.119Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f20e2332fa8a1e4d21f217"
+  },
+  "brandId": {
+    "$oid": "65e3054845dcd13d0e946a28"
+  },
+  "name": "“Jedyna” Chocolate 220g",
+  "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor in an elegant cardboard box is perfect for a gift. After taking over the factory from his father, Emil Wedel modernized production and expanded the product portfolio with more chocolate delicacies. The confectionery success of the company was so great that Wedel products started to be counterfeited. Emil Wedel then decided that each chocolate bar would be marked with his signature. Over time, this mark grew so close to the brand that Emil Wedel's signature can still be found on Wedel products to this day.",
+  "imageUrl": "/2d1dbe30d7666c8a53cc861cae41286a15a56787.png",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-13T20:35:47.236Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-13T20:34:02.258Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f44c483d5a70bf25adb170"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Pork tenderloin rolled in bacon with honey-mustard sauce",
+  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+  "imageUrl": "/28.porktenderloin_wrapped_withbacon.jpg",
+  "price": 5000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T13:25:27.927Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T13:26:58.785Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f44fe73d5a70bf25adb196"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Stuffed cabbage with tomato sauce",
+  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+  "imageUrl": "/16.golabki_z_sosem.jpg",
+  "price": 5000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T13:40:54.871Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T13:39:14.609Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f451473d5a70bf25adb1b8"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Roasted pork ribs in bbq sauce",
+  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+  "imageUrl": "/27.pork_ribs.jpg",
+  "price": 5000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T13:46:47.052Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T13:45:06.101Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4529c3d5a70bf25adb1e0"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Meat balls with mushroom sauce",
+  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+  "imageUrl": "/26.pork_meatballs.jpg",
+  "price": 5000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T13:52:27.932Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T13:50:40.527Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f454743d5a70bf25adb201"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Cheese Tray",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/Sery2_str-1-edit.png",
+  "price": 6000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T14:00:19.743Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T14:14:28.787Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f456e73d5a70bf25adb226"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Country Board with Peasant Food",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/Deska-80-edit.png",
+  "price": 9000,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T14:10:47.204Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T14:08:47.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4baab336fe22f703207de"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Pastry Tray",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/montrose-1-1024x1024-edit.png",
+  "price": 4500,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T21:16:26.593Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T21:14:15.616Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4bce1336fe22f70320804"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Bread Tray",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/mae-mu-8GzmzEyLNyc-unsplash.jpg",
+  "price": 1999,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T21:25:52.574Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T21:20:38.395Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4be7a336fe22f70320826"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Meat and Cheese Tray",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/montrose-3-1024x1024-edit.png",
+  "price": 5500,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T21:32:42.179Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T21:30:42.877Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4bf87336fe22f70320848"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Fruit Tray",
+  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+  "imageUrl": "/Owoce2_str-edit.png",
+  "price": 4995,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T21:37:10.935Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T21:35:53.133Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "65f4c1c4336fe22f7032086c"
+  },
+  "brandId": {
+    "$oid": "65f446d33d5a70bf25adb168"
+  },
+  "name": "Sweet Variety 1",
+  "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
+  "imageUrl": "/IMG_9736-1-1024x768.jpg",
+  "price": 5595,
+  "freeShipping": false,
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-15T21:46:43.967Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-15T21:48:24.010Z"
+  }
+}]

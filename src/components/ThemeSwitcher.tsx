@@ -35,7 +35,7 @@ export default function ThemeSwitcher() {
 
   return (
     <section className={styles["theme-switcher"]}>
-      <button type="button" onClick={() => setTheme(theme === lightThemeAlias ? darkThemeAlias : lightThemeAlias)}>
+      <button type="button" onClick={() => setTheme(theme === lightThemeAlias ? darkThemeAlias : lightThemeAlias)} className="btn btn-square btn-ghost">
         {theme === darkThemeAlias ? <SunIcon width={24} height={24} /> : <MoonIcon width={24} height={24} />}
       </button>
     </section>

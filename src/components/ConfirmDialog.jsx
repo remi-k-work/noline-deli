@@ -17,12 +17,12 @@ const ConfirmDialog = forwardRef(({ message, onConfirmed }, ref) => {
   return (
     <dialog ref={ref} className={clsx(styles["confirm-dialog"], "modal")}>
       <div className="modal-box p-0">
-        <h3
+        <h2
           className={clsx(lusitana.className, styles["confirm-dialog__title-bar"], "bg-gradient-to-r from-primary to-secondary text-xl font-bold text-neutral")}
         >
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
-        </h3>
+        </h2>
         <p className="py-4">{message}</p>
         <div className="modal-action">
           <form method="dialog">

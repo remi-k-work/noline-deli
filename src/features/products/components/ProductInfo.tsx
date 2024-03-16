@@ -38,7 +38,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <tbody>
         <tr>
           <td className="text-start">
-            <h3>{name}</h3>
+            <h2>{name}</h2>
           </td>
           <td className="text-end">
             <PriceTag priceInCents={price} />

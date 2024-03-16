@@ -24,7 +24,7 @@ export default async function Page() {
 
   return (
     <article className={styles["page"]}>
-      <h2 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Your Shopping Cart</h2>
+      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Your Shopping Cart</h1>
       {cart && cart.cartItems.length > 0 ? <CartTableView cart={cart} /> : <NotFound message={"Your cart is empty!"} />}
     </article>
   );
