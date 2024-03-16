@@ -27,6 +27,7 @@ import Footer from "@/components/Footer";
 import { inter } from "@/assets/fonts";
 
 export const metadata = {
+  metadataBase: new URL(process.env.WEBSITE_URL),
   title: "NoLine-Deli",
   description:
     "NoLine-Deli: Your European deli delivered! Enjoy fresh, organic, high-quality European foods at home, no matter where you are in the US. Find Polish favorites like pierogi & kielbasa, plus breads, coffees, desserts & more. We cater to individual needs & welcome your suggestions!",
