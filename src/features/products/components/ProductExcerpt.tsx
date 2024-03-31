@@ -5,6 +5,9 @@ import styles from "./ProductExcerpt.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+// prisma and db access
+import { Prisma } from "@prisma/client";
+
 // other libraries
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
@@ -15,7 +18,11 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import ProductInfo from "./ProductInfo";
 
 // types
-import { ProductExcerptProps } from "../../../../types";
+interface ProductExcerptProps {
+  product: Prisma.ProductGetPayload<{
+    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
+  }>;
+}
 
 export default function ProductExcerpt({ product }: ProductExcerptProps) {
   // Ensure the product exists

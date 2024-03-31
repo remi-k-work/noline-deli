@@ -3,9 +3,9 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 
 // Pretend it is hitting the network
 export async function waait() {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     setTimeout(() => {
-      resolve(undefined);
+      resolve();
     }, 3000);
   });
 }

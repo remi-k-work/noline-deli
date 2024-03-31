@@ -5,12 +5,16 @@ import styles from "./BrandPreview.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+// prisma and db access
+import { Brand } from "@prisma/client";
+
 // other libraries
-import clsx from "clsx";
 import { routeToBrandLogo, routeToAllProductsByBrand } from "@/features/products/helpers";
 
 // types
-import { BrandPreviewProps } from "../../../../types";
+interface BrandPreviewProps {
+  brand: Brand | null;
+}
 
 export default function BrandPreview({ brand }: BrandPreviewProps) {
   // Ensure the brand exists

@@ -16,22 +16,27 @@ import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import { routeCarrySearchParams } from "@/lib/helpers";
 import { pathToProductsSearch } from "@/features/products/helpers";
 
-export default function SearchPanel() {
+// types
+interface SearchPanelProps {
+  drawerToHide?: string;
+}
+
+export default function SearchPanel({ drawerToHide }: SearchPanelProps) {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const searchRef = useRef(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   // If feasible, load the default values for the search panel from the search params
   const defKeyword = searchParams.get("keyword") ?? "";
 
   useEffect(() => {
     // Keep the keyword state in sync with search params
-    const search = searchRef.current;
+    const search = searchRef.current!;
     search.value = defKeyword;
   }, [defKeyword]);
 
   const handleSearch = useDebouncedCallback(
-    (keyword) => replace(routeCarrySearchParams(pathToProductsSearch, searchParams, ["page"], [["keyword", keyword]])),
+    (keyword: string) => replace(routeCarrySearchParams(pathToProductsSearch, searchParams, ["page"], [["keyword", keyword]])),
     600,
   );
 
@@ -49,7 +54,15 @@ export default function SearchPanel() {
         defaultValue={defKeyword}
         onChange={(ev) => handleSearch(ev.target.value)}
       />
-      <MagnifyingGlassCircleIcon width={24} height={24} />
+
+      {drawerToHide ? (
+        // Provide an option to automatically conceal the drawer if this search panel is located inside one
+        <button type="button" className="btn btn-primary" onClick={() => ((document.getElementById(drawerToHide) as HTMLInputElement).checked = false)}>
+          <MagnifyingGlassCircleIcon width={24} height={24} />
+        </button>
+      ) : (
+        <MagnifyingGlassCircleIcon width={24} height={24} />
+      )}
     </label>
   );
 }

@@ -10,12 +10,10 @@ export default function NavBar({ categories, productFilterData }) {
   return (
     <nav className={styles["navbar"]}>
       <div className="lg:hidden">
-        <SearchPanel />
-        <br />
+        <SearchPanel drawerToHide={"navBar"} />
       </div>
-      <CategoriesTreeView categories={categories} />
-      <br />
       <ProductFilter {...productFilterData} />
+      <CategoriesTreeView categories={categories} />
     </nav>
   );
 }

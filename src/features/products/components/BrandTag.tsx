@@ -5,12 +5,18 @@ import styles from "./BrandTag.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+// prisma and db access
+import { Brand } from "@prisma/client";
+
 // other libraries
 import clsx from "clsx";
 import { routeToBrandLogo, routeToAllProductsByBrand } from "@/features/products/helpers";
 
 // types
-import { BrandTagProps } from "../../../../types";
+interface BrandTagProps {
+  brand: Brand | null;
+  isCompact?: boolean;
+}
 
 export default function BrandTag({ brand, isCompact = false }: BrandTagProps) {
   // Ensure the brand exists

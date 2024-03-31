@@ -1,6 +1,10 @@
 .navbar {
-  background: var(--surface-2);
   min-block-size: 100vh;
   min-block-size: 100svh;
   min-block-size: 100dvh;
+
+  background: var(--surface-2);
+
+  display: flex;
+  flex-direction: column;
 }

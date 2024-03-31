@@ -11,6 +11,14 @@
   text-align: center;
 }
 
+.product-info th {
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+
+  background: var(--surface-3);
+  color: var(--text-2);
+}
+
 .product-info thead th:nth-child(1) {
   inline-size: 50%;
   text-align: start;
@@ -21,17 +29,9 @@
   text-align: end;
 }
 
-.product-info th {
-  padding-inline: var(--size-2);
-  padding-block: var(--size-2);
-
-  background: var(--surface-3);
-  color: var(--text-2);
-}
-
 .product-info td {
-  padding-inline: var(--size-2);
-  padding-block: var(--size-2);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
 }
 
 .product-info tr:nth-child(even) td,

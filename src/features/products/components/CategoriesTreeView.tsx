@@ -7,16 +7,50 @@ import styles from "./CategoriesTreeView.module.css";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
+// prisma and db access
+import { Prisma } from "@prisma/client";
+
 // other libraries
 import clsx from "clsx";
 import { routeCarrySearchParams } from "@/lib/helpers";
-import { getCategoriesTreeViewData } from "@/features/products/helpers";
+import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
 // types
-import { CategoriesItemProps, CategoriesListProps } from "../../../../types";
+type CategoriesTreeViewInputData = Prisma.CategoryGetPayload<{ include: { subCategories: true } }>;
+
+interface CategoriesTreeViewCategory {
+  label: string;
+  href: string;
+  subCategories?: CategoriesTreeViewCategory[];
+}
+
+interface CategoriesListProps {
+  categoriesList: CategoriesTreeViewCategory[];
+}
+
+interface CategoriesItemProps {
+  categoriesItem: CategoriesTreeViewCategory;
+}
+
+// Create a product category tree in the format that is needed by the categories tree view component
+// [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]
+function getCategoriesTreeViewData(categories: CategoriesTreeViewInputData[]): CategoriesTreeViewCategory[] {
+  const productCategories: CategoriesTreeViewCategory[] = [];
+  for (const { id: categoryId, name: categoryName, subCategories } of categories) {
+    productCategories.push({ label: categoryName, href: routeToProductsByCategory(categoryName, categoryId), subCategories: [] });
+    for (const { id: subCategoryId, name: subCategoryName } of subCategories) {
+      productCategories.at(-1)?.subCategories?.push({
+        label: subCategoryName,
+        href: routeToProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId),
+        subCategories: [],
+      });
+    }
+  }
+  return [{ label: "All Products", href: routeToAllProducts, subCategories: productCategories }];
+}
 
 export default function CategoriesTreeView({ categories = [] }) {
   if (categories.length === 0) {

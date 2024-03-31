@@ -4,6 +4,9 @@ import styles from "./ProductInfo.module.css";
 // next
 import Image from "next/image";
 
+// prisma and db access
+import { Prisma } from "@prisma/client";
+
 // other libraries
 import clsx from "clsx";
 import { routeToProductImage } from "@/features/products/helpers";
@@ -16,7 +19,11 @@ import BrandTag from "./BrandTag";
 import { lusitana } from "@/assets/fonts";
 
 // types
-import { ProductInfoProps } from "../../../../types";
+interface ProductInfoProps {
+  product: Prisma.ProductGetPayload<{
+    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
+  }>;
+}
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   // Ensure the product exists
