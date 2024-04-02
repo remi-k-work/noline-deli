@@ -5,15 +5,15 @@ import styles from "./CategoriesTreeView.module.css";
 
 // next
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
 
 // other libraries
 import clsx from "clsx";
-import { routeCarrySearchParams } from "@/lib/helpers";
 import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
+import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -81,8 +81,8 @@ function CategoriesList({ categoriesList = [] }: CategoriesListProps) {
 
 function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
   // Make sure to carry over currently used search params (product filter, viewing settings)
+  const searchParamsState = useSearchParamsState();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   // Ensure the categories item exists
   if (!categoriesItem) {
@@ -100,7 +100,7 @@ function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
             {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
             {/* Also auto-hide the drawer after the user makes the selection */}
             <Link
-              href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}
+              href={searchParamsState.movedToNewLocation(href)}
               onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
               className={clsx({ "font-bold text-accent": pathname === href })}
             >
@@ -114,7 +114,7 @@ function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
           {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
           {/* Also auto-hide the drawer after the user makes the selection */}
           <Link
-            href={routeCarrySearchParams(href, searchParams, ["page", "keyword"])}
+            href={searchParamsState.movedToNewLocation(href)}
             onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
             className={clsx({ "font-bold text-accent": pathname === href })}
           >

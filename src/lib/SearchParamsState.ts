@@ -42,6 +42,23 @@ export default class SearchParamsState {
     private readonly byPriceBelowMax?: number,
   ) {}
 
+  // When moving to a new location, reset the pagination position and do not carry any state from the search mode
+  movedToNewLocation(newLocationHref: string) {
+    this.resetPagination();
+    this.removeSearchMode();
+
+    return this.getHrefWithParams(newLocationHref);
+  }
+
+  paginationChanged(newCurrentPage: number) {
+    const paramsToSet: [SearchParamName, string][] = [];
+    paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
+
+    this.updateParams(undefined, paramsToSet);
+
+    return this.hrefWithParams;
+  }
+
   searchPanelChanged(newKeyword: string) {
     const paramsToSet: [SearchParamName, string][] = [];
     paramsToSet.push([SearchParamName.keyword, newKeyword]);
@@ -98,12 +115,23 @@ export default class SearchParamsState {
   // Carry over currently used search params alongside the provided pathname
   get hrefWithParams() {
     // When there are no search params present, do not include the unnecessary "?" in the final url
-    return this.params.toString() ? `${this.pathname}?${this.params.toString()}` : `${this.pathname}`;
+    return this.getHrefWithParams(this.pathname);
+  }
+
+  // Carry over currently used search params alongside the provided pathname
+  private getHrefWithParams(pathname: string) {
+    // When there are no search params present, do not include the unnecessary "?" in the final url
+    return this.params.toString() ? `${pathname}?${this.params.toString()}` : `${pathname}`;
   }
 
   // Reset the pagination position
   private resetPagination() {
     this.updateParams([SearchParamName.currentPage]);
+  }
+
+  // Remove all state from the search mode
+  private removeSearchMode() {
+    this.updateParams([SearchParamName.keyword]);
   }
 
   // Update search params that maintain the current state that is kept in the current url

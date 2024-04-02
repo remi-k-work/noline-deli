@@ -5,16 +5,14 @@ import styles from "./Paginate.module.css";
 
 // next
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 
 // other libraries
 import clsx from "clsx";
-import { routeCarrySearchParams } from "@/lib/helpers";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
+import useSearchParamsState from "@/lib/useSearchParamsState";
 
 export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParamsState = useSearchParamsState();
 
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
   const nextPageNumber = currentPage !== Math.ceil(totalItems / itemsPerPage) ? currentPage + 1 : currentPage;
@@ -25,8 +23,8 @@ export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
   }
 
   // Create href urls that respect the current pathname and previously used search params
-  const prevPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", prevPageNumber]]);
-  const nextPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", nextPageNumber]]);
+  const prevPageHref = searchParamsState.paginationChanged(prevPageNumber);
+  const nextPageHref = searchParamsState.paginationChanged(nextPageNumber);
 
   return (
     // Do not render anything if there are no items to display
@@ -37,7 +35,7 @@ export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
         </Link>
         <div className={styles["paginate__pages"]}>
           {pageNumbers.map((pageNumber) => {
-            const currPageHref = routeCarrySearchParams(pathname, searchParams, undefined, [["page", pageNumber]]);
+            const currPageHref = searchParamsState.paginationChanged(pageNumber);
 
             return pageNumber === currentPage ? (
               <span key={pageNumber} className={clsx(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
