@@ -11,12 +11,33 @@ import clsx from "clsx";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { routeToCart } from "@/features/cart/helpers";
+import { routeToAllProducts } from "@/features/products/helpers";
 
 export default function CartIndicator({ cart }) {
   // Ensure the cart exists
-  if (!cart) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
+  if (!cart || (cart && cart.cartItems.length === 0)) {
+    // If the cart is not there, display the empty cart indicator nonetheless
+    return (
+      <div className={clsx(styles["cart-indicator"], "dropdown dropdown-end")}>
+        <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+          <div className="indicator">
+            <ShoppingCartIcon width={24} height={24} />
+            <span className="badge indicator-item badge-sm">0</span>
+          </div>
+        </div>
+        <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-52 bg-base-100 shadow">
+          <div className="card-body">
+            <span className="text-lg font-bold">Your cart is empty!</span>
+            <span className="text-info">Subtotal: {formatPrice(0)}</span>
+            <div className="card-actions">
+              <Link href={routeToAllProducts} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
+                Keep Shopping
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const { totalQty, subTotal } = cart;
