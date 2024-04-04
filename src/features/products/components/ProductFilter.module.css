@@ -31,3 +31,7 @@
   font-weight: var(--font-weight-9);
   text-transform: uppercase;
 }
+
+.product-filter-indicator {
+  color: inherit;
+}

@@ -9,11 +9,12 @@ import clsx from "clsx";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // components
+import ProductFilter from "@/features/products/components/ProductFilter";
 import CartIndicator from "@/features/cart/components/CartIndicator";
 import SearchPanel from "./SearchPanel";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-export default function Header({ cart }) {
+export default function Header({ cart, productFilterData }) {
   return (
     <header className={clsx(styles["header"], "navbar z-30 flex-wrap gap-4")}>
       <div className="flex-1">
@@ -29,6 +30,9 @@ export default function Header({ cart }) {
       </div>
       <div className="hidden flex-none lg:block">
         <SearchPanel />
+      </div>
+      <div className="flex-none">
+        <ProductFilter {...productFilterData} isIndicator={true} />
       </div>
       <div className="flex-none">
         <CartIndicator cart={cart} />

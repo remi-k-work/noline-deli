@@ -10,6 +10,7 @@ import { Prisma } from "@prisma/client";
 // other libraries
 import clsx from "clsx";
 import { routeToProductImage } from "@/features/products/helpers";
+import { TruckIcon } from "@heroicons/react/24/solid";
 
 // components
 import PriceTag from "./PriceTag";
@@ -111,6 +112,21 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             <p>{description}</p>
           </td>
         </tr>
+        {freeShipping && (
+          <>
+            <tr className={clsx(lusitana.className)}>
+              <th colSpan={2}>Other Info</th>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <span className="flex items-center justify-center gap-2 p-3 text-info">
+                  <TruckIcon width={24} height={24} />
+                  Free Shipping
+                </span>
+              </td>
+            </tr>
+          </>
+        )}
       </tbody>
     </table>
   );

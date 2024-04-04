@@ -27,12 +27,11 @@ export default function CartIndicator({ cart }) {
         </div>
         <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-52 bg-base-100 shadow">
           <div className="card-body">
-            <span className="text-lg font-bold">Your cart is empty!</span>
-            <span className="text-info">Subtotal: {formatPrice(0)}</span>
+            <span className="text-center text-lg font-bold">Your cart is empty!</span>
             <div className="card-actions">
-              <Link href={routeToAllProducts} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
+              <button type="button" className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
                 Keep Shopping
-              </Link>
+              </button>
             </div>
           </div>
         </div>

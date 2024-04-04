@@ -44,7 +44,7 @@ export default async function Layout({ children }) {
           <input id="navBar" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <div className={styles["layout"]}>
-              <Header cart={cart} />
+              <Header cart={cart} productFilterData={productFilterData} />
               <main className={styles["main"]}>{children}</main>
               <Footer />
             </div>

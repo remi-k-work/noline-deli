@@ -1,6 +1,12 @@
 // next
 import { ReadonlyURLSearchParams } from "next/navigation";
 
+// prisma and db access
+import { Brand } from "@prisma/client";
+
+// other libraries
+import { formatPrice } from "@/lib/helpers";
+
 // types
 enum SearchParamName {
   keyword = "keyword",
@@ -11,6 +17,12 @@ enum SearchParamName {
   sortByField = "sort_by_field",
   sortByOrder = "sort_by_order",
   currentPage = "page",
+}
+
+interface AppliedFilter {
+  paramName: SearchParamName;
+  paramValue: string;
+  description: string;
 }
 
 export default class SearchParamsState {
@@ -40,6 +52,7 @@ export default class SearchParamsState {
     private readonly pathname: string,
     private readonly searchParams: ReadonlyURLSearchParams,
     private readonly byPriceBelowMax?: number,
+    private readonly byBrandList?: Brand[],
   ) {}
 
   // When moving to a new location, reset the pagination position and do not carry any state from the search mode
@@ -104,12 +117,49 @@ export default class SearchParamsState {
     return this.hrefWithParams;
   }
 
+  // Remove only the particular product filter; also reset the pagination position
+  productFilterRemoved(paramName: SearchParamName) {
+    this.updateParams([paramName]);
+    this.resetPagination();
+
+    return this.hrefWithParams;
+  }
+
   // Remove all the filters; also reset the pagination position
   productFilterCleared() {
     this.updateParams([SearchParamName.byBrandId, SearchParamName.byPriceBelow, SearchParamName.byFreeShipping]);
     this.resetPagination();
 
     return this.hrefWithParams;
+  }
+
+  // Get the number indicator of all product filters that are being applied
+  get numberOfProductFilters() {
+    let totalFilters = 0;
+
+    this.searchParams.has(SearchParamName.byBrandId) && totalFilters++;
+    this.searchParams.has(SearchParamName.byPriceBelow) && totalFilters++;
+    this.searchParams.has(SearchParamName.byFreeShipping) && totalFilters++;
+
+    return totalFilters;
+  }
+
+  // Get all product filters that are being applied
+  get appliedProductFilters() {
+    const appliedFilters: AppliedFilter[] = [];
+
+    this.searchParams.has(SearchParamName.byBrandId) &&
+      appliedFilters.push({
+        paramName: SearchParamName.byBrandId,
+        paramValue: this.byBrandList?.find((brand) => brand.id === this.byBrandId)?.name ?? "",
+        description: "Products by",
+      });
+    this.searchParams.has(SearchParamName.byPriceBelow) &&
+      appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatPrice(this.byPriceBelow), description: "Price is below" });
+    this.searchParams.has(SearchParamName.byFreeShipping) &&
+      appliedFilters.push({ paramName: SearchParamName.byFreeShipping, paramValue: "Free Shipping", description: "with" });
+
+    return appliedFilters;
   }
 
   // Carry over currently used search params alongside the provided pathname

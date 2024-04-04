@@ -8,6 +8,7 @@ import Image from "next/image";
 // other libraries
 import clsx from "clsx";
 import { routeToProductDetails, routeToProductImage } from "@/features/products/helpers";
+import { TruckIcon } from "@heroicons/react/24/solid";
 
 // components
 import PriceTag from "./PriceTag";
@@ -22,7 +23,7 @@ export default function ProductCard({ product, listMode = false }) {
     return null;
   }
 
-  const { id, name, description, imageUrl, price, createdAt } = product;
+  const { id, name, description, imageUrl, price, freeShipping, createdAt } = product;
 
   // A product that was introduced less than 7 days ago is deemed new
   const isNew = Date.now() - new Date(createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;
@@ -31,8 +32,14 @@ export default function ProductCard({ product, listMode = false }) {
     <article className={clsx(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
       <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
-          {isNew && <span className="badge indicator-item badge-secondary indicator-start">NEW</span>}
+          {isNew && <span className="badge indicator-item badge-secondary indicator-start z-10">NEW</span>}
           <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-72 object-cover" />
+          {freeShipping && (
+            <span className="badge indicator-item badge-secondary indicator-center indicator-bottom z-10 flex items-center justify-center gap-2 p-3">
+              <TruckIcon width={24} height={24} />
+              Free Shipping
+            </span>
+          )}
         </figure>
         <div className="card-body">
           <h2 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h2>
@@ -49,6 +56,12 @@ export default function ProductCard({ product, listMode = false }) {
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
           <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
+          {freeShipping && (
+            <span className="badge indicator-item badge-secondary indicator-center indicator-bottom flex items-center justify-center gap-2 p-3">
+              <TruckIcon width={24} height={24} />
+              Free Shipping
+            </span>
+          )}
         </figure>
         <div className="card-body">
           <h2 className={clsx(lusitana.className, "card-title text-lg")}>{name}</h2>
