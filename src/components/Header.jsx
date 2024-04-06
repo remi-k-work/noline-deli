@@ -9,14 +9,14 @@ import clsx from "clsx";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // components
-import ProductFilter from "@/features/products/components/ProductFilter";
+import ProductFilter from "@/features/search/components/ProductFilter";
 import CartIndicator from "@/features/cart/components/CartIndicator";
-import SearchPanel from "./SearchPanel";
+import SearchPanel from "@/features/search/components/SearchPanel";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Header({ cart, productFilterData }) {
   return (
-    <header className={clsx(styles["header"], "navbar z-30 flex-wrap gap-4")}>
+    <header className={clsx(styles["header"], "navbar z-30 flex-wrap gap-2")}>
       <div className="flex-1">
         <Link href={"/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="117.213" height="64.418" viewBox="0 0 31.013 17.044">
@@ -41,7 +41,7 @@ export default function Header({ cart, productFilterData }) {
         <ThemeSwitcher />
       </div>
       <div className="flex-none lg:hidden">
-        <label htmlFor="navBar" className="btn btn-square btn-ghost drawer-button">
+        <label htmlFor="navBar" className="btn btn-circle btn-ghost drawer-button">
           <Bars4Icon width={24} height={24} />
         </label>
       </div>

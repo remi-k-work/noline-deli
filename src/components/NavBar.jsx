@@ -2,9 +2,9 @@
 import styles from "./NavBar.module.css";
 
 // components
-import SearchPanel from "./SearchPanel";
+import SearchPanel from "@/features/search/components/SearchPanel";
 import CategoriesTreeView from "@/features/products/components/CategoriesTreeView";
-import ProductFilter from "@/features/products/components/ProductFilter";
+import ProductFilter from "@/features/search/components/ProductFilter";
 
 export default function NavBar({ categories, productFilterData }) {
   return (
@@ -12,7 +12,7 @@ export default function NavBar({ categories, productFilterData }) {
       <div className="lg:hidden">
         <SearchPanel drawerToHide={"navBar"} />
       </div>
-      <ProductFilter {...productFilterData} />
+      <ProductFilter {...productFilterData} drawerToHide={"navBar"} />
       <CategoriesTreeView categories={categories} />
     </nav>
   );

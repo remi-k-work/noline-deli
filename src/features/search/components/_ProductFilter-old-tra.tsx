@@ -4,13 +4,16 @@
 import styles from "./ProductFilter.module.css";
 
 // react
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 
 // next
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 // prisma and db access
 import { Brand } from "@prisma/client";
+
+// server actions and mutations
+import { countProductsBy } from "@/features/search/searchActions";
 
 // other libraries
 import clsx from "clsx";
@@ -33,39 +36,115 @@ interface ProductFilterProps {
 
 export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceBelowMax, isIndicator = false }: ProductFilterProps) {
   const searchParamsState = useSearchParamsState(undefined, byPriceBelowMax ?? undefined, byCompanyList);
+  const { keyword, byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
+
+  const [, startTransition] = useTransition();
+  const [filteredCount, setFilteredCount] = useState(0);
   const { replace } = useRouter();
   const pathname = usePathname();
+  const params = useParams();
+
   const byBrandIdRef = useRef<HTMLSelectElement>(null);
   const byPriceBelowRef = useRef<HTMLInputElement>(null);
   const byFreeShippingRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Keep the product filter state in sync with search params
-    const byBrandId = byBrandIdRef.current;
-    const byPriceBelow = byPriceBelowRef.current;
-    const byFreeShipping = byFreeShippingRef.current;
+    const updateFilteredCount = async () => {
+      const filteredCount = await countProductsBy(
+        pathname,
+        byBrandId,
+        byPriceBelow,
+        byFreeShipping,
+        keyword,
+        "brandId" in params ? (params.brandId as string) : undefined,
+        "categoryId" in params ? (params.categoryId as string) : undefined,
+        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
+      );
+      setFilteredCount(filteredCount);
+    };
 
-    byBrandId && (byBrandId.value = searchParamsState.byBrandId);
-    byPriceBelow && (byPriceBelow.valueAsNumber = searchParamsState.byPriceBelow);
-    byFreeShipping && (byFreeShipping.checked = searchParamsState.byFreeShipping);
-  }, [searchParamsState.byBrandId, searchParamsState.byPriceBelow, searchParamsState.byFreeShipping]);
+    // Keep the product filter state in sync with search params
+    const byBrandIdEl = byBrandIdRef.current;
+    const byPriceBelowEl = byPriceBelowRef.current;
+    const byFreeShippingEl = byFreeShippingRef.current;
+
+    byBrandIdEl && (byBrandIdEl.value = byBrandId);
+    byPriceBelowEl && (byPriceBelowEl.valueAsNumber = byPriceBelow);
+    byFreeShippingEl && (byFreeShippingEl.checked = byFreeShipping);
+
+    updateFilteredCount();
+  }, [pathname, params, keyword, byBrandId, byPriceBelow, byFreeShipping]);
 
   // Set the filter and save its state in search params; also reset the pagination position
-  const handleByBrandIdChanged = useDebouncedCallback((byBrandId: string) => replace(searchParamsState.productFilterChanged(byBrandId)), 600);
-  const handleByPriceBelowChanged = useDebouncedCallback(
-    (byPriceBelow: number) => replace(searchParamsState.productFilterChanged(undefined, byPriceBelow)),
-    600,
-  );
-  const handleByFreeShippingChanged = useDebouncedCallback(
-    (byFreeShipping: boolean) => replace(searchParamsState.productFilterChanged(undefined, undefined, byFreeShipping)),
-    600,
-  );
+  const handleByBrandIdChanged = useDebouncedCallback((byBrandId: string) => {
+    startTransition(async () => {
+      const filteredCount = await countProductsBy(
+        pathname,
+        byBrandId,
+        byPriceBelow,
+        byFreeShipping,
+        keyword,
+        "brandId" in params ? (params.brandId as string) : undefined,
+        "categoryId" in params ? (params.categoryId as string) : undefined,
+        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
+      );
+      setFilteredCount(filteredCount);
+    });
+    replace(searchParamsState.productFilterChanged(byBrandId));
+  }, 600);
+  const handleByPriceBelowChanged = useDebouncedCallback((byPriceBelow: number) => {
+    startTransition(async () => {
+      const filteredCount = await countProductsBy(
+        pathname,
+        byBrandId,
+        byPriceBelow,
+        byFreeShipping,
+        keyword,
+        "brandId" in params ? (params.brandId as string) : undefined,
+        "categoryId" in params ? (params.categoryId as string) : undefined,
+        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
+      );
+      setFilteredCount(filteredCount);
+    });
+    replace(searchParamsState.productFilterChanged(undefined, byPriceBelow));
+  }, 600);
+  const handleByFreeShippingChanged = useDebouncedCallback((byFreeShipping: boolean) => {
+    startTransition(async () => {
+      const filteredCount = await countProductsBy(
+        pathname,
+        byBrandId,
+        byPriceBelow,
+        byFreeShipping,
+        keyword,
+        "brandId" in params ? (params.brandId as string) : undefined,
+        "categoryId" in params ? (params.categoryId as string) : undefined,
+        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
+      );
+      setFilteredCount(filteredCount);
+    });
+    replace(searchParamsState.productFilterChanged(undefined, undefined, byFreeShipping));
+  }, 600);
 
   // Remove all the filters; also reset the pagination position
-  const handleClearFiltersClicked = useDebouncedCallback(() => replace(searchParamsState.productFilterCleared()), 600);
+  const handleClearFiltersClicked = useDebouncedCallback(() => {
+    startTransition(async () => {
+      const filteredCount = await countProductsBy(
+        pathname,
+        byBrandId,
+        byPriceBelow,
+        byFreeShipping,
+        keyword,
+        "brandId" in params ? (params.brandId as string) : undefined,
+        "categoryId" in params ? (params.categoryId as string) : undefined,
+        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
+      );
+      setFilteredCount(filteredCount);
+    });
+    replace(searchParamsState.productFilterCleared());
+  }, 600);
 
   // Show a product filter only when displaying a bunch of products
-  if (!pathname.includes(pathToProducts)) {
+  if (!pathname.startsWith(pathToProducts)) {
     return null;
   }
 
@@ -77,12 +156,12 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             <div className="indicator">
               <AdjustmentsHorizontalIcon width={24} height={24} />
-              <span className="badge indicator-item badge-sm">{searchParamsState.numberOfProductFilters}</span>
+              <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
             </div>
           </div>
           <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 translate-x-1/2 bg-base-100 shadow">
             <div className="card-body">
-              <span className="text-lg font-bold">Applying {searchParamsState.numberOfProductFilters} Filter(s)</span>
+              <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
               {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
                 <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
                   <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
@@ -122,7 +201,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
           id="byBrandId"
           name="byBrandId"
           className="select"
-          defaultValue={searchParamsState.byBrandId}
+          defaultValue={byBrandId}
           onChange={(ev) => handleByBrandIdChanged(ev.target.value)}
         >
           <option value="">All</option>
@@ -137,7 +216,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
         </select>
         <label htmlFor="byPriceBelow">Price Below</label>
         <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
-          {formatPrice(searchParamsState.byPriceBelow)}
+          {formatPrice(byPriceBelow)}
         </output>
         <input
           ref={byPriceBelowRef}
@@ -148,7 +227,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
           max={byPriceBelowMax ?? 900000000}
           step={10}
           className="range"
-          defaultValue={searchParamsState.byPriceBelow}
+          defaultValue={byPriceBelow}
           onChange={(ev) => handleByPriceBelowChanged(Number(ev.target.value))}
         />
         <div className="mt-4 flex w-full place-items-center gap-4">
@@ -161,12 +240,13 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
             id="byFreeShipping"
             name="byFreeShipping"
             className="checkbox"
-            defaultChecked={searchParamsState.byFreeShipping}
+            defaultChecked={byFreeShipping}
             onChange={(ev) => handleByFreeShippingChanged(ev.target.checked)}
           />
         </div>
         <button type="reset" className="btn btn-warning m-4" onClick={handleClearFiltersClicked}>
           Clear Filters
+          {filteredCount}
         </button>
       </form>
     </article>

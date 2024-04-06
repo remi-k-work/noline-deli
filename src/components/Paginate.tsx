@@ -11,8 +11,15 @@ import clsx from "clsx";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
-export default function Paginate({ currentPage, itemsPerPage, totalItems }) {
+// types
+interface PaginateProps {
+  itemsPerPage: number;
+  totalItems: number;
+}
+
+export default function Paginate({ itemsPerPage, totalItems }: PaginateProps) {
   const searchParamsState = useSearchParamsState();
+  const { currentPage } = searchParamsState;
 
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
   const nextPageNumber = currentPage !== Math.ceil(totalItems / itemsPerPage) ? currentPage + 1 : currentPage;

@@ -45,9 +45,9 @@ export default async function Page({
       <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
         Our Merchandise ► {decodeURIComponent(categoryName)} ► {decodeURIComponent(subCategoryName)}
       </h1>
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
     </article>
   );
 }

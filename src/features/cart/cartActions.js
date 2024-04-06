@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "./cartDb";
 
 // other libraries
-import { waait } from "@/lib/helpers";
 import { pathToCart } from "./helpers";
 import { pathToProductDetails } from "@/features/products/helpers";
 

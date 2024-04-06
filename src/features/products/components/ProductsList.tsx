@@ -25,6 +25,7 @@ interface ProductsListProps {
 
 export default function ProductsList({ totalProducts, products }: ProductsListProps) {
   const searchParamsState = useSearchParamsState();
+  const { isListMode, sortBy } = searchParamsState;
   const { replace } = useRouter();
 
   // Set the viewing settings and save their state in search params
@@ -41,13 +42,7 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
       <header className="mb-4 flex w-full flex-wrap place-items-center justify-end gap-4">
         <label className="flex flex-none cursor-pointer place-items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <input
-            type="checkbox"
-            name="viewMode"
-            className="toggle"
-            defaultChecked={searchParamsState.isListMode}
-            onChange={(ev) => handleViewModeChanged(ev.target.checked)}
-          />
+          <input type="checkbox" name="viewMode" className="toggle" defaultChecked={isListMode} onChange={(ev) => handleViewModeChanged(ev.target.checked)} />
           <QueueListIcon width={24} height={24} />
         </label>
         <span className="flex-1 text-end lg:divider lg:divider-start">{totalProducts} Product(s) Found</span>
@@ -56,7 +51,7 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
           <select
             name="sortBy"
             className="select"
-            defaultValue={searchParamsState.sortBy}
+            defaultValue={sortBy}
             onChange={(ev) => handleSortByChanged([ev.target.value.split("|")[0] as "id" | "price" | "name", ev.target.value.split("|")[1] as "asc" | "desc"])}
           >
             <option value={"id|desc"}>Date (Newest)</option>
@@ -68,9 +63,9 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
           </select>
         </span>
       </header>
-      <section className={clsx(styles["products-list__items"], searchParamsState.isListMode && styles["products-list__items--list-mode"])}>
+      <section className={clsx(styles["products-list__items"], isListMode && styles["products-list__items--list-mode"])}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} listMode={searchParamsState.isListMode} />
+          <ProductCard key={product.id} product={product} listMode={isListMode} />
         ))}
       </section>
     </section>

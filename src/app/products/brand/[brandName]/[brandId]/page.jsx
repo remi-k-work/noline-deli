@@ -60,9 +60,9 @@ export default async function Page({
           />
         </header>
       )}
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
     </article>
   );
 }
