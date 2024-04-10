@@ -27,6 +27,10 @@ interface CategoriesTreeViewCategory {
   subCategories?: CategoriesTreeViewCategory[];
 }
 
+interface CategoriesTreeViewProps {
+  categories: CategoriesTreeViewInputData[];
+}
+
 interface CategoriesListProps {
   categoriesList: CategoriesTreeViewCategory[];
 }
@@ -52,7 +56,7 @@ function getCategoriesTreeViewData(categories: CategoriesTreeViewInputData[]): C
   return [{ label: "All Products", href: routeToAllProducts, subCategories: productCategories }];
 }
 
-export default function CategoriesTreeView({ categories = [] }) {
+export default function CategoriesTreeView({ categories = [] }: CategoriesTreeViewProps) {
   if (categories.length === 0) {
     return null;
   }

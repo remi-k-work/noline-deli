@@ -1,16 +1,4 @@
 .layout {
-  min-block-size: 100cqb;
-  display: grid;
-
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-
-  grid-template-areas:
-    "header"
-    "main"
-    "footer";
-}
-
-.main {
-  grid-area: main;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

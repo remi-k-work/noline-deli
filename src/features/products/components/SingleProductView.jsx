@@ -6,7 +6,7 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductImage, routeToBrandLogo } from "@/features/products/helpers";
+import { routeToProductImage } from "@/features/products/helpers";
 
 // components
 import ImageSlider from "./ImageSlider";

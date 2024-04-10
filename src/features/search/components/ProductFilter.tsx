@@ -4,22 +4,19 @@
 import styles from "./ProductFilter.module.css";
 
 // react
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // next
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // prisma and db access
 import { Brand } from "@prisma/client";
-
-// server actions and mutations
-import { countProductsBy } from "@/features/search/searchActions";
 
 // other libraries
 import clsx from "clsx";
 import { AdjustmentsHorizontalIcon, MagnifyingGlassCircleIcon, TrashIcon, TruckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
-import { pathToProducts } from "@/features/products/helpers";
+import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
 import { useDebouncedCallback } from "use-debounce";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
@@ -33,36 +30,28 @@ interface ProductFilterProps {
   byPriceBelowMax: number | null;
   isIndicator?: boolean;
   drawerToHide: string;
+  filteredCount?: number;
 }
 
-export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceBelowMax, isIndicator = false, drawerToHide }: ProductFilterProps) {
+export default function ProductFilter({
+  byCompanyList,
+  byPriceBelowMin,
+  byPriceBelowMax,
+  isIndicator = false,
+  drawerToHide,
+  filteredCount = 0,
+}: ProductFilterProps) {
   const searchParamsState = useSearchParamsState(undefined, byPriceBelowMax ?? undefined, byCompanyList);
-  const { keyword, byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
+  const { byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
 
-  const [filteredCount, setFilteredCount] = useState(0);
   const { replace } = useRouter();
   const pathname = usePathname();
-  const params = useParams();
 
   const byBrandIdRef = useRef<HTMLSelectElement>(null);
   const byPriceBelowRef = useRef<HTMLInputElement>(null);
   const byFreeShippingRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const updateFilteredCount = async () => {
-      const filteredCount = await countProductsBy(
-        pathname,
-        byBrandId,
-        byPriceBelow,
-        byFreeShipping,
-        keyword,
-        "brandId" in params ? (params.brandId as string) : undefined,
-        "categoryId" in params ? (params.categoryId as string) : undefined,
-        "subCategoryId" in params ? (params.subCategoryId as string) : undefined,
-      );
-      setFilteredCount(filteredCount);
-    };
-
     // Keep the product filter state in sync with search params
     const byBrandIdEl = byBrandIdRef.current;
     const byPriceBelowEl = byPriceBelowRef.current;
@@ -71,9 +60,7 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
     byBrandIdEl && (byBrandIdEl.value = byBrandId);
     byPriceBelowEl && (byPriceBelowEl.valueAsNumber = byPriceBelow);
     byFreeShippingEl && (byFreeShippingEl.checked = byFreeShipping);
-
-    updateFilteredCount();
-  }, [pathname, params, keyword, byBrandId, byPriceBelow, byFreeShipping]);
+  }, [byBrandId, byPriceBelow, byFreeShipping]);
 
   // Set the filter and save its state in search params; also reset the pagination position
   const handleByBrandIdChanged = useDebouncedCallback((byBrandId: string) => replace(searchParamsState.productFilterChanged(byBrandId)), 600);
@@ -90,7 +77,8 @@ export default function ProductFilter({ byCompanyList, byPriceBelowMin, byPriceB
   const handleClearFiltersClicked = useDebouncedCallback(() => replace(searchParamsState.productFilterCleared()), 600);
 
   // Show a product filter only when displaying a bunch of products
-  if (!pathname.startsWith(pathToProducts)) {
+  const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
+  if (!productPaths.some((path) => pathname.startsWith(path))) {
     return null;
   }
 

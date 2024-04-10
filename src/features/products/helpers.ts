@@ -1,9 +1,9 @@
 // Paths that may contain a dynamic segment required by the revalidate path functionality (server actions)
-export const pathToProduct = "/product";
+export const pathToProduct = "";
 export const pathToProducts = "/products";
-export const pathToProductDetails = `${pathToProduct}/[productId]`;
-export const pathToProductsSearch = `${pathToProducts}/search`;
-export const pathToProductsBrand = `${pathToProducts}/brand`;
+export const pathToProductDetails = `${pathToProduct}/[productName]/[productId]`;
+export const pathToProductsSearch = "/search";
+export const pathToProductsBrand = "/brand";
 
 // Functions that create proper routes and their params
 export const routeToAllProducts = "/products";

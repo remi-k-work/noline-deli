@@ -1,78 +1,41 @@
+// react
+import { cache } from "react";
+
 // prisma and db access
 import prisma from "@/lib/db/prisma";
 
-// Determine the number of results for the searched products
-export async function countSearchedProducts(keyword: string, byBrandId: string | null, byPriceBelow: number | null, byFreeShipping: boolean | null) {
-  const totalItems = await prisma.product.count({
-    where: {
-      user: { role: "ADMIN" },
-      brandId: byBrandId ? { equals: byBrandId } : undefined,
-      price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-      freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
-      OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
+// Collect all of the necessary data for our dashboard (like featured products and brands)
+export const getDashboardData = cache(async () => {
+  // Fetch all of the products first, then scramble them, and then select three random ones (same idea for brands)
+  const [allProducts, allBrands] = await Promise.all([
+    prisma.product.findMany({
+      where: { user: { role: "ADMIN" } },
+      include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+    }),
+    prisma.brand.findMany({ where: { user: { role: "ADMIN" } } }),
+  ]);
+
+  const featuredProducts = allProducts.sort(() => Math.random() - 0.5).slice(0, 3);
+  const featuredBrands = allBrands.sort(() => Math.random() - 0.5).slice(0, 3);
+
+  return { featuredProducts, featuredBrands, totalProducts: allProducts.length, totalBrands: allBrands.length };
+});
+
+// Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
+export const getProductFilterData = cache(async () => {
+  const [
+    byCompanyList,
+    {
+      _min: { price: byPriceBelowMin },
+      _max: { price: byPriceBelowMax },
     },
-  });
+  ] = await Promise.all([
+    prisma.brand.findMany({ where: { user: { role: "ADMIN" } }, orderBy: { name: "asc" } }),
+    prisma.product.aggregate({ _min: { price: true }, _max: { price: true }, where: { user: { role: "ADMIN" } } }),
+  ]);
 
-  return totalItems;
-}
-
-export async function countProductsByAll(byBrandId: string | null, byPriceBelow: number | null, byFreeShipping: boolean | null) {
-  const totalItems = await prisma.product.count({
-    where: {
-      user: { role: "ADMIN" },
-      brandId: byBrandId ? { equals: byBrandId } : undefined,
-      price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-      freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
-    },
-  });
-
-  return totalItems;
-}
-export async function countProductsByBrand(brandId: string, byPriceBelow: number | null, byFreeShipping: boolean | null) {
-  const totalItems = await prisma.product.count({
-    where: {
-      user: { role: "ADMIN" },
-      brandId: brandId,
-      price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-      freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
-    },
-  });
-
-  return totalItems;
-}
-export async function countProductsByCategory(categoryId: string, byBrandId: string | null, byPriceBelow: number | null, byFreeShipping: boolean | null) {
-  const totalItems = await prisma.product.count({
-    where: {
-      categories: { some: { category: { is: { id: categoryId } } } },
-      user: { role: "ADMIN" },
-      brandId: byBrandId ? { equals: byBrandId } : undefined,
-      price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-      freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
-    },
-  });
-
-  return totalItems;
-}
-export async function countProductsByCategoryAndSubCategory(
-  categoryId: string,
-  subCategoryId: string,
-  byBrandId: string | null,
-  byPriceBelow: number | null,
-  byFreeShipping: boolean | null,
-) {
-  const totalItems = await prisma.product.count({
-    where: {
-      categories: { some: { category: { is: { id: categoryId } } } },
-      subCategories: { some: { subCategory: { is: { id: subCategoryId } } } },
-      user: { role: "ADMIN" },
-      brandId: byBrandId ? { equals: byBrandId } : undefined,
-      price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-      freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
-    },
-  });
-
-  return totalItems;
-}
+  return { byCompanyList, byPriceBelowMin, byPriceBelowMax };
+});
 
 // Search our products for a certain keyword in either the name or description sections
 export async function searchProducts(
@@ -81,9 +44,9 @@ export async function searchProducts(
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
-  byBrandId: string | null,
-  byPriceBelow: number | null,
-  byFreeShipping: boolean | null,
+  byBrandId: string,
+  byPriceBelow: number,
+  byFreeShipping: boolean,
 ) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -93,8 +56,8 @@ export async function searchProducts(
       where: {
         user: { role: "ADMIN" },
         brandId: byBrandId ? { equals: byBrandId } : undefined,
-        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-        freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
+        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },
     }),
@@ -102,8 +65,8 @@ export async function searchProducts(
       where: {
         user: { role: "ADMIN" },
         brandId: byBrandId ? { equals: byBrandId } : undefined,
-        price: byPriceBelow ? { lte: Number(byPriceBelow) } : undefined,
-        freeShipping: byFreeShipping !== null && String(byFreeShipping) === "true" ? { equals: true } : undefined,
+        price: byPriceBelow ? { lte: byPriceBelow } : undefined,
+        freeShipping: byFreeShipping ? { equals: true } : undefined,
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },
       orderBy: { [sortByField]: sortByOrder },

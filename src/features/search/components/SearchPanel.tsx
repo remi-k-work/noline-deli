@@ -4,13 +4,10 @@
 import styles from "./SearchPanel.module.css";
 
 // react
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // next
 import { useRouter } from "next/navigation";
-
-// server actions and mutations
-import { getCountOfSearchedProducts } from "@/features/search/searchActions";
 
 // other libraries
 import clsx from "clsx";
@@ -22,28 +19,21 @@ import useSearchParamsState from "@/lib/useSearchParamsState";
 // types
 interface SearchPanelProps {
   drawerToHide?: string;
+  searchedCount?: number;
 }
 
-export default function SearchPanel({ drawerToHide }: SearchPanelProps) {
+export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchPanelProps) {
   const searchParamsState = useSearchParamsState(pathToProductsSearch);
-  const { keyword, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
+  const { keyword } = searchParamsState;
 
-  const [searchedCount, setSearchedCount] = useState(0);
   const { replace } = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const updateSearchedCount = async () => {
-      const totalItems = await getCountOfSearchedProducts(keyword, byBrandId, byPriceBelow, byFreeShipping);
-      setSearchedCount(totalItems);
-    };
-
     // Keep the keyword state in sync with search params
     const search = searchRef.current!;
     search.value = keyword;
-
-    updateSearchedCount();
-  }, [keyword, byBrandId, byPriceBelow, byFreeShipping]);
+  }, [keyword]);
 
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 

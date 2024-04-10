@@ -1,0 +1,16 @@
+.navbar-drawer-content {
+  min-block-size: 100cqb;
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.navbar-drawer-content__main {
+  grid-area: main;
+}
