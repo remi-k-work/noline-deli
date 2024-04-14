@@ -4,6 +4,9 @@ import styles from "./SingleProductView.module.css";
 // next
 import Image from "next/image";
 
+// prisma and db access
+import { Prisma } from "@prisma/client";
+
 // other libraries
 import clsx from "clsx";
 import { routeToProductImage } from "@/features/products/helpers";
@@ -17,7 +20,14 @@ import AddToCartForm from "@/features/cart/components/AddToCartForm";
 // assets
 import { lusitana } from "@/assets/fonts";
 
-export default function SingleProductView({ product }) {
+// types
+interface SingleProductViewProps {
+  product: Prisma.ProductGetPayload<{
+    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
+  }>;
+}
+
+export default function SingleProductView({ product }: SingleProductViewProps) {
   // Ensure the product exists
   if (!product) {
     // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
@@ -39,6 +49,21 @@ export default function SingleProductView({ product }) {
       <p>{description}</p>
       <PriceTag priceInCents={price} />
       <AddToCartForm productId={id} />
+    </article>
+  );
+}
+
+export function SingleProductViewSkeleton() {
+  return (
+    <article className={styles["single-product-view-skeleton"]}>
+      <div className="skeleton h-96 rounded-lg"></div>
+      <div className="skeleton h-10"></div>
+      <div className="skeleton h-16"></div>
+      <div className="skeleton h-4"></div>
+      <div className="skeleton h-4"></div>
+      <div className="skeleton h-4"></div>
+      <div className="skeleton h-4 w-1/6"></div>
+      <div className="skeleton h-12 w-1/4"></div>
     </article>
   );
 }

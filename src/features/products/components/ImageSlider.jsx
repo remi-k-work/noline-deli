@@ -50,6 +50,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
             height={400}
             alt={productName}
             className="h-96 w-auto rounded-lg object-cover"
+            priority
           />
         ) : (
           <Image

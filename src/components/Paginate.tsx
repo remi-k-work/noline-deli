@@ -62,3 +62,22 @@ export default function Paginate({ itemsPerPage, totalItems }: PaginateProps) {
     )
   );
 }
+
+export function PaginateSkeleton() {
+  return (
+    <section className={styles["paginate"]}>
+      <div className={clsx(styles["paginate__prev"], "skeleton")}>
+        <BackwardIcon width={24} height={24} />
+      </div>
+      <div className={styles["paginate__pages"]}>
+        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+      </div>
+      <div className={clsx(styles["paginate__next"], "skeleton")}>
+        <ForwardIcon width={24} height={24} />
+      </div>
+    </section>
+  );
+}

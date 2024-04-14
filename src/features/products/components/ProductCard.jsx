@@ -73,3 +73,41 @@ export default function ProductCard({ product, listMode = false }) {
     </article>
   );
 }
+
+export function ProductCardSkeleton({ listMode = false }) {
+  return listMode ? (
+    <article className={clsx(styles["product-card-skeleton"], styles["product-card-skeleton--list-mode"])}>
+      <div className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
+        <figure className="flex-none">
+          <div className="skeleton h-72 w-72 rounded-lg"></div>
+        </figure>
+        <div className="card-body">
+          <div className="skeleton h-10 w-1/2"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="skeleton h-4 w-3/4"></div>
+          <div className="card-actions justify-end">
+            <div className="skeleton h-4 w-1/6"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  ) : (
+    <article className={clsx(styles["product-card-skeleton"])}>
+      <div className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
+        <figure className="flex-none">
+          <div className="skeleton h-36 w-36 rounded-lg"></div>
+        </figure>
+        <div className="card-body">
+          <div className="skeleton h-10"></div>
+          <div className="card-actions justify-end">
+            <div className="skeleton h-4 w-1/6"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}

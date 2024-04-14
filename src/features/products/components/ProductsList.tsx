@@ -15,7 +15,7 @@ import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/reac
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // components
-import ProductCard from "./ProductCard";
+import ProductCard, { ProductCardSkeleton } from "./ProductCard";
 
 // types
 interface ProductsListProps {
@@ -67,6 +67,43 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
         {products.map((product) => (
           <ProductCard key={product.id} product={product} listMode={isListMode} />
         ))}
+      </section>
+    </section>
+  );
+}
+
+export function ProductsListSkeleton() {
+  const searchParamsState = useSearchParamsState();
+  const { isListMode, sortBy } = searchParamsState;
+
+  return (
+    <section className={styles["products-list-skeleton"]}>
+      <header className="mb-4 flex w-full flex-wrap place-items-center justify-end gap-4">
+        <label className="flex flex-none cursor-pointer place-items-center gap-2">
+          <TableCellsIcon width={24} height={24} />
+          <input type="checkbox" name="viewMode" className="toggle" defaultChecked={isListMode} disabled={true} />
+          <QueueListIcon width={24} height={24} />
+        </label>
+        <span className="flex-1 text-end lg:divider lg:divider-start">... Product(s) Found</span>
+        <span className="flex flex-none place-items-center">
+          <ArrowsUpDownIcon width={24} height={24} />
+          <select name="sortBy" className="select" defaultValue={sortBy} disabled={true}>
+            <option value={"id|desc"}>Date (Newest)</option>
+            <option value={"id|asc"}>Date (Oldest)</option>
+            <option value={"price|asc"}>Price (Lowest)</option>
+            <option value={"price|desc"}>Price (Highest)</option>
+            <option value={"name|asc"}>Name (A to Z)</option>
+            <option value={"name|desc"}>Name (Z to A)</option>
+          </select>
+        </span>
+      </header>
+      <section className={clsx(styles["products-list-skeleton__items"], isListMode && styles["products-list-skeleton__items--list-mode"])}>
+        <ProductCardSkeleton listMode={isListMode} />
+        <ProductCardSkeleton listMode={isListMode} />
+        <ProductCardSkeleton listMode={isListMode} />
+        <ProductCardSkeleton listMode={isListMode} />
+        <ProductCardSkeleton listMode={isListMode} />
+        <ProductCardSkeleton listMode={isListMode} />
       </section>
     </section>
   );
