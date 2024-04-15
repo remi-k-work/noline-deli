@@ -4,3 +4,10 @@
   justify-content: center;
   gap: var(--size-1);
 }
+
+.search-panel-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-1);
+}

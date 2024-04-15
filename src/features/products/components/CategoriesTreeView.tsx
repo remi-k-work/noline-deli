@@ -69,6 +69,14 @@ export default function CategoriesTreeView({ categories = [] }: CategoriesTreeVi
   );
 }
 
+export function CategoriesTreeViewSkeleton() {
+  return (
+    <article className={clsx(styles["categories-tree-view-skeleton"], "menu p-0")}>
+      <h4 className={clsx(lusitana.className, "text-xl")}>Browse by Category</h4>
+    </article>
+  );
+}
+
 function CategoriesList({ categoriesList = [] }: CategoriesListProps) {
   if (categoriesList.length === 0) {
     return null;

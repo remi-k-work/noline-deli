@@ -33,6 +33,11 @@ interface ProductFilterProps {
   filteredCount?: number;
 }
 
+interface ProductFilterSkeletonProps {
+  isIndicator?: boolean;
+  filteredCount?: number;
+}
+
 export default function ProductFilter({
   byCompanyList,
   byPriceBelowMin,
@@ -188,6 +193,68 @@ export default function ProductFilter({
           className="btn btn-primary mb-4 lg:hidden"
           onClick={() => ((document.getElementById(drawerToHide) as HTMLInputElement).checked = false)}
         >
+          <MagnifyingGlassCircleIcon width={24} height={24} />
+          View {filteredCount} Products
+        </button>
+      </form>
+    </article>
+  );
+}
+
+export function ProductFilterSkeleton({ isIndicator = false, filteredCount = 0 }: ProductFilterSkeletonProps) {
+  const searchParamsState = useSearchParamsState();
+  const { byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
+
+  if (isIndicator) {
+    return (
+      numberOfProductFilters > 0 && (
+        <div className={styles["product-filter-indicator-skeleton"]}>
+          <div className="btn btn-circle btn-ghost">
+            <div className="indicator">
+              <AdjustmentsHorizontalIcon width={24} height={24} />
+              <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
+            </div>
+          </div>
+        </div>
+      )
+    );
+  }
+
+  return (
+    <article className={styles["product-filter-skeleton"]}>
+      <h4 className={clsx(lusitana.className, "text-xl")}>Filter Products</h4>
+      <form className={styles["product-filter-skeleton__form"]}>
+        <label htmlFor="byBrandId">Company Name</label>
+        <select id="byBrandId" name="byBrandId" className="select" defaultValue={byBrandId} disabled={true}>
+          <option value="">All</option>
+        </select>
+        <label htmlFor="byPriceBelow">Price Below</label>
+        <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
+          &nbsp;
+        </output>
+        <input
+          type="range"
+          id="byPriceBelow"
+          name="byPriceBelow"
+          min={0}
+          max={900000000}
+          step={10}
+          className="range"
+          defaultValue={byPriceBelow}
+          disabled={true}
+        />
+        <div className="mt-4 flex w-full place-items-center gap-4">
+          <label htmlFor="byFreeShipping" className="flex flex-1 items-center gap-2">
+            <TruckIcon width={24} height={24} />
+            Free Shipping
+          </label>
+          <input type="checkbox" id="byFreeShipping" name="byFreeShipping" className="checkbox" defaultChecked={byFreeShipping} disabled={true} />
+        </div>
+        <button type="reset" className="btn btn-warning mb-4 mt-4" disabled={true}>
+          <TrashIcon width={24} height={24} />
+          Clear All Filters
+        </button>
+        <button type="button" className="btn btn-primary mb-4 lg:hidden" disabled={true}>
           <MagnifyingGlassCircleIcon width={24} height={24} />
           View {filteredCount} Products
         </button>

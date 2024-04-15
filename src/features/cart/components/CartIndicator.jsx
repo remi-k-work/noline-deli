@@ -11,7 +11,6 @@ import clsx from "clsx";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { routeToCart } from "@/features/cart/helpers";
-import { routeToAllProducts } from "@/features/products/helpers";
 
 export default function CartIndicator({ cart }) {
   // Ensure the cart exists
@@ -58,6 +57,19 @@ export default function CartIndicator({ cart }) {
               View Cart
             </Link>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CartIndicatorSkeleton() {
+  return (
+    <div className={styles["cart-indicator-skeleton"]}>
+      <div className="btn btn-circle btn-ghost">
+        <div className="indicator">
+          <ShoppingCartIcon width={24} height={24} />
+          <span className="badge indicator-item badge-sm">&nbsp;</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,55 @@
+.products-table-view {
+  inline-size: 100%;
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.products-table-view thead th:nth-child(1),
+.products-table-view tfoot th:nth-child(1) {
+  inline-size: 35%;
+  text-align: start;
+}
+
+.products-table-view thead th:nth-child(2),
+.products-table-view tfoot th:nth-child(2) {
+  inline-size: 20%;
+}
+
+.products-table-view thead th:nth-child(3),
+.products-table-view tfoot th:nth-child(3) {
+  inline-size: 30%;
+  text-align: end;
+}
+
+.products-table-view thead th:nth-child(4),
+.products-table-view tfoot th:nth-child(3) {
+  inline-size: 15%;
+}
+
+.products-table-view th {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+
+  background: var(--surface-3);
+  color: var(--text-2);
+}
+
+.products-table-view td {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+}
+
+.products-table-view tr:nth-child(even) td {
+  background: var(--surface-4);
+}
+
+.products-table-view tr:nth-child(odd) td {
+  background: var(--surface-3);
+}

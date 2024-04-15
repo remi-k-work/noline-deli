@@ -6,9 +6,9 @@ import { allCategories } from "@/features/products/productsDb";
 import { getProductFilterData } from "@/features/search/searchDb";
 
 // components
-import SearchPanel from "@/features/search/components/SearchPanel";
-import CategoriesTreeView from "@/features/products/components/CategoriesTreeView";
-import ProductFilter from "@/features/search/components/ProductFilter";
+import SearchPanel, { SearchPanelSkeleton } from "@/features/search/components/SearchPanel";
+import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/products/components/CategoriesTreeView";
+import ProductFilter, { ProductFilterSkeleton } from "@/features/search/components/ProductFilter";
 
 // types
 interface NavBarProps {
@@ -27,6 +27,18 @@ export default async function NavBar({ searchedCount, filteredCount }: NavBarPro
       </div>
       <ProductFilter {...productFilterData} drawerToHide={"navBar"} filteredCount={filteredCount} />
       <CategoriesTreeView categories={categories} />
+    </nav>
+  );
+}
+
+export function NavBarSkeleton({ searchedCount, filteredCount }: NavBarProps) {
+  return (
+    <nav className={styles["navbar-skeleton"]}>
+      <div className="lg:hidden">
+        <SearchPanelSkeleton drawerToHide={"navBar"} searchedCount={searchedCount} />
+      </div>
+      <ProductFilterSkeleton filteredCount={filteredCount} />
+      <CategoriesTreeViewSkeleton />
     </nav>
   );
 }

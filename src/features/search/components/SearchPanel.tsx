@@ -67,3 +67,37 @@ export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchP
     </label>
   );
 }
+
+export function SearchPanelSkeleton({ drawerToHide, searchedCount = 0 }: SearchPanelProps) {
+  const searchParamsState = useSearchParamsState(pathToProductsSearch);
+  const { keyword } = searchParamsState;
+
+  return (
+    <label className={clsx(styles["search-panel-skeleton"], !drawerToHide && "indicator", "input input-bordered")}>
+      <input
+        type="search"
+        name="search"
+        size={15}
+        maxLength={50}
+        aria-label="Search"
+        placeholder="Search"
+        className="grow"
+        defaultValue={keyword}
+        disabled={true}
+      />
+
+      {drawerToHide ? (
+        // Provide an option to automatically conceal the drawer if this search panel is located inside one
+        <button type="button" className="btn btn-primary" disabled={true}>
+          <MagnifyingGlassCircleIcon width={24} height={24} />
+          {keyword && searchedCount}
+        </button>
+      ) : (
+        <>
+          <MagnifyingGlassCircleIcon width={24} height={24} />
+          {keyword && <span className="badge indicator-item badge-sm font-bold">{searchedCount}</span>}
+        </>
+      )}
+    </label>
+  );
+}

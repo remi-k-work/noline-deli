@@ -21,3 +21,13 @@ export default function ThemeSwitcher() {
     </section>
   );
 }
+
+export function ThemeSwitcherSkeleton() {
+  return (
+    <section className={styles["theme-switcher-skeleton"]}>
+      <button type="button" className="btn btn-circle btn-ghost" disabled={true}>
+        &nbsp;
+      </button>
+    </section>
+  );
+}
