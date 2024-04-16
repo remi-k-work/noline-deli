@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import { notFound } from "next/navigation";
 
@@ -14,17 +17,30 @@ import { routeToProductImage } from "@/features/products/helpers";
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
 import NavBarDrawerSide from "@/components/NavBarDrawerSide";
-import SingleProductView from "@/features/products/components/SingleProductView";
+import SingleProductView, { SingleProductViewSkeleton } from "@/features/products/components/SingleProductView";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
-  params: { productId: string };
+  params: { productName: string; productId: string };
 }
 
-export async function generateMetadata({ params: { productId } }: PageProps) {
+interface PageSuspenseProps {
+  productName: string;
+  productId: string;
+}
+
+interface PageSkeletonProps {
+  productName: string;
+}
+
+function getSectionTitle(productName: string) {
+  return decodeURIComponent(productName);
+}
+
+export async function generateMetadata({ params: { productName, productId } }: PageProps) {
   // Get all the information you need about this particular product
   const product = await getProduct(productId);
 
@@ -34,11 +50,11 @@ export async function generateMetadata({ params: { productId } }: PageProps) {
     notFound();
   }
 
-  const { name, description, imageUrl } = product;
+  const { description, imageUrl } = product;
 
   return {
     metadataBase: new URL(process.env.WEBSITE_URL as string),
-    title: `NoLine-Deli ► ${name}`,
+    title: `NoLine-Deli ► ${getSectionTitle(productName)}`,
     description: description,
     openGraph: {
       images: [{ url: routeToProductImage(imageUrl) }],
@@ -46,7 +62,15 @@ export async function generateMetadata({ params: { productId } }: PageProps) {
   };
 }
 
-export default async function Page({ params: { productId } }: PageProps) {
+export default async function Page({ params: { productName, productId } }: PageProps) {
+  return (
+    <Suspense fallback={<PageSkeleton productName={productName} />}>
+      <PageSuspense productName={productName} productId={productId} />
+    </Suspense>
+  );
+}
+
+async function PageSuspense({ productName, productId }: PageSuspenseProps) {
   // Get all the information you need about this particular product
   const product = await getProduct(productId);
 
@@ -56,14 +80,26 @@ export default async function Page({ params: { productId } }: PageProps) {
     notFound();
   }
 
-  const { name } = product;
-
   return (
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {name}</h1>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
           <SingleProductView product={product} />
+        </article>
+      </NavBarDrawerContent>
+      <NavBarDrawerSide />
+    </>
+  );
+}
+
+function PageSkeleton({ productName }: PageSkeletonProps) {
+  return (
+    <>
+      <NavBarDrawerContent>
+        <article className={styles["page"]}>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+          <SingleProductViewSkeleton />
         </article>
       </NavBarDrawerContent>
       <NavBarDrawerSide />

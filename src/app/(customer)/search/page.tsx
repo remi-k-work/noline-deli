@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import { ReadonlyURLSearchParams } from "next/navigation";
 
@@ -14,8 +17,8 @@ import SearchParamsState from "@/lib/SearchParamsState";
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
 import NavBarDrawerSide from "@/components/NavBarDrawerSide";
-import Paginate from "@/components/Paginate";
-import ProductsList from "@/features/products/components/ProductsList";
+import Paginate, { PaginateSkeleton } from "@/components/Paginate";
+import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
 import NotFound from "@/components/NotFound";
 
 // assets
@@ -26,12 +29,33 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
+interface PageSuspenseProps {
+  searchParamsState: SearchParamsState;
+}
+
+interface PageSkeletonProps {
+  searchParamsState: SearchParamsState;
+}
+
+function getSectionTitle() {
+  return "Search Results";
+}
+
 export const metadata = {
-  title: "NoLine-Deli ► Search Results",
+  title: `NoLine-Deli ► ${getSectionTitle()}`,
 };
 
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
+
+  return (
+    <Suspense fallback={<PageSkeleton searchParamsState={searchParamsState} />}>
+      <PageSuspense searchParamsState={searchParamsState} />
+    </Suspense>
+  );
+}
+
+async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
   const { currentPage, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
@@ -44,7 +68,9 @@ export default async function Page({ searchParams }: PageProps) {
     <>
       <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Search Results ► &quot;{keyword}&quot;</h1>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+            {getSectionTitle()} ► &quot;{keyword}&quot;
+          </h1>
           <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
           <br />
           {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
@@ -53,6 +79,26 @@ export default async function Page({ searchParams }: PageProps) {
         </article>
       </NavBarDrawerContent>
       <NavBarDrawerSide searchedCount={totalItems} filteredCount={totalItems} />
+    </>
+  );
+}
+
+function PageSkeleton({ searchParamsState: { keyword, isListMode, sortBy } }: PageSkeletonProps) {
+  return (
+    <>
+      <NavBarDrawerContent>
+        <article className={styles["page"]}>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+            {getSectionTitle()} ► &quot;{keyword}&quot;
+          </h1>
+          <PaginateSkeleton />
+          <br />
+          <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+          <br />
+          <PaginateSkeleton />
+        </article>
+      </NavBarDrawerContent>
+      <NavBarDrawerSide />
     </>
   );
 }

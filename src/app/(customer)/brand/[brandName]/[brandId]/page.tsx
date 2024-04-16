@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -17,8 +20,8 @@ import SearchParamsState from "@/lib/SearchParamsState";
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
 import NavBarDrawerSide from "@/components/NavBarDrawerSide";
-import Paginate from "@/components/Paginate";
-import ProductsList from "@/features/products/components/ProductsList";
+import Paginate, { PaginateSkeleton } from "@/components/Paginate";
+import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
 import NotFound from "@/components/NotFound";
 
 // assets
@@ -30,12 +33,36 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
+interface PageSuspenseProps {
+  brandName: string;
+  brandId: string;
+  searchParamsState: SearchParamsState;
+}
+
+interface PageSkeletonProps {
+  brandName: string;
+  searchParamsState: SearchParamsState;
+}
+
+function getSectionTitle(brandName: string) {
+  return decodeURIComponent(brandName);
+}
+
 export async function generateMetadata({ params: { brandName } }: PageProps) {
-  return { title: `NoLine-Deli ► ${decodeURIComponent(brandName)}` };
+  return { title: `NoLine-Deli ► ${getSectionTitle(brandName)}` };
 }
 
 export default async function Page({ params: { brandName, brandId }, searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
+
+  return (
+    <Suspense fallback={<PageSkeleton brandName={brandName} searchParamsState={searchParamsState} />}>
+      <PageSuspense brandName={brandName} brandId={brandId} searchParamsState={searchParamsState} />
+    </Suspense>
+  );
+}
+
+async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspenseProps) {
   const { currentPage, sortByField, sortByOrder, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
@@ -59,7 +86,7 @@ export default async function Page({ params: { brandName, brandId }, searchParam
     <>
       <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{decodeURIComponent(brandName)}</h1>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
           {logoUrl && (
             <header className="relative mb-4 h-48 w-full overflow-clip">
               <Image
@@ -80,6 +107,27 @@ export default async function Page({ params: { brandName, brandId }, searchParam
         </article>
       </NavBarDrawerContent>
       <NavBarDrawerSide searchedCount={totalItems} filteredCount={totalItems} />
+    </>
+  );
+}
+
+function PageSkeleton({ brandName, searchParamsState: { isListMode, sortBy } }: PageSkeletonProps) {
+  return (
+    <>
+      <NavBarDrawerContent>
+        <article className={styles["page"]}>
+          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+          <header className="relative mb-4 h-48 w-full overflow-clip">
+            <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
+          </header>
+          <PaginateSkeleton />
+          <br />
+          <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+          <br />
+          <PaginateSkeleton />
+        </article>
+      </NavBarDrawerContent>
+      <NavBarDrawerSide />
     </>
   );
 }

@@ -41,11 +41,11 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
           </svg>
         </Link>
       </div>
-      <div className="hidden flex-none lg:block">
-        <SearchPanel searchedCount={searchedCount} />
-      </div>
       <div className="flex-none">
         <ProductFilter {...productFilterData} isIndicator={true} drawerToHide={"navBar"} filteredCount={filteredCount} />
+      </div>
+      <div className="hidden flex-none lg:block">
+        <SearchPanel searchedCount={searchedCount} />
       </div>
       <div className="flex-none">
         <CartIndicator cart={cart} />
@@ -76,11 +76,11 @@ export function HeaderSkeleton({ searchedCount, filteredCount }: HeaderProps) {
           </svg>
         </Link>
       </div>
-      <div className="hidden flex-none lg:block">
-        <SearchPanelSkeleton searchedCount={searchedCount} />
-      </div>
       <div className="flex-none">
         <ProductFilterSkeleton isIndicator={true} filteredCount={filteredCount} />
+      </div>
+      <div className="hidden flex-none lg:block">
+        <SearchPanelSkeleton searchedCount={searchedCount} />
       </div>
       <div className="flex-none">
         <CartIndicatorSkeleton />

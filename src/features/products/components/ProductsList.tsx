@@ -23,6 +23,11 @@ interface ProductsListProps {
   products: Product[];
 }
 
+interface ProductsListSkeletonProps {
+  isListMode: boolean;
+  sortBy: string;
+}
+
 export default function ProductsList({ totalProducts, products }: ProductsListProps) {
   const searchParamsState = useSearchParamsState();
   const { isListMode, sortBy } = searchParamsState;
@@ -72,10 +77,7 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
   );
 }
 
-export function ProductsListSkeleton() {
-  const searchParamsState = useSearchParamsState();
-  const { isListMode, sortBy } = searchParamsState;
-
+export function ProductsListSkeleton({ isListMode, sortBy }: ProductsListSkeletonProps) {
   return (
     <section className={styles["products-list-skeleton"]}>
       <header className="mb-4 flex w-full flex-wrap place-items-center justify-end gap-4">
