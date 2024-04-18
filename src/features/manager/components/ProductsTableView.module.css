@@ -11,45 +11,57 @@
   text-align: center;
 }
 
-.products-table-view thead th:nth-child(1),
-.products-table-view tfoot th:nth-child(1) {
-  inline-size: 35%;
+.products-table-view > thead th:nth-child(1),
+.products-table-view > tfoot th:nth-child(1) {
+  inline-size: var(--size-13);
   text-align: start;
 }
 
-.products-table-view thead th:nth-child(2),
-.products-table-view tfoot th:nth-child(2) {
-  inline-size: 20%;
+.products-table-view > thead th:nth-child(2),
+.products-table-view > tfoot th:nth-child(2) {
+  inline-size: 40%;
+  text-align: start;
 }
 
-.products-table-view thead th:nth-child(3),
-.products-table-view tfoot th:nth-child(3) {
-  inline-size: 30%;
+.products-table-view > thead th:nth-child(3),
+.products-table-view > tfoot th:nth-child(3) {
+  inline-size: 25%;
+}
+
+.products-table-view > thead th:nth-child(4),
+.products-table-view > tfoot th:nth-child(4) {
+  inline-size: 25%;
+}
+
+.products-table-view > thead th:nth-child(5),
+.products-table-view > tfoot th:nth-child(5) {
+  inline-size: 10%;
   text-align: end;
 }
 
-.products-table-view thead th:nth-child(4),
-.products-table-view tfoot th:nth-child(3) {
-  inline-size: 15%;
+.products-table-view > thead th:nth-child(6),
+.products-table-view > tfoot th:nth-child(6) {
+  inline-size: var(--size-9);
 }
 
-.products-table-view th {
+.products-table-view > thead th,
+.products-table-view > tfoot th {
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
 
-  background: var(--surface-3);
+  background: var(--surface-2);
   color: var(--text-2);
 }
 
-.products-table-view td {
+.products-table-view > tbody > tr > td {
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
 }
 
-.products-table-view tr:nth-child(even) td {
+.products-table-view > tbody > tr:nth-child(even) td {
   background: var(--surface-4);
 }
 
-.products-table-view tr:nth-child(odd) td {
+.products-table-view > tbody > tr:nth-child(odd) td {
   background: var(--surface-3);
 }

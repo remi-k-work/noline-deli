@@ -11,35 +11,33 @@
   text-align: center;
 }
 
-.product-info th {
-  padding-inline: var(--size-1);
-  padding-block: var(--size-1);
-
-  background: var(--surface-3);
-  color: var(--text-2);
-}
-
-.product-info thead th:nth-child(1) {
+.product-info > thead th:nth-child(1) {
   inline-size: 50%;
   text-align: start;
 }
 
-.product-info thead th:nth-child(2) {
+.product-info > thead th:nth-child(2) {
   inline-size: 50%;
   text-align: end;
 }
 
-.product-info td {
+.product-info > thead th {
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+
+.product-info > tbody > tr > td {
   padding-inline: var(--size-1);
   padding-block: var(--size-1);
 }
 
-.product-info tr:nth-child(even) td,
-.product-info tr:nth-child(even) th {
+.product-info > tbody > tr:nth-child(even) td {
   background: var(--surface-4);
 }
 
-.product-info tr:nth-child(odd) td,
-.product-info tr:nth-child(odd) th {
+.product-info > tbody > tr:nth-child(odd) td {
   background: var(--surface-3);
 }

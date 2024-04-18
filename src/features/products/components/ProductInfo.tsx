@@ -56,7 +56,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <>
             <tr className={clsx(lusitana.className)}>
               <th>Category</th>
-              <th>Subcategory</th>
+              <th>SubCategory</th>
             </tr>
             <tr>
               <td>

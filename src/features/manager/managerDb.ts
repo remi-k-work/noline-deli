@@ -30,6 +30,7 @@ export async function allProductsWithPagination(
         price: byPriceBelow ? { lte: byPriceBelow } : undefined,
         freeShipping: byFreeShipping ? { equals: true } : undefined,
       },
+      include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

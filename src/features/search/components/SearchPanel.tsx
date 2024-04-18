@@ -79,9 +79,7 @@ export function SearchPanelSkeleton({ drawerToHide }: SearchPanelProps) {
           <MagnifyingGlassCircleIcon width={24} height={24} />
         </button>
       ) : (
-        <>
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-        </>
+        <MagnifyingGlassCircleIcon width={24} height={24} />
       )}
     </label>
   );
