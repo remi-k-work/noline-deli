@@ -83,7 +83,9 @@ export function DelCartItemForm({ cartItemId }) {
       <form ref={delCartItemFormRef} action={deleteCartArticleWithArgs} className={styles["del-cart-item-form"]}>
         <DelCartItemButton onDelCartItemClicked={handleDelCartItemClicked} />
       </form>
-      <ConfirmDialog ref={confirmDialogRef} message={"Are you certain you want to remove this article?"} onConfirmed={handleConfirmed} />
+      <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleConfirmed}>
+        <p>Are you certain you want to remove this article?</p>
+      </ConfirmDialog>
     </>
   );
 }

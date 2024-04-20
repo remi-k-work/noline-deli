@@ -41,7 +41,7 @@ export default function CartTableEntry({ cartItem }) {
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">
               <InformationCircleIcon width={24} height={24} />
             </div>
-            <div tabIndex={0} className="dropdown-content z-10 w-80 shadow">
+            <div tabIndex={0} className={clsx(styles["cart-table-entry__product-info"], "dropdown-content z-10 shadow")}>
               <ProductInfo product={product} />
             </div>
           </div>

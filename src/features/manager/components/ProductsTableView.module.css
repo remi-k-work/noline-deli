@@ -19,23 +19,23 @@
 
 .products-table-view > thead th:nth-child(2),
 .products-table-view > tfoot th:nth-child(2) {
-  inline-size: 40%;
+  inline-size: 38%;
   text-align: start;
 }
 
 .products-table-view > thead th:nth-child(3),
 .products-table-view > tfoot th:nth-child(3) {
-  inline-size: 25%;
+  inline-size: 23%;
 }
 
 .products-table-view > thead th:nth-child(4),
 .products-table-view > tfoot th:nth-child(4) {
-  inline-size: 25%;
+  inline-size: 23%;
 }
 
 .products-table-view > thead th:nth-child(5),
 .products-table-view > tfoot th:nth-child(5) {
-  inline-size: 10%;
+  inline-size: 16%;
   text-align: end;
 }
 
@@ -64,4 +64,28 @@
 
 .products-table-view > tbody > tr:nth-child(odd) td {
   background: var(--surface-3);
+}
+
+/* || MEDIA QUERIES */
+
+/* Small devices (landscape phones, less than 768px) */
+@media screen and (max-width: 767.98px) {
+  .products-table-view > thead th:nth-child(1),
+  .products-table-view > tfoot th:nth-child(1) {
+    inline-size: var(--size-11);
+  }
+
+  .products-table-view > thead th:nth-child(2),
+  .products-table-view > tfoot th:nth-child(2) {
+    inline-size: 100%;
+  }
+
+  .products-table-view > thead th:nth-child(3),
+  .products-table-view > tfoot th:nth-child(3),
+  .products-table-view > thead th:nth-child(4),
+  .products-table-view > tfoot th:nth-child(4),
+  .products-table-view > thead th:nth-child(5),
+  .products-table-view > tfoot th:nth-child(5) {
+    display: none;
+  }
 }

@@ -21,7 +21,7 @@ import ProductsTableActions from "./ProductsTableActions";
 // types
 interface ProductsTableEntryProps {
   product: Prisma.ProductGetPayload<{
-    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
+    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true; user: true };
   }>;
 }
 
@@ -32,20 +32,28 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
     return null;
   }
 
-  const { name, imageUrl, price, categories, subCategories } = product;
+  const {
+    id,
+    name,
+    imageUrl,
+    price,
+    categories,
+    subCategories,
+    user: { role },
+  } = product;
 
   return (
     <tr className={styles["products-table-entry"]}>
       <td>
         <div className={styles["products-table-entry-image"]}>
           <Link href={"#"} className={styles["products-table-entry-image__link"]}>
-            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} title={name} className="h-12 w-auto object-cover" />
+            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} title={name} className="h-12 w-auto object-contain" />
           </Link>
           <div className={clsx(styles["products-table-entry-image__info"], "dropdown dropdown-right")}>
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">
               <InformationCircleIcon width={24} height={24} />
             </div>
-            <div tabIndex={0} className="dropdown-content z-10 w-80 shadow">
+            <div tabIndex={0} className={clsx(styles["products-table-entry__product-info"], "dropdown-content z-10 shadow")}>
               <ProductInfo product={product} />
             </div>
           </div>
@@ -68,7 +76,7 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
       </td>
       <td>{formatPrice(price)}</td>
       <td>
-        <ProductsTableActions />
+        <ProductsTableActions productId={id} productName={name} productImageUrl={imageUrl} productPrice={price} usersRole={role} />
       </td>
     </tr>
   );

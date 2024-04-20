@@ -13,7 +13,13 @@ import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@her
 // assets
 import { lusitana } from "@/assets/fonts";
 
-const ConfirmDialog = forwardRef(({ message, onConfirmed }, ref) => {
+// types
+interface ConfirmDialogProps {
+  onConfirmed: () => void;
+  children: React.ReactNode;
+}
+
+const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children }: ConfirmDialogProps, ref) => {
   return (
     <dialog ref={ref} className={clsx(styles["confirm-dialog"], "modal")}>
       <div className="modal-box p-0">
@@ -23,7 +29,7 @@ const ConfirmDialog = forwardRef(({ message, onConfirmed }, ref) => {
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
         </h2>
-        <p className="py-4">{message}</p>
+        <div className="py-4">{children}</div>
         <div className="modal-action">
           <form method="dialog">
             <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed && onConfirmed()}>

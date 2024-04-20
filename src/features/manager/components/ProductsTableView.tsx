@@ -6,7 +6,6 @@ import { allProductsWithPagination } from "@/features/manager/managerDb";
 
 // other libraries
 import clsx from "clsx";
-import { formatPrice } from "@/lib/helpers";
 
 // components
 import ProductsTableEntry from "./ProductsTableEntry";
