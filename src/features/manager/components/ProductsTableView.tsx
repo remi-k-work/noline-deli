@@ -6,6 +6,7 @@ import { allProductsWithPagination } from "@/features/manager/managerDb";
 
 // other libraries
 import clsx from "clsx";
+import SearchParamsState from "../SearchParamsState";
 
 // components
 import ProductsTableEntry from "./ProductsTableEntry";
@@ -14,9 +15,14 @@ import NotFound from "@/components/NotFound";
 // assets
 import { lusitana } from "@/assets/fonts";
 
-export default async function ProductsTableView() {
+// types
+interface ProductsTableViewProps {
+  searchParamsState: SearchParamsState;
+}
+
+export default async function ProductsTableView({ searchParamsState: { categoryId, subCategoryId } }: ProductsTableViewProps) {
   // Retrieve all products from an external source (database) using offset pagination
-  const { totalItems, products } = await allProductsWithPagination(1, 10, "id", "desc", "", 900000000, false);
+  const { totalItems, products } = await allProductsWithPagination(1, 10, "id", "desc", categoryId, subCategoryId);
 
   if (products.length === 0) return <NotFound message={"Products were not found!"} />;
 

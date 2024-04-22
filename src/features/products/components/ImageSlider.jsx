@@ -49,7 +49,8 @@ export default function ImageSlider({ productName, moreImages = [] }) {
             width={640}
             height={400}
             alt={productName}
-            className="h-96 w-auto rounded-lg object-cover"
+            sizes="100vw"
+            className="h-96 w-full object-contain"
             priority
           />
         ) : (
@@ -59,7 +60,8 @@ export default function ImageSlider({ productName, moreImages = [] }) {
             width={640}
             height={400}
             alt={productName}
-            className="hidden h-96 w-auto rounded-lg object-cover"
+            sizes="100vw"
+            className="hidden h-96 w-full object-contain"
           />
         ),
       )}

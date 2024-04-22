@@ -33,7 +33,7 @@ export default function ProductCard({ product, listMode = false }) {
       <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-start z-10">NEW</span>}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-auto w-72 object-cover" />
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-72 w-full object-cover" />
           {freeShipping && (
             <span className="badge indicator-item badge-secondary indicator-center indicator-bottom z-10 flex items-center justify-center gap-2 p-3">
               <TruckIcon width={24} height={24} />
@@ -55,7 +55,14 @@ export default function ProductCard({ product, listMode = false }) {
       <Link href={routeToProductDetails(name, id)} className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
+          <Image
+            src={routeToProductImage(imageUrl)}
+            width={640}
+            height={400}
+            alt={name}
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className="h-36 w-full object-cover"
+          />
           {freeShipping && (
             <span className="badge indicator-item badge-secondary indicator-center indicator-bottom flex items-center justify-center gap-2 p-3">
               <TruckIcon width={24} height={24} />

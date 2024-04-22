@@ -30,13 +30,7 @@ export default function BrandPreview({ brand }: BrandPreviewProps) {
       <Link href={routeToAllProductsByBrand(name, id)} className="transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <header className={styles["brand-preview__logo"]}>
-            <Image
-              src={routeToBrandLogo(logoUrl)}
-              fill={true}
-              alt={name}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain"
-            />
+            <Image src={routeToBrandLogo(logoUrl)} fill={true} alt={name} sizes="100vw" className="object-contain" />
           </header>
         )}
         <footer className={styles["brand-preview__name"]}>{name}</footer>

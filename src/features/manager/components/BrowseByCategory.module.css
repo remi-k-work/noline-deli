@@ -1,0 +1,17 @@
+.browse-by-category {
+  display: block;
+}
+
+.browse-by-category__dropdown-content {
+  inline-size: 75vw;
+  inline-size: 75svw;
+  inline-size: 75dvw;
+  max-inline-size: var(--size-content-3);
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+
+  z-index: 10;
+}

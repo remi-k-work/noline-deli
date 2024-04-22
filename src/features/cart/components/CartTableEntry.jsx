@@ -35,7 +35,7 @@ export default function CartTableEntry({ cartItem }) {
       <td>
         <div className={styles["cart-table-entry-image"]}>
           <Link href={routeToProductDetails(name, productId)} className={styles["cart-table-entry-image__link"]}>
-            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-24 w-auto object-cover" />
+            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-24 w-full rounded-lg object-cover" />
           </Link>
           <div className={clsx(styles["cart-table-entry-image__info"], "dropdown")}>
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">

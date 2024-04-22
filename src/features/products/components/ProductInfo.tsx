@@ -97,7 +97,15 @@ export default function ProductInfo({ product }: ProductInfoProps) {
               <td colSpan={2} className="overflow-x-auto">
                 <div className="flex gap-4">
                   {moreImages.map(({ id, imageUrl }) => (
-                    <Image key={id} src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} className="h-36 w-auto object-cover" />
+                    <Image
+                      key={id}
+                      src={routeToProductImage(imageUrl)}
+                      width={640}
+                      height={400}
+                      alt={name}
+                      sizes="100vw"
+                      className="h-36 w-auto object-contain"
+                    />
                   ))}
                 </div>
               </td>

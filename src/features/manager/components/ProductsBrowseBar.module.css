@@ -1,0 +1,14 @@
+.products-browse-bar {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
+
+  box-shadow: var(--inner-shadow-4);
+}

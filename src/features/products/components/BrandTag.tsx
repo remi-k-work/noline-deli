@@ -33,13 +33,7 @@ export default function BrandTag({ brand, isCompact = false }: BrandTagProps) {
       <Link href={routeToAllProductsByBrand(name, id)} className="flex-1 transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <div className={styles["brand-tag__logo"]}>
-            <Image
-              src={routeToBrandLogo(logoUrl)}
-              fill={true}
-              alt={name}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain"
-            />
+            <Image src={routeToBrandLogo(logoUrl)} fill={true} alt={name} sizes="100vw" className="object-contain" />
           </div>
         )}
       </Link>
@@ -51,13 +45,7 @@ export default function BrandTag({ brand, isCompact = false }: BrandTagProps) {
       <Link href={routeToAllProductsByBrand(name, id)} className="flex-none transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <div className={styles["brand-tag__logo"]}>
-            <Image
-              src={routeToBrandLogo(logoUrl)}
-              fill={true}
-              alt={name}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain"
-            />
+            <Image src={routeToBrandLogo(logoUrl)} fill={true} alt={name} sizes="100vw" className="object-contain" />
           </div>
         )}
       </Link>

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { ProductWithAll } from "../managerDb";
 
 // other libraries
 import clsx from "clsx";
@@ -20,9 +20,7 @@ import ProductsTableActions from "./ProductsTableActions";
 
 // types
 interface ProductsTableEntryProps {
-  product: Prisma.ProductGetPayload<{
-    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true; user: true };
-  }>;
+  product: ProductWithAll;
 }
 
 export default function ProductsTableEntry({ product }: ProductsTableEntryProps) {
