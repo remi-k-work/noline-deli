@@ -46,7 +46,7 @@ export default function SingleProductView({ product }: SingleProductViewProps) {
           {/* The width and height properties determine the image's right aspect ratio and prevent layout shifts during loading */}
           {/* The "srcset" that determines the set of images + condition descriptors from which the browser can choose will be generated automatically */}
           {/* "sizes": how large is the image going to be on the particular viewport? */}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-96 w-full object-contain" priority />
+          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-96 w-auto object-contain" priority />
         </>
       )}
       <h2 className={clsx(lusitana.className, "text-4xl")}>{name}</h2>

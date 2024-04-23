@@ -88,13 +88,14 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
         <article className={styles["page"]}>
           <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
           {logoUrl && (
-            <header className="relative mb-4 h-48 w-full overflow-clip">
+            <header className="mb-4">
               <Image
                 src={routeToBrandLogo(logoUrl)}
-                fill={true}
+                width={640}
+                height={400}
                 alt={name}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain"
+                sizes="100vw"
+                className="m-auto max-h-48 w-auto object-contain"
                 priority
               />
             </header>
@@ -117,7 +118,7 @@ function PageSkeleton({ brandName, searchParamsState: { isListMode, sortBy } }: 
       <NavBarDrawerContent>
         <article className={styles["page"]}>
           <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
-          <header className="relative mb-4 h-48 w-full overflow-clip">
+          <header className="mb-4">
             <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
           </header>
           <PaginateSkeleton />

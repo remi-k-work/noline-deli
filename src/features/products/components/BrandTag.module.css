@@ -7,19 +7,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-3);
-  place-items: center;
+  align-items: center;
 
   box-shadow: var(--inner-shadow-2);
 }
 
-.brand-tag__logo {
-  inline-size: var(--size-12);
-  block-size: var(--size-8);
-  position: relative;
-  overflow: clip;
-}
-
 .brand-tag__name {
   color: var(--text-2);
-  text-align: center;
 }

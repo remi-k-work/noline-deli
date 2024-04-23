@@ -50,7 +50,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
             height={400}
             alt={productName}
             sizes="100vw"
-            className="h-96 w-full object-contain"
+            className="h-96 w-auto object-contain"
             priority
           />
         ) : (
@@ -61,7 +61,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
             height={400}
             alt={productName}
             sizes="100vw"
-            className="hidden h-96 w-full object-contain"
+            className="hidden h-96 w-auto object-contain"
           />
         ),
       )}

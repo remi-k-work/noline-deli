@@ -40,7 +40,7 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
         href={routeToProductDetails(name, id)}
         className={clsx(styles["product-excerpt__image"], "z-10 transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
       >
-        <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-36 w-full object-cover" />
+        <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-36 w-auto object-cover" />
       </Link>
       <div className={clsx(styles["product-excerpt__price"], "z-10")}>{formatPrice(price)}</div>
       <h2 className={clsx(styles["product-excerpt__name"], "z-10")}>{name}</h2>
