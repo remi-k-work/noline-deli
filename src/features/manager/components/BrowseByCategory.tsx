@@ -14,26 +14,26 @@ import clsx from "clsx";
 import PathFinder from "@/features/manager/PathFinder";
 import useSearchParamsState from "../useSearchParamsState";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface BrowseByCategoryProps {
   categories: CategoryWithSubCategory[];
+  className?: string;
 }
 
-export default function BrowseByCategory({ categories }: BrowseByCategoryProps) {
+export default function BrowseByCategory({ categories, className }: BrowseByCategoryProps) {
   const searchParamsState = useSearchParamsState();
 
   return (
-    <div className={clsx(styles["browse-by-category"], "dropdown")}>
-      <div tabIndex={0} role="button" className={clsx(lusitana.className, "menu-title")}>
-        Browse by Category
+    <div className={clsx(styles["browse-by-category"], "dropdown", className)}>
+      <div tabIndex={0} role="button" className="menu-title">
+        <div className="lg:tooltip lg:tooltip-right" data-tip="View all items by category and subcategory">
+          Browse by Category
+        </div>
       </div>
       <ul tabIndex={0} className={clsx(styles["browse-by-category__dropdown-content"], "menu dropdown-content bg-base-200")}>
         <li>
           <Link
-            href={"/manager/products/"}
+            href={PathFinder.toAllProducts()}
             onClick={() => (document.activeElement as HTMLElement)?.blur()}
             className={clsx({ "font-bold text-accent": searchParamsState.isNoCategorySelected })}
           >

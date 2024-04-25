@@ -9,7 +9,6 @@ import clsx from "clsx";
 import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
-import ProductsBrowseBar from "@/features/manager/components/ProductsBrowseBar";
 import ProductsTableView from "@/features/manager/components/ProductsTableView";
 
 // assets
@@ -30,7 +29,6 @@ export default async function Page({ searchParams }: PageProps) {
   return (
     <article className={styles["page"]}>
       <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► Products</h1>
-      <ProductsBrowseBar />
       <ProductsTableView searchParamsState={searchParamsState} />
     </article>
   );

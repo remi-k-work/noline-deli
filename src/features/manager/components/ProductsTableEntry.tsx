@@ -45,11 +45,21 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
       <td>
         <div className={styles["products-table-entry-image"]}>
           <Link href={"#"} className={styles["products-table-entry-image__link"]}>
-            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} title={name} className="h-12 w-auto object-contain" />
+            <Image
+              src={routeToProductImage(imageUrl)}
+              width={320}
+              height={200}
+              alt={name}
+              title={name}
+              sizes="100vw"
+              className="h-auto max-h-14 w-auto rounded-lg object-cover"
+            />
           </Link>
           <div className={clsx(styles["products-table-entry-image__info"], "dropdown dropdown-right")}>
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">
-              <InformationCircleIcon width={24} height={24} />
+              <div className="lg:tooltip lg:tooltip-right" data-tip="Display all information about this product">
+                <InformationCircleIcon width={24} height={24} />
+              </div>
             </div>
             <div tabIndex={0} className={clsx(styles["products-table-entry__product-info"], "dropdown-content z-10 shadow")}>
               <ProductInfo product={product} />

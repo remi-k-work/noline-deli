@@ -7,14 +7,16 @@
 
 .paginate__prev,
 .paginate__next {
-  flex: 1;
-  text-align: center;
   cursor: pointer;
+
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
+
+  display: flex;
+  align-items: center;
+
   border-radius: var(--radius-3);
-  border-block-start: var(--border-size-1) dotted var(--surface-2);
-  border-block-end: var(--border-size-1) dotted var(--surface-2);
+  border: var(--border-size-1) solid var(--surface-2);
 }
 
 .paginate__prev > svg,
@@ -23,33 +25,43 @@
 }
 
 .paginate__pages {
-  flex: 9;
+  inline-size: 75vw;
+  inline-size: 75svw;
+  inline-size: 75dvw;
+  max-inline-size: var(--size-content-1);
+  background: var(--surface-2);
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  list-style-type: none;
-  padding-inline: 0;
+  flex-direction: column;
   gap: var(--size-2);
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+
+  z-index: 10;
 }
 
 .paginate__page-number {
-  flex: 0 1 var(--size-8);
-  text-align: center;
   cursor: pointer;
-  padding-inline: var(--size-2);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
   padding-block: var(--size-2);
-  border-radius: var(--radius-3);
-  border-block-start: var(--border-size-1) dotted var(--surface-2);
-  border-block-end: var(--border-size-1) dotted var(--surface-2);
+  border-radius: var(--radius-2);
 }
 
 .paginate__page-number--current {
-  background: var(--surface-2);
-  color: var(--text-1);
   cursor: not-allowed;
-  border-block-start: var(--border-size-1) solid var(--surface-3);
-  border-block-end: var(--border-size-1) solid var(--surface-3);
+
+  background: var(--surface-4);
+  color: var(--text-1);
+
   transition: none;
 }
 
@@ -69,8 +81,6 @@
   .paginate__next:hover {
     background: var(--surface-2);
     color: var(--text-1);
-    border-block-start: var(--border-size-1) solid var(--surface-3);
-    border-block-end: var(--border-size-1) solid var(--surface-3);
   }
 
   .paginate__page-number {
@@ -78,9 +88,7 @@
   }
 
   .paginate__page-number:hover {
-    background: var(--surface-2);
+    background: var(--surface-4);
     color: var(--text-1);
-    border-block-start: var(--border-size-1) solid var(--surface-3);
-    border-block-end: var(--border-size-1) solid var(--surface-3);
   }
 }

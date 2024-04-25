@@ -11,6 +11,7 @@ enum SearchParamName {
 }
 
 export default class PathFinder {
+  public static toAllProducts = () => PathTo.products;
   public static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
   public static toProductsByCategoryAndSubCategory = (categoryId: string, subCategoryId: string) =>
     `${PathFinder.toProductsByCategory(categoryId)}&${SearchParamName.subCategoryId}=${subCategoryId}`;

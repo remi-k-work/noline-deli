@@ -26,7 +26,7 @@
 
 .products-table-entry-image {
   display: grid;
-  place-items: start;
+  place-items: center stretch;
 
   grid-template-columns: [inf-start] var(--size-7) [img-start] auto [img-end inf-end];
   grid-template-rows: [inf-start img-start] auto [img-end inf-end];
@@ -38,6 +38,7 @@
 
 .products-table-entry-image__info {
   grid-area: inf;
+  place-self: center start;
 }
 
 /* || MEDIA QUERIES */

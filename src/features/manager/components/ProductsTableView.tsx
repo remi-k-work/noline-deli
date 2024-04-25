@@ -9,6 +9,7 @@ import clsx from "clsx";
 import SearchParamsState from "../SearchParamsState";
 
 // components
+import ProductsBrowseBar from "./ProductsBrowseBar";
 import ProductsTableEntry from "./ProductsTableEntry";
 import NotFound from "@/components/NotFound";
 
@@ -20,39 +21,49 @@ interface ProductsTableViewProps {
   searchParamsState: SearchParamsState;
 }
 
-export default async function ProductsTableView({ searchParamsState: { categoryId, subCategoryId } }: ProductsTableViewProps) {
+export default async function ProductsTableView({ searchParamsState: { currentPage, categoryId, subCategoryId, keyword } }: ProductsTableViewProps) {
   // Retrieve all products from an external source (database) using offset pagination
-  const { totalItems, products } = await allProductsWithPagination(1, 10, "id", "desc", categoryId, subCategoryId);
+  const { totalItems, products } = await allProductsWithPagination(10, "id", "desc", currentPage, categoryId, subCategoryId, keyword);
 
-  if (products.length === 0) return <NotFound message={"Products were not found!"} />;
+  if (products.length === 0)
+    return (
+      <>
+        <ProductsBrowseBar itemsPerPage={10} totalItems={totalItems} />
+        <br />
+        <NotFound message={"Products were not found!"} />
+      </>
+    );
 
   return (
-    <table className={styles["products-table-view"]}>
-      <thead className={clsx(lusitana.className)}>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>SubCategory</th>
-          <th>Price</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product) => (
-          <ProductsTableEntry key={product.id} product={product} />
-        ))}
-      </tbody>
-      <tfoot className={clsx(lusitana.className)}>
-        <tr>
-          <th>&nbsp;</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>SubCategory</th>
-          <th>Price</th>
-          <th>&nbsp;</th>
-        </tr>
-      </tfoot>
-    </table>
+    <>
+      <ProductsBrowseBar itemsPerPage={10} totalItems={totalItems} />
+      <table className={styles["products-table-view"]}>
+        <thead className={clsx(lusitana.className)}>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>SubCategory</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <ProductsTableEntry key={product.id} product={product} />
+          ))}
+        </tbody>
+        <tfoot className={clsx(lusitana.className)}>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>SubCategory</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+        </tfoot>
+      </table>
+    </>
   );
 }
