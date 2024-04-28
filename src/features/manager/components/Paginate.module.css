@@ -1,8 +1,8 @@
 .paginate {
   color: var(--text-2);
+
   display: flex;
   gap: var(--size-2);
-  align-items: center;
 }
 
 .paginate__prev,
@@ -19,9 +19,11 @@
   border: var(--border-size-1) solid var(--surface-2);
 }
 
-.paginate__prev > svg,
-.paginate__next > svg {
-  margin: auto;
+.paginate__curr {
+  cursor: pointer;
+
+  border-radius: var(--radius-3);
+  border: var(--border-size-1) solid var(--surface-2);
 }
 
 .paginate__pages {
@@ -73,22 +75,17 @@
 */
 @media (hover: hover) and (pointer: fine) {
   .paginate__prev,
-  .paginate__next {
-    transition: all 0.5s var(--ease-3);
-  }
-
-  .paginate__prev:hover,
-  .paginate__next:hover {
-    background: var(--surface-2);
-    color: var(--text-1);
-  }
-
+  .paginate__next,
+  .paginate__curr,
   .paginate__page-number {
     transition: all 0.5s var(--ease-3);
   }
 
+  .paginate__prev:hover,
+  .paginate__next:hover,
+  .paginate__curr:hover,
   .paginate__page-number:hover {
-    background: var(--surface-4);
+    background: var(--surface-2);
     color: var(--text-1);
   }
 }

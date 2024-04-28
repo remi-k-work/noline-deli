@@ -28,9 +28,9 @@ export default async function ProductsBrowseBar({ itemsPerPage, totalItems }: Pr
 
   return (
     <section className={clsx(lusitana.className, styles["products-browse-bar"], "bg-base-100")}>
-      <BrowseByCategory categories={categories} className={styles["products-browse-bar__browse-by-category"]} />
+      <BrowseByCategory categories={categories} totalItems={totalItems} className={styles["products-browse-bar__browse-by-category"]} />
       <SearchPanel className={styles["products-browse-bar__search-panel"]} />
-      <SortBy className={styles["products-browse-bar__sort-by"]} />
+      <SortBy totalItems={totalItems} className={styles["products-browse-bar__sort-by"]} />
       <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} className={styles["products-browse-bar__paginate"]} />
     </section>
   );

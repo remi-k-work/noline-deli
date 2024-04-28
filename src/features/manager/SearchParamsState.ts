@@ -7,7 +7,14 @@ enum SearchParamName {
   categoryId = "mcat",
   subCategoryId = "scat",
   currentPage = "page",
+  sortBy = "sort",
 }
+
+type ParamsToSet = [SearchParamName, string?][];
+type ParamsToDel = SearchParamName[];
+
+export type SortByField = "id" | "price" | "name";
+export type SortByOrder = "asc" | "desc";
 
 export default class SearchParamsState {
   // All search params that maintain the current state that is kept in the current url
@@ -25,19 +32,19 @@ export default class SearchParamsState {
   // Search panel
   public readonly keyword?: string = this.searchParams.get(SearchParamName.keyword) ?? undefined;
 
+  // Sort by
+  public readonly sortBy: string = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
+  public readonly sortByField: SortByField = this.sortBy.split(",")[0] as SortByField;
+  public readonly sortByOrder: SortByOrder = this.sortBy.split(",")[1] as SortByOrder;
+
   constructor(
     private readonly pathname: string,
     private readonly searchParams: ReadonlyURLSearchParams,
   ) {}
 
-  // The pagination state has changed
-  paginationChanged(newCurrentPage: number) {
-    const paramsToSet: [SearchParamName, string][] = [];
-    paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
-
-    this.updateParams(undefined, paramsToSet);
-
-    return this.hrefWithParams;
+  // Are we in search mode?
+  get isSearchMode() {
+    return this.searchParams.has(SearchParamName.keyword);
   }
 
   // Has no category been selected? Are we, in other words, browsing all the products?
@@ -55,20 +62,75 @@ export default class SearchParamsState {
     return this.subCategoryId === subCategoryId;
   }
 
+  // Has the specific sorting method been chosen?
+  isSortBySelected(sortByField: SortByField, sortByOrder: SortByOrder) {
+    const sortBy = `${sortByField},${sortByOrder}`;
+    return this.sortBy === sortBy;
+  }
+
+  // The pagination state has changed
+  paginationChanged(newCurrentPage: number) {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
+
+    this.updateParams(undefined, paramsToSet);
+
+    return this.hrefWithParams;
+  }
+
+  // The browse by category state has changed
+  browseByCategoryChanged(newCategoryId?: string, newSubCategoryId?: string) {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.categoryId, newCategoryId]);
+    paramsToSet.push([SearchParamName.subCategoryId, newSubCategoryId]);
+
+    this.updateParams(undefined, paramsToSet);
+    this.resetPagination();
+
+    // We either browse by category or search; do not combine the two
+    this.resetSearchPanel();
+
+    return this.hrefWithParams;
+  }
+
   // The search panel state has changed
   searchPanelChanged(newKeyword: string) {
-    const paramsToSet: [SearchParamName, string][] = [];
+    const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.keyword, newKeyword]);
 
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
 
+    // We either browse by category or search; do not combine the two
+    this.resetBrowseByCategory();
+
     return this.hrefWithParams;
   }
 
-  // Reset the pagination position
+  // The sort by state has changed
+  sortByChanged(newSortByField: SortByField, newSortByOrder: SortByOrder) {
+    const paramsToSet: ParamsToSet = [];
+    const newSortBy = `${newSortByField},${newSortByOrder}`;
+    paramsToSet.push([SearchParamName.sortBy, newSortBy]);
+
+    this.updateParams(undefined, paramsToSet);
+
+    return this.hrefWithParams;
+  }
+
+  // Reset the pagination
   private resetPagination() {
     this.updateParams([SearchParamName.currentPage]);
+  }
+
+  // Reset the browse by category
+  private resetBrowseByCategory() {
+    this.updateParams([SearchParamName.categoryId, SearchParamName.subCategoryId]);
+  }
+
+  // Reset the search panel
+  private resetSearchPanel() {
+    this.updateParams([SearchParamName.keyword]);
   }
 
   // Carry over currently used search params alongside the provided pathname
@@ -84,7 +146,7 @@ export default class SearchParamsState {
   }
 
   // Update search params that maintain the current state that is kept in the current url
-  private updateParams(paramsToDel?: SearchParamName[], paramsToSet?: [SearchParamName, string][]) {
+  private updateParams(paramsToDel?: ParamsToDel, paramsToSet?: ParamsToSet) {
     // Any search params to delete?
     if (paramsToDel) {
       for (const paramToDel of paramsToDel) {

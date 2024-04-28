@@ -11,64 +11,95 @@ import { CategoryWithSubCategory } from "../managerDb";
 
 // other libraries
 import clsx from "clsx";
-import PathFinder from "@/features/manager/PathFinder";
 import useSearchParamsState from "../useSearchParamsState";
 
 // types
 interface BrowseByCategoryProps {
   categories: CategoryWithSubCategory[];
+  totalItems: number;
   className?: string;
 }
 
-export default function BrowseByCategory({ categories, className }: BrowseByCategoryProps) {
+interface BrowseByContextProps {
+  categories: CategoryWithSubCategory[];
+}
+
+export default function BrowseByCategory({ categories, totalItems, className }: BrowseByCategoryProps) {
   const searchParamsState = useSearchParamsState();
 
   return (
-    <div className={clsx(styles["browse-by-category"], "dropdown", className)}>
-      <div tabIndex={0} role="button" className="menu-title">
-        <div className="lg:tooltip lg:tooltip-right" data-tip="View all items by category and subcategory">
-          Browse by Category
+    <section className={clsx(styles["browse-by-category"], className)}>
+      <header className={styles["browse-by-category__total"]}>
+        <span className="badge badge-info">{totalItems}</span>
+      </header>
+      <footer className={clsx(styles["browse-by-category__context"], "dropdown")}>
+        {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
+        <div tabIndex={0} role="button" className="h-full p-2">
+          <BrowseByContext categories={categories} />
         </div>
-      </div>
-      <ul tabIndex={0} className={clsx(styles["browse-by-category__dropdown-content"], "menu dropdown-content bg-base-200")}>
-        <li>
-          <Link
-            href={PathFinder.toAllProducts()}
-            onClick={() => (document.activeElement as HTMLElement)?.blur()}
-            className={clsx({ "font-bold text-accent": searchParamsState.isNoCategorySelected })}
-          >
-            All Products
-          </Link>
-        </li>
-        {categories.map(({ id: categoryId, name, subCategories }) => (
-          <li key={categoryId}>
-            <details open>
-              <summary>
-                <Link
-                  href={PathFinder.toProductsByCategory(categoryId)}
-                  onClick={() => (document.activeElement as HTMLElement)?.blur()}
-                  className={clsx({ "font-bold text-accent": searchParamsState.isCategorySelected(categoryId) })}
-                >
-                  {name}
-                </Link>
-              </summary>
-              <ul>
-                {subCategories.map(({ id: subCategoryId, name }) => (
-                  <li key={subCategoryId}>
-                    <Link
-                      href={PathFinder.toProductsByCategoryAndSubCategory(categoryId, subCategoryId)}
-                      onClick={() => (document.activeElement as HTMLElement)?.blur()}
-                      className={clsx({ "font-bold text-accent": searchParamsState.isSubCategorySelected(subCategoryId) })}
-                    >
-                      {name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+        <ul tabIndex={0} className={clsx(styles["browse-by-category__dropdown-content"], "menu dropdown-content bg-base-200")}>
+          <li>
+            <Link
+              href={searchParamsState.browseByCategoryChanged()}
+              onClick={() => (document.activeElement as HTMLElement)?.blur()}
+              className={clsx({ "font-bold text-accent": searchParamsState.isNoCategorySelected && !searchParamsState.isSearchMode })}
+            >
+              All Products
+            </Link>
           </li>
-        ))}
-      </ul>
+          {categories.map(({ id: categoryId, name, subCategories }) => (
+            <li key={categoryId}>
+              <details open>
+                <summary>
+                  <Link
+                    href={searchParamsState.browseByCategoryChanged(categoryId)}
+                    onClick={() => (document.activeElement as HTMLElement)?.blur()}
+                    className={clsx({ "font-bold text-accent": searchParamsState.isCategorySelected(categoryId) })}
+                  >
+                    {name}
+                  </Link>
+                </summary>
+                <ul>
+                  {subCategories.map(({ id: subCategoryId, name }) => (
+                    <li key={subCategoryId}>
+                      <Link
+                        href={searchParamsState.browseByCategoryChanged(categoryId, subCategoryId)}
+                        onClick={() => (document.activeElement as HTMLElement)?.blur()}
+                        className={clsx({ "font-bold text-accent": searchParamsState.isSubCategorySelected(subCategoryId) })}
+                      >
+                        {name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ))}
+        </ul>
+      </footer>
+    </section>
+  );
+}
+
+function BrowseByContext({ categories }: BrowseByContextProps) {
+  const searchParamsState = useSearchParamsState();
+
+  const currentCategory = categories.find(({ id }) => searchParamsState.isCategorySelected(id));
+  const currentSubCategory = currentCategory?.subCategories.find(({ id }) => searchParamsState.isSubCategorySelected(id));
+
+  return (
+    <div className="lg:tooltip lg:tooltip-right" data-tip="View all items by category and subcategory">
+      {searchParamsState.isSearchMode ? (
+        <>Search Results</>
+      ) : searchParamsState.isNoCategorySelected ? (
+        <>All Products</>
+      ) : currentSubCategory ? (
+        <>
+          {currentCategory?.name} ► {currentSubCategory.name}
+        </>
+      ) : (
+        <>{currentCategory?.name}</>
+      )}
     </div>
   );
 }

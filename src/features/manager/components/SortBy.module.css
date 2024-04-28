@@ -2,12 +2,6 @@
   color: var(--text-2);
   cursor: pointer;
 
-  padding-inline: var(--size-2);
-  padding-block: var(--size-2);
-
-  display: flex;
-  align-items: center;
-
   border-radius: var(--radius-3);
   border: var(--border-size-1) solid var(--surface-2);
 }
@@ -16,7 +10,7 @@
   inline-size: 75vw;
   inline-size: 75svw;
   inline-size: 75dvw;
-  max-inline-size: var(--size-content-2);
+  max-inline-size: calc(var(--size-content-2) - 15ch);
   background: var(--surface-2);
   padding-inline: var(--size-2);
   padding-block: var(--size-2);

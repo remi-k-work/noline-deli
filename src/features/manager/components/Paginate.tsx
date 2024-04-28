@@ -44,9 +44,10 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
             <BackwardIcon width={24} height={24} />
           </div>
         </Link>
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="min-w-9 text-center">
-            <div className="lg:tooltip" data-tip="Change page">
+        <div className={clsx(styles["paginate__curr"], "dropdown dropdown-end")}>
+          {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
+          <div tabIndex={0} role="button" className="flex h-full items-center">
+            <div className="min-w-16 text-center lg:tooltip" data-tip="Change page">
               {currentPage}&nbsp;/&nbsp;{totalPages}
             </div>
           </div>
