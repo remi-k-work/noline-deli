@@ -83,9 +83,13 @@
 
   .paginate__prev:hover,
   .paginate__next:hover,
-  .paginate__curr:hover,
-  .paginate__page-number:hover {
+  .paginate__curr:hover {
     background: var(--surface-2);
+    color: var(--text-1);
+  }
+
+  .paginate__page-number:hover {
+    background: var(--surface-4);
     color: var(--text-1);
   }
 }

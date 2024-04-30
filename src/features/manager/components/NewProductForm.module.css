@@ -1,0 +1,29 @@
+.new-product-form {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+}
+
+.new-product-form > h2 {
+  background: var(--surface-3);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+  border-radius: var(--radius-blob-5);
+  font-size: var(--font-size-5);
+  text-align: center;
+  margin-block: 0 var(--size-6);
+  display: flex;
+  align-items: center;
+}
+
+.new-product-form__submit {
+  display: flex;
+  gap: var(--size-4);
+  justify-content: space-around;
+  margin-block: var(--size-8) 0;
+}

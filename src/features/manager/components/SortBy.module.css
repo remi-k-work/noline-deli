@@ -54,17 +54,14 @@
   https://stackoverflow.com/questions/17233804/how-to-prevent-sticky-hover-effects-for-buttons-on-touch-devices
 */
 @media (hover: hover) and (pointer: fine) {
-  .sort-by {
+  .sort-by,
+  .sort-by__choice {
     transition: all 0.5s var(--ease-3);
   }
 
   .sort-by:hover {
     background: var(--surface-2);
     color: var(--text-1);
-  }
-
-  .sort-by__choice {
-    transition: all 0.5s var(--ease-3);
   }
 
   .sort-by__choice:hover {

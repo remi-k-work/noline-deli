@@ -1,0 +1,37 @@
+.form-field {
+  inline-size: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field > label {
+  color: var(--text-2);
+  padding-block: var(--size-4) var(--size-1);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-9);
+  text-transform: uppercase;
+}
+
+.form-field > input,
+.form-field > textarea,
+.form-field > select {
+  inline-size: 100%;
+}
+
+.error-message {
+  font-size: var(--font-size-2);
+
+  padding-inline: var(--size-2);
+  padding-block: var(--size-1);
+  border-radius: var(--radius-3);
+
+  opacity: 0;
+  animation:
+    var(--animation-shake-y),
+    var(--animation-fade-in) forwards;
+
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+}

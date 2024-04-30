@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { waait } from "@/lib/helpers";
+import PathFinder from "../PathFinder";
 
 // components
 import ConfirmDialog from "@/components/ConfirmDialog";
@@ -59,7 +60,7 @@ export default function ProductsTableActions({ productId, productName, productIm
         </div>
         <ul tabIndex={0} className={clsx(styles["products-table-actions"], "dropdown-content -translate-y-1/4")}>
           <li>
-            <Link href={"#"} className="btn btn-block">
+            <Link href={PathFinder.toProductEdit(productId)} className="btn btn-block">
               <PencilIcon width={24} height={24} />
               Edit
             </Link>

@@ -6,19 +6,17 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // types
-export type ProductWithAll = Prisma.ProductGetPayload<{
-  include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true; user: true };
-}>;
+export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
+export type CategoryWithSubCategory = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_SUBCATEGORY }>;
 
-export type CategoryWithSubCategory = Prisma.CategoryGetPayload<{ include: { subCategories: { include: { user: true } }; user: true } }>;
-
-const INCLUDE_FIELDS: Prisma.ProductInclude = {
+const INCLUDE_PRODUCT_WITH_ALL = {
   categories: { include: { category: true } },
   subCategories: { include: { subCategory: true } },
   moreImages: true,
   brand: true,
   user: true,
 };
+const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { include: { user: true } }, user: true };
 
 function whereCategory(categoryId?: string): Prisma.ProductWhereInput {
   return categoryId === undefined ? { categories: undefined } : { categories: { some: { category: { is: { id: categoryId } } } } };
@@ -40,7 +38,12 @@ function whereKeyword(keyword?: string): Prisma.ProductWhereInput {
 
 // Retrieve all of the categories from an external source (database)
 export const allCategories = cache(async () => {
-  return await prisma.category.findMany({ include: { subCategories: { include: { user: true } }, user: true }, orderBy: { id: "desc" } });
+  return await prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY });
+});
+
+// Get all the information you need about this particular product
+export const getProduct = cache(async (productId: string) => {
+  return await prisma.product.findUnique({ where: { id: productId }, include: INCLUDE_PRODUCT_WITH_ALL });
 });
 
 // Retrieve all products from an external source (database) using offset pagination
@@ -75,11 +78,11 @@ export async function allProductsWithPagination(
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
-      include: INCLUDE_FIELDS,
+      include: INCLUDE_PRODUCT_WITH_ALL,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,
-    }) as unknown as ProductWithAll[],
+    }),
   ]);
 
   return { totalItems, products };

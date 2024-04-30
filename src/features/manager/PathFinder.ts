@@ -1,8 +1,6 @@
 // types
-enum PathTo {
-  manager = "/manager",
-  products = manager + "/products",
-  product = products + "/[productId]",
+enum ParamName {
+  productId = "[productId]",
 }
 
 enum SearchParamName {
@@ -10,9 +8,19 @@ enum SearchParamName {
   subCategoryId = "scat",
 }
 
+enum PathTo {
+  manager = "/manager",
+  products = manager + "/products",
+  productNew = products + "/new",
+  productEdit = products + `/${ParamName.productId}`,
+}
+
 export default class PathFinder {
   public static toAllProducts = () => PathTo.products;
   public static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
   public static toProductsByCategoryAndSubCategory = (categoryId: string, subCategoryId: string) =>
     `${PathFinder.toProductsByCategory(categoryId)}&${SearchParamName.subCategoryId}=${subCategoryId}`;
+
+  public static toProductNew = () => PathTo.productNew;
+  public static toProductEdit = (productId: string) => PathTo.productEdit.replace(ParamName.productId, productId);
 }
