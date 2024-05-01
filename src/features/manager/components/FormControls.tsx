@@ -20,9 +20,13 @@ interface FormFieldProps {
   className?: string;
 }
 
-interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {}
+interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {
+  fieldType?: "text" | "number" | "url";
+}
 interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {}
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
+interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
+
 interface FormOutputFieldProps extends Omit<FormFieldProps, "fieldErrors">, ComponentProps<"output"> {
   outputFor: string;
 }
@@ -31,14 +35,40 @@ interface ErrorMessageProps {
   fieldError: string | undefined;
 }
 
-export function FormInputField({ fieldName, fieldLabel, fieldErrors, className, ...props }: FormInputFieldProps) {
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, fieldErrors, className, ...props }: FormInputFieldProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
       {/* We can omit the default type="text" and, by that, allow to define additional input types */}
-      <input id={fieldName} name={fieldName} aria-invalid={fieldErrors[fieldName] ? "true" : "false"} className={clsx("input", className)} {...props} />
+      <input
+        type={fieldType}
+        id={fieldName}
+        name={fieldName}
+        aria-invalid={fieldErrors[fieldName] ? "true" : "false"}
+        className={clsx("input", className)}
+        {...props}
+      />
       <ErrorMessage fieldError={fieldErrors[fieldName]} />
     </div>
+  );
+}
+
+export function FormCheckField({ fieldName, fieldErrors, children, className, ...props }: FormCheckFieldProps) {
+  return (
+    <>
+      <div className={styles["form-field-h"]}>
+        <label htmlFor={fieldName}>{children}</label>
+        <input
+          type="checkbox"
+          id={fieldName}
+          name={fieldName}
+          aria-invalid={fieldErrors[fieldName] ? "true" : "false"}
+          className={clsx("checkbox", className)}
+          {...props}
+        />
+      </div>
+      <ErrorMessage fieldError={fieldErrors[fieldName]} />
+    </>
   );
 }
 

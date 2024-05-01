@@ -1,24 +1,22 @@
-"use client";
-
 // component css styles
 import styles from "./NewProductForm.module.css";
 
-// react
-import { useState } from "react";
+// prisma and db access
+import { getProductFormData } from "@/features/manager/managerDb";
 
 // other libraries
-import clsx from "clsx";
-import { HandThumbUpIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
-import { formatPrice } from "@/lib/helpers";
+import { HandThumbUpIcon, PencilSquareIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 // components
-import { FormTextArea, FormInputField, FormOutputField } from "./FormControls";
+import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
+import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./ProductFormControls";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
-export default function NewProductForm() {
-  const [priceInCents, setPriceInCents] = useState(1);
+export default async function NewProductForm() {
+  // Gather the necessary data for the product form, such as a list of all available brands and categories
+  const { brands, categories } = await getProductFormData();
 
   return (
     <article className={styles["new-product-form"]}>
@@ -48,7 +46,7 @@ export default function NewProductForm() {
           defaultValue={""}
         />
         <FormInputField
-          type={"url"}
+          fieldType={"url"}
           fieldName={"imageUrl"}
           fieldLabel={"image url"}
           fieldErrors={[]}
@@ -58,26 +56,13 @@ export default function NewProductForm() {
           autoComplete={"off"}
           defaultValue={""}
         />
-        <div className="flex gap-2">
-          <FormInputField
-            type={"number"}
-            fieldName={"price"}
-            fieldLabel={"price in cents"}
-            fieldErrors={[]}
-            min={"1"}
-            max={"900000000"}
-            step={"1"}
-            defaultValue={"1"}
-            onChange={(e) => setPriceInCents(Number(e.target.value))}
-          />
-          <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
-            <div className="stats min-w-full shadow">
-              <div className="stat">
-                <div className="stat-value text-lg">{formatPrice(priceInCents)}</div>
-              </div>
-            </div>
-          </FormOutputField>
-        </div>
+        <PriceInCents />
+        <CategoryAndSubCategory categories={categories} />
+        <BrandAndLogo brands={brands} />
+        <FormCheckField fieldName={"freeShipping"} fieldErrors={[]} defaultChecked={false}>
+          <TruckIcon width={24} height={24} />
+          Free Shipping
+        </FormCheckField>
       </form>
     </article>
   );

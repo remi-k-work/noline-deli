@@ -1,0 +1,20 @@
+.price-in-cents {
+  inline-size: 100%;
+
+  display: flex;
+  gap: var(--size-2);
+}
+
+.brand-and-logo {
+  inline-size: 100%;
+
+  display: flex;
+  gap: var(--size-2);
+}
+
+.category-and-subcategory {
+  inline-size: 100%;
+
+  display: flex;
+  gap: var(--size-2);
+}

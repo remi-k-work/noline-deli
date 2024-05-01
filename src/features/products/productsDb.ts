@@ -24,7 +24,11 @@ export const getBrand = cache(async (brandId: string) => {
 
 // Retrieve all of the categories from an external source (database)
 export const allCategories = cache(async () => {
-  return await prisma.category.findMany({ where: { user: { role: "ADMIN" } }, include: { subCategories: true }, orderBy: { id: "desc" } });
+  return await prisma.category.findMany({
+    where: { user: { role: "ADMIN" } },
+    include: { subCategories: { orderBy: { name: "asc" } } },
+    orderBy: { name: "asc" },
+  });
 });
 
 // Retrieve all products by brand

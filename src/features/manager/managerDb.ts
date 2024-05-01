@@ -8,6 +8,7 @@ import prisma from "@/lib/db/prisma";
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
 export type CategoryWithSubCategory = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_SUBCATEGORY }>;
+export type BrandWithUser = Prisma.BrandGetPayload<{ include: typeof INCLUDE_BRAND_WITH_USER }>;
 
 const INCLUDE_PRODUCT_WITH_ALL = {
   categories: { include: { category: true } },
@@ -15,8 +16,9 @@ const INCLUDE_PRODUCT_WITH_ALL = {
   moreImages: true,
   brand: true,
   user: true,
-};
-const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { include: { user: true } }, user: true };
+} satisfies Prisma.ProductInclude;
+const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { orderBy: { name: "asc" }, include: { user: true } }, user: true } satisfies Prisma.CategoryInclude;
+const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
 
 function whereCategory(categoryId?: string): Prisma.ProductWhereInput {
   return categoryId === undefined ? { categories: undefined } : { categories: { some: { category: { is: { id: categoryId } } } } };
@@ -36,9 +38,24 @@ function whereKeyword(keyword?: string): Prisma.ProductWhereInput {
     : { OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }] };
 }
 
+// Gather the necessary data for the product form, such as a list of all available brands and categories
+export const getProductFormData = cache(async () => {
+  const [brands, categories] = await Promise.all([
+    prisma.brand.findMany({ include: INCLUDE_BRAND_WITH_USER, orderBy: { name: "asc" } }),
+    prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY, orderBy: { name: "asc" } }),
+  ]);
+
+  return { brands, categories };
+});
+
+// Retrieve all of the brands from an external source (database)
+export const allBrands = cache(async () => {
+  return await prisma.brand.findMany({ include: INCLUDE_BRAND_WITH_USER, orderBy: { name: "asc" } });
+});
+
 // Retrieve all of the categories from an external source (database)
 export const allCategories = cache(async () => {
-  return await prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY });
+  return await prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY, orderBy: { name: "asc" } });
 });
 
 // Get all the information you need about this particular product
