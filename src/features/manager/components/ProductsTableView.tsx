@@ -25,7 +25,7 @@ export default async function ProductsTableView({
   searchParamsState: { sortByField, sortByOrder, currentPage, categoryId, subCategoryId, keyword },
 }: ProductsTableViewProps) {
   // Retrieve all products from an external source (database) using offset pagination
-  const { totalItems, products } = await allProductsWithPagination(10, sortByField, sortByOrder, currentPage, categoryId, subCategoryId, keyword);
+  const [totalItems, products] = await allProductsWithPagination(10, sortByField, sortByOrder, currentPage, categoryId, subCategoryId, keyword);
 
   if (products.length === 0)
     return (

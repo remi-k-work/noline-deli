@@ -16,7 +16,7 @@ import { lusitana } from "@/assets/fonts";
 
 export default async function NewProductForm() {
   // Gather the necessary data for the product form, such as a list of all available brands and categories
-  const { brands, categories } = await getProductFormData();
+  const [brands, categories] = await getProductFormData();
 
   return (
     <article className={styles["new-product-form"]}>

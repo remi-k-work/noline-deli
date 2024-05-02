@@ -48,8 +48,11 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
 
+  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
+  const suspenseTriggerKey = searchParamsState.keyword;
+
   return (
-    <Suspense fallback={<PageSkeleton searchParamsState={searchParamsState} />}>
+    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton searchParamsState={searchParamsState} />}>
       <PageSuspense searchParamsState={searchParamsState} />
     </Suspense>
   );
@@ -62,7 +65,7 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
   const itemsPerPage = 10;
 
   // Search our products for a certain keyword in either the name or description sections
-  const { totalItems, products } = await searchProducts(keyword, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping);
+  const [totalItems, products] = await searchProducts(keyword, currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping);
 
   return (
     <>

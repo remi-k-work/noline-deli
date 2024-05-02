@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { Prisma, PrismaPromise } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // types
@@ -40,27 +40,22 @@ function whereKeyword(keyword?: string): Prisma.ProductWhereInput {
 
 // Gather the necessary data for the product form, such as a list of all available brands and categories
 export const getProductFormData = cache(async () => {
-  const [brands, categories] = await Promise.all([
-    prisma.brand.findMany({ include: INCLUDE_BRAND_WITH_USER, orderBy: { name: "asc" } }),
-    prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY, orderBy: { name: "asc" } }),
-  ]);
-
-  return { brands, categories };
+  return Promise.all([allBrands(), allCategories()]);
 });
 
 // Retrieve all of the brands from an external source (database)
 export const allBrands = cache(async () => {
-  return await prisma.brand.findMany({ include: INCLUDE_BRAND_WITH_USER, orderBy: { name: "asc" } });
+  return prisma.brand.findMany({ include: INCLUDE_BRAND_WITH_USER, orderBy: { name: "asc" } });
 });
 
 // Retrieve all of the categories from an external source (database)
 export const allCategories = cache(async () => {
-  return await prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY, orderBy: { name: "asc" } });
+  return prisma.category.findMany({ include: INCLUDE_CATEGORY_WITH_SUBCATEGORY, orderBy: { name: "asc" } });
 });
 
 // Get all the information you need about this particular product
 export const getProduct = cache(async (productId: string) => {
-  return await prisma.product.findUnique({ where: { id: productId }, include: INCLUDE_PRODUCT_WITH_ALL });
+  return prisma.product.findUnique({ where: { id: productId }, include: INCLUDE_PRODUCT_WITH_ALL });
 });
 
 // Retrieve all products from an external source (database) using offset pagination
@@ -79,7 +74,7 @@ export async function allProductsWithPagination(
   const indexOfLastItem = (currentPage ?? 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         ...whereCategory(categoryId),
@@ -101,6 +96,4 @@ export async function allProductsWithPagination(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }

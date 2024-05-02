@@ -62,8 +62,11 @@ export async function generateMetadata({ params: { categories } }: PageProps) {
 export default async function Page({ params: { categories }, searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
 
+  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
+  const suspenseTriggerKey = getSectionTitle(categories);
+
   return (
-    <Suspense fallback={<PageSkeleton categories={categories} searchParamsState={searchParamsState} />}>
+    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton categories={categories} searchParamsState={searchParamsState} />}>
       <PageSuspense categories={categories} searchParamsState={searchParamsState} />
     </Suspense>
   );
@@ -79,7 +82,7 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
   if (categories.length === 3) {
     // Retrieve all of the products by category
     const categoryId = categories[2];
-    ({ totalItems, products } = await allProductsByCategory(
+    [totalItems, products] = await allProductsByCategory(
       categoryId,
       currentPage,
       itemsPerPage,
@@ -88,12 +91,12 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
       byBrandId,
       byPriceBelow,
       byFreeShipping,
-    ));
+    );
   } else if (categories.length === 5) {
     // Retrieve all products by category and subcategory
     const categoryId = categories[2];
     const subCategoryId = categories[4];
-    ({ totalItems, products } = await allProductsByCategoryAndSubCategory(
+    [totalItems, products] = await allProductsByCategoryAndSubCategory(
       categoryId,
       subCategoryId,
       currentPage,
@@ -103,11 +106,10 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
       byBrandId,
       byPriceBelow,
       byFreeShipping,
-    ));
+    );
   }
   // Retrieve all products from an external source (database) using offset pagination
-  else
-    ({ totalItems, products } = await allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping));
+  else [totalItems, products] = await allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping);
 
   return (
     <>

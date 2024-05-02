@@ -8,7 +8,7 @@ import prisma from "@/lib/db/prisma";
 export const getProduct = cache(async (productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
-  const product = await prisma.product.findUnique({
+  const product = prisma.product.findUnique({
     where: { id: productId, user: { role: "ADMIN" } },
     include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
   });
@@ -19,12 +19,12 @@ export const getProduct = cache(async (productId: string) => {
 
 // Get all the information you need about this particular brand
 export const getBrand = cache(async (brandId: string) => {
-  return await prisma.brand.findUnique({ where: { id: brandId, user: { role: "ADMIN" } } });
+  return prisma.brand.findUnique({ where: { id: brandId, user: { role: "ADMIN" } } });
 });
 
 // Retrieve all of the categories from an external source (database)
 export const allCategories = cache(async () => {
-  return await prisma.category.findMany({
+  return prisma.category.findMany({
     where: { user: { role: "ADMIN" } },
     include: { subCategories: { orderBy: { name: "asc" } } },
     orderBy: { name: "asc" },
@@ -44,7 +44,7 @@ export async function allProductsByBrand(
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         user: { role: "ADMIN" },
@@ -65,8 +65,6 @@ export async function allProductsByBrand(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }
 
 // Retrieve all products by category
@@ -83,7 +81,7 @@ export async function allProductsByCategory(
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         categories: { some: { category: { is: { id: categoryId } } } },
@@ -106,8 +104,6 @@ export async function allProductsByCategory(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }
 
 // Retrieve all products by category and subcategory
@@ -125,7 +121,7 @@ export async function allProductsByCategoryAndSubCategory(
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         categories: { some: { category: { is: { id: categoryId } } } },
@@ -150,8 +146,6 @@ export async function allProductsByCategoryAndSubCategory(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }
 
 // Retrieve all products from an external source (database) using offset pagination
@@ -167,7 +161,7 @@ export async function allProductsWithPagination(
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         user: { role: "ADMIN" },
@@ -188,6 +182,4 @@ export async function allProductsWithPagination(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }

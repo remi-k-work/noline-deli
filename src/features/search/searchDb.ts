@@ -51,7 +51,7 @@ export async function searchProducts(
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const [totalItems, products] = await Promise.all([
+  return Promise.all([
     prisma.product.count({
       where: {
         user: { role: "ADMIN" },
@@ -74,6 +74,4 @@ export async function searchProducts(
       take: itemsPerPage,
     }),
   ]);
-
-  return { totalItems, products };
 }

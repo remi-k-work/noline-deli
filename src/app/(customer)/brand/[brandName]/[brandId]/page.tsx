@@ -55,8 +55,11 @@ export async function generateMetadata({ params: { brandName } }: PageProps) {
 export default async function Page({ params: { brandName, brandId }, searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
 
+  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
+  const suspenseTriggerKey = brandId;
+
   return (
-    <Suspense fallback={<PageSkeleton brandName={brandName} searchParamsState={searchParamsState} />}>
+    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton brandName={brandName} searchParamsState={searchParamsState} />}>
       <PageSuspense brandName={brandName} brandId={brandId} searchParamsState={searchParamsState} />
     </Suspense>
   );
@@ -69,7 +72,7 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
   const itemsPerPage = 10;
 
   // Fetch all data in parallel if possible and pass it down to components that require it
-  const [brand, { totalItems, products }] = await Promise.all([
+  const [brand, [totalItems, products]] = await Promise.all([
     getBrand(brandId),
     allProductsByBrand(brandId, currentPage, itemsPerPage, sortByField, sortByOrder, byPriceBelow, byFreeShipping),
   ]);

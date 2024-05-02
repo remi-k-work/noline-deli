@@ -63,8 +63,11 @@ export async function generateMetadata({ params: { productName, productId } }: P
 }
 
 export default async function Page({ params: { productName, productId } }: PageProps) {
+  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
+  const suspenseTriggerKey = productId;
+
   return (
-    <Suspense fallback={<PageSkeleton productName={productName} />}>
+    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton productName={productName} />}>
       <PageSuspense productName={productName} productId={productId} />
     </Suspense>
   );
