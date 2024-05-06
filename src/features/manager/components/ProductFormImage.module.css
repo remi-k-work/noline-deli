@@ -1,0 +1,30 @@
+.product-form-image {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  min-inline-size: var(--size-content-2);
+
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+
+  grid-template-areas:
+    "image tbar"
+    "url   url";
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+}
+
+.product-form-image__image {
+  grid-area: image;
+}
+
+.product-form-image__toolbar {
+  grid-area: tbar;
+}
+
+.product-form-image__url {
+  grid-area: url;
+}

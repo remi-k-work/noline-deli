@@ -52,7 +52,7 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
               height={200}
               alt={name}
               title={name}
-              sizes="100vw"
+              sizes="50vw"
               className="h-auto max-h-14 w-auto rounded-lg object-cover"
             />
           </Link>

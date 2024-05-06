@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma, PrismaPromise } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // types

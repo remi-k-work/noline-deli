@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// prisma and db access
+import { getProductFormData } from "@/features/manager/managerDb";
+
 // other libraries
 import clsx from "clsx";
 
@@ -15,10 +18,13 @@ export const metadata = {
 };
 
 export default async function Page() {
+  // Gather the necessary data for the product form, such as a list of all available brands and categories
+  const [brands, categories] = await getProductFormData();
+
   return (
     <article className={styles["page"]}>
       <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► New Product</h1>
-      <NewProductForm />
+      <NewProductForm brands={brands} categories={categories} />
     </article>
   );
 }

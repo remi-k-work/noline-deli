@@ -14,7 +14,7 @@ import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
-import { routeToBrandLogo } from "@/features/products/helpers";
+import PathFinder from "../PathFinder";
 
 // components
 import { FormInputField, FormOutputField, FormSelectField } from "./FormControls";
@@ -48,6 +48,7 @@ export function PriceInCents({ priceInCents = 1 }: PriceInCentsProps) {
         min={"1"}
         max={"900000000"}
         step={"1"}
+        required={true}
         defaultValue={priceInCents}
         onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
       />
@@ -66,6 +67,7 @@ export function BrandAndLogo({ brands, selectedBrandId = "" }: BrandAndLogoProps
   const [currSelectedBrandId, setCurrSelectedBrandId] = useState(selectedBrandId);
 
   const currentBrand = brands.find(({ id }) => id === currSelectedBrandId);
+  const currentLogoSrc = PathFinder.toBrandLogo(currentBrand?.logoUrl);
 
   return (
     <section className={styles["brand-and-logo"]}>
@@ -86,15 +88,8 @@ export function BrandAndLogo({ brands, selectedBrandId = "" }: BrandAndLogoProps
         })}
       </FormSelectField>
       <FormOutputField outputFor={"brandId"} fieldName={"brandLogo"} fieldLabel={"logo"}>
-        {currentBrand && currentBrand.logoUrl ? (
-          <Image
-            src={routeToBrandLogo(currentBrand.logoUrl)}
-            width={320}
-            height={200}
-            alt={currentBrand.name}
-            sizes="50vw"
-            className="h-12 w-auto object-contain"
-          />
+        {currentLogoSrc ? (
+          <Image src={currentLogoSrc} width={320} height={200} alt={"Brand Logo"} sizes="50vw" className="h-12 w-auto object-contain" />
         ) : (
           <>No Logo</>
         )}
@@ -116,8 +111,12 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
         fieldName={"categoryId"}
         fieldLabel={"category"}
         fieldErrors={[]}
+        required={true}
         value={currSelectedCategoryId}
-        onChange={(ev) => setCurrSelectedCategoryId(ev.target.value)}
+        onChange={(ev) => {
+          setCurrSelectedCategoryId(ev.target.value);
+          setCurrSelectedSubCategoryId("");
+        }}
       >
         <option value="">Choose Category</option>
         {categories.map(({ id, name }) => {
@@ -132,6 +131,7 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
         fieldName={"subCategoryId"}
         fieldLabel={"subcategory"}
         fieldErrors={[]}
+        required={true}
         value={currSelectedSubCategoryId}
         disabled={!hasSubCategories}
         onChange={(ev) => setCurrSelectedSubCategoryId(ev.target.value)}
