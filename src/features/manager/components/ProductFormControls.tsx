@@ -20,22 +20,29 @@ import PathFinder from "../PathFinder";
 import { FormInputField, FormOutputField, FormSelectField } from "./FormControls";
 
 // types
+interface AllFieldErrors {
+  [index: string]: string[] | undefined;
+}
+
 interface PriceInCentsProps {
   priceInCents?: number;
+  allFieldErrors?: AllFieldErrors;
 }
 
 interface BrandAndLogoProps {
   brands: BrandWithUser[];
   selectedBrandId?: string;
+  allFieldErrors?: AllFieldErrors;
 }
 
 interface CategoryAndSubCategoryProps {
   categories: CategoryWithSubCategory[];
   selectedCategoryId?: string;
   selectedSubCategoryId?: string;
+  allFieldErrors?: AllFieldErrors;
 }
 
-export function PriceInCents({ priceInCents = 1 }: PriceInCentsProps) {
+export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsProps) {
   const [currPriceInCents, setCurrPriceInCents] = useState(priceInCents);
 
   return (
@@ -44,7 +51,7 @@ export function PriceInCents({ priceInCents = 1 }: PriceInCentsProps) {
         fieldType={"number"}
         fieldName={"price"}
         fieldLabel={"price in cents"}
-        fieldErrors={[]}
+        allFieldErrors={allFieldErrors}
         min={"1"}
         max={"900000000"}
         step={"1"}
@@ -63,7 +70,7 @@ export function PriceInCents({ priceInCents = 1 }: PriceInCentsProps) {
   );
 }
 
-export function BrandAndLogo({ brands, selectedBrandId = "" }: BrandAndLogoProps) {
+export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: BrandAndLogoProps) {
   const [currSelectedBrandId, setCurrSelectedBrandId] = useState(selectedBrandId);
 
   const currentBrand = brands.find(({ id }) => id === currSelectedBrandId);
@@ -74,7 +81,7 @@ export function BrandAndLogo({ brands, selectedBrandId = "" }: BrandAndLogoProps
       <FormSelectField
         fieldName={"brandId"}
         fieldLabel={"brand"}
-        fieldErrors={[]}
+        allFieldErrors={allFieldErrors}
         value={currSelectedBrandId}
         onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
       >
@@ -98,7 +105,7 @@ export function BrandAndLogo({ brands, selectedBrandId = "" }: BrandAndLogoProps
   );
 }
 
-export function CategoryAndSubCategory({ categories, selectedCategoryId = "", selectedSubCategoryId = "" }: CategoryAndSubCategoryProps) {
+export function CategoryAndSubCategory({ categories, selectedCategoryId = "", selectedSubCategoryId = "", allFieldErrors }: CategoryAndSubCategoryProps) {
   const [currSelectedCategoryId, setCurrSelectedCategoryId] = useState(selectedCategoryId);
   const [currSelectedSubCategoryId, setCurrSelectedSubCategoryId] = useState(selectedSubCategoryId);
 
@@ -110,7 +117,7 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
       <FormSelectField
         fieldName={"categoryId"}
         fieldLabel={"category"}
-        fieldErrors={[]}
+        allFieldErrors={allFieldErrors}
         required={true}
         value={currSelectedCategoryId}
         onChange={(ev) => {
@@ -130,7 +137,7 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
       <FormSelectField
         fieldName={"subCategoryId"}
         fieldLabel={"subcategory"}
-        fieldErrors={[]}
+        allFieldErrors={allFieldErrors}
         required={true}
         value={currSelectedSubCategoryId}
         disabled={!hasSubCategories}

@@ -14,10 +14,11 @@ import { useRouter } from "next/navigation";
 import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 
 // server actions and mutations
-import { ProductFormState, newProduct } from "../managerActions";
+import { newProduct } from "../managerActions";
 
 // other libraries
 import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TruckIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { ProductFormState } from "../ProductFormSchema";
 
 // components
 import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
@@ -33,15 +34,27 @@ interface NewProductFormProps {
   categories: CategoryWithSubCategory[];
 }
 
+interface TheFormWrappedProps {
+  brands: BrandWithUser[];
+  categories: CategoryWithSubCategory[];
+  onResetClicked: () => void;
+}
+
 export default function NewProductForm({ brands, categories }: NewProductFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("NewProductForm");
 
+  return <TheFormWrapped key={formResetKey} brands={brands} categories={categories} onResetClicked={() => setFormResetKey(`NewProductForm${Date.now()}`)} />;
+}
+
+function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedProps) {
   // To be able to send the user back after canceling
   const { back } = useRouter();
 
   // To be able to use the information returned by a form action
-  const [formState, formAction] = useFormState<ProductFormState, FormData>(newProduct, { status: "idle", errors: {} });
+  const [formState, formAction] = useFormState<ProductFormState, FormData>(newProduct, { actionStatus: "idle" });
+
+  const { allFieldErrors } = formState;
 
   return (
     <article className={styles["new-product-form"]}>
@@ -49,11 +62,11 @@ export default function NewProductForm({ brands, categories }: NewProductFormPro
         <PencilSquareIcon width={64} height={64} />
         New Product
       </h2>
-      <form key={formResetKey} action={formAction} noValidate={true}>
+      <form action={formAction} noValidate={true}>
         <FormInputField
           fieldName={"name"}
           fieldLabel={"name"}
-          fieldErrors={[]}
+          allFieldErrors={allFieldErrors}
           size={40}
           maxLength={50}
           spellCheck={"true"}
@@ -64,7 +77,7 @@ export default function NewProductForm({ brands, categories }: NewProductFormPro
         <FormTextArea
           fieldName={"description"}
           fieldLabel={"description"}
-          fieldErrors={[]}
+          allFieldErrors={allFieldErrors}
           cols={50}
           rows={6}
           spellCheck={"true"}
@@ -81,17 +94,18 @@ export default function NewProductForm({ brands, categories }: NewProductFormPro
             "/laura-chouette-HWG_9omXS5g-unsplash.jpg",
             "/imani-bahati-LxVxPA1LOVM-unsplash.jpg",
           ]}
+          allFieldErrors={allFieldErrors}
         />
-        <PriceInCents />
-        <CategoryAndSubCategory categories={categories} />
-        <BrandAndLogo brands={brands} />
-        <FormCheckField fieldName={"freeShipping"} fieldErrors={[]} defaultChecked={false}>
+        <PriceInCents allFieldErrors={allFieldErrors} />
+        <CategoryAndSubCategory categories={categories} allFieldErrors={allFieldErrors} />
+        <BrandAndLogo brands={brands} allFieldErrors={allFieldErrors} />
+        <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={false}>
           <TruckIcon width={24} height={24} />
           Free Shipping
         </FormCheckField>
         <section className={styles["new-product-form__submit"]}>
           <SaveButton />
-          <button type="reset" className="btn btn-warning" onClick={() => setFormResetKey(`NewProductForm${Date.now()}`)}>
+          <button type="reset" className="btn btn-warning" onClick={() => onResetClicked && onResetClicked()}>
             <XCircleIcon width={24} height={24} />
             Reset
           </button>

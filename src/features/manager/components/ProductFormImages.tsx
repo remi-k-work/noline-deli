@@ -14,12 +14,17 @@ import { ArrowLeftCircleIcon, ArrowRightCircleIcon, CubeIcon, CubeTransparentIco
 import ProductFormImage from "./ProductFormImage";
 
 // types
+interface AllFieldErrors {
+  [index: string]: string[] | undefined;
+}
+
 interface ProductFormImagesProps {
   theMainImageUrl?: string;
   moreImagesUrls?: string[];
+  allFieldErrors?: AllFieldErrors;
 }
 
-export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [] }: ProductFormImagesProps) {
+export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [], allFieldErrors }: ProductFormImagesProps) {
   const [currMoreImagesUrls, setCurrMoreImagesUrls] = useState(moreImagesUrls);
 
   const allProductImageNodesRef = useRef(new Map<number, HTMLElement>());
@@ -84,6 +89,7 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           fieldName={"theMainImage"}
           fieldLabel={"the main image"}
           imageUrl={theMainImageUrl}
+          allFieldErrors={allFieldErrors}
         />
         {currMoreImagesUrls.map((extraImageUrl, extraImageIndex) => (
           <ProductFormImage
@@ -93,6 +99,7 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
             fieldLabel={`extra image nr ${extraImageIndex + 1}`}
             imageUrl={extraImageUrl}
             onRemoveImageClicked={() => handleRemoveImageClicked(extraImageIndex)}
+            allFieldErrors={allFieldErrors}
           />
         ))}
       </header>

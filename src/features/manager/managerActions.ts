@@ -5,16 +5,20 @@ import { revalidatePath } from "next/cache";
 
 // other libraries
 import PathFinder from "./PathFinder";
+import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
 
-// types
-export interface ProductFormState {
-  status: string;
-  errors: any;
-}
+export async function newProduct(formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
+  const productFormSchema = new ProductFormSchema(formData);
 
-export async function newProduct(formState: ProductFormState, formData: FormData) {
-  console.log("newProduct server action:");
-  console.log(formState);
+  // If form validation fails, return errors promptly; otherwise, continue
+  if (!productFormSchema.isSuccess) {
+    return {
+      actionStatus: "failed",
+      allFieldErrors: productFormSchema.allFieldErrors,
+      toastMessage: "Missing fields! Failed to create a new product.",
+    };
+  }
+
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
   revalidatePath(PathFinder.toAllProducts());
 
@@ -22,5 +26,6 @@ export async function newProduct(formState: ProductFormState, formData: FormData
   //   const { totalQty, subTotal } = await getCart();
 
   //   return { ...formState, status: "succeeded", totalQty, subTotal };
-  return formState;
+  // console.log(productFormSchema.validatedData);
+  return { actionStatus: "succeeded", allFieldErrors: productFormSchema.allFieldErrors, toastMessage: "Success!" };
 }

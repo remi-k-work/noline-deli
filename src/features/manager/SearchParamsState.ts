@@ -18,29 +18,40 @@ export type SortByOrder = "asc" | "desc";
 
 export default class SearchParamsState {
   // All search params that maintain the current state that is kept in the current url
-  private readonly params = new URLSearchParams(this.searchParams);
+  private readonly params: URLSearchParams;
 
   // Pagination
-  public readonly currentPage?: number = this.searchParams.has(SearchParamName.currentPage)
-    ? Number(this.searchParams.get(SearchParamName.currentPage))
-    : undefined;
+  public readonly currentPage?: number;
 
   // Browse by category
-  public readonly categoryId?: string = this.searchParams.get(SearchParamName.categoryId) ?? undefined;
-  public readonly subCategoryId?: string = this.searchParams.get(SearchParamName.subCategoryId) ?? undefined;
+  public readonly categoryId?: string;
+  public readonly subCategoryId?: string;
 
   // Search panel
-  public readonly keyword?: string = this.searchParams.get(SearchParamName.keyword) ?? undefined;
+  public readonly keyword?: string;
 
   // Sort by
-  public readonly sortBy: string = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
-  public readonly sortByField: SortByField = this.sortBy.split(",")[0] as SortByField;
-  public readonly sortByOrder: SortByOrder = this.sortBy.split(",")[1] as SortByOrder;
+  public readonly sortBy: string;
+  public readonly sortByField: SortByField;
+  public readonly sortByOrder: SortByOrder;
 
   constructor(
     private readonly pathname: string,
     private readonly searchParams: ReadonlyURLSearchParams,
-  ) {}
+  ) {
+    this.params = new URLSearchParams(this.searchParams);
+
+    this.currentPage = this.searchParams.has(SearchParamName.currentPage) ? Number(this.searchParams.get(SearchParamName.currentPage)) : undefined;
+
+    this.categoryId = this.searchParams.get(SearchParamName.categoryId) ?? undefined;
+    this.subCategoryId = this.searchParams.get(SearchParamName.subCategoryId) ?? undefined;
+
+    this.keyword = this.searchParams.get(SearchParamName.keyword) ?? undefined;
+
+    this.sortBy = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
+    this.sortByField = this.sortBy.split(",")[0] as SortByField;
+    this.sortByOrder = this.sortBy.split(",")[1] as SortByOrder;
+  }
 
   // Are we in search mode?
   get isSearchMode() {

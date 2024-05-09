@@ -27,23 +27,21 @@ interface AppliedFilter {
 
 export default class SearchParamsState {
   // All search params that maintain the current state that is kept in the current url
-  private readonly params = new URLSearchParams(this.searchParams);
+  private readonly params: URLSearchParams;
 
   // Search panel
-  public readonly keyword: string = this.searchParams.get(SearchParamName.keyword) ?? "";
+  public readonly keyword: string;
 
   // Product filter
-  public readonly byBrandId: string = this.searchParams.get(SearchParamName.byBrandId) ?? "";
-  public readonly byPriceBelow: number = this.searchParams.has(SearchParamName.byPriceBelow)
-    ? Number(this.searchParams.get(SearchParamName.byPriceBelow))
-    : this.byPriceBelowMax ?? 900000000;
-  public readonly byFreeShipping: boolean = this.searchParams.get(SearchParamName.byFreeShipping) === "true";
+  public readonly byBrandId: string;
+  public readonly byPriceBelow: number;
+  public readonly byFreeShipping: boolean;
 
   // Products list
-  public readonly isListMode: boolean = this.searchParams.get(SearchParamName.isListMode) === "true";
-  public readonly sortByField: string = this.searchParams.get(SearchParamName.sortByField) ?? "id";
-  public readonly sortByOrder: string = this.searchParams.get(SearchParamName.sortByOrder) ?? "desc";
-  public readonly sortBy: string = `${this.sortByField}|${this.sortByOrder}`;
+  public readonly isListMode: boolean;
+  public readonly sortByField: string;
+  public readonly sortByOrder: string;
+  public readonly sortBy: string;
 
   // Pagination
   public readonly currentPage: number = this.searchParams.has(SearchParamName.currentPage) ? Number(this.searchParams.get(SearchParamName.currentPage)) : 1;
@@ -53,7 +51,22 @@ export default class SearchParamsState {
     private readonly searchParams: ReadonlyURLSearchParams,
     private readonly byPriceBelowMax?: number,
     private readonly byBrandList?: Brand[],
-  ) {}
+  ) {
+    this.params = new URLSearchParams(this.searchParams);
+
+    this.keyword = this.searchParams.get(SearchParamName.keyword) ?? "";
+
+    this.byBrandId = this.searchParams.get(SearchParamName.byBrandId) ?? "";
+    this.byPriceBelow = this.searchParams.has(SearchParamName.byPriceBelow)
+      ? Number(this.searchParams.get(SearchParamName.byPriceBelow))
+      : this.byPriceBelowMax ?? 900000000;
+    this.byFreeShipping = this.searchParams.get(SearchParamName.byFreeShipping) === "true";
+
+    this.isListMode = this.searchParams.get(SearchParamName.isListMode) === "true";
+    this.sortByField = this.searchParams.get(SearchParamName.sortByField) ?? "id";
+    this.sortByOrder = this.searchParams.get(SearchParamName.sortByOrder) ?? "desc";
+    this.sortBy = `${this.sortByField}|${this.sortByOrder}`;
+  }
 
   // When moving to a new location, reset the pagination position and do not carry any state from the search mode
   movedToNewLocation(newLocationHref: string) {

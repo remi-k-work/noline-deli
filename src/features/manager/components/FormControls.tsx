@@ -9,14 +9,14 @@ import clsx from "clsx";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 // types
-interface ErrorsArray {
-  [index: string]: any;
+interface AllFieldErrors {
+  [index: string]: string[] | undefined;
 }
 
 interface FormFieldProps {
   fieldName: string;
   fieldLabel: string;
-  fieldErrors: ErrorsArray;
+  allFieldErrors?: AllFieldErrors;
   className?: string;
 }
 
@@ -27,15 +27,15 @@ interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
 interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
 
-interface FormOutputFieldProps extends Omit<FormFieldProps, "fieldErrors">, ComponentProps<"output"> {
+interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors">, ComponentProps<"output"> {
   outputFor: string;
 }
 
 interface ErrorMessageProps {
-  fieldError: string | undefined;
+  fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, fieldErrors, className, ...props }: FormInputFieldProps) {
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, ...props }: FormInputFieldProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
@@ -44,16 +44,16 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, fiel
         type={fieldType}
         id={fieldName}
         name={fieldName}
-        aria-invalid={fieldErrors[fieldName] ? "true" : "false"}
+        aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
         className={clsx("input", className)}
         {...props}
       />
-      <ErrorMessage fieldError={fieldErrors[fieldName]} />
+      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormCheckField({ fieldName, fieldErrors, children, className, ...props }: FormCheckFieldProps) {
+export function FormCheckField({ fieldName, allFieldErrors, children, className, ...props }: FormCheckFieldProps) {
   return (
     <>
       <div className={styles["form-field-h"]}>
@@ -62,34 +62,46 @@ export function FormCheckField({ fieldName, fieldErrors, children, className, ..
           type="checkbox"
           id={fieldName}
           name={fieldName}
-          aria-invalid={fieldErrors[fieldName] ? "true" : "false"}
+          aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
           className={clsx("checkbox", className)}
           {...props}
         />
       </div>
-      <ErrorMessage fieldError={fieldErrors[fieldName]} />
+      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </>
   );
 }
 
-export function FormTextArea({ fieldName, fieldLabel, fieldErrors, className, ...props }: FormTextAreaProps) {
+export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, ...props }: FormTextAreaProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
-      <textarea id={fieldName} name={fieldName} aria-invalid={fieldErrors[fieldName] ? "true" : "false"} className={clsx("textarea", className)} {...props} />
-      <ErrorMessage fieldError={fieldErrors[fieldName]} />
+      <textarea
+        id={fieldName}
+        name={fieldName}
+        aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
+        className={clsx("textarea", className)}
+        {...props}
+      />
+      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormSelectField({ fieldName, fieldLabel, fieldErrors, children, className, ...props }: FormSelectFieldProps) {
+export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormSelectFieldProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
-      <select id={fieldName} name={fieldName} aria-invalid={fieldErrors[fieldName] ? "true" : "false"} className={clsx("select", className)} {...props}>
+      <select
+        id={fieldName}
+        name={fieldName}
+        aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
+        className={clsx("select", className)}
+        {...props}
+      >
         {children}
       </select>
-      <ErrorMessage fieldError={fieldErrors[fieldName]} />
+      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
@@ -105,13 +117,11 @@ export function FormOutputField({ outputFor, fieldName, fieldLabel, className, c
   );
 }
 
-function ErrorMessage({ fieldError }: ErrorMessageProps) {
-  return (
-    fieldError && (
-      <p role="alert" className={clsx(styles["error-message"], "bg-error text-warning-content")}>
-        <ExclamationTriangleIcon width={24} height={24} />
-        {fieldError}
-      </p>
-    )
-  );
+function ErrorMessage({ fieldErrors }: ErrorMessageProps) {
+  return fieldErrors?.map((fieldError, errorIndex) => (
+    <p key={errorIndex} role="alert" className={clsx(styles["error-message"], "bg-error text-warning-content")}>
+      <ExclamationTriangleIcon width={24} height={24} className="flex-none" />
+      {fieldError}
+    </p>
+  ));
 }
