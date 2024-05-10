@@ -4,7 +4,7 @@
 import styles from "./NewProductForm.module.css";
 
 // react
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 // next
@@ -24,6 +24,8 @@ import { ProductFormState } from "../ProductFormSchema";
 import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./ProductFormControls";
 import ProductFormImages from "./ProductFormImages";
+import Toastify from "@/components/Toastify";
+import ProductExcerpt from "./ProductExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -40,6 +42,10 @@ interface TheFormWrappedProps {
   onResetClicked: () => void;
 }
 
+interface SaveButtonProps {
+  onSavingIsDone: () => void;
+}
+
 export default function NewProductForm({ brands, categories }: NewProductFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("NewProductForm");
@@ -48,13 +54,15 @@ export default function NewProductForm({ brands, categories }: NewProductFormPro
 }
 
 function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedProps) {
+  const [isToastify, setIsToastify] = useState(false);
+
   // To be able to send the user back after canceling
   const { back } = useRouter();
 
   // To be able to use the information returned by a form action
   const [formState, formAction] = useFormState<ProductFormState, FormData>(newProduct, { actionStatus: "idle" });
 
-  const { allFieldErrors } = formState;
+  const { actionStatus, allFieldErrors, productExcerpt } = formState;
 
   return (
     <article className={styles["new-product-form"]}>
@@ -104,7 +112,7 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
           Free Shipping
         </FormCheckField>
         <section className={styles["new-product-form__submit"]}>
-          <SaveButton />
+          <SaveButton onSavingIsDone={() => setIsToastify(true)} />
           <button type="reset" className="btn btn-warning" onClick={() => onResetClicked && onResetClicked()}>
             <XCircleIcon width={24} height={24} />
             Reset
@@ -115,13 +123,33 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
           </button>
         </section>
       </form>
+      {isToastify && actionStatus === "succeeded" && productExcerpt && (
+        <Toastify onTimedOut={() => setIsToastify(false)}>
+          <p className="mb-4">A new product has been created!</p>
+          <ProductExcerpt name={productExcerpt.name} imageUrl={productExcerpt.imageUrl} price={productExcerpt.price} />
+        </Toastify>
+      )}
+      {isToastify && actionStatus === "invalid" && (
+        <Toastify type={"alert-warning"} onTimedOut={() => setIsToastify(false)}>
+          <p className="mb-4">Missing fields! Failed to create a new product.</p>
+        </Toastify>
+      )}
     </article>
   );
 }
 
-function SaveButton() {
+function SaveButton({ onSavingIsDone }: SaveButtonProps) {
   // To be able to display a pending status while the form is being submitted
   const { pending } = useFormStatus();
+
+  // To maintain referential equality and minimize excessive effect dependencies
+  const onSavingIsDoneRef = useRef(onSavingIsDone);
+
+  useEffect(() => {
+    if (!pending) {
+      onSavingIsDoneRef.current();
+    }
+  }, [pending]);
 
   return (
     <button type="submit" className="btn btn-primary" disabled={pending}>

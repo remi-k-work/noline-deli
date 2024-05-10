@@ -2,7 +2,7 @@
 import styles from "./Toastify.module.css";
 
 // react
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // other libraries
 import clsx from "clsx";
@@ -17,17 +17,16 @@ interface ToastifyProps {
 }
 
 export default function Toastify({ hPos, vPos, type = "alert-info", onTimedOut, children }: ToastifyProps) {
-  useEffect(() => {
-    function onTimeout() {
-      onTimedOut();
-    }
+  // To maintain referential equality and minimize excessive effect dependencies
+  const onTimedOutRef = useRef(onTimedOut);
 
-    const timeoutId = setTimeout(onTimeout, 3000);
+  useEffect(() => {
+    const timeoutId = setTimeout(onTimedOutRef.current, 3000);
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [onTimedOut]);
+  }, []);
 
   return (
     <section className={clsx(styles["toastify"], "toast", hPos, vPos)}>

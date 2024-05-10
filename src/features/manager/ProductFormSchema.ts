@@ -7,10 +7,16 @@ interface AllFieldErrors {
   [index: string]: string[] | undefined;
 }
 
+interface ProductExcerpt {
+  name: string;
+  imageUrl: string;
+  price: number;
+}
+
 export interface ProductFormState {
-  actionStatus: "idle" | "succeeded" | "failed";
+  actionStatus: "idle" | "succeeded" | "failed" | "invalid";
   allFieldErrors?: AllFieldErrors;
-  toastMessage?: string;
+  productExcerpt?: ProductExcerpt;
 }
 
 const EXTRA_IMAGE_FNAME = "extraImageNr";
@@ -30,11 +36,11 @@ export default class ProductFormSchema {
     freeShipping: z.coerce.boolean(),
   });
 
-  public readonly allFieldErrors?: AllFieldErrors;
-  public readonly validatedData?: z.infer<typeof this.schema>;
-
   // A flag that indicates whether or not the validation succeeded
   public isSuccess = false;
+
+  public readonly allFieldErrors?: AllFieldErrors;
+  public readonly validatedData?: z.infer<typeof this.schema>;
 
   constructor(private readonly formData: FormData) {
     // A custom error map to use with zod and get user-friendly messages automatically
