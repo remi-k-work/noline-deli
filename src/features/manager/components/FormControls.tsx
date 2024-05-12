@@ -2,11 +2,12 @@
 import styles from "./FormControls.module.css";
 
 // react
-import { ComponentProps } from "react";
+import { ChangeEventHandler, ComponentProps, FocusEventHandler, RefCallback } from "react";
 
 // other libraries
 import clsx from "clsx";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { RefCallBack, UseFormRegister } from "react-hook-form";
 
 // types
 interface AllFieldErrors {
@@ -18,6 +19,7 @@ interface FormFieldProps {
   fieldLabel: string;
   allFieldErrors?: AllFieldErrors;
   className?: string;
+  register: UseFormRegister<any>;
 }
 
 interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {
@@ -27,7 +29,7 @@ interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
 interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
 
-interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors">, ComponentProps<"output"> {
+interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors" | "register">, ComponentProps<"output"> {
   outputFor: string;
 }
 
@@ -35,7 +37,45 @@ interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, ...props }: FormInputFieldProps) {
+interface UseRegisterWithRHFProps<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>> {
+  register: UseFormRegister<any>;
+  fieldName: string;
+  props: ComponentProps<T>;
+}
+
+function useRegisterWithRHF<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>, E>({
+  register,
+  fieldName,
+  props,
+}: UseRegisterWithRHFProps<T>) {
+  // Extract the event handlers and other properties required to "register" this component with the react hook form
+  const { onChange: rhfOnChange, onBlur: rhfOnBlur, ref } = register(fieldName);
+
+  // Extract the component's original event handlers, which will be invoked first
+  const { onChange, onBlur, ...rest } = props;
+
+  const handleChange: ChangeEventHandler<E> = (ev) => {
+    // First call the component's original event handler
+    onChange?.(ev);
+
+    // Then notify the react hook form directly (via their handler)
+    rhfOnChange(ev);
+  };
+
+  const handleBlur: FocusEventHandler<E> = (ev) => {
+    // First call the component's original event handler
+    onBlur?.(ev);
+
+    // Then notify the react hook form directly (via their handler)
+    rhfOnBlur(ev);
+  };
+
+  return [handleChange, handleBlur, ref, rest];
+}
+
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, register, ...props }: FormInputFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ register, fieldName, props });
+
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
@@ -46,14 +86,20 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allF
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
         className={clsx("input", className)}
-        {...props}
+        // Hook up with the react hook form
+        onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
+        onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
+        ref={ref as RefCallBack}
+        {...rest}
       />
       {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormCheckField({ fieldName, allFieldErrors, children, className, ...props }: FormCheckFieldProps) {
+export function FormCheckField({ fieldName, allFieldErrors, children, className, register, ...props }: FormCheckFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ register, fieldName, props });
+
   return (
     <>
       <div className={styles["form-field-h"]}>
@@ -64,7 +110,11 @@ export function FormCheckField({ fieldName, allFieldErrors, children, className,
           name={fieldName}
           aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
           className={clsx("checkbox", className)}
-          {...props}
+          // Hook up with the react hook form
+          onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
+          onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
+          ref={ref as RefCallBack}
+          {...rest}
         />
       </div>
       {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
@@ -72,7 +122,9 @@ export function FormCheckField({ fieldName, allFieldErrors, children, className,
   );
 }
 
-export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, ...props }: FormTextAreaProps) {
+export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, register, ...props }: FormTextAreaProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"textarea", HTMLTextAreaElement>({ register, fieldName, props });
+
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
@@ -81,14 +133,20 @@ export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className,
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
         className={clsx("textarea", className)}
-        {...props}
+        // Hook up with the react hook form
+        onChange={handleChange as ChangeEventHandler<HTMLTextAreaElement>}
+        onBlur={handleBlur as FocusEventHandler<HTMLTextAreaElement>}
+        ref={ref as RefCallBack}
+        {...rest}
       />
       {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormSelectFieldProps) {
+export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, register, ...props }: FormSelectFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"select", HTMLSelectElement>({ register, fieldName, props });
+
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
@@ -97,7 +155,11 @@ export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, childre
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
         className={clsx("select", className)}
-        {...props}
+        // Hook up with the react hook form
+        onChange={handleChange as ChangeEventHandler<HTMLSelectElement>}
+        onBlur={handleBlur as FocusEventHandler<HTMLSelectElement>}
+        ref={ref as RefCallBack}
+        {...rest}
       >
         {children}
       </select>

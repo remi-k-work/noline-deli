@@ -18,7 +18,9 @@ import { newProduct } from "../managerActions";
 
 // other libraries
 import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TruckIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { ProductFormState } from "../ProductFormSchema";
+import ProductFormSchema, { ProductFormSchemaClientType, ProductFormState } from "../ProductFormSchema";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // components
 import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
@@ -64,13 +66,26 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
 
   const { actionStatus, allFieldErrors, productExcerpt } = formState;
 
+  const {
+    register,
+    unregister,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm<ProductFormSchemaClientType>({ shouldUnregister: true, resolver: zodResolver(ProductFormSchema.clientSchema) });
+
+  const onSubmit: SubmitHandler<ProductFormSchemaClientType> = (data) => console.log(data);
+
+  console.log(getValues(), errors);
+
   return (
     <article className={styles["new-product-form"]}>
       <h2 className={lusitana.className}>
         <PencilSquareIcon width={64} height={64} />
         New Product
       </h2>
-      <form action={formAction} noValidate={true}>
+      <form action={formAction} noValidate={true} onSubmit={handleSubmit(onSubmit)}>
         <FormInputField
           fieldName={"name"}
           fieldLabel={"name"}
@@ -81,6 +96,7 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
           autoComplete={"off"}
           required={true}
           defaultValue={""}
+          register={register}
         />
         <FormTextArea
           fieldName={"description"}
@@ -92,6 +108,7 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
           autoComplete={"off"}
           required={true}
           defaultValue={""}
+          register={register}
         />
         <ProductFormImages
           theMainImageUrl={"/16.golabki_z_sosem.jpg"}
@@ -103,11 +120,13 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
             "/imani-bahati-LxVxPA1LOVM-unsplash.jpg",
           ]}
           allFieldErrors={allFieldErrors}
+          register={register}
+          unregister={unregister}
         />
-        <PriceInCents allFieldErrors={allFieldErrors} />
-        <CategoryAndSubCategory categories={categories} allFieldErrors={allFieldErrors} />
-        <BrandAndLogo brands={brands} allFieldErrors={allFieldErrors} />
-        <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={false}>
+        <PriceInCents allFieldErrors={allFieldErrors} register={register} />
+        <CategoryAndSubCategory categories={categories} allFieldErrors={allFieldErrors} register={register} setValue={setValue} />
+        <BrandAndLogo brands={brands} allFieldErrors={allFieldErrors} register={register} />
+        <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={false} register={register}>
           <TruckIcon width={24} height={24} />
           Free Shipping
         </FormCheckField>

@@ -4,7 +4,7 @@
 import styles from "./ProductFormControls.module.css";
 
 // react
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // next
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 // other libraries
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../PathFinder";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 // components
 import { FormInputField, FormOutputField, FormSelectField } from "./FormControls";
@@ -27,12 +28,14 @@ interface AllFieldErrors {
 interface PriceInCentsProps {
   priceInCents?: number;
   allFieldErrors?: AllFieldErrors;
+  register: UseFormRegister<any>;
 }
 
 interface BrandAndLogoProps {
   brands: BrandWithUser[];
   selectedBrandId?: string;
   allFieldErrors?: AllFieldErrors;
+  register: UseFormRegister<any>;
 }
 
 interface CategoryAndSubCategoryProps {
@@ -40,9 +43,11 @@ interface CategoryAndSubCategoryProps {
   selectedCategoryId?: string;
   selectedSubCategoryId?: string;
   allFieldErrors?: AllFieldErrors;
+  register: UseFormRegister<any>;
+  setValue: UseFormSetValue<any>;
 }
 
-export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsProps) {
+export function PriceInCents({ priceInCents = 1, allFieldErrors, register }: PriceInCentsProps) {
   const [currPriceInCents, setCurrPriceInCents] = useState(priceInCents);
 
   return (
@@ -58,6 +63,7 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsP
         required={true}
         defaultValue={priceInCents}
         onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
+        register={register}
       />
       <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
         <div className="stats min-w-full">
@@ -70,7 +76,7 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsP
   );
 }
 
-export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: BrandAndLogoProps) {
+export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors, register }: BrandAndLogoProps) {
   const [currSelectedBrandId, setCurrSelectedBrandId] = useState(selectedBrandId);
 
   const currentBrand = brands.find(({ id }) => id === currSelectedBrandId);
@@ -84,6 +90,7 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: B
         allFieldErrors={allFieldErrors}
         value={currSelectedBrandId}
         onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
+        register={register}
       >
         <option value="">Choose Brand</option>
         {brands.map(({ id, name }) => {
@@ -105,12 +112,27 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: B
   );
 }
 
-export function CategoryAndSubCategory({ categories, selectedCategoryId = "", selectedSubCategoryId = "", allFieldErrors }: CategoryAndSubCategoryProps) {
+export function CategoryAndSubCategory({
+  categories,
+  selectedCategoryId = "",
+  selectedSubCategoryId = "",
+  allFieldErrors,
+  register,
+  setValue,
+}: CategoryAndSubCategoryProps) {
   const [currSelectedCategoryId, setCurrSelectedCategoryId] = useState(selectedCategoryId);
   const [currSelectedSubCategoryId, setCurrSelectedSubCategoryId] = useState(selectedSubCategoryId);
 
   const currentCategory = categories.find(({ id }) => id === currSelectedCategoryId);
   const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
+
+  // To maintain referential equality and minimize excessive effect dependencies
+  const setValueRef = useRef(setValue);
+
+  useEffect(() => {
+    // Keep the react hook form state in sync (we must manually update any dependent fields)
+    hasSubCategories ? setValueRef.current("subCategoryId", "+", { shouldValidate: true }) : setValueRef.current("subCategoryId", "", { shouldValidate: true });
+  }, [hasSubCategories]);
 
   return (
     <section className={styles["category-and-subcategory"]}>
@@ -122,8 +144,9 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
         value={currSelectedCategoryId}
         onChange={(ev) => {
           setCurrSelectedCategoryId(ev.target.value);
-          setCurrSelectedSubCategoryId("");
+          hasSubCategories ? setCurrSelectedSubCategoryId("+") : setCurrSelectedSubCategoryId("");
         }}
+        register={register}
       >
         <option value="">Choose Category</option>
         {categories.map(({ id, name }) => {
@@ -142,8 +165,15 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
         value={currSelectedSubCategoryId}
         disabled={!hasSubCategories}
         onChange={(ev) => setCurrSelectedSubCategoryId(ev.target.value)}
+        register={register}
       >
-        <option value="">Choose SubCategory</option>
+        {hasSubCategories ? (
+          // Inform the validation schema that a subcategory must be picked now (field required conditionally)
+          <option value="+">Choose SubCategory</option>
+        ) : (
+          // There is no need to select a subcategory when there are none available (default behavior)
+          <option value="">Choose SubCategory</option>
+        )}
         {currentCategory?.subCategories.map(({ id, name }) => {
           return (
             <option key={id} value={id}>

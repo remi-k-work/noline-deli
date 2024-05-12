@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 // other libraries
 import clsx from "clsx";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon, CubeIcon, CubeTransparentIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import { UseFormRegister, UseFormUnregister } from "react-hook-form";
 
 // components
 import ProductFormImage from "./ProductFormImage";
@@ -22,21 +23,36 @@ interface ProductFormImagesProps {
   theMainImageUrl?: string;
   moreImagesUrls?: string[];
   allFieldErrors?: AllFieldErrors;
+  register: UseFormRegister<any>;
+  unregister: UseFormUnregister<any>;
 }
 
-export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [], allFieldErrors }: ProductFormImagesProps) {
+export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [], allFieldErrors, register, unregister }: ProductFormImagesProps) {
   const [currMoreImagesUrls, setCurrMoreImagesUrls] = useState(moreImagesUrls);
 
   const allProductImageNodesRef = useRef(new Map<number, HTMLElement>());
   const [viewedProductImageIndex, setViewedProductImageIndex] = useState(0);
 
+  const isMounted = useRef(false);
+
   useEffect(() => {
+    // Do not scroll into view on the first page load or with each full page refresh
+    if (!isMounted.current) return;
+
     const allProductImageNodes = allProductImageNodesRef.current;
     const viewedProductImageNode = allProductImageNodes.get(viewedProductImageIndex);
     if (viewedProductImageNode) {
       viewedProductImageNode.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
   }, [viewedProductImageIndex]);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   function handleAddNewImageClicked() {
     const allProductImageNodes = allProductImageNodesRef.current;
@@ -55,6 +71,9 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
     const viewedIndex = viewedProductImageIndex;
     const targetIndex = extraImageIndex + 1;
 
+    // Keep the react hook form state in sync
+    unregister(`extraImages`);
+
     setCurrMoreImagesUrls([...currMoreImagesUrls.slice(0, extraImageIndex), ...currMoreImagesUrls.slice(extraImageIndex + 1)]);
     if (targetIndex < viewedIndex) {
       setViewedProductImageIndex(targetIndex);
@@ -63,7 +82,7 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
     }
   }
 
-  function handleViewedImageChanged(direction: number, verticalAlignment: ScrollLogicalPosition) {
+  function handleViewedImageChanged(direction: number) {
     setViewedProductImageIndex((prevViewedProductImageIndex) => {
       const allProductImageNodes = allProductImageNodesRef.current;
       const newViewedProductImageIndex = Math.min(Math.max(prevViewedProductImageIndex + direction, 0), allProductImageNodes.size - 1);
@@ -90,16 +109,18 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           fieldLabel={"the main image"}
           imageUrl={theMainImageUrl}
           allFieldErrors={allFieldErrors}
+          register={register}
         />
         {currMoreImagesUrls.map((extraImageUrl, extraImageIndex) => (
           <ProductFormImage
-            key={extraImageIndex}
+            key={`${extraImageUrl}.${extraImageIndex}`}
             ref={(productImageNode) => addThisProductImageNodeRef(extraImageIndex + 1, productImageNode)}
-            fieldName={`extraImageNr${extraImageIndex}`}
+            fieldName={`extraImages.${extraImageIndex}`}
             fieldLabel={`extra image nr ${extraImageIndex + 1}`}
             imageUrl={extraImageUrl}
             onRemoveImageClicked={() => handleRemoveImageClicked(extraImageIndex)}
             allFieldErrors={allFieldErrors}
+            register={register}
           />
         ))}
       </header>
@@ -110,12 +131,12 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           </div>
         </button>
       </div>
-      <button type="button" className={clsx(styles["product-form-images__prev-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(-1, "nearest")}>
+      <button type="button" className={clsx(styles["product-form-images__prev-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(-1)}>
         <div className="lg:tooltip lg:tooltip-right" data-tip="View the previous image">
           <ArrowLeftCircleIcon width={24} height={24} />
         </div>
       </button>
-      <button type="button" className={clsx(styles["product-form-images__next-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(+1, "nearest")}>
+      <button type="button" className={clsx(styles["product-form-images__next-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(+1)}>
         <div className="lg:tooltip lg:tooltip-left" data-tip="View the next image">
           <ArrowRightCircleIcon width={24} height={24} />
         </div>

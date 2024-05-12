@@ -12,6 +12,7 @@ import Image from "next/image";
 // other libraries
 import PathFinder from "../PathFinder";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { UseFormRegister } from "react-hook-form";
 
 // components
 import { FormInputField, FormOutputField } from "./FormControls";
@@ -27,11 +28,12 @@ interface ProductFormImageProps {
   imageUrl?: string;
   onRemoveImageClicked?: () => void;
   allFieldErrors?: AllFieldErrors;
+  register: UseFormRegister<any>;
 }
 
 // eslint-disable-next-line react/display-name
 const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
-  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors }: ProductFormImageProps, ref) => {
+  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors, register }: ProductFormImageProps, ref) => {
     const [currImageUrl, setCurrImageUrl] = useState(imageUrl);
     const [imageSrc, setImageSrc] = useState(PathFinder.toProductImage(imageUrl));
     const defImageSrc = useDeferredValue(imageSrc);
@@ -88,6 +90,7 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
               setCurrImageUrl(ev.target.value);
               setImageSrc(PathFinder.toProductImage(ev.target.value));
             }}
+            register={register}
           />
         </footer>
       </section>
