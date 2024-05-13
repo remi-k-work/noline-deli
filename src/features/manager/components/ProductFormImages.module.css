@@ -5,12 +5,13 @@
   display: grid;
 
   grid-template-columns: auto 1fr auto auto;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr auto;
   gap: var(--size-3);
 
   grid-template-areas:
-    "view view view tbar"
-    "pimg sbar nimg tbar";
+    "tbar tbar tbar tbar"
+    "view view view view"
+    "pimg sbar sbar nimg";
 
   border-radius: var(--radius-3);
   box-shadow: var(--inner-shadow-4);

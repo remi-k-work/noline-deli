@@ -179,7 +179,7 @@ export function FormOutputField({ outputFor, fieldName, fieldLabel, className, c
   );
 }
 
-function ErrorMessage({ fieldErrors }: ErrorMessageProps) {
+export function ErrorMessage({ fieldErrors }: ErrorMessageProps) {
   return fieldErrors?.map((fieldError, errorIndex) => (
     <p key={errorIndex} role="alert" className={clsx(styles["error-message"], "bg-error text-warning-content")}>
       <ExclamationTriangleIcon width={24} height={24} className="flex-none" />

@@ -1,6 +1,7 @@
 // other libraries
 import { z } from "zod";
 import { errorMap } from "zod-validation-error";
+import { FieldErrors } from "react-hook-form";
 
 // types
 interface AllFieldErrors {
@@ -20,46 +21,35 @@ export interface ProductFormState {
 }
 
 export type ProductFormSchemaType = z.infer<typeof ProductFormSchema.schema>;
-export type ProductFormSchemaClientType = z.infer<typeof ProductFormSchema.clientSchema>;
 
-const EXTRA_IMAGE_FNAME = "extraImageNr";
-const EXTRA_IMAGE_REGEX = /^extraImageNr(\d+)$/;
+const EXTRA_IMAGE_FNAME = "extraImages.";
+const EXTRA_IMAGE_REGEX = /^extraImages\.(\d+)$/;
 
 export default class ProductFormSchema {
   // Schema-based form validation with zod
-  public static readonly schema = z.object({
-    name: z.string().trim().min(1),
-    description: z.string().trim().min(1),
-    theMainImage: z.string().trim().min(1).url(),
-    extraImages: z.array(z.string().trim().min(1).url()).optional(),
-    price: z.coerce.number().int().min(1).max(900000000),
-    categoryId: z.string().trim().min(1),
-    subCategoryId: z.string().trim().min(1).optional(),
-    brandId: z.string().trim().min(1),
-    freeShipping: z.coerce.boolean(),
-  });
-
-  public static readonly clientSchema = z
+  public static readonly schema = z
     .object({
-      name: z.string().trim().min(1),
-      description: z.string().trim().min(1),
-      theMainImage: z.string().trim().min(1).url(),
-      extraImages: z.array(z.string().trim().min(1).url()).optional(),
-      price: z.coerce.number().int().min(1).max(900000000),
-      categoryId: z.string().trim().min(1),
-      subCategoryId: z.string().trim().min(1).optional(),
-      brandId: z.string().trim().min(1),
+      name: z.string().trim().min(1, { message: "Please specify the name of this product" }),
+      description: z.string().trim().min(1, { message: "Description is a mandatory field" }),
+      theMainImage: z.string().trim().min(1, { message: "Kindly include the URL for the main image" }).url({ message: "That is an invalid URL" }),
+      extraImages: z
+        .array(z.string().trim().min(1, { message: "Kindly include the URL for this extra image" }).url({ message: "That is an invalid URL" }))
+        .optional(),
+      price: z.coerce
+        .number()
+        .int({ message: "The price must be in cents" })
+        .min(1, { message: "A price is required" })
+        .max(900000000, { message: "The pricing is excessive" }),
+      categoryId: z.string().trim().min(1, { message: "Please select a category for this product" }),
+      subCategoryId: z.preprocess(
+        (value) => (value === "" ? undefined : value),
+        z.string().trim().min(1, { message: "Please choose a subcategory for this product" }).optional(),
+      ),
+      brandId: z.string().trim().min(1, { message: "What is a brand's name?" }),
       freeShipping: z.coerce.boolean(),
     })
-    .refine((data) => {
-      if (data.subCategoryId === "") {
-        // There is no need to select a subcategory when there are none available (default behavior)
-        return true;
-      }
-      console.log("Hello from Refine!");
-      console.log(data.subCategoryId);
-      return true;
-    });
+    // The subcategory must be picked now (field required conditionally)
+    .refine((data) => data.subCategoryId !== "+", { message: "Please choose the subcategory", path: ["subCategoryId"] });
 
   // A flag that indicates whether or not the validation succeeded
   public isSuccess = false;
@@ -67,19 +57,41 @@ export default class ProductFormSchema {
   public readonly allFieldErrors?: AllFieldErrors;
   public readonly validatedData?: ProductFormSchemaType;
 
-  constructor(private readonly formData: FormData) {
+  constructor(
+    private readonly formData?: FormData,
+    rhfErrors?: FieldErrors<ProductFormSchemaType>,
+  ) {
     // A custom error map to use with zod and get user-friendly messages automatically
     z.setErrorMap(errorMap);
 
+    // Have react hook form errors been provided?
+    if (rhfErrors) {
+      // Yes, transform them to conform to our own all field errors format
+      const allFieldErrors: AllFieldErrors = {};
+      for (const fieldName in rhfErrors) {
+        // Any validation issues with our extra images?
+        if (fieldName === "extraImages") {
+          for (const extraImageIndex in rhfErrors["extraImages"]) {
+            const extraImageName = `${EXTRA_IMAGE_FNAME}${extraImageIndex}`;
+            allFieldErrors[extraImageName] = [rhfErrors["extraImages"][Number(extraImageIndex)]?.message as string];
+          }
+          // Extra images have been processed already; continue to the next field
+          continue;
+        }
+        allFieldErrors[fieldName] = [rhfErrors[fieldName as keyof ProductFormSchemaType]?.message as string];
+      }
+
+      // Finally, only store field errors if there are actual problems; otherwise, leave them undefined
+      this.allFieldErrors = Object.keys(allFieldErrors).length > 0 ? allFieldErrors : undefined;
+    }
+
+    // This logic is for server-side validation only
+    if (!this.formData) {
+      return;
+    }
+
     // Get the form data object
     const formDataObj = Object.fromEntries(this.formData.entries());
-
-    // ************************************
-    // *** TODO: We use now "extraImages.0"
-    // ************************************
-    // ************************************
-    // *** TODO: We use now "extraImages.0"
-    // ************************************
 
     // Extract an array of extra image urls
     const extraImageUrls: string[] = [];
@@ -108,7 +120,6 @@ export default class ProductFormSchema {
       this.isSuccess = true;
 
       this.validatedData = validatedFields.data;
-      console.log(this.validatedData);
     }
   }
 }

@@ -18,7 +18,7 @@ import PathFinder from "../PathFinder";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 // components
-import { FormInputField, FormOutputField, FormSelectField } from "./FormControls";
+import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "./FormControls";
 
 // types
 interface AllFieldErrors {
@@ -51,28 +51,31 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors, register }: Pri
   const [currPriceInCents, setCurrPriceInCents] = useState(priceInCents);
 
   return (
-    <section className={styles["price-in-cents"]}>
-      <FormInputField
-        fieldType={"number"}
-        fieldName={"price"}
-        fieldLabel={"price in cents"}
-        allFieldErrors={allFieldErrors}
-        min={"1"}
-        max={"900000000"}
-        step={"1"}
-        required={true}
-        defaultValue={priceInCents}
-        onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
-        register={register}
-      />
-      <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
-        <div className="stats min-w-full">
-          <div className="stat">
-            <div className="stat-value text-base font-normal">{formatPrice(currPriceInCents)}</div>
+    <>
+      <section className={styles["price-in-cents"]}>
+        <FormInputField
+          fieldType={"number"}
+          fieldName={"price"}
+          fieldLabel={"price in cents"}
+          allFieldErrors={undefined}
+          min={"1"}
+          max={"900000000"}
+          step={"1"}
+          required={true}
+          defaultValue={priceInCents}
+          onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
+          register={register}
+        />
+        <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
+          <div className="stats min-w-full">
+            <div className="stat">
+              <div className="stat-value text-base font-normal">{formatPrice(currPriceInCents)}</div>
+            </div>
           </div>
-        </div>
-      </FormOutputField>
-    </section>
+        </FormOutputField>
+      </section>
+      {allFieldErrors && allFieldErrors["price"] && <ErrorMessage fieldErrors={allFieldErrors["price"]} />}
+    </>
   );
 }
 
@@ -83,32 +86,35 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors, reg
   const currentLogoSrc = PathFinder.toBrandLogo(currentBrand?.logoUrl);
 
   return (
-    <section className={styles["brand-and-logo"]}>
-      <FormSelectField
-        fieldName={"brandId"}
-        fieldLabel={"brand"}
-        allFieldErrors={allFieldErrors}
-        value={currSelectedBrandId}
-        onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
-        register={register}
-      >
-        <option value="">Choose Brand</option>
-        {brands.map(({ id, name }) => {
-          return (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          );
-        })}
-      </FormSelectField>
-      <FormOutputField outputFor={"brandId"} fieldName={"brandLogo"} fieldLabel={"logo"}>
-        {currentLogoSrc ? (
-          <Image src={currentLogoSrc} width={320} height={200} alt={"Brand Logo"} sizes="50vw" className="h-12 w-auto object-contain" />
-        ) : (
-          <>No Logo</>
-        )}
-      </FormOutputField>
-    </section>
+    <>
+      <section className={styles["brand-and-logo"]}>
+        <FormSelectField
+          fieldName={"brandId"}
+          fieldLabel={"brand"}
+          allFieldErrors={undefined}
+          value={currSelectedBrandId}
+          onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
+          register={register}
+        >
+          <option value="">Choose Brand</option>
+          {brands.map(({ id, name }) => {
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </FormSelectField>
+        <FormOutputField outputFor={"brandId"} fieldName={"brandLogo"} fieldLabel={"logo"}>
+          {currentLogoSrc ? (
+            <Image src={currentLogoSrc} width={320} height={200} alt={"Brand Logo"} sizes="50vw" className="h-12 w-auto object-contain" />
+          ) : (
+            <>No Logo</>
+          )}
+        </FormOutputField>
+      </section>
+      {allFieldErrors && allFieldErrors["brandId"] && <ErrorMessage fieldErrors={allFieldErrors["brandId"]} />}
+    </>
   );
 }
 
@@ -135,53 +141,57 @@ export function CategoryAndSubCategory({
   }, [hasSubCategories]);
 
   return (
-    <section className={styles["category-and-subcategory"]}>
-      <FormSelectField
-        fieldName={"categoryId"}
-        fieldLabel={"category"}
-        allFieldErrors={allFieldErrors}
-        required={true}
-        value={currSelectedCategoryId}
-        onChange={(ev) => {
-          setCurrSelectedCategoryId(ev.target.value);
-          hasSubCategories ? setCurrSelectedSubCategoryId("+") : setCurrSelectedSubCategoryId("");
-        }}
-        register={register}
-      >
-        <option value="">Choose Category</option>
-        {categories.map(({ id, name }) => {
-          return (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          );
-        })}
-      </FormSelectField>
-      <FormSelectField
-        fieldName={"subCategoryId"}
-        fieldLabel={"subcategory"}
-        allFieldErrors={allFieldErrors}
-        required={true}
-        value={currSelectedSubCategoryId}
-        disabled={!hasSubCategories}
-        onChange={(ev) => setCurrSelectedSubCategoryId(ev.target.value)}
-        register={register}
-      >
-        {hasSubCategories ? (
-          // Inform the validation schema that a subcategory must be picked now (field required conditionally)
-          <option value="+">Choose SubCategory</option>
-        ) : (
-          // There is no need to select a subcategory when there are none available (default behavior)
-          <option value="">Choose SubCategory</option>
-        )}
-        {currentCategory?.subCategories.map(({ id, name }) => {
-          return (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          );
-        })}
-      </FormSelectField>
-    </section>
+    <>
+      <section className={styles["category-and-subcategory"]}>
+        <FormSelectField
+          fieldName={"categoryId"}
+          fieldLabel={"category"}
+          allFieldErrors={undefined}
+          required={true}
+          value={currSelectedCategoryId}
+          onChange={(ev) => {
+            setCurrSelectedCategoryId(ev.target.value);
+            hasSubCategories ? setCurrSelectedSubCategoryId("+") : setCurrSelectedSubCategoryId("");
+          }}
+          register={register}
+        >
+          <option value="">Choose Category</option>
+          {categories.map(({ id, name }) => {
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </FormSelectField>
+        <FormSelectField
+          fieldName={"subCategoryId"}
+          fieldLabel={"subcategory"}
+          allFieldErrors={undefined}
+          required={true}
+          value={currSelectedSubCategoryId}
+          disabled={!hasSubCategories}
+          onChange={(ev) => setCurrSelectedSubCategoryId(ev.target.value)}
+          register={register}
+        >
+          {hasSubCategories ? (
+            // Inform the validation schema that a subcategory must be picked now (field required conditionally)
+            <option value="+">Choose SubCategory</option>
+          ) : (
+            // There is no need to select a subcategory when there are none available (default behavior)
+            <option value="">Choose SubCategory</option>
+          )}
+          {currentCategory?.subCategories.map(({ id, name }) => {
+            return (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            );
+          })}
+        </FormSelectField>
+      </section>
+      {allFieldErrors && allFieldErrors["categoryId"] && <ErrorMessage fieldErrors={allFieldErrors["categoryId"]} />}
+      {allFieldErrors && allFieldErrors["subCategoryId"] && <ErrorMessage fieldErrors={allFieldErrors["subCategoryId"]} />}
+    </>
   );
 }

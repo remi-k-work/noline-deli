@@ -17,8 +17,8 @@ import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 import { newProduct } from "../managerActions";
 
 // other libraries
-import { HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TruckIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import ProductFormSchema, { ProductFormSchemaClientType, ProductFormState } from "../ProductFormSchema";
+import { ExclamationTriangleIcon, HandThumbDownIcon, HandThumbUpIcon, PencilSquareIcon, TruckIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import ProductFormSchema, { ProductFormSchemaType, ProductFormState } from "../ProductFormSchema";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -64,20 +64,24 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
   // To be able to use the information returned by a form action
   const [formState, formAction] = useFormState<ProductFormState, FormData>(newProduct, { actionStatus: "idle" });
 
-  const { actionStatus, allFieldErrors, productExcerpt } = formState;
+  const { actionStatus, allFieldErrors: allFieldErrorsFromServer, productExcerpt } = formState;
 
   const {
     register,
     unregister,
     handleSubmit,
-    getValues,
     setValue,
     formState: { errors },
-  } = useForm<ProductFormSchemaClientType>({ shouldUnregister: true, resolver: zodResolver(ProductFormSchema.clientSchema) });
+  } = useForm<ProductFormSchemaType>({ shouldUnregister: true, resolver: zodResolver(ProductFormSchema.schema) });
 
-  const onSubmit: SubmitHandler<ProductFormSchemaClientType> = (data) => console.log(data);
+  // Use the product form schema to preprocess react's hook form errors
+  const productFormSchema = new ProductFormSchema(undefined, errors);
+  const allFieldErrorsFromClient = productFormSchema.allFieldErrors;
 
-  console.log(getValues(), errors);
+  // We will show form validation errors from server-side first and client-side afterwards
+  const allFieldErrors = allFieldErrorsFromServer || allFieldErrorsFromClient;
+
+  const onSubmit: SubmitHandler<ProductFormSchemaType> = (data) => console.log(data);
 
   return (
     <article className={styles["new-product-form"]}>
@@ -150,7 +154,8 @@ function TheFormWrapped({ brands, categories, onResetClicked }: TheFormWrappedPr
       )}
       {isToastify && actionStatus === "invalid" && (
         <Toastify type={"alert-warning"} onTimedOut={() => setIsToastify(false)}>
-          <p className="mb-4">Missing fields! Failed to create a new product.</p>
+          <ExclamationTriangleIcon width={48} height={48} className="m-auto" />
+          <p className="mt-4">Missing fields! Failed to create a new product.</p>
         </Toastify>
       )}
     </article>
