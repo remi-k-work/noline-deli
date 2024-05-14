@@ -39,15 +39,14 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
     // Do not render anything if there are no items to display
     totalItems > 0 && (
       <section className={clsx(styles["paginate"], className)}>
-        <Link href={prevPageHref} className={styles["paginate__prev"]}>
-          <div className="lg:tooltip" data-tip="Previous page">
+        <div className="lg:tooltip" data-tip="Previous page">
+          <Link href={prevPageHref} className={styles["paginate__prev"]}>
             <BackwardIcon width={24} height={24} />
-          </div>
-        </Link>
+          </Link>
+        </div>
         <div className={clsx(styles["paginate__curr"], "dropdown dropdown-end")}>
-          {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
-          <div tabIndex={0} role="button" className="flex h-full items-center">
-            <div className="min-w-16 text-center lg:tooltip" data-tip="Change page">
+          <div className="lg:tooltip" data-tip="Change page">
+            <div tabIndex={0} role="button" className="min-w-16 p-2 text-center">
               {currentPage}&nbsp;/&nbsp;{totalPages}
             </div>
           </div>
@@ -70,11 +69,11 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
             })}
           </ul>
         </div>
-        <Link href={nextPageHref} className={styles["paginate__next"]}>
-          <div className="lg:tooltip" data-tip="Next page">
+        <div className="lg:tooltip" data-tip="Next page">
+          <Link href={nextPageHref} className={styles["paginate__next"]}>
             <ForwardIcon width={24} height={24} />
-          </div>
-        </Link>
+          </Link>
+        </div>
       </section>
     )
   );

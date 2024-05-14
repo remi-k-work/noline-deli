@@ -37,13 +37,12 @@ export default function SortBy({ totalItems, className }: SortByProps) {
     // Do not render anything if there are no items to sort
     totalItems > 0 && (
       <section className={clsx(styles["sort-by"], "dropdown dropdown-end", className)}>
-        {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
-        <div tabIndex={0} role="button" className="flex h-full items-center p-2">
-          <div className="lg:tooltip" data-tip="Sort items">
+        <div className="lg:tooltip" data-tip="Sort items">
+          <div tabIndex={0} role="button" className="p-2">
             <SortByIcon sortByField={sortByField} sortByOrder={sortByOrder} />
           </div>
         </div>
-        <div tabIndex={0} className={clsx(styles["sort-by__choices"], "dropdown-content translate-x-1/3")}>
+        <div tabIndex={0} className={clsx(styles["sort-by__choices"], "dropdown-content")}>
           <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" />
           <SortByLink newSortByField="id" newSortByOrder="desc" description="Newest item first" />
           <SortByLink newSortByField="price" newSortByOrder="asc" description="Least expensive first" />

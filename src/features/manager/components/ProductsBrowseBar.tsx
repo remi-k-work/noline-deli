@@ -1,11 +1,16 @@
 // component css styles
 import styles from "./ProductsBrowseBar.module.css";
 
+// next
+import Link from "next/link";
+
 // prisma and db access
 import { allCategories } from "@/features/manager/managerDb";
 
 // other libraries
 import clsx from "clsx";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import PathFinder from "../PathFinder";
 
 // components
 import BrowseByCategory from "./BrowseByCategory";
@@ -32,6 +37,13 @@ export default async function ProductsBrowseBar({ itemsPerPage, totalItems }: Pr
       <SearchPanel className={styles["products-browse-bar__search-panel"]} />
       <SortBy totalItems={totalItems} className={styles["products-browse-bar__sort-by"]} />
       <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} className={styles["products-browse-bar__paginate"]} />
+      <footer className={styles["products-browse-bar__new-product"]}>
+        <div className="lg:tooltip" data-tip="Add a new product">
+          <Link href={PathFinder.toProductNew()} className="btn btn-circle">
+            <PlusCircleIcon width={24} height={24} />
+          </Link>
+        </div>
+      </footer>
     </section>
   );
 }

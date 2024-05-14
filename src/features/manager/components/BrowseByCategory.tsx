@@ -32,9 +32,9 @@ export default function BrowseByCategory({ categories, totalItems, className }: 
       <header className={styles["browse-by-category__total"]}>
         <span className="badge badge-info">{totalItems}</span>
       </header>
-      <footer className={clsx(styles["browse-by-category__context"], "dropdown")}>
+      <footer className={clsx(styles["browse-by-category__context"], "dropdown lg:tooltip")} data-tip="View all items by category and subcategory">
         {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
-        <div tabIndex={0} role="button" className="h-full p-2">
+        <div tabIndex={0} role="button" className="h-full p-2 text-start">
           <BrowseByContext categories={categories} />
         </div>
         <ul tabIndex={0} className={clsx(styles["browse-by-category__dropdown-content"], "menu dropdown-content bg-base-200")}>
@@ -88,7 +88,7 @@ function BrowseByContext({ categories }: BrowseByContextProps) {
   const currentSubCategory = currentCategory?.subCategories.find(({ id }) => searchParamsState.isSubCategorySelected(id));
 
   return (
-    <div className="lg:tooltip lg:tooltip-right" data-tip="View all items by category and subcategory">
+    <>
       {searchParamsState.isSearchMode ? (
         <>Search Results</>
       ) : searchParamsState.isNoCategorySelected ? (
@@ -100,6 +100,6 @@ function BrowseByContext({ categories }: BrowseByContextProps) {
       ) : (
         <>{currentCategory?.name}</>
       )}
-    </div>
+    </>
   );
 }

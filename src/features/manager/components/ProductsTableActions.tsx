@@ -49,14 +49,10 @@ export default function ProductsTableActions({ productId, productName, productIm
   return (
     <>
       <div className="dropdown dropdown-left">
-        <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-          {isPending ? (
-            <span className="loading loading-spinner"></span>
-          ) : (
-            <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this product">
-              <EllipsisVerticalIcon width={24} height={24} />
-            </div>
-          )}
+        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this product">
+          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+            {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
+          </div>
         </div>
         <ul tabIndex={0} className={clsx(styles["products-table-actions"], "dropdown-content -translate-y-1/4")}>
           <li>

@@ -57,8 +57,8 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
             />
           </Link>
           <div className={clsx(styles["products-table-entry-image__info"], "dropdown dropdown-right")}>
-            <div tabIndex={0} role="button" className="btn btn-circle btn-info">
-              <div className="lg:tooltip lg:tooltip-right" data-tip="Display all information about this product">
+            <div className="lg:tooltip lg:tooltip-right" data-tip="Display all information about this product">
+              <div tabIndex={0} role="button" className="btn btn-circle btn-info">
                 <InformationCircleIcon width={24} height={24} />
               </div>
             </div>

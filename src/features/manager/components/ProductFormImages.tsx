@@ -14,6 +14,9 @@ import { UseFormRegister, UseFormUnregister } from "react-hook-form";
 // components
 import ProductFormImage from "./ProductFormImage";
 
+// assets
+import { lusitana } from "@/assets/fonts";
+
 // types
 interface AllFieldErrors {
   [index: string]: string[] | undefined;
@@ -102,7 +105,15 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
 
   return (
     <section className={styles["product-form-images"]}>
-      <header className={styles["product-form-images__view"]}>
+      <header className={clsx(lusitana.className, styles["product-form-images__label"])}>Product Images</header>
+      <div className={styles["product-form-images__toolbar"]}>
+        <div className="lg:tooltip lg:tooltip-left" data-tip="Add a new image">
+          <button type="button" className="btn btn-circle" onClick={handleAddNewImageClicked}>
+            <PlusCircleIcon width={24} height={24} />
+          </button>
+        </div>
+      </div>
+      <div className={styles["product-form-images__view"]}>
         <ProductFormImage
           ref={(productImageNode) => addThisProductImageNodeRef(0, productImageNode)}
           fieldName={"theMainImage"}
@@ -123,33 +134,60 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
             register={register}
           />
         ))}
-      </header>
-      <div className={styles["product-form-images__toolbar"]}>
-        <button type="button" className="btn btn-circle" onClick={handleAddNewImageClicked}>
-          <div className="lg:tooltip lg:tooltip-left" data-tip="Add a new image">
-            <PlusCircleIcon width={24} height={24} />
-          </div>
+      </div>
+      <div className={clsx(styles["product-form-images__prev-img"], "lg:tooltip lg:tooltip-right")} data-tip="View the previous image">
+        <button type="button" className="btn btn-circle" onClick={() => handleViewedImageChanged(-1)}>
+          <ArrowLeftCircleIcon width={24} height={24} />
         </button>
       </div>
-      <button type="button" className={clsx(styles["product-form-images__prev-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(-1)}>
-        <div className="lg:tooltip lg:tooltip-right" data-tip="View the previous image">
-          <ArrowLeftCircleIcon width={24} height={24} />
-        </div>
-      </button>
-      <button type="button" className={clsx(styles["product-form-images__next-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(+1)}>
-        <div className="lg:tooltip lg:tooltip-left" data-tip="View the next image">
+      <div className={clsx(styles["product-form-images__next-img"], "lg:tooltip lg:tooltip-left")} data-tip="View the next image">
+        <button type="button" className="btn btn-circle" onClick={() => handleViewedImageChanged(+1)}>
           <ArrowRightCircleIcon width={24} height={24} />
-        </div>
-      </button>
-      <footer className={styles["product-form-images__statusbar"]}>
-        <button type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(0)}>
-          {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
         </button>
-        {currMoreImagesUrls.map((_, extraImageIndex) => (
-          <button key={extraImageIndex} type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
-            {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
-          </button>
-        ))}
+      </div>
+      <footer className={styles["product-form-images__statusbar"]}>
+        <section className={clsx(styles["jump-to-image-mob"], "dropdown dropdown-top")}>
+          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+            {viewedProductImageIndex + 1}&nbsp;/&nbsp;{allProductImageNodesRef.current.size}
+          </div>
+          <div tabIndex={0} className={clsx(styles["jump-to-image__choices"], "dropdown-content -translate-x-1/2")}>
+            <div
+              className="btn btn-circle btn-ghost"
+              onClick={() => {
+                (document.activeElement as HTMLElement)?.blur();
+                setViewedProductImageIndex(0);
+              }}
+            >
+              {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+            </div>
+            {currMoreImagesUrls.map((_, extraImageIndex) => (
+              <div
+                key={extraImageIndex}
+                className="btn btn-circle btn-ghost"
+                onClick={() => {
+                  (document.activeElement as HTMLElement)?.blur();
+                  setViewedProductImageIndex(extraImageIndex + 1);
+                }}
+              >
+                {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className={styles["jump-to-image-reg"]}>
+          <div className="lg:tooltip" data-tip="Jump to the main image">
+            <button type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(0)}>
+              {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+            </button>
+          </div>
+          {currMoreImagesUrls.map((_, extraImageIndex) => (
+            <div key={extraImageIndex} className="lg:tooltip" data-tip={`Jump to an extra image nr ${extraImageIndex + 1}`}>
+              <button type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
+                {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+              </button>
+            </div>
+          ))}
+        </section>
       </footer>
     </section>
   );

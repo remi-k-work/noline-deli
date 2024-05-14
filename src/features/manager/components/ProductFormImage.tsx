@@ -68,11 +68,11 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
           </FormOutputField>
         </header>
         <div className={styles["product-form-image__toolbar"]}>
-          <button type="button" className="btn btn-circle" disabled={!onRemoveImageClicked} onClick={() => onRemoveImageClicked && onRemoveImageClicked()}>
-            <div className="lg:tooltip lg:tooltip-left" data-tip="Remove this image">
+          <div className="lg:tooltip lg:tooltip-left" data-tip="Remove this image">
+            <button type="button" className="btn btn-circle" disabled={!onRemoveImageClicked} onClick={() => onRemoveImageClicked && onRemoveImageClicked()}>
               <TrashIcon width={24} height={24} />
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
         <footer className={styles["product-image__url"]}>
           <FormInputField
