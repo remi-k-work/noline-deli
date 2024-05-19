@@ -13,15 +13,12 @@ import Image from "next/image";
 import PathFinder from "../PathFinder";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { UseFormRegister } from "react-hook-form";
+import { AllFieldErrors } from "../FormSchemaBase";
 
 // components
 import { FormInputField, FormOutputField } from "./FormControls";
 
 // types
-interface AllFieldErrors {
-  [index: string]: string[] | undefined;
-}
-
 interface ProductFormImageProps {
   fieldName: string;
   fieldLabel: string;

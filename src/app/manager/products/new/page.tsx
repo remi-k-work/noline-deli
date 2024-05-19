@@ -8,7 +8,7 @@ import { getProductFormData } from "@/features/manager/managerDb";
 import clsx from "clsx";
 
 // components
-import NewProductForm from "@/features/manager/components/NewProductForm";
+import ProductForm from "@/features/manager/components/ProductForm";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -24,7 +24,7 @@ export default async function Page() {
   return (
     <article className={styles["page"]}>
       <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► New Product</h1>
-      <NewProductForm brands={brands} categories={categories} />
+      <ProductForm brands={brands} categories={categories} />
     </article>
   );
 }

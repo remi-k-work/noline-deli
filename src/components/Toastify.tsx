@@ -21,6 +21,7 @@ export default function Toastify({ hPos, vPos, type = "alert-info", onTimedOut, 
   const onTimedOutRef = useRef(onTimedOut);
 
   useEffect(() => {
+    // On timeout, the parent component will unmount this toastify in its "ontimedout" event handler
     const timeoutId = setTimeout(onTimedOutRef.current, 3000);
 
     return () => {

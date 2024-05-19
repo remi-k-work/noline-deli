@@ -1,22 +1,16 @@
 // other libraries
 import { z } from "zod";
-import { errorMap } from "zod-validation-error";
 import { FieldErrors } from "react-hook-form";
+import FormSchemaBase, { AllFieldErrors, FormStateBase } from "./FormSchemaBase";
 
 // types
-interface AllFieldErrors {
-  [index: string]: string[] | undefined;
-}
-
 interface ProductExcerpt {
   name: string;
   imageUrl: string;
   price: number;
 }
 
-export interface ProductFormState {
-  actionStatus: "idle" | "succeeded" | "failed" | "invalid";
-  allFieldErrors?: AllFieldErrors;
+export interface ProductFormState extends FormStateBase {
   productExcerpt?: ProductExcerpt;
 }
 
@@ -25,7 +19,7 @@ export type ProductFormSchemaType = z.infer<typeof ProductFormSchema.schema>;
 const EXTRA_IMAGE_FNAME = "extraImages.";
 const EXTRA_IMAGE_REGEX = /^extraImages\.(\d+)$/;
 
-export default class ProductFormSchema {
+export default class ProductFormSchema extends FormSchemaBase<ProductFormSchemaType> {
   // Schema-based form validation with zod
   public static readonly schema = z
     .object({
@@ -51,48 +45,32 @@ export default class ProductFormSchema {
     // The subcategory must be picked now (field required conditionally)
     .refine((data) => data.subCategoryId !== "+", { message: "Please choose the subcategory", path: ["subCategoryId"] });
 
-  // A flag that indicates whether or not the validation succeeded
-  public isSuccess = false;
+  constructor(formData?: FormData) {
+    super(formData);
+  }
 
-  public readonly allFieldErrors?: AllFieldErrors;
-  public readonly validatedData?: ProductFormSchemaType;
+  getAllFieldErrorsClient(rhfErrors: FieldErrors<ProductFormSchemaType>) {
+    // Transform react hook form errors to conform to our own all field errors format
+    const allFieldErrors: AllFieldErrors = {};
 
-  constructor(
-    private readonly formData?: FormData,
-    rhfErrors?: FieldErrors<ProductFormSchemaType>,
-  ) {
-    // A custom error map to use with zod and get user-friendly messages automatically
-    z.setErrorMap(errorMap);
-
-    // Have react hook form errors been provided?
-    if (rhfErrors) {
-      // Yes, transform them to conform to our own all field errors format
-      const allFieldErrors: AllFieldErrors = {};
-      for (const fieldName in rhfErrors) {
-        // Any validation issues with our extra images?
-        if (fieldName === "extraImages") {
-          for (const extraImageIndex in rhfErrors["extraImages"]) {
-            const extraImageName = `${EXTRA_IMAGE_FNAME}${extraImageIndex}`;
-            allFieldErrors[extraImageName] = [rhfErrors["extraImages"][Number(extraImageIndex)]?.message as string];
-          }
-          // Extra images have been processed already; continue to the next field
-          continue;
+    for (const fieldName in rhfErrors) {
+      // Any validation issues with our extra images?
+      if (fieldName === "extraImages") {
+        for (const extraImageIndex in rhfErrors["extraImages"]) {
+          const extraImageName = `${EXTRA_IMAGE_FNAME}${extraImageIndex}`;
+          allFieldErrors[extraImageName] = [rhfErrors["extraImages"][Number(extraImageIndex)]?.message as string];
         }
-        allFieldErrors[fieldName] = [rhfErrors[fieldName as keyof ProductFormSchemaType]?.message as string];
+        // Extra images have been processed already; continue to the next field
+        continue;
       }
-
-      // Finally, only store field errors if there are actual problems; otherwise, leave them undefined
-      this.allFieldErrors = Object.keys(allFieldErrors).length > 0 ? allFieldErrors : undefined;
+      allFieldErrors[fieldName] = [rhfErrors[fieldName as keyof ProductFormSchemaType]?.message as string];
     }
 
-    // This logic is for server-side validation only
-    if (!this.formData) {
-      return;
-    }
+    // Finally, only store field errors if there are actual problems; otherwise, leave them undefined
+    return Object.keys(allFieldErrors).length > 0 ? allFieldErrors : undefined;
+  }
 
-    // Get the form data object
-    const formDataObj = Object.fromEntries(this.formData.entries());
-
+  protected getAllFieldErrorsServer(formDataObj: { [k: string]: FormDataEntryValue }) {
     // Extract an array of extra image urls
     const extraImageUrls: string[] = [];
     for (const key in formDataObj) {
@@ -115,7 +93,7 @@ export default class ProductFormSchema {
         return acc;
       }, {});
 
-      this.allFieldErrors = { ...validatedFields.error.flatten().fieldErrors, ...extraImagesErrors };
+      return { ...validatedFields.error.flatten().fieldErrors, ...extraImagesErrors };
     } else {
       this.isSuccess = true;
 

@@ -38,7 +38,7 @@ export default async function ProductsBrowseBar({ itemsPerPage, totalItems }: Pr
       <SortBy totalItems={totalItems} className={styles["products-browse-bar__sort-by"]} />
       <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} className={styles["products-browse-bar__paginate"]} />
       <footer className={styles["products-browse-bar__new-product"]}>
-        <div className="lg:tooltip" data-tip="Add a new product">
+        <div className="lg:tooltip" data-tip="Create a new product">
           <Link href={PathFinder.toProductNew()} className="btn btn-circle">
             <PlusCircleIcon width={24} height={24} />
           </Link>

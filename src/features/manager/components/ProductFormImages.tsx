@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon, CubeIcon, CubeTransparentIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import { UseFormRegister, UseFormUnregister } from "react-hook-form";
+import { AllFieldErrors } from "../FormSchemaBase";
 
 // components
 import ProductFormImage from "./ProductFormImage";
@@ -18,10 +19,6 @@ import ProductFormImage from "./ProductFormImage";
 import { lusitana } from "@/assets/fonts";
 
 // types
-interface AllFieldErrors {
-  [index: string]: string[] | undefined;
-}
-
 interface ProductFormImagesProps {
   theMainImageUrl?: string;
   moreImagesUrls?: string[];

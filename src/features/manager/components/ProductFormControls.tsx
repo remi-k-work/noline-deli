@@ -4,7 +4,7 @@
 import styles from "./ProductFormControls.module.css";
 
 // react
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 // next
 import Image from "next/image";
@@ -16,15 +16,12 @@ import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../PathFinder";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { AllFieldErrors } from "../FormSchemaBase";
 
 // components
 import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "./FormControls";
 
 // types
-interface AllFieldErrors {
-  [index: string]: string[] | undefined;
-}
-
 interface PriceInCentsProps {
   priceInCents?: number;
   allFieldErrors?: AllFieldErrors;
@@ -132,14 +129,6 @@ export function CategoryAndSubCategory({
   const currentCategory = categories.find(({ id }) => id === currSelectedCategoryId);
   const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
 
-  // To maintain referential equality and minimize excessive effect dependencies
-  const setValueRef = useRef(setValue);
-
-  useEffect(() => {
-    // Keep the react hook form state in sync (we must manually update any dependent fields)
-    hasSubCategories ? setValueRef.current("subCategoryId", "+", { shouldValidate: true }) : setValueRef.current("subCategoryId", "", { shouldValidate: true });
-  }, [hasSubCategories]);
-
   return (
     <>
       <section className={styles["category-and-subcategory"]}>
@@ -150,8 +139,17 @@ export function CategoryAndSubCategory({
           required={true}
           value={currSelectedCategoryId}
           onChange={(ev) => {
-            setCurrSelectedCategoryId(ev.target.value);
-            hasSubCategories ? setCurrSelectedSubCategoryId("+") : setCurrSelectedSubCategoryId("");
+            const justSelectedCategoryId = ev.target.value;
+            const currentCategory = categories.find(({ id }) => id === justSelectedCategoryId);
+            const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
+
+            setCurrSelectedCategoryId(justSelectedCategoryId);
+
+            // Reset the dependent subcategory field as well
+            setCurrSelectedSubCategoryId(hasSubCategories ? "+" : "");
+
+            // Keep the react hook form state in sync (we must manually update any dependent fields)
+            setValue("subCategoryId", hasSubCategories ? "+" : "", { shouldValidate: true });
           }}
           register={register}
         >

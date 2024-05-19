@@ -8,16 +8,23 @@ import PathFinder from "./PathFinder";
 import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
 
 export async function newProduct(formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  console.log("newProduct ACTION");
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
   const productFormSchema = new ProductFormSchema(formData);
 
-  const { isSuccess, allFieldErrors, validatedData } = productFormSchema;
+  const { isSuccess, allFieldErrorsServer, validatedData } = productFormSchema;
 
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
     return {
       actionStatus: "invalid",
-      allFieldErrors: allFieldErrors,
+      allFieldErrors: allFieldErrorsServer,
     };
   }
 

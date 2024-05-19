@@ -5,10 +5,13 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getProduct } from "@/features/manager/managerDb";
+import { getProductFormData, getProduct } from "@/features/manager/managerDb";
 
 // other libraries
 import clsx from "clsx";
+
+// components
+import ProductForm from "@/features/manager/components/ProductForm";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -23,6 +26,9 @@ export const metadata = {
 };
 
 export default async function Page({ params: { productId } }: PageProps) {
+  // Gather the necessary data for the product form, such as a list of all available brands and categories
+  const [brands, categories] = await getProductFormData();
+
   // Get all the information you need about this particular product
   const product = await getProduct(productId);
 
@@ -35,6 +41,7 @@ export default async function Page({ params: { productId } }: PageProps) {
   return (
     <article className={styles["page"]}>
       <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► Edit Product</h1>
+      <ProductForm product={product} brands={brands} categories={categories} />
     </article>
   );
 }

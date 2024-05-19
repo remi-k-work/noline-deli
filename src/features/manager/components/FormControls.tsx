@@ -2,18 +2,16 @@
 import styles from "./FormControls.module.css";
 
 // react
-import { ChangeEventHandler, ComponentProps, FocusEventHandler, RefCallback } from "react";
+import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 
 // other libraries
 import clsx from "clsx";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import { RefCallBack, UseFormRegister } from "react-hook-form";
+import { AllFieldErrors } from "../FormSchemaBase";
+import useRegisterWithRHF from "../useRegisterWithRHF";
 
 // types
-interface AllFieldErrors {
-  [index: string]: string[] | undefined;
-}
-
 interface FormFieldProps {
   fieldName: string;
   fieldLabel: string;
@@ -35,42 +33,6 @@ interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors" | "
 
 interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
-}
-
-interface UseRegisterWithRHFProps<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>> {
-  register: UseFormRegister<any>;
-  fieldName: string;
-  props: ComponentProps<T>;
-}
-
-function useRegisterWithRHF<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>, E>({
-  register,
-  fieldName,
-  props,
-}: UseRegisterWithRHFProps<T>) {
-  // Extract the event handlers and other properties required to "register" this component with the react hook form
-  const { onChange: rhfOnChange, onBlur: rhfOnBlur, ref } = register(fieldName);
-
-  // Extract the component's original event handlers, which will be invoked first
-  const { onChange, onBlur, ...rest } = props;
-
-  const handleChange: ChangeEventHandler<E> = (ev) => {
-    // First call the component's original event handler
-    onChange?.(ev);
-
-    // Then notify the react hook form directly (via their handler)
-    rhfOnChange(ev);
-  };
-
-  const handleBlur: FocusEventHandler<E> = (ev) => {
-    // First call the component's original event handler
-    onBlur?.(ev);
-
-    // Then notify the react hook form directly (via their handler)
-    rhfOnBlur(ev);
-  };
-
-  return [handleChange, handleBlur, ref, rest];
 }
 
 export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, register, ...props }: FormInputFieldProps) {

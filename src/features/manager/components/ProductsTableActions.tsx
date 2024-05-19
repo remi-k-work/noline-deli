@@ -31,6 +31,7 @@ interface ProductsTableActionsProps {
 }
 
 export default function ProductsTableActions({ productId, productName, productImageUrl, productPrice, usersRole }: ProductsTableActionsProps) {
+  // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
   const [isToastify, setIsToastify] = useState(false);
 

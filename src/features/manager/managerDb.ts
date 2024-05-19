@@ -20,24 +20,6 @@ const INCLUDE_PRODUCT_WITH_ALL = {
 const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { orderBy: { name: "asc" }, include: { user: true } }, user: true } satisfies Prisma.CategoryInclude;
 const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
 
-function whereCategory(categoryId?: string): Prisma.ProductWhereInput {
-  return categoryId === undefined ? { categories: undefined } : { categories: { some: { category: { is: { id: categoryId } } } } };
-}
-
-function whereSubCategory(subCategoryId?: string): Prisma.ProductWhereInput {
-  return subCategoryId === undefined ? { subCategories: undefined } : { subCategories: { some: { subCategory: { is: { id: subCategoryId } } } } };
-}
-
-function whereFilter(byBrandId?: string, byPriceBelow?: number, byFreeShipping?: boolean): Prisma.ProductWhereInput {
-  return { brandId: byBrandId, price: byPriceBelow, freeShipping: byFreeShipping };
-}
-
-function whereKeyword(keyword?: string): Prisma.ProductWhereInput {
-  return keyword === undefined
-    ? { OR: undefined }
-    : { OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }] };
-}
-
 // Gather the necessary data for the product form, such as a list of all available brands and categories
 export const getProductFormData = cache(async () => {
   return Promise.all([allBrands(), allCategories()]);
@@ -57,6 +39,60 @@ export const allCategories = cache(async () => {
 export const getProduct = cache(async (productId: string) => {
   return prisma.product.findUnique({ where: { id: productId }, include: INCLUDE_PRODUCT_WITH_ALL });
 });
+
+function createSubCategories(subCategoryId?: string): Prisma.SubCategoriesOnProductsUncheckedCreateNestedManyWithoutProductInput | undefined {
+  return subCategoryId ? { create: [{ subCategoryId }] } : undefined;
+}
+
+function createMoreImages(createdBy: string, moreImagesUrls?: string[]): Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput | undefined {
+  return moreImagesUrls ? { create: moreImagesUrls.map((extraImageUrl) => ({ createdBy, imageUrl: extraImageUrl })) } : undefined;
+}
+
+export async function createProduct(
+  createdBy: string,
+  brandId: string,
+  name: string,
+  description: string,
+  imageUrl: string,
+  price: number,
+  freeShipping: boolean,
+  categoryId: string,
+  subCategoryId?: string,
+  moreImagesUrls?: string[],
+) {
+  prisma.product.create({
+    data: {
+      brandId,
+      name,
+      description,
+      imageUrl,
+      price,
+      freeShipping,
+      createdBy,
+      categories: { create: [{ categoryId }] },
+      subCategories: createSubCategories(subCategoryId),
+      moreImages: createMoreImages(createdBy, moreImagesUrls),
+    },
+  });
+}
+
+function whereCategory(categoryId?: string): Prisma.ProductWhereInput {
+  return categoryId === undefined ? { categories: undefined } : { categories: { some: { category: { is: { id: categoryId } } } } };
+}
+
+function whereSubCategory(subCategoryId?: string): Prisma.ProductWhereInput {
+  return subCategoryId === undefined ? { subCategories: undefined } : { subCategories: { some: { subCategory: { is: { id: subCategoryId } } } } };
+}
+
+function whereFilter(byBrandId?: string, byPriceBelow?: number, byFreeShipping?: boolean): Prisma.ProductWhereInput {
+  return { brandId: byBrandId, price: byPriceBelow, freeShipping: byFreeShipping };
+}
+
+function whereKeyword(keyword?: string): Prisma.ProductWhereInput {
+  return keyword === undefined
+    ? { OR: undefined }
+    : { OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }] };
+}
 
 // Retrieve all products from an external source (database) using offset pagination
 export async function allProductsWithPagination(
