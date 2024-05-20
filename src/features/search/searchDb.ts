@@ -38,7 +38,7 @@ export const getProductFilterData = cache(async () => {
 });
 
 // Search our products for a certain keyword in either the name or description sections
-export async function searchProducts(
+export function searchProducts(
   keyword: string,
   currentPage: number,
   itemsPerPage: number,

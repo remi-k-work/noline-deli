@@ -12,7 +12,7 @@ import { getProduct } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductImage } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
@@ -57,7 +57,7 @@ export async function generateMetadata({ params: { productName, productId } }: P
     title: `NoLine-Deli ► ${getSectionTitle(productName)}`,
     description: description,
     openGraph: {
-      images: [{ url: routeToProductImage(imageUrl) }],
+      images: [{ url: PathFinder.toResolvedProductImage(imageUrl) }],
     },
   };
 }

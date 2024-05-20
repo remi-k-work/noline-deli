@@ -12,7 +12,7 @@ import Image from "next/image";
 // other libraries
 import clsx from "clsx";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
-import { routeToProductImage } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 export default function ImageSlider({ productName, moreImages = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -45,7 +45,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
         currentSlide === slideIndex ? (
           <Image
             key={slideIndex}
-            src={routeToProductImage(imageUrl)}
+            src={PathFinder.toResolvedProductImage(imageUrl)}
             width={640}
             height={400}
             alt={productName}
@@ -56,7 +56,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
         ) : (
           <Image
             key={slideIndex}
-            src={routeToProductImage(imageUrl)}
+            src={PathFinder.toResolvedProductImage(imageUrl)}
             width={640}
             height={400}
             alt={productName}

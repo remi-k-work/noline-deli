@@ -10,7 +10,7 @@ import { useState } from "react";
 import { BrandWithUser, CategoryWithSubCategory, ProductWithAll } from "../managerDb";
 
 // server actions and mutations
-import { newProduct } from "../managerActions";
+import { newProduct, updProduct } from "../managerActions";
 
 // other libraries
 import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";
@@ -59,7 +59,7 @@ export default function ProductForm({ product, brands, categories }: ProductForm
 function TheFormWrapped({ product, brands, categories, onResetClicked }: TheFormWrappedProps) {
   const { isPending, formState, formAction, allFieldErrors, register, unregister, handleSubmit, setValue, showFeedback, setShowFeedback, onSubmit } =
     useFormActionWithVal<ProductFormState, ProductFormSchemaType>({
-      formActionFunc: newProduct,
+      formActionFunc: product ? updProduct.bind(null, product.id, product.createdAt) : newProduct,
       resolver: zodResolver(ProductFormSchema.schema),
       formSchema: new ProductFormSchema(),
     });
@@ -155,7 +155,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
         </FormCheckField>
         <ProductFormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
       </form>
-      {showFeedback && <ProductFormFeedback formState={formState} setShowFeedback={setShowFeedback} />}
+      {showFeedback && <ProductFormFeedback product={product} formState={formState} setShowFeedback={setShowFeedback} />}
     </article>
   );
 }

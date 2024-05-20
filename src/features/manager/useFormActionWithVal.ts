@@ -7,8 +7,8 @@ import { useForm, SubmitHandler, FieldValues, Resolver } from "react-hook-form";
 import FormSchemaBase, { FormStateBase } from "./FormSchemaBase";
 
 // types
-interface UseFormActionWithValProps<FormStateT, FormSchemaT extends FieldValues> {
-  formActionFunc: (formState: FormStateT, formData: FormData) => Promise<FormStateT>;
+interface UseFormActionWithValProps<FormSchemaT extends FieldValues> {
+  formActionFunc: any;
   resolver: Resolver<FormSchemaT, any>;
   formSchema: FormSchemaBase<FormSchemaT>;
 }
@@ -17,7 +17,7 @@ export default function useFormActionWithVal<FormStateT extends FormStateBase, F
   formActionFunc,
   resolver,
   formSchema,
-}: UseFormActionWithValProps<FormStateT, FormSchemaT>) {
+}: UseFormActionWithValProps<FormSchemaT>) {
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
 

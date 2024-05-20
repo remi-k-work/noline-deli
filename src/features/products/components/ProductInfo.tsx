@@ -9,8 +9,8 @@ import { Prisma } from "@prisma/client";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductImage } from "@/features/products/helpers";
 import { TruckIcon } from "@heroicons/react/24/solid";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import PriceTag from "./PriceTag";
@@ -99,7 +99,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                   {moreImages.map(({ id, imageUrl }) => (
                     <Image
                       key={id}
-                      src={routeToProductImage(imageUrl)}
+                      src={PathFinder.toResolvedProductImage(imageUrl)}
                       width={640}
                       height={400}
                       alt={name}

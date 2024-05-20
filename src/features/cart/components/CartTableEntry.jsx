@@ -8,8 +8,9 @@ import Image from "next/image";
 // other libraries
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
-import { routeToProductDetails, routeToProductImage } from "@/features/products/helpers";
+import { routeToProductDetails } from "@/features/products/helpers";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./CartTableForms";
@@ -35,7 +36,14 @@ export default function CartTableEntry({ cartItem }) {
       <td>
         <div className={styles["cart-table-entry-image"]}>
           <Link href={routeToProductDetails(name, productId)} className={styles["cart-table-entry-image__link"]}>
-            <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-24 w-full rounded-lg object-cover" />
+            <Image
+              src={PathFinder.toResolvedProductImage(imageUrl)}
+              width={320}
+              height={200}
+              alt={name}
+              sizes="50vw"
+              className="max-h-24 w-full rounded-lg object-cover"
+            />
           </Link>
           <div className={clsx(styles["cart-table-entry-image__info"], "dropdown")}>
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">

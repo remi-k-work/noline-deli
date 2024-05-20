@@ -11,7 +11,6 @@ import { ProductWithAll } from "../managerDb";
 // other libraries
 import clsx from "clsx";
 import { formatPrice } from "@/lib/helpers";
-import { routeToProductImage } from "@/features/products/helpers";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../PathFinder";
 
@@ -47,7 +46,7 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
         <div className={styles["products-table-entry-image"]}>
           <Link href={PathFinder.toProductEdit(id)} className={styles["products-table-entry-image__link"]}>
             <Image
-              src={routeToProductImage(imageUrl)}
+              src={PathFinder.toResolvedProductImage(imageUrl)}
               width={320}
               height={200}
               alt={name}

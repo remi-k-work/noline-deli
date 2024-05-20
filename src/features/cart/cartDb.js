@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import prisma from "@/lib/db/prisma";
 
 // Increment the cart item quantity by one
-export async function incCartItemQty(cartId, cartItemId) {
+export function incCartItemQty(cartId, cartItemId) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -14,7 +14,7 @@ export async function incCartItemQty(cartId, cartItemId) {
 }
 
 // Decrement the cart item quantity by one
-export async function decCartItemQty(cartId, cartItemId) {
+export function decCartItemQty(cartId, cartItemId) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -23,7 +23,7 @@ export async function decCartItemQty(cartId, cartItemId) {
 }
 
 // Set the cart item quantity to the provided value
-export async function setCartItemQty(cartId, cartItemId, quantity) {
+export function setCartItemQty(cartId, cartItemId, quantity) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -32,13 +32,13 @@ export async function setCartItemQty(cartId, cartItemId, quantity) {
 }
 
 // Remove this cart item completely from our shopping basket
-export async function delCartItem(cartId, cartItemId) {
+export function delCartItem(cartId, cartItemId) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({ where: { id: cartId }, data: { updatedAt: new Date(), cartItems: { delete: { id: cartItemId } } } });
 }
 
 // Create a new cart item within the chosen cart using the provided product
-export async function newCartItem(cartId, productId) {
+export function newCartItem(cartId, productId) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({ where: { id: cartId }, data: { updatedAt: new Date(), cartItems: { create: { productId, quantity: 1 } } } });
 }

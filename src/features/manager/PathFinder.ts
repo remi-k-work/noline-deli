@@ -6,6 +6,7 @@ enum ParamName {
 enum SearchParamName {
   categoryId = "mcat",
   subCategoryId = "scat",
+  actionFeedback = "afeed",
 }
 
 enum PathTo {
@@ -29,8 +30,12 @@ export default class PathFinder {
 
   static toProductNew = () => PathTo.productNew;
   static toProductEdit = (productId: string) => PathTo.productEdit.replace(ParamName.productId, productId);
+  static toProductEditFeedback = (productId: string) => `${PathFinder.toProductEdit(productId)}?${SearchParamName.actionFeedback}`;
 
   static toImagePlaceholder = () => PathTo.imagePlaceholder;
+
+  static toResolvedProductImage = (imageUrl?: string) => PathFinder.toProductImage(imageUrl) ?? PathFinder.toImagePlaceholder();
+  static toResolvedBrandLogo = (logoUrl?: string | null) => PathFinder.toBrandLogo(logoUrl) ?? PathFinder.toImagePlaceholder();
 
   static toProductImage = (imageUrl?: string) => {
     if (imageUrl && PathFinder.isImageSrcParsable(imageUrl)) {

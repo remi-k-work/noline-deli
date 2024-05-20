@@ -5,7 +5,7 @@ import { cache } from "react";
 import prisma from "@/lib/db/prisma";
 
 // Get all the information you need about this particular product
-export const getProduct = cache(async (productId: string) => {
+export const getProduct = cache((productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
   const product = prisma.product.findUnique({
@@ -18,12 +18,12 @@ export const getProduct = cache(async (productId: string) => {
 });
 
 // Get all the information you need about this particular brand
-export const getBrand = cache(async (brandId: string) => {
+export const getBrand = cache((brandId: string) => {
   return prisma.brand.findUnique({ where: { id: brandId, user: { role: "ADMIN" } } });
 });
 
 // Retrieve all of the categories from an external source (database)
-export const allCategories = cache(async () => {
+export const allCategories = cache(() => {
   return prisma.category.findMany({
     where: { user: { role: "ADMIN" } },
     include: { subCategories: { orderBy: { name: "asc" } } },
@@ -32,7 +32,7 @@ export const allCategories = cache(async () => {
 });
 
 // Retrieve all products by brand
-export async function allProductsByBrand(
+export function allProductsByBrand(
   brandId: string,
   currentPage: number,
   itemsPerPage: number,
@@ -68,7 +68,7 @@ export async function allProductsByBrand(
 }
 
 // Retrieve all products by category
-export async function allProductsByCategory(
+export function allProductsByCategory(
   categoryId: string,
   currentPage: number,
   itemsPerPage: number,
@@ -107,7 +107,7 @@ export async function allProductsByCategory(
 }
 
 // Retrieve all products by category and subcategory
-export async function allProductsByCategoryAndSubCategory(
+export function allProductsByCategoryAndSubCategory(
   categoryId: string,
   subCategoryId: string,
   currentPage: number,
@@ -149,7 +149,7 @@ export async function allProductsByCategoryAndSubCategory(
 }
 
 // Retrieve all products from an external source (database) using offset pagination
-export async function allProductsWithPagination(
+export function allProductsWithPagination(
   currentPage: number,
   itemsPerPage: number,
   sortByField: string,

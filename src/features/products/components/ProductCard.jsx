@@ -7,8 +7,9 @@ import Image from "next/image";
 
 // other libraries
 import clsx from "clsx";
-import { routeToProductDetails, routeToProductImage } from "@/features/products/helpers";
+import { routeToProductDetails } from "@/features/products/helpers";
 import { TruckIcon } from "@heroicons/react/24/solid";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import PriceTag from "./PriceTag";
@@ -33,7 +34,7 @@ export default function ProductCard({ product, listMode = false }) {
       <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-start z-10">NEW</span>}
-          <Image src={routeToProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-72 w-full object-cover" />
+          <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-72 w-full object-cover" />
           {freeShipping && (
             <span className="badge indicator-item badge-secondary indicator-center indicator-bottom z-10 flex items-center justify-center gap-2 p-3">
               <TruckIcon width={24} height={24} />
@@ -56,7 +57,7 @@ export default function ProductCard({ product, listMode = false }) {
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
           <Image
-            src={routeToProductImage(imageUrl)}
+            src={PathFinder.toResolvedProductImage(imageUrl)}
             width={640}
             height={400}
             alt={name}

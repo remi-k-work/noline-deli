@@ -8,6 +8,7 @@ enum SearchParamName {
   subCategoryId = "scat",
   currentPage = "page",
   sortBy = "sort",
+  actionFeedback = "afeed",
 }
 
 type ParamsToSet = [SearchParamName, string?][];
@@ -51,6 +52,11 @@ export default class SearchParamsState {
     this.sortBy = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
     this.sortByField = this.sortBy.split(",")[0] as SortByField;
     this.sortByOrder = this.sortBy.split(",")[1] as SortByOrder;
+  }
+
+  // Are we in action feedback mode?
+  get isActionFeedbackMode() {
+    return this.searchParams.has(SearchParamName.actionFeedback);
   }
 
   // Are we in search mode?

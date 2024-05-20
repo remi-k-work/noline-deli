@@ -14,7 +14,7 @@ import { allProductsByBrand, getBrand } from "@/features/products/productsDb";
 
 // other libraries
 import clsx from "clsx";
-import { routeToBrandLogo } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
@@ -93,7 +93,7 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
           {logoUrl && (
             <header className="mb-4">
               <Image
-                src={routeToBrandLogo(logoUrl)}
+                src={PathFinder.toResolvedBrandLogo(logoUrl)}
                 width={640}
                 height={400}
                 alt={name}
