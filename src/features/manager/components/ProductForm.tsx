@@ -22,7 +22,8 @@ import useFormActionWithVal from "../useFormActionWithVal";
 import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./ProductFormControls";
 import ProductFormImages from "./ProductFormImages";
-import ProductFormSubmit, { ProductFormFeedback } from "./ProductFormSubmit";
+import FormSubmit from "./FormSubmit";
+import ProductFormFeedback from "./ProductFormFeedback";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -153,7 +154,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
           <TruckIcon width={24} height={24} />
           Free Shipping
         </FormCheckField>
-        <ProductFormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+        <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
       </form>
       {showFeedback && <ProductFormFeedback product={product} formState={formState} setShowFeedback={setShowFeedback} />}
     </article>

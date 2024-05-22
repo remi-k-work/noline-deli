@@ -1,6 +1,9 @@
 // react
 import { cache } from "react";
 
+// next
+import { cookies } from "next/headers";
+
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
@@ -19,6 +22,41 @@ const INCLUDE_PRODUCT_WITH_ALL = {
 } satisfies Prisma.ProductInclude;
 const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { orderBy: { name: "asc" }, include: { user: true } }, user: true } satisfies Prisma.CategoryInclude;
 const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
+
+const CREATED_BY_USER_COOKIE = "createdByUser";
+
+export async function getCreatedByUser() {
+  // Try obtaining the created by user value from a local cookie
+  const createdByUser = cookies().get(CREATED_BY_USER_COOKIE)?.value;
+
+  // We obtained the created by user value
+  if (createdByUser) return createdByUser;
+
+  // Will we be able to set a cookie?
+  try {
+    // Remember that cookies can only be modified in a server action or route handler
+    cookies().set(CREATED_BY_USER_COOKIE, "************************");
+  } catch (error) {
+    // Calling this from a server component will result in an error; exit with undefined immediately
+    return undefined;
+  }
+
+  // We can move on now and establish a new created by user value + save it in a cookie
+  const user = await prisma.user.create({ data: { role: "USER" } });
+
+  cookies().set(CREATED_BY_USER_COOKIE, user.id, { httpOnly: true, maxAge: 2592000, sameSite: "strict" });
+}
+
+// 1) View live content that is only created by admins
+// 2) If an administrator is impersonated, still check for the "isApproved" flag, which can only be changed at the database level
+export function whereAdminApproved<WhereT>(): WhereT {
+  return { user: { role: "ADMIN" }, isApproved: true } as WhereT;
+}
+
+// 3) Combine the above with the specific (local cookie) user's content
+export function whereUserCreated<WhereT>(createdBy?: string): WhereT {
+  return (createdBy ? { OR: [{ createdBy: createdBy }] } : { OR: undefined }) as WhereT;
+}
 
 // Gather the necessary data for the product form, such as a list of all available brands and categories
 export const getProductFormData = cache(() => {
@@ -48,6 +86,11 @@ function createMoreImages(createdBy: string, moreImagesUrls?: string[]): Prisma.
   return moreImagesUrls ? { create: moreImagesUrls.map((extraImageUrl) => ({ createdBy, imageUrl: extraImageUrl })) } : undefined;
 }
 
+// Delete the given product and its associated data
+export function deleteProduct(productId: string) {
+  return prisma.product.delete({ where: { id: productId } });
+}
+
 // To update an existing product, delete it and recreate it with new data
 export function updateProduct(
   productId: string,
@@ -67,7 +110,7 @@ export function updateProduct(
   // "onDelete: Cascade" ensures related data is removed
   // Potential data loss: even with transactions, there is a small window of vulnerability during the deletion phase if the recreation fails
   return prisma.$transaction([
-    prisma.product.delete({ where: { id: productId } }),
+    deleteProduct(productId),
     createProduct(createdBy, brandId, name, description, imageUrl, price, freeShipping, categoryId, subCategoryId, moreImagesUrls, orgCreatedAt),
   ]);
 }

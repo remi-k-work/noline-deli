@@ -5,11 +5,40 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
-import { createProduct, updateProduct } from "./managerDb";
+import { createProduct, deleteProduct, updateProduct } from "./managerDb";
 
 // other libraries
 import PathFinder from "./PathFinder";
 import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
+
+export async function delProduct(productId: string): Promise<[string, string, number] | undefined> {
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  console.log("delProduct ACTION");
+  return;
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+  // *** TEST CODE ***
+
+  // The just-deleted product excerpt
+  let name: string, imageUrl: string, price: number;
+
+  try {
+    // Delete the given product and its associated data
+    ({ name, imageUrl, price } = await deleteProduct(productId));
+  } catch (error) {
+    // If a database error occurs, return a more specific error
+    return undefined;
+  }
+
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath("/");
+  revalidatePath(PathFinder.toAllProducts());
+
+  // Return the recently removed product excerpt so we may provide feedback to the user
+  return [name, imageUrl, price];
+}
 
 export async function updProduct(productId: string, orgCreatedAt: Date, formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
   // *** TEST CODE ***
