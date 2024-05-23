@@ -5,18 +5,17 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
-import { createProduct, deleteProduct, updateProduct } from "./managerDb";
+import { createProduct, deleteProduct, getCreatedByUser, isAccessDeniedTo, setCreatedByUser, updateProduct } from "./managerDb";
 
 // other libraries
 import PathFinder from "./PathFinder";
 import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
 
-export async function delProduct(productId: string): Promise<[string, string, number] | undefined> {
+export async function delProduct(productId: string): Promise<ProductFormState> {
   // *** TEST CODE ***
   // *** TEST CODE ***
   // *** TEST CODE ***
   console.log("delProduct ACTION");
-  return;
   // *** TEST CODE ***
   // *** TEST CODE ***
   // *** TEST CODE ***
@@ -25,11 +24,16 @@ export async function delProduct(productId: string): Promise<[string, string, nu
   let name: string, imageUrl: string, price: number;
 
   try {
+    // Make sure we have permission for this item before proceeding
+    if (await isAccessDeniedTo("product", productId)) {
+      return { actionStatus: "denied" };
+    }
+
     // Delete the given product and its associated data
     ({ name, imageUrl, price } = await deleteProduct(productId));
   } catch (error) {
     // If a database error occurs, return a more specific error
-    return undefined;
+    return { actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -37,7 +41,7 @@ export async function delProduct(productId: string): Promise<[string, string, nu
   revalidatePath(PathFinder.toAllProducts());
 
   // Return the recently removed product excerpt so we may provide feedback to the user
-  return [name, imageUrl, price];
+  return { actionStatus: "succeeded", productExcerpt: { name, imageUrl, price } };
 }
 
 export async function updProduct(productId: string, orgCreatedAt: Date, formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
@@ -62,6 +66,11 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
 
   let newProductId = productId;
   try {
+    // Make sure we have permission for this item before proceeding
+    if (await isAccessDeniedTo("product", productId)) {
+      return { actionStatus: "denied" };
+    }
+
     // Collect and prepare validated data for underlying database operations
     const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = validatedData!;
 
@@ -69,7 +78,7 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
     const [, product] = await updateProduct(
       productId,
       orgCreatedAt,
-      "***",
+      getCreatedByUser() ?? (await setCreatedByUser()),
       brandId,
       name,
       description,
@@ -119,7 +128,18 @@ export async function newProduct(formState: ProductFormState, formData: FormData
     const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = validatedData!;
 
     // Generate an entirely new product with all the associated data
-    await createProduct("***", brandId, name, description, theMainImage, price, freeShipping, categoryId, subCategoryId, extraImages);
+    await createProduct(
+      getCreatedByUser() ?? (await setCreatedByUser()),
+      brandId,
+      name,
+      description,
+      theMainImage,
+      price,
+      freeShipping,
+      categoryId,
+      subCategoryId,
+      extraImages,
+    );
   } catch (error) {
     // If a database error occurs, return a more specific error
     return { actionStatus: "failed" };

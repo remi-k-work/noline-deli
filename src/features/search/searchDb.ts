@@ -4,17 +4,17 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import { whereAdminApproved, whereUserCreated } from "../manager/managerDb";
+import { whereAdminApproved } from "../manager/managerDb";
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
-export const getDashboardData = cache(async (createdBy?: string) => {
+export const getDashboardData = cache(async () => {
   // Fetch all of the products first, then scramble them, and then select three random ones (same idea for brands)
   const [allProducts, allBrands] = await Promise.all([
     prisma.product.findMany({
-      where: { ...whereAdminApproved<Prisma.ProductWhereInput>(), ...whereUserCreated<Prisma.ProductWhereInput>(createdBy) },
+      where: { ...whereAdminApproved<Prisma.ProductWhereInput>() },
       include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
     }),
-    prisma.brand.findMany({ where: { ...whereAdminApproved<Prisma.BrandWhereInput>(), ...whereUserCreated<Prisma.BrandWhereInput>(createdBy) } }),
+    prisma.brand.findMany({ where: { ...whereAdminApproved<Prisma.BrandWhereInput>() } }),
   ]);
 
   const featuredProducts = allProducts.sort(() => Math.random() - 0.5).slice(0, 3);
@@ -24,7 +24,7 @@ export const getDashboardData = cache(async (createdBy?: string) => {
 });
 
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
-export const getProductFilterData = cache(async (createdBy?: string) => {
+export const getProductFilterData = cache(async () => {
   const [
     byCompanyList,
     {
@@ -33,13 +33,13 @@ export const getProductFilterData = cache(async (createdBy?: string) => {
     },
   ] = await Promise.all([
     prisma.brand.findMany({
-      where: { ...whereAdminApproved<Prisma.BrandWhereInput>(), ...whereUserCreated<Prisma.BrandWhereInput>(createdBy) },
+      where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
       orderBy: { name: "asc" },
     }),
     prisma.product.aggregate({
       _min: { price: true },
       _max: { price: true },
-      where: { ...whereAdminApproved<Prisma.ProductWhereInput>(), ...whereUserCreated<Prisma.ProductWhereInput>(createdBy) },
+      where: { ...whereAdminApproved<Prisma.ProductWhereInput>() },
     }),
   ]);
 
@@ -64,7 +64,6 @@ export function searchProducts(
   byBrandId: string,
   byPriceBelow: number,
   byFreeShipping: boolean,
-  createdBy?: string,
 ) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -73,7 +72,6 @@ export function searchProducts(
     prisma.product.count({
       where: {
         ...whereAdminApproved<Prisma.ProductWhereInput>(),
-        ...whereUserCreated<Prisma.ProductWhereInput>(createdBy),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },
@@ -81,7 +79,6 @@ export function searchProducts(
     prisma.product.findMany({
       where: {
         ...whereAdminApproved<Prisma.ProductWhereInput>(),
-        ...whereUserCreated<Prisma.ProductWhereInput>(createdBy),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
         OR: [{ name: { contains: keyword, mode: "insensitive" } }, { description: { contains: keyword, mode: "insensitive" } }],
       },

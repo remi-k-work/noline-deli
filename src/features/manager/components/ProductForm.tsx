@@ -58,12 +58,23 @@ export default function ProductForm({ product, brands, categories }: ProductForm
 }
 
 function TheFormWrapped({ product, brands, categories, onResetClicked }: TheFormWrappedProps) {
-  const { isPending, formState, formAction, allFieldErrors, register, unregister, handleSubmit, setValue, showFeedback, setShowFeedback, onSubmit } =
-    useFormActionWithVal<ProductFormState, ProductFormSchemaType>({
-      formActionFunc: product ? updProduct.bind(null, product.id, product.createdAt) : newProduct,
-      resolver: zodResolver(ProductFormSchema.schema),
-      formSchema: new ProductFormSchema(),
-    });
+  const {
+    isPending,
+    formState: productFormState,
+    formAction,
+    allFieldErrors,
+    register,
+    unregister,
+    handleSubmit,
+    setValue,
+    showFeedback,
+    setShowFeedback,
+    onSubmit,
+  } = useFormActionWithVal<ProductFormState, ProductFormSchemaType>({
+    formActionFunc: product ? updProduct.bind(null, product.id, product.createdAt) : newProduct,
+    resolver: zodResolver(ProductFormSchema.schema),
+    formSchema: new ProductFormSchema(),
+  });
 
   // Default values for the form
   let defName: string | undefined;
@@ -107,8 +118,8 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
           </>
         )}
       </h2>
-      {/* <form action={formAction} noValidate={true} onSubmit={handleSubmit(onSubmit)}> */}
-      <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as ProductFormSchemaType, ev)}>
+      <form action={formAction} noValidate={true} onSubmit={handleSubmit(onSubmit)}>
+        {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as ProductFormSchemaType, ev)}> */}
         <FormInputField
           fieldName={"name"}
           fieldLabel={"name"}
@@ -156,7 +167,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
         </FormCheckField>
         <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
       </form>
-      {showFeedback && <ProductFormFeedback product={product} formState={formState} setShowFeedback={setShowFeedback} />}
+      {showFeedback && <ProductFormFeedback product={product} productFormState={productFormState} setShowFeedback={setShowFeedback} />}
     </article>
   );
 }

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "../managerDb";
+import { ProductWithAll, getCreatedByUser } from "../managerDb";
 
 // other libraries
 import clsx from "clsx";
@@ -37,11 +37,12 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
     price,
     categories,
     subCategories,
+    createdBy,
     user: { role },
   } = product;
 
   return (
-    <tr className={styles["products-table-entry"]}>
+    <tr className={clsx(styles["products-table-entry"], { "text-base-content": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
       <td>
         <div className={styles["products-table-entry-image"]}>
           <Link href={PathFinder.toProductEdit(id)} className={styles["products-table-entry-image__link"]}>
@@ -84,7 +85,7 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
       </td>
       <td>{formatPrice(price)}</td>
       <td>
-        <ProductsTableActions productId={id} productName={name} productImageUrl={imageUrl} productPrice={price} usersRole={role} />
+        <ProductsTableActions productId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
       </td>
     </tr>
   );

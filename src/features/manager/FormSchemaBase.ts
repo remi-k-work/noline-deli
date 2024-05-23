@@ -9,7 +9,7 @@ export interface AllFieldErrors {
 }
 
 export interface FormStateBase {
-  actionStatus: "idle" | "succeeded" | "failed" | "invalid";
+  actionStatus: "idle" | "succeeded" | "failed" | "invalid" | "denied";
   allFieldErrors?: AllFieldErrors;
 }
 

@@ -15,13 +15,14 @@ import { delProduct } from "../managerActions";
 
 // other libraries
 import clsx from "clsx";
-import { EllipsisVerticalIcon, ExclamationTriangleIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../PathFinder";
+import { ProductFormState } from "../ProductFormSchema";
 
 // components
 import ConfirmDialog from "@/components/ConfirmDialog";
-import Toastify from "@/components/Toastify";
 import ProductExcerpt from "./ProductExcerpt";
+import { ProductsTableFeedback } from "./ProductFormFeedback";
 
 // types
 interface ProductsTableActionsProps {
@@ -29,10 +30,9 @@ interface ProductsTableActionsProps {
   productName: string;
   productImageUrl: string;
   productPrice: number;
-  usersRole: string;
 }
 
-export default function ProductsTableActions({ productId, productName, productImageUrl, productPrice, usersRole }: ProductsTableActionsProps) {
+export default function ProductsTableActions({ productId, productName, productImageUrl, productPrice }: ProductsTableActionsProps) {
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
 
@@ -41,11 +41,11 @@ export default function ProductsTableActions({ productId, productName, productIm
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const deletedProductExcerptRef = useRef<Awaited<ReturnType<typeof delProduct>>>(undefined);
+  const productFormState = useRef<ProductFormState>();
 
   function handleDeleteConfirmed() {
     startTransition(async () => {
-      deletedProductExcerptRef.current = await delProduct(productId);
+      productFormState.current = await delProduct(productId);
       setShowFeedback(true);
       refresh();
     });
@@ -78,22 +78,14 @@ export default function ProductsTableActions({ productId, productName, productIm
         <p className="mb-4">Are you certain you want to remove this product?</p>
         <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
       </ConfirmDialog>
-      {showFeedback && deletedProductExcerptRef.current && (
-        <Toastify onTimedOut={() => setShowFeedback(false)}>
-          <p className="mb-4">The following product has been removed.</p>
-          <ProductExcerpt
-            name={deletedProductExcerptRef.current[0]}
-            imageUrl={deletedProductExcerptRef.current[1]}
-            price={deletedProductExcerptRef.current[2]}
-          />
-        </Toastify>
-      )}
-      {showFeedback && deletedProductExcerptRef.current === undefined && (
-        <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
-          <ExclamationTriangleIcon width={48} height={48} className="m-auto" />
-          <p className="mb-4">Database error! Failed to delete the following product.</p>
-          <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
-        </Toastify>
+      {showFeedback && productFormState.current && (
+        <ProductsTableFeedback
+          productName={productName}
+          productImageUrl={productImageUrl}
+          productPrice={productPrice}
+          productFormState={productFormState.current}
+          setShowFeedback={setShowFeedback}
+        />
       )}
     </>
   );

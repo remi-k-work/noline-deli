@@ -25,37 +25,35 @@ const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
 
 const CREATED_BY_USER_COOKIE = "createdByUser";
 
-export async function getCreatedByUser() {
-  // Try obtaining the created by user value from a local cookie
+export function getCreatedByUser() {
+  // Try obtaining the created-by-user value from a local cookie
   const createdByUser = cookies().get(CREATED_BY_USER_COOKIE)?.value;
 
-  // We obtained the created by user value
-  if (createdByUser) return createdByUser;
+  // We obtained the created-by-user value; ensure that it is a valid objectid recognized by mongodb
+  if (createdByUser && createdByUser.match(/^[0-9a-fA-F]{24}$/)) return createdByUser;
 
-  // Will we be able to set a cookie?
-  try {
-    // Remember that cookies can only be modified in a server action or route handler
-    cookies().set(CREATED_BY_USER_COOKIE, "************************");
-  } catch (error) {
-    // Calling this from a server component will result in an error; exit with undefined immediately
-    return undefined;
-  }
+  return undefined;
+}
 
-  // We can move on now and establish a new created by user value + save it in a cookie
-  const user = await prisma.user.create({ data: { role: "USER" } });
+export async function setCreatedByUser() {
+  // Establish a new created-by-user value and save it in a cookie for future reference
+  return await prisma.$transaction(async (tx) => {
+    // Execute those two stages in a transaction to succeed or fail as a whole
+    const user = await tx.user.create({ data: { name: "user", email: `${crypto.randomUUID()}@user.com`, role: "USER" } });
 
-  cookies().set(CREATED_BY_USER_COOKIE, user.id, { httpOnly: true, maxAge: 2592000, sameSite: "strict" });
+    // If the cookie setting fails, the transaction will be rolled back rather than creating a new user
+    cookies().set(CREATED_BY_USER_COOKIE, user.id, { maxAge: 2592000, httpOnly: true, sameSite: "strict" });
+
+    // Finally, return the new created-by-user value
+    return user.id;
+  });
 }
 
 // 1) View live content that is only created by admins
 // 2) If an administrator is impersonated, still check for the "isApproved" flag, which can only be changed at the database level
-export function whereAdminApproved<WhereT>(): WhereT {
-  return { user: { role: "ADMIN" }, isApproved: true } as WhereT;
-}
-
 // 3) Combine the above with the specific (local cookie) user's content
-export function whereUserCreated<WhereT>(createdBy?: string): WhereT {
-  return (createdBy ? { OR: [{ createdBy: createdBy }] } : { OR: undefined }) as WhereT;
+export function whereAdminApproved<WhereT>(): WhereT {
+  return { AND: { OR: [{ user: { role: "ADMIN" }, isApproved: true }, { createdBy: getCreatedByUser() }] } } as WhereT;
 }
 
 // Gather the necessary data for the product form, such as a list of all available brands and categories
@@ -84,6 +82,31 @@ function createSubCategories(subCategoryId?: string): Prisma.SubCategoriesOnProd
 
 function createMoreImages(createdBy: string, moreImagesUrls?: string[]): Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput | undefined {
   return moreImagesUrls ? { create: moreImagesUrls.map((extraImageUrl) => ({ createdBy, imageUrl: extraImageUrl })) } : undefined;
+}
+
+export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {
+  switch (itemType) {
+    case "product":
+      const product = await getProduct(itemId);
+      if (product) {
+        const {
+          createdBy,
+          user: { role },
+        } = product;
+
+        // Cannot alter any admin-generated content (stops impersonation, as admin will only use the database directly)
+        if (role === "ADMIN") return true;
+
+        // Cannot alter someone else's content
+        if (createdBy !== getCreatedByUser()) return true;
+      }
+      // Access is granted
+      return false;
+
+    default:
+      // Access is denied by default
+      return true;
+  }
 }
 
 // Delete the given product and its associated data
