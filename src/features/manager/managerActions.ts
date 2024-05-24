@@ -12,14 +12,6 @@ import PathFinder from "./PathFinder";
 import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
 
 export async function delProduct(productId: string): Promise<ProductFormState> {
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  console.log("delProduct ACTION");
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-
   // The just-deleted product excerpt
   let name: string, imageUrl: string, price: number;
 
@@ -45,13 +37,6 @@ export async function delProduct(productId: string): Promise<ProductFormState> {
 }
 
 export async function updProduct(productId: string, orgCreatedAt: Date, formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  console.log("updProduct ACTION");
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
   const productFormSchema = new ProductFormSchema(formData);
   const { isSuccess, allFieldErrorsServer, validatedData } = productFormSchema;
 
@@ -104,13 +89,6 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
 }
 
 export async function newProduct(formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  console.log("newProduct ACTION");
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
   const productFormSchema = new ProductFormSchema(formData);
   const { isSuccess, allFieldErrorsServer, validatedData } = productFormSchema;
 

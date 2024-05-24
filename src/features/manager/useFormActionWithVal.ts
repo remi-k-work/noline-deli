@@ -23,19 +23,10 @@ export default function useFormActionWithVal<FormStateT extends FormStateBase, F
 
   // To be able to use the information returned by a form action
   const [formState, formAction] = useFormState<FormStateT, FormData>(formActionFunc, { actionStatus: "idle" } as Awaited<FormStateT>);
-
-  const { allFieldErrors: allFieldErrorsFromServer } = formState;
-
-  const {
-    register,
-    unregister,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<FormSchemaT>({ shouldUnregister: true, resolver });
+  const useFormMethods = useForm<FormSchemaT>({ shouldUnregister: true, resolver });
 
   // We will show form validation errors from server-side first and client-side afterwards
-  const allFieldErrors = allFieldErrorsFromServer || formSchema.getAllFieldErrorsClient(errors);
+  const allFieldErrors = formState.allFieldErrors || formSchema.getAllFieldErrorsClient(useFormMethods.formState.errors);
 
   // Are we prepared to provide feedback to the user?
   const [showFeedback, setShowFeedback] = useState(false);
@@ -52,5 +43,5 @@ export default function useFormActionWithVal<FormStateT extends FormStateBase, F
     });
   };
 
-  return { isPending, formState, formAction, allFieldErrors, register, unregister, handleSubmit, setValue, showFeedback, setShowFeedback, onSubmit };
+  return { isPending, formState, formAction, allFieldErrors, showFeedback, setShowFeedback, onSubmit, useFormMethods };
 }

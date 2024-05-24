@@ -15,7 +15,7 @@ import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
 // other libraries
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../PathFinder";
-import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { AllFieldErrors } from "../FormSchemaBase";
 
 // components
@@ -25,14 +25,12 @@ import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "
 interface PriceInCentsProps {
   priceInCents?: number;
   allFieldErrors?: AllFieldErrors;
-  register: UseFormRegister<any>;
 }
 
 interface BrandAndLogoProps {
   brands: BrandWithUser[];
   selectedBrandId?: string;
   allFieldErrors?: AllFieldErrors;
-  register: UseFormRegister<any>;
 }
 
 interface CategoryAndSubCategoryProps {
@@ -40,11 +38,9 @@ interface CategoryAndSubCategoryProps {
   selectedCategoryId?: string;
   selectedSubCategoryId?: string;
   allFieldErrors?: AllFieldErrors;
-  register: UseFormRegister<any>;
-  setValue: UseFormSetValue<any>;
 }
 
-export function PriceInCents({ priceInCents = 1, allFieldErrors, register }: PriceInCentsProps) {
+export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsProps) {
   const [currPriceInCents, setCurrPriceInCents] = useState(priceInCents);
 
   return (
@@ -61,7 +57,6 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors, register }: Pri
           required={true}
           defaultValue={priceInCents}
           onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
-          register={register}
         />
         <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
           <div className="stats min-w-full">
@@ -76,7 +71,7 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors, register }: Pri
   );
 }
 
-export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors, register }: BrandAndLogoProps) {
+export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: BrandAndLogoProps) {
   const [currSelectedBrandId, setCurrSelectedBrandId] = useState(selectedBrandId);
 
   const currentBrand = brands.find(({ id }) => id === currSelectedBrandId);
@@ -91,7 +86,6 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors, reg
           allFieldErrors={undefined}
           value={currSelectedBrandId}
           onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
-          register={register}
         >
           <option value="">Choose Brand</option>
           {brands.map(({ id, name }) => {
@@ -115,19 +109,15 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors, reg
   );
 }
 
-export function CategoryAndSubCategory({
-  categories,
-  selectedCategoryId = "",
-  selectedSubCategoryId = "",
-  allFieldErrors,
-  register,
-  setValue,
-}: CategoryAndSubCategoryProps) {
+export function CategoryAndSubCategory({ categories, selectedCategoryId = "", selectedSubCategoryId = "", allFieldErrors }: CategoryAndSubCategoryProps) {
   const [currSelectedCategoryId, setCurrSelectedCategoryId] = useState(selectedCategoryId);
   const [currSelectedSubCategoryId, setCurrSelectedSubCategoryId] = useState(selectedSubCategoryId);
 
   const currentCategory = categories.find(({ id }) => id === currSelectedCategoryId);
   const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
+
+  // Retrieve all needed useform hook methods and props
+  const { setValue } = useFormContext();
 
   return (
     <>
@@ -149,9 +139,8 @@ export function CategoryAndSubCategory({
             setCurrSelectedSubCategoryId(hasSubCategories ? "+" : "");
 
             // Keep the react hook form state in sync (we must manually update any dependent fields)
-            setValue("subCategoryId", hasSubCategories ? "+" : "", { shouldValidate: true });
+            setValue("subCategoryId", hasSubCategories ? "+" : "");
           }}
-          register={register}
         >
           <option value="">Choose Category</option>
           {categories.map(({ id, name }) => {
@@ -170,7 +159,6 @@ export function CategoryAndSubCategory({
           value={currSelectedSubCategoryId}
           disabled={!hasSubCategories}
           onChange={(ev) => setCurrSelectedSubCategoryId(ev.target.value)}
-          register={register}
         >
           {hasSubCategories ? (
             // Inform the validation schema that a subcategory must be picked now (field required conditionally)

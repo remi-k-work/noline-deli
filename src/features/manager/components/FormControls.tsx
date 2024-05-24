@@ -7,7 +7,7 @@ import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 // other libraries
 import clsx from "clsx";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
-import { RefCallBack, UseFormRegister } from "react-hook-form";
+import { RefCallBack } from "react-hook-form";
 import { AllFieldErrors } from "../FormSchemaBase";
 import useRegisterWithRHF from "../useRegisterWithRHF";
 
@@ -17,7 +17,6 @@ interface FormFieldProps {
   fieldLabel: string;
   allFieldErrors?: AllFieldErrors;
   className?: string;
-  register: UseFormRegister<any>;
 }
 
 interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {
@@ -27,7 +26,7 @@ interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
 interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
 
-interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors" | "register">, ComponentProps<"output"> {
+interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors">, ComponentProps<"output"> {
   outputFor: string;
 }
 
@@ -35,8 +34,8 @@ interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, register, ...props }: FormInputFieldProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ register, fieldName, props });
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, ...props }: FormInputFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
 
   return (
     <div className={styles["form-field"]}>
@@ -59,8 +58,8 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allF
   );
 }
 
-export function FormCheckField({ fieldName, allFieldErrors, children, className, register, ...props }: FormCheckFieldProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ register, fieldName, props });
+export function FormCheckField({ fieldName, allFieldErrors, children, className, ...props }: FormCheckFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
 
   return (
     <>
@@ -84,8 +83,8 @@ export function FormCheckField({ fieldName, allFieldErrors, children, className,
   );
 }
 
-export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, register, ...props }: FormTextAreaProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"textarea", HTMLTextAreaElement>({ register, fieldName, props });
+export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, ...props }: FormTextAreaProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"textarea", HTMLTextAreaElement>({ fieldName, props });
 
   return (
     <div className={styles["form-field"]}>
@@ -106,8 +105,8 @@ export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className,
   );
 }
 
-export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, register, ...props }: FormSelectFieldProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"select", HTMLSelectElement>({ register, fieldName, props });
+export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormSelectFieldProps) {
+  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"select", HTMLSelectElement>({ fieldName, props });
 
   return (
     <div className={styles["form-field"]}>
@@ -130,7 +129,7 @@ export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, childre
   );
 }
 
-export function FormOutputField({ outputFor, fieldName, fieldLabel, className, children, ...props }: FormOutputFieldProps) {
+export function FormOutputField({ outputFor, fieldName, fieldLabel, children, className, ...props }: FormOutputFieldProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>

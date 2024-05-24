@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 // other libraries
 import clsx from "clsx";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon, CubeIcon, CubeTransparentIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import { UseFormRegister, UseFormUnregister } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { AllFieldErrors } from "../FormSchemaBase";
 
 // components
@@ -23,11 +23,9 @@ interface ProductFormImagesProps {
   theMainImageUrl?: string;
   moreImagesUrls?: string[];
   allFieldErrors?: AllFieldErrors;
-  register: UseFormRegister<any>;
-  unregister: UseFormUnregister<any>;
 }
 
-export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [], allFieldErrors, register, unregister }: ProductFormImagesProps) {
+export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls = [], allFieldErrors }: ProductFormImagesProps) {
   const [currMoreImagesUrls, setCurrMoreImagesUrls] = useState(moreImagesUrls);
 
   const allProductImageNodesRef = useRef(new Map<number, HTMLElement>());
@@ -54,6 +52,9 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
     };
   }, []);
 
+  // Retrieve all needed useform hook methods and props
+  const { unregister } = useFormContext();
+
   function handleAddNewImageClicked() {
     const allProductImageNodes = allProductImageNodesRef.current;
     const totalProductImages = allProductImageNodes.size;
@@ -72,7 +73,7 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
     const targetIndex = extraImageIndex + 1;
 
     // Keep the react hook form state in sync
-    unregister(`extraImages`);
+    unregister("extraImages");
 
     setCurrMoreImagesUrls([...currMoreImagesUrls.slice(0, extraImageIndex), ...currMoreImagesUrls.slice(extraImageIndex + 1)]);
     if (targetIndex < viewedIndex) {
@@ -117,7 +118,6 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           fieldLabel={"the main image"}
           imageUrl={theMainImageUrl}
           allFieldErrors={allFieldErrors}
-          register={register}
         />
         {currMoreImagesUrls.map((extraImageUrl, extraImageIndex) => (
           <ProductFormImage
@@ -128,7 +128,6 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
             imageUrl={extraImageUrl}
             onRemoveImageClicked={() => handleRemoveImageClicked(extraImageIndex)}
             allFieldErrors={allFieldErrors}
-            register={register}
           />
         ))}
       </div>

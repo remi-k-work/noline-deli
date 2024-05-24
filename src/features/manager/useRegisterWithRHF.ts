@@ -2,20 +2,21 @@
 import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 
 // other libraries
-import { UseFormRegister } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 // types
 interface UseRegisterWithRHFProps<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>> {
-  register: UseFormRegister<any>;
   fieldName: string;
   props: ComponentProps<T>;
 }
 
 export default function useRegisterWithRHF<T extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>, E>({
-  register,
   fieldName,
   props,
 }: UseRegisterWithRHFProps<T>) {
+  // Retrieve all needed useform hook methods and props
+  const { register } = useFormContext();
+
   // Extract the event handlers and other properties required to "register" this component with the react hook form
   const { onChange: rhfOnChange, onBlur: rhfOnBlur, ref } = register(fieldName);
 

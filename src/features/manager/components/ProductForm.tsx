@@ -17,6 +17,7 @@ import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24
 import ProductFormSchema, { ProductFormSchemaType, ProductFormState } from "../ProductFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../useFormActionWithVal";
+import { FormProvider } from "react-hook-form";
 
 // components
 import { FormTextArea, FormInputField, FormCheckField } from "./FormControls";
@@ -63,13 +64,10 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
     formState: productFormState,
     formAction,
     allFieldErrors,
-    register,
-    unregister,
-    handleSubmit,
-    setValue,
     showFeedback,
     setShowFeedback,
     onSubmit,
+    useFormMethods,
   } = useFormActionWithVal<ProductFormState, ProductFormSchemaType>({
     formActionFunc: product ? updProduct.bind(null, product.id, product.createdAt) : newProduct,
     resolver: zodResolver(ProductFormSchema.schema),
@@ -118,55 +116,47 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
           </>
         )}
       </h2>
-      <form action={formAction} noValidate={true} onSubmit={handleSubmit(onSubmit)}>
-        {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as ProductFormSchemaType, ev)}> */}
-        <FormInputField
-          fieldName={"name"}
-          fieldLabel={"name"}
-          allFieldErrors={allFieldErrors}
-          size={40}
-          maxLength={50}
-          spellCheck={"true"}
-          autoComplete={"off"}
-          required={true}
-          defaultValue={defName}
-          register={register}
-        />
-        <FormTextArea
-          fieldName={"description"}
-          fieldLabel={"description"}
-          allFieldErrors={allFieldErrors}
-          cols={50}
-          rows={6}
-          spellCheck={"true"}
-          autoComplete={"off"}
-          required={true}
-          defaultValue={defDescription}
-          register={register}
-        />
-        <ProductFormImages
-          theMainImageUrl={defTheMainImageUrl}
-          moreImagesUrls={defMoreImagesUrls}
-          allFieldErrors={allFieldErrors}
-          register={register}
-          unregister={unregister}
-        />
-        <PriceInCents priceInCents={defPriceInCents} allFieldErrors={allFieldErrors} register={register} />
-        <CategoryAndSubCategory
-          categories={categories}
-          selectedCategoryId={defSelectedCategoryId}
-          selectedSubCategoryId={defSelectedSubCategoryId}
-          allFieldErrors={allFieldErrors}
-          register={register}
-          setValue={setValue}
-        />
-        <BrandAndLogo brands={brands} selectedBrandId={defSelectedBrandId} allFieldErrors={allFieldErrors} register={register} />
-        <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={defFreeShipping} register={register}>
-          <TruckIcon width={24} height={24} />
-          Free Shipping
-        </FormCheckField>
-        <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
-      </form>
+      <FormProvider {...useFormMethods}>
+        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as ProductFormSchemaType, ev)}> */}
+          <FormInputField
+            fieldName={"name"}
+            fieldLabel={"name"}
+            allFieldErrors={allFieldErrors}
+            size={40}
+            maxLength={50}
+            spellCheck={"true"}
+            autoComplete={"off"}
+            required={true}
+            defaultValue={defName}
+          />
+          <FormTextArea
+            fieldName={"description"}
+            fieldLabel={"description"}
+            allFieldErrors={allFieldErrors}
+            cols={50}
+            rows={6}
+            spellCheck={"true"}
+            autoComplete={"off"}
+            required={true}
+            defaultValue={defDescription}
+          />
+          <ProductFormImages theMainImageUrl={defTheMainImageUrl} moreImagesUrls={defMoreImagesUrls} allFieldErrors={allFieldErrors} />
+          <PriceInCents priceInCents={defPriceInCents} allFieldErrors={allFieldErrors} />
+          <CategoryAndSubCategory
+            categories={categories}
+            selectedCategoryId={defSelectedCategoryId}
+            selectedSubCategoryId={defSelectedSubCategoryId}
+            allFieldErrors={allFieldErrors}
+          />
+          <BrandAndLogo brands={brands} selectedBrandId={defSelectedBrandId} allFieldErrors={allFieldErrors} />
+          <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={defFreeShipping}>
+            <TruckIcon width={24} height={24} />
+            Free Shipping
+          </FormCheckField>
+          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+        </form>
+      </FormProvider>
       {showFeedback && <ProductFormFeedback product={product} productFormState={productFormState} setShowFeedback={setShowFeedback} />}
     </article>
   );
