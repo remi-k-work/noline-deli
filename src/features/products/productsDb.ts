@@ -4,7 +4,7 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import { whereAdminApproved } from "../manager/managerDb";
+import { whereAdminApproved } from "../manager/dbAccess";
 
 // Get all the information you need about this particular product
 export const getProduct = cache((productId: string) => {

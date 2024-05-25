@@ -7,7 +7,7 @@ import styles from "./BrowseByCategory.module.css";
 import Link from "next/link";
 
 // prisma and db access
-import { CategoryWithSubCategory } from "../managerDb";
+import { CategoryWithSubCategory } from "../dbCategories";
 
 // other libraries
 import clsx from "clsx";

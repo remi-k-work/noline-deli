@@ -36,7 +36,7 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 
   return (
-    <section className={clsx("lg:tooltip", className)} data-tip="Search for products by keyword">
+    <section className={clsx("lg:tooltip", className)} data-tip="Search by keyword">
       <label className={clsx(styles["search-panel"], "input input-bordered")}>
         <input
           ref={searchRef}

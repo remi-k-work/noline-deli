@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 // prisma and db access
-import { getProductFormData } from "@/features/manager/managerDb";
+import { getProductFormData } from "@/features/manager/dbProducts";
 
 // other libraries
 import clsx from "clsx";

@@ -14,6 +14,7 @@ import useSearchParamsState from "../useSearchParamsState";
 
 // types
 interface SortByProps {
+  sortByFields: SortByField[];
   totalItems: number;
   className?: string;
 }
@@ -29,7 +30,7 @@ interface SortByLinkProps {
   description: string;
 }
 
-export default function SortBy({ totalItems, className }: SortByProps) {
+export default function SortBy({ sortByFields, totalItems, className }: SortByProps) {
   const searchParamsState = useSearchParamsState();
   const { sortByField, sortByOrder } = searchParamsState;
 
@@ -43,12 +44,24 @@ export default function SortBy({ totalItems, className }: SortByProps) {
           </div>
         </div>
         <div tabIndex={0} className={clsx(styles["sort-by__choices"], "dropdown-content")}>
-          <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" />
-          <SortByLink newSortByField="id" newSortByOrder="desc" description="Newest item first" />
-          <SortByLink newSortByField="price" newSortByOrder="asc" description="Least expensive first" />
-          <SortByLink newSortByField="price" newSortByOrder="desc" description="Most expensive first" />
-          <SortByLink newSortByField="name" newSortByOrder="asc" description="By name from A to Z" />
-          <SortByLink newSortByField="name" newSortByOrder="desc" description="By name from Z to A" />
+          {sortByFields.includes("id") && (
+            <>
+              <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" />
+              <SortByLink newSortByField="id" newSortByOrder="desc" description="Newest item first" />
+            </>
+          )}
+          {sortByFields.includes("price") && (
+            <>
+              <SortByLink newSortByField="price" newSortByOrder="asc" description="Least expensive first" />
+              <SortByLink newSortByField="price" newSortByOrder="desc" description="Most expensive first" />
+            </>
+          )}
+          {sortByFields.includes("name") && (
+            <>
+              <SortByLink newSortByField="name" newSortByOrder="asc" description="By name from A to Z" />
+              <SortByLink newSortByField="name" newSortByOrder="desc" description="By name from Z to A" />
+            </>
+          )}
         </div>
       </section>
     )

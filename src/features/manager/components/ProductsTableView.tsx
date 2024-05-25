@@ -2,7 +2,7 @@
 import styles from "./ProductsTableView.module.css";
 
 // prisma and db access
-import { allProductsWithPagination } from "@/features/manager/managerDb";
+import { allProductsWithPagination } from "../dbProducts";
 
 // other libraries
 import clsx from "clsx";

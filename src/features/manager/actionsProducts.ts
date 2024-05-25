@@ -5,7 +5,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
-import { createProduct, deleteProduct, getCreatedByUser, isAccessDeniedTo, setCreatedByUser, updateProduct } from "./managerDb";
+import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "./dbAccess";
+import { createProduct, deleteProduct, updateProduct } from "./dbProducts";
 
 // other libraries
 import PathFinder from "./PathFinder";
@@ -59,7 +60,7 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
     // Collect and prepare validated data for underlying database operations
     const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = validatedData!;
 
-    // Generate an entirely new product with all the associated data
+    // To update an existing product, delete it and recreate it with new data
     const [, product] = await updateProduct(
       productId,
       orgCreatedAt,

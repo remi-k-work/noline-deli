@@ -1,5 +1,6 @@
 // types
 enum ParamName {
+  brandId = "[brandId]",
   productId = "[productId]",
 }
 
@@ -11,6 +12,11 @@ enum SearchParamName {
 
 enum PathTo {
   manager = "/manager",
+
+  brands = manager + "/brands",
+  brandNew = brands + "/new",
+  brandEdit = brands + `/${ParamName.brandId}`,
+
   products = manager + "/products",
   productNew = products + "/new",
   productEdit = products + `/${ParamName.productId}`,
@@ -23,10 +29,16 @@ enum PathTo {
 const REMOTE_HOSTNAME = "images.unsplash.com";
 
 export default class PathFinder {
+  static toAllBrands = () => PathTo.brands;
   static toAllProducts = () => PathTo.products;
+
   static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
   static toProductsByCategoryAndSubCategory = (categoryId: string, subCategoryId: string) =>
     `${PathFinder.toProductsByCategory(categoryId)}&${SearchParamName.subCategoryId}=${subCategoryId}`;
+
+  static toBrandNew = () => PathTo.brandNew;
+  static toBrandEdit = (brandId: string) => PathTo.brandEdit.replace(ParamName.brandId, brandId);
+  static toBrandEditFeedback = (brandId: string) => `${PathFinder.toBrandEdit(brandId)}?${SearchParamName.actionFeedback}`;
 
   static toProductNew = () => PathTo.productNew;
   static toProductEdit = (productId: string) => PathTo.productEdit.replace(ParamName.productId, productId);

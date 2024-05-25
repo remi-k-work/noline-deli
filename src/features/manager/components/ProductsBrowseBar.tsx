@@ -5,7 +5,7 @@ import styles from "./ProductsBrowseBar.module.css";
 import Link from "next/link";
 
 // prisma and db access
-import { allCategories } from "@/features/manager/managerDb";
+import { allCategories } from "../dbCategories";
 
 // other libraries
 import clsx from "clsx";
@@ -35,7 +35,7 @@ export default async function ProductsBrowseBar({ itemsPerPage, totalItems }: Pr
     <section className={clsx(lusitana.className, styles["products-browse-bar"], "bg-base-100")}>
       <BrowseByCategory categories={categories} totalItems={totalItems} className={styles["products-browse-bar__browse-by-category"]} />
       <SearchPanel className={styles["products-browse-bar__search-panel"]} />
-      <SortBy totalItems={totalItems} className={styles["products-browse-bar__sort-by"]} />
+      <SortBy sortByFields={["id", "price", "name"]} totalItems={totalItems} className={styles["products-browse-bar__sort-by"]} />
       <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} className={styles["products-browse-bar__paginate"]} />
       <footer className={styles["products-browse-bar__new-product"]}>
         <div className="lg:tooltip" data-tip="Create a new product">

@@ -6,7 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll, getCreatedByUser } from "../managerDb";
+import { ProductWithAll } from "../dbProducts";
+import { getCreatedByUser } from "../dbAccess";
 
 // other libraries
 import clsx from "clsx";

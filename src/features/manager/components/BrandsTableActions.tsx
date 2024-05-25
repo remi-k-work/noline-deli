@@ -1,7 +1,7 @@
 "use client";
 
 // component css styles
-import styles from "./ProductsTableActions.module.css";
+import styles from "./BrandsTableActions.module.css";
 
 // react
 import { useRef, useState, useTransition } from "react";
@@ -11,28 +11,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delProduct } from "../actionsProducts";
+import { delBrand } from "../actionsBrands";
 
 // other libraries
 import clsx from "clsx";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../PathFinder";
-import { ProductFormState } from "../ProductFormSchema";
+import { BrandFormState } from "../BrandFormSchema";
 
 // components
 import ConfirmDialog from "@/components/ConfirmDialog";
-import ProductExcerpt from "./ProductExcerpt";
-import { ProductsTableFeedback } from "./ProductFormFeedback";
+import BrandExcerpt from "./BrandExcerpt";
+import { BrandsTableFeedback } from "./BrandFormFeedback";
 
 // types
-interface ProductsTableActionsProps {
-  productId: string;
-  productName: string;
-  productImageUrl: string;
-  productPrice: number;
+interface BrandsTableActionsProps {
+  brandId: string;
+  brandName: string;
+  brandLogoUrl: string | null;
 }
 
-export default function ProductsTableActions({ productId, productName, productImageUrl, productPrice }: ProductsTableActionsProps) {
+export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }: BrandsTableActionsProps) {
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
 
@@ -41,11 +40,11 @@ export default function ProductsTableActions({ productId, productName, productIm
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const productFormState = useRef<ProductFormState>();
+  const brandFormState = useRef<BrandFormState>();
 
   function handleDeleteConfirmed() {
     startTransition(async () => {
-      productFormState.current = await delProduct(productId);
+      brandFormState.current = await delBrand(brandId);
       setShowFeedback(true);
       refresh();
     });
@@ -54,14 +53,14 @@ export default function ProductsTableActions({ productId, productName, productIm
   return (
     <>
       <div className="dropdown dropdown-left">
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this product">
+        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this brand">
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
           </div>
         </div>
-        <ul tabIndex={0} className={clsx(styles["products-table-actions"], "dropdown-content -translate-y-1/4")}>
+        <ul tabIndex={0} className={clsx(styles["brands-table-actions"], "dropdown-content -translate-y-1/4")}>
           <li>
-            <Link href={PathFinder.toProductEdit(productId)} className="btn btn-block">
+            <Link href={PathFinder.toBrandEdit(brandId)} className="btn btn-block">
               <PencilIcon width={24} height={24} />
               Edit
             </Link>
@@ -75,17 +74,12 @@ export default function ProductsTableActions({ productId, productName, productIm
         </ul>
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
-        <p className="mb-4">Are you certain you want to remove this product?</p>
-        <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
+        <p>Are you certain you want to remove this brand?</p>
+        <p className="mb-4">This will also delete all products associated with this brand!</p>
+        <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
       </ConfirmDialog>
-      {showFeedback && productFormState.current && (
-        <ProductsTableFeedback
-          productName={productName}
-          productImageUrl={productImageUrl}
-          productPrice={productPrice}
-          productFormState={productFormState.current}
-          setShowFeedback={setShowFeedback}
-        />
+      {showFeedback && brandFormState.current && (
+        <BrandsTableFeedback brandName={brandName} brandLogoUrl={brandLogoUrl} brandFormState={brandFormState.current} setShowFeedback={setShowFeedback} />
       )}
     </>
   );

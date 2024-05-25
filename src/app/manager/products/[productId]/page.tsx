@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getProductFormData, getProduct } from "@/features/manager/managerDb";
+import { getProduct, getProductFormData } from "@/features/manager/dbProducts";
 
 // other libraries
 import clsx from "clsx";

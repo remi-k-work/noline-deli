@@ -7,10 +7,12 @@ import styles from "./ProductForm.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import { BrandWithUser, CategoryWithSubCategory, ProductWithAll } from "../managerDb";
+import { ProductWithAll } from "../dbProducts";
+import { BrandWithUser } from "../dbBrands";
+import { CategoryWithSubCategory } from "../dbCategories";
 
 // server actions and mutations
-import { newProduct, updProduct } from "../managerActions";
+import { newProduct, updProduct } from "../actionsProducts";
 
 // other libraries
 import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";

@@ -7,69 +7,68 @@ import { Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation";
 
 // prisma and db access
-import { ProductWithAll } from "../dbProducts";
+import { BrandWithUser } from "../dbBrands";
 
 // other libraries
 import { CheckBadgeIcon, CircleStackIcon, ClipboardDocumentCheckIcon, LockClosedIcon } from "@heroicons/react/24/solid";
-import { ProductFormState } from "../ProductFormSchema";
+import { BrandFormState } from "../BrandFormSchema";
 import useSearchParamsState from "../useSearchParamsState";
 import PathFinder from "../PathFinder";
 
 // components
 import Toastify from "@/components/Toastify";
-import ProductExcerpt from "./ProductExcerpt";
+import BrandExcerpt from "./BrandExcerpt";
 
 // types
-interface ProductsTableFeedbackProps {
-  productName: string;
-  productImageUrl: string;
-  productPrice: number;
-  productFormState: ProductFormState;
+interface BrandsTableFeedbackProps {
+  brandName: string;
+  brandLogoUrl: string | null;
+  brandFormState: BrandFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
-interface ProductFormFeedbackProps {
-  product?: ProductWithAll;
-  productFormState: ProductFormState;
+interface BrandFormFeedbackProps {
+  brand?: BrandWithUser;
+  brandFormState: BrandFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ProductsTableFeedback({ productName, productImageUrl, productPrice, productFormState, setShowFeedback }: ProductsTableFeedbackProps) {
-  const { actionStatus, productExcerpt } = productFormState;
+export function BrandsTableFeedback({ brandName, brandLogoUrl, brandFormState, setShowFeedback }: BrandsTableFeedbackProps) {
+  const { actionStatus, brandExcerpt } = brandFormState;
 
   return (
     <>
-      {actionStatus === "succeeded" && productExcerpt && (
+      {actionStatus === "succeeded" && brandExcerpt && (
         <Toastify onTimedOut={() => setShowFeedback(false)}>
           <CheckBadgeIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Success!</p>
-          <p className="mb-4">The following product has been removed.</p>
-          <ProductExcerpt name={productExcerpt.name} imageUrl={productExcerpt.imageUrl} price={productExcerpt.price} />
+          <p className="mb-4">The following brand has been removed.</p>
+          <BrandExcerpt name={brandExcerpt.name} logoUrl={brandExcerpt.logoUrl} />
         </Toastify>
       )}
       {actionStatus === "failed" && (
         <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
           <CircleStackIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Database error!</p>
-          <p className="mb-4">Failed to delete the following product.</p>
-          <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
+          <p className="mb-4">Failed to delete the following brand.</p>
+          <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
         </Toastify>
       )}
       {actionStatus === "denied" && (
         <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
           <LockClosedIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Access was denied!</p>
-          <p className="mb-4">You can only delete the products you create.</p>
-          <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
+          <p className="mb-4">You can only delete the brands you create.</p>
+          <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
         </Toastify>
       )}
     </>
   );
 }
 
-export default function ProductFormFeedback({ product, productFormState, setShowFeedback }: ProductFormFeedbackProps) {
+export default function BrandFormFeedback({ brand, brandFormState, setShowFeedback }: BrandFormFeedbackProps) {
   const searchParamsState = useSearchParamsState();
-  const { actionStatus, productExcerpt } = productFormState;
+  const { actionStatus, brandExcerpt } = brandFormState;
 
   // To be able to send the user back after succeeding
   const { replace } = useRouter();
@@ -81,30 +80,30 @@ export default function ProductFormFeedback({ product, productFormState, setShow
 
   return (
     <>
-      {actionStatus === "succeeded" && productExcerpt && (
+      {actionStatus === "succeeded" && brandExcerpt && (
         <Toastify onTimedOut={handleSucceededTimedOut}>
           <CheckBadgeIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Success!</p>
-          <p className="mb-4">A new product has been created!</p>
-          <ProductExcerpt name={productExcerpt.name} imageUrl={productExcerpt.imageUrl} price={productExcerpt.price} />
+          <p className="mb-4">A new brand has been created!</p>
+          <BrandExcerpt name={brandExcerpt.name} logoUrl={brandExcerpt.logoUrl} />
         </Toastify>
       )}
-      {product && searchParamsState.isActionFeedbackMode && (
+      {brand && searchParamsState.isActionFeedbackMode && (
         <Toastify onTimedOut={handleSucceededTimedOut}>
           <CheckBadgeIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Success!</p>
-          <p className="mb-4">A product has been updated successfully!</p>
-          <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} />
+          <p className="mb-4">A brand has been updated successfully!</p>
+          <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} />
         </Toastify>
       )}
       {actionStatus === "invalid" && (
         <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
           <ClipboardDocumentCheckIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Missing fields!</p>
-          {product ? (
+          {brand ? (
             <>
-              <p className="mb-4">Failed to update the following product.</p>
-              <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} />
+              <p className="mb-4">Failed to update the following brand.</p>
+              <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} />
             </>
           ) : (
             <p className="mt-4">Failed to create a new product.</p>
@@ -115,22 +114,22 @@ export default function ProductFormFeedback({ product, productFormState, setShow
         <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
           <CircleStackIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Database error!</p>
-          {product ? (
+          {brand ? (
             <>
-              <p className="mb-4">Failed to update the following product.</p>
-              <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} />
+              <p className="mb-4">Failed to update the following brand.</p>
+              <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} />
             </>
           ) : (
-            <p className="mt-4">Failed to create a new product.</p>
+            <p className="mt-4">Failed to create a new brand.</p>
           )}
         </Toastify>
       )}
-      {actionStatus === "denied" && product && (
+      {actionStatus === "denied" && brand && (
         <Toastify type={"alert-warning"} onTimedOut={() => setShowFeedback(false)}>
           <LockClosedIcon width={64} height={64} className="m-auto" />
           <p className="mb-8 text-center font-bold">Access was denied!</p>
-          <p className="mb-4">You can only change the products you create.</p>
-          <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} />
+          <p className="mb-4">You can only change the brands you create.</p>
+          <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} />
         </Toastify>
       )}
     </>

@@ -10,7 +10,8 @@ import { useState } from "react";
 import Image from "next/image";
 
 // prisma and db access
-import { BrandWithUser, CategoryWithSubCategory } from "../managerDb";
+import { BrandWithUser } from "../dbBrands";
+import { CategoryWithSubCategory } from "../dbCategories";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
