@@ -69,7 +69,7 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
             </button>
           </div>
         </div>
-        <footer className={styles["product-image__url"]}>
+        <footer className={styles["product-form-image__url"]}>
           <FormInputField
             fieldType={"url"}
             fieldName={fieldName}

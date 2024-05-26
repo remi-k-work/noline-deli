@@ -26,7 +26,8 @@ export default function useFormActionWithVal<FormStateT extends FormStateBase, F
   const useFormMethods = useForm<FormSchemaT>({ shouldUnregister: true, resolver });
 
   // We will show form validation errors from server-side first and client-side afterwards
-  const allFieldErrors = formState.allFieldErrors || formSchema.getAllFieldErrorsClient(useFormMethods.formState.errors);
+  // We need to use optional chaining on formstate?, because it does not always use the initial state and becomes undefined
+  const allFieldErrors = formState?.allFieldErrors || formSchema.getAllFieldErrorsClient(useFormMethods.formState.errors);
 
   // Are we prepared to provide feedback to the user?
   const [showFeedback, setShowFeedback] = useState(false);

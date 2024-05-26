@@ -24,17 +24,23 @@ interface ProductsTableFeedbackProps {
   productName: string;
   productImageUrl: string;
   productPrice: number;
-  productFormState: ProductFormState;
+  productFormState?: ProductFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
 interface ProductFormFeedbackProps {
   product?: ProductWithAll;
-  productFormState: ProductFormState;
+  productFormState?: ProductFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ProductsTableFeedback({ productName, productImageUrl, productPrice, productFormState, setShowFeedback }: ProductsTableFeedbackProps) {
+export function ProductsTableFeedback({
+  productName,
+  productImageUrl,
+  productPrice,
+  productFormState = { actionStatus: "idle" },
+  setShowFeedback,
+}: ProductsTableFeedbackProps) {
   const { actionStatus, productExcerpt } = productFormState;
 
   return (
@@ -67,7 +73,7 @@ export function ProductsTableFeedback({ productName, productImageUrl, productPri
   );
 }
 
-export default function ProductFormFeedback({ product, productFormState, setShowFeedback }: ProductFormFeedbackProps) {
+export default function ProductFormFeedback({ product, productFormState = { actionStatus: "idle" }, setShowFeedback }: ProductFormFeedbackProps) {
   const searchParamsState = useSearchParamsState();
   const { actionStatus, productExcerpt } = productFormState;
 

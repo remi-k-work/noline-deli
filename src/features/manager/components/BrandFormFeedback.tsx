@@ -23,17 +23,17 @@ import BrandExcerpt from "./BrandExcerpt";
 interface BrandsTableFeedbackProps {
   brandName: string;
   brandLogoUrl: string | null;
-  brandFormState: BrandFormState;
+  brandFormState?: BrandFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
 interface BrandFormFeedbackProps {
   brand?: BrandWithUser;
-  brandFormState: BrandFormState;
+  brandFormState?: BrandFormState;
   setShowFeedback: Dispatch<SetStateAction<boolean>>;
 }
 
-export function BrandsTableFeedback({ brandName, brandLogoUrl, brandFormState, setShowFeedback }: BrandsTableFeedbackProps) {
+export function BrandsTableFeedback({ brandName, brandLogoUrl, brandFormState = { actionStatus: "idle" }, setShowFeedback }: BrandsTableFeedbackProps) {
   const { actionStatus, brandExcerpt } = brandFormState;
 
   return (
@@ -66,7 +66,7 @@ export function BrandsTableFeedback({ brandName, brandLogoUrl, brandFormState, s
   );
 }
 
-export default function BrandFormFeedback({ brand, brandFormState, setShowFeedback }: BrandFormFeedbackProps) {
+export default function BrandFormFeedback({ brand, brandFormState = { actionStatus: "idle" }, setShowFeedback }: BrandFormFeedbackProps) {
   const searchParamsState = useSearchParamsState();
   const { actionStatus, brandExcerpt } = brandFormState;
 
@@ -74,8 +74,8 @@ export default function BrandFormFeedback({ brand, brandFormState, setShowFeedba
   const { replace } = useRouter();
 
   function handleSucceededTimedOut() {
-    // If successful, return the user to the all products page
-    replace(PathFinder.toAllProducts());
+    // If successful, return the user to the all brands page
+    replace(PathFinder.toAllBrands());
   }
 
   return (
@@ -106,7 +106,7 @@ export default function BrandFormFeedback({ brand, brandFormState, setShowFeedba
               <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} />
             </>
           ) : (
-            <p className="mt-4">Failed to create a new product.</p>
+            <p className="mt-4">Failed to create a new brand.</p>
           )}
         </Toastify>
       )}

@@ -1,0 +1,38 @@
+.brand-form {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+}
+
+.brand-form > h2 {
+  background: var(--surface-3);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+  border-radius: var(--radius-blob-5);
+  font-size: var(--font-size-5);
+  text-align: center;
+  margin-block: 0 var(--size-6);
+  display: flex;
+  align-items: center;
+}
+
+.brand-form__logo {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+  margin-block-start: var(--size-4);
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--inner-shadow-4);
+}
+
+.brand-form__logo > header {
+  padding-inline: var(--size-4);
+  padding-block: var(--size-2);
+  font-size: var(--font-size-4);
+  color: var(--surface-3);
+}

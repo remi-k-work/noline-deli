@@ -7,7 +7,9 @@
 }
 
 .brands-table-entry > td:nth-child(3) {
+  white-space: nowrap;
   text-align: start;
+  overflow: clip;
 }
 
 /* || MEDIA QUERIES */

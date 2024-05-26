@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
+import { Prisma } from "@prisma/client";
 import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "./dbAccess";
 import { createBrand, deleteBrand, updateBrand } from "./dbBrands";
 
@@ -13,15 +14,6 @@ import PathFinder from "./PathFinder";
 import BrandFormSchema, { BrandFormState } from "./BrandFormSchema";
 
 export async function delBrand(brandId: string): Promise<BrandFormState> {
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  return { actionStatus: "denied" };
-  return { actionStatus: "idle" };
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-  // *** TEST CODE ***
-
   // The just-deleted brand excerpt
   let name: string, logoUrl: string | null;
 
@@ -40,7 +32,7 @@ export async function delBrand(brandId: string): Promise<BrandFormState> {
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
   revalidatePath("/");
-  revalidatePath(PathFinder.toAllProducts());
+  revalidatePath(PathFinder.toAllBrands());
 
   // Return the recently removed brand excerpt so we may provide feedback to the user
   return { actionStatus: "succeeded", brandExcerpt: { name, logoUrl } };
@@ -74,6 +66,15 @@ export async function updBrand(brandId: string, formState: BrandFormState, formD
     newBrandId = brand.id;
   } catch (error) {
     // If a database error occurs, return a more specific error
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // Use the database's unique constraint violation to assure a distinct brand name
+      if (error.code === "P2002") {
+        return {
+          actionStatus: "failed",
+          allFieldErrors: { name: ["That brand name already exists; please use a different name"] },
+        };
+      }
+    }
     return { actionStatus: "failed" };
   }
 
