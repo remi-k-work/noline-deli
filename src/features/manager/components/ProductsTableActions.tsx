@@ -75,7 +75,9 @@ export default function ProductsTableActions({ productId, productName, productIm
         </ul>
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
-        <p className="mb-4">Are you certain you want to remove this product?</p>
+        <p className="mb-4">
+          Are you certain you want to <b className="text-warning-content">remove</b> this product?
+        </p>
         <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
       </ConfirmDialog>
       {showFeedback && productFormState.current && (

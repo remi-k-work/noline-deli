@@ -1,7 +1,7 @@
 "use client";
 
 // component css styles
-import styles from "./BrandsTableActions.module.css";
+import styles from "./SubCategoriesTableActions.module.css";
 
 // react
 import { useRef, useState, useTransition } from "react";
@@ -11,27 +11,26 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delBrand } from "../actionsBrands";
+import { delSubCategory } from "../actionsSubCategories";
 
 // other libraries
 import clsx from "clsx";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../PathFinder";
-import { BrandFormState } from "../BrandFormSchema";
+import { SubCategoryFormState } from "../SubCategoryFormSchema";
 
 // components
 import ConfirmDialog from "@/components/ConfirmDialog";
-import BrandExcerpt from "./BrandExcerpt";
-import { BrandsTableFeedback } from "./BrandFormFeedback";
+import { SubCategoriesTableFeedback } from "./SubCategoryFormFeedback";
 
 // types
-interface BrandsTableActionsProps {
-  brandId: string;
-  brandName: string;
-  brandLogoUrl: string | null;
+interface SubCategoriesTableActionsProps {
+  subCategoryId: string;
+  subCategoryName: string;
+  parentCategoryName: string;
 }
 
-export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }: BrandsTableActionsProps) {
+export default function SubCategoriesTableActions({ subCategoryId, subCategoryName, parentCategoryName }: SubCategoriesTableActionsProps) {
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
 
@@ -40,11 +39,11 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const brandFormState = useRef<BrandFormState>();
+  const subCategoryFormState = useRef<SubCategoryFormState>();
 
   function handleDeleteConfirmed() {
     startTransition(async () => {
-      brandFormState.current = await delBrand(brandId);
+      subCategoryFormState.current = await delSubCategory(subCategoryId, parentCategoryName);
       setShowFeedback(true);
       refresh();
     });
@@ -53,14 +52,14 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
   return (
     <>
       <div className="dropdown dropdown-left">
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this brand">
+        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this subcategory">
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
           </div>
         </div>
-        <ul tabIndex={0} className={clsx(styles["brands-table-actions"], "dropdown-content -translate-y-1/4")}>
+        <ul tabIndex={0} className={clsx(styles["subcategories-table-actions"], "dropdown-content -translate-y-1/4")}>
           <li>
-            <Link href={PathFinder.toBrandEdit(brandId)} className="btn btn-block">
+            <Link href={PathFinder.toSubCategoryEdit(subCategoryId)} className="btn btn-block">
               <PencilIcon width={24} height={24} />
               Edit
             </Link>
@@ -75,18 +74,25 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p>
-          Are you certain you want to <b className="text-warning-content">remove</b> this brand?
+          Are you certain you want to <b className="text-warning-content">remove</b> this subcategory?
         </p>
         <div className="m-auto mb-4 mt-2 w-fit bg-error p-2 text-start">
           This operation will also <b className="text-warning-content">delete</b> the following:
           <ul className="list-inside list-disc">
-            <li>All products associated with this brand!</li>
+            <li>All products associated with this subcategory!</li>
           </ul>
         </div>
-        <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
+        <p className="text-center text-2xl">
+          {parentCategoryName} ► <b>{subCategoryName}</b>
+        </p>
       </ConfirmDialog>
-      {showFeedback && brandFormState.current && (
-        <BrandsTableFeedback brandName={brandName} brandLogoUrl={brandLogoUrl} brandFormState={brandFormState.current} setShowFeedback={setShowFeedback} />
+      {showFeedback && subCategoryFormState.current && (
+        <SubCategoriesTableFeedback
+          subCategoryName={subCategoryName}
+          parentCategoryName={parentCategoryName}
+          subCategoryFormState={subCategoryFormState.current}
+          setShowFeedback={setShowFeedback}
+        />
       )}
     </>
   );

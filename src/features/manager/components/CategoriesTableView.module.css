@@ -1,0 +1,44 @@
+.categories-table-view {
+  inline-size: 100%;
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+
+  table-layout: fixed;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.categories-table-view > thead th:nth-child(1),
+.categories-table-view > tfoot th:nth-child(1) {
+  inline-size: 100%;
+}
+
+.categories-table-view > thead th:nth-child(2),
+.categories-table-view > tfoot th:nth-child(2) {
+  inline-size: var(--size-9);
+}
+
+.categories-table-view > thead th,
+.categories-table-view > tfoot th {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+
+.categories-table-view > tbody > tr > td {
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+}
+
+.categories-table-view > tbody > tr:nth-child(even) td {
+  background: var(--surface-4);
+}
+
+.categories-table-view > tbody > tr:nth-child(odd) td {
+  background: var(--surface-3);
+}

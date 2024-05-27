@@ -1,7 +1,7 @@
 "use client";
 
 // component css styles
-import styles from "./BrandsTableActions.module.css";
+import styles from "./CategoriesTableActions.module.css";
 
 // react
 import { useRef, useState, useTransition } from "react";
@@ -11,27 +11,25 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delBrand } from "../actionsBrands";
+import { delCategory } from "../actionsCategories";
 
 // other libraries
 import clsx from "clsx";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../PathFinder";
-import { BrandFormState } from "../BrandFormSchema";
+import { CategoryFormState } from "../CategoryFormSchema";
 
 // components
 import ConfirmDialog from "@/components/ConfirmDialog";
-import BrandExcerpt from "./BrandExcerpt";
-import { BrandsTableFeedback } from "./BrandFormFeedback";
+import { CategoriesTableFeedback } from "./CategoryFormFeedback";
 
 // types
-interface BrandsTableActionsProps {
-  brandId: string;
-  brandName: string;
-  brandLogoUrl: string | null;
+interface CategoriesTableActionsProps {
+  categoryId: string;
+  categoryName: string;
 }
 
-export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }: BrandsTableActionsProps) {
+export default function CategoriesTableActions({ categoryId, categoryName }: CategoriesTableActionsProps) {
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
 
@@ -40,11 +38,11 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const brandFormState = useRef<BrandFormState>();
+  const categoryFormState = useRef<CategoryFormState>();
 
   function handleDeleteConfirmed() {
     startTransition(async () => {
-      brandFormState.current = await delBrand(brandId);
+      categoryFormState.current = await delCategory(categoryId);
       setShowFeedback(true);
       refresh();
     });
@@ -53,14 +51,14 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
   return (
     <>
       <div className="dropdown dropdown-left">
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this brand">
+        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this category">
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
           </div>
         </div>
-        <ul tabIndex={0} className={clsx(styles["brands-table-actions"], "dropdown-content -translate-y-1/4")}>
+        <ul tabIndex={0} className={clsx(styles["categories-table-actions"], "dropdown-content -translate-y-1/4")}>
           <li>
-            <Link href={PathFinder.toBrandEdit(brandId)} className="btn btn-block">
+            <Link href={PathFinder.toCategoryEdit(categoryId)} className="btn btn-block">
               <PencilIcon width={24} height={24} />
               Edit
             </Link>
@@ -75,18 +73,19 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p>
-          Are you certain you want to <b className="text-warning-content">remove</b> this brand?
+          Are you certain you want to <b className="text-warning-content">remove</b> this category?
         </p>
         <div className="m-auto mb-4 mt-2 w-fit bg-error p-2 text-start">
           This operation will also <b className="text-warning-content">delete</b> the following:
           <ul className="list-inside list-disc">
-            <li>All products associated with this brand!</li>
+            <li>All subcategories associated with this category!</li>
+            <li>All products associated with this category!</li>
           </ul>
         </div>
-        <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
+        <p className="text-center text-2xl font-bold">{categoryName}</p>
       </ConfirmDialog>
-      {showFeedback && brandFormState.current && (
-        <BrandsTableFeedback brandName={brandName} brandLogoUrl={brandLogoUrl} brandFormState={brandFormState.current} setShowFeedback={setShowFeedback} />
+      {showFeedback && categoryFormState.current && (
+        <CategoriesTableFeedback categoryName={categoryName} categoryFormState={categoryFormState.current} setShowFeedback={setShowFeedback} />
       )}
     </>
   );

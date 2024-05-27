@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 // prisma and db access
 import prisma from "@/lib/db/prisma";
 import { getBrand } from "./dbBrands";
+import { getCategory, getSubCategory } from "./dbCategories";
 import { getProduct } from "./dbProducts";
 
 const CREATED_BY_USER_COOKIE = "createdByUser";
@@ -48,6 +49,40 @@ export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCate
           createdBy,
           user: { role },
         } = brand;
+
+        // Cannot alter any admin-generated content (stops impersonation, as admin will only use the database directly)
+        if (role === "ADMIN") return true;
+
+        // Cannot alter someone else's content
+        if (createdBy !== getCreatedByUser()) return true;
+      }
+      // Access is granted
+      return false;
+
+    case "category":
+      const category = await getCategory(itemId);
+      if (category) {
+        const {
+          createdBy,
+          user: { role },
+        } = category;
+
+        // Cannot alter any admin-generated content (stops impersonation, as admin will only use the database directly)
+        if (role === "ADMIN") return true;
+
+        // Cannot alter someone else's content
+        if (createdBy !== getCreatedByUser()) return true;
+      }
+      // Access is granted
+      return false;
+
+    case "subCategory":
+      const subCategory = await getSubCategory(itemId);
+      if (subCategory) {
+        const {
+          createdBy,
+          user: { role },
+        } = subCategory;
 
         // Cannot alter any admin-generated content (stops impersonation, as admin will only use the database directly)
         if (role === "ADMIN") return true;

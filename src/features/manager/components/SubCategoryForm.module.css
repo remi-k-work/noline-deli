@@ -1,0 +1,22 @@
+.subcategory-form {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
+}
+
+.subcategory-form > h2 {
+  background: var(--surface-3);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
+  border-radius: var(--radius-blob-5);
+  font-size: var(--font-size-5);
+  text-align: center;
+  margin-block: 0 var(--size-6);
+  display: flex;
+  align-items: center;
+}

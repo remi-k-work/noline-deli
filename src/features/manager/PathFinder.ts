@@ -1,6 +1,8 @@
 // types
 enum ParamName {
   brandId = "[brandId]",
+  categoryId = "[categoryId]",
+  subCategoryId = "[subCategoryId]",
   productId = "[productId]",
 }
 
@@ -17,6 +19,14 @@ enum PathTo {
   brandNew = brands + "/new",
   brandEdit = brands + `/${ParamName.brandId}`,
 
+  categories = manager + "/categories",
+  categoryNew = categories + "/new",
+  categoryEdit = categories + `/${ParamName.categoryId}`,
+
+  subCategories = manager + "/subcategories",
+  subCategoryNew = subCategories + "/new",
+  subCategoryEdit = subCategories + `/${ParamName.subCategoryId}`,
+
   products = manager + "/products",
   productNew = products + "/new",
   productEdit = products + `/${ParamName.productId}`,
@@ -30,6 +40,8 @@ const REMOTE_HOSTNAME = "images.unsplash.com";
 
 export default class PathFinder {
   static toAllBrands = () => PathTo.brands;
+  static toAllCategories = () => PathTo.categories;
+  static toAllSubCategories = () => PathTo.subCategories;
   static toAllProducts = () => PathTo.products;
 
   static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
@@ -39,6 +51,14 @@ export default class PathFinder {
   static toBrandNew = () => PathTo.brandNew;
   static toBrandEdit = (brandId: string) => PathTo.brandEdit.replace(ParamName.brandId, brandId);
   static toBrandEditFeedback = (brandId: string) => `${PathFinder.toBrandEdit(brandId)}?${SearchParamName.actionFeedback}`;
+
+  static toCategoryNew = () => PathTo.categoryNew;
+  static toCategoryEdit = (categoryId: string) => PathTo.categoryEdit.replace(ParamName.categoryId, categoryId);
+  static toCategoryEditFeedback = (categoryId: string) => `${PathFinder.toCategoryEdit(categoryId)}?${SearchParamName.actionFeedback}`;
+
+  static toSubCategoryNew = () => PathTo.subCategoryNew;
+  static toSubCategoryEdit = (subCategoryId: string) => PathTo.subCategoryEdit.replace(ParamName.subCategoryId, subCategoryId);
+  static toSubCategoryEditFeedback = (subCategoryId: string) => `${PathFinder.toSubCategoryEdit(subCategoryId)}?${SearchParamName.actionFeedback}`;
 
   static toProductNew = () => PathTo.productNew;
   static toProductEdit = (productId: string) => PathTo.productEdit.replace(ParamName.productId, productId);
