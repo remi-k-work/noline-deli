@@ -20,7 +20,7 @@ interface PageProps {
 }
 
 export const metadata = {
-  title: "NoLine-Deli ► Manager ► Subcategories",
+  title: "NoLine-Deli ► Manager ► SubCategories",
 };
 
 export default async function Page({ searchParams }: PageProps) {
@@ -28,7 +28,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► Subcategories</h1>
+      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► SubCategories</h1>
       <SubCategoriesTableView searchParamsState={searchParamsState} />
     </article>
   );

@@ -107,6 +107,15 @@ export async function newCategory(formState: CategoryFormState, formData: FormDa
     await createCategory(getCreatedByUser() ?? (await setCreatedByUser()), name);
   } catch (error) {
     // If a database error occurs, return a more specific error
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // Use the database's unique constraint violation to assure a distinct category name
+      if (error.code === "P2002") {
+        return {
+          actionStatus: "failed",
+          allFieldErrors: { name: ["That category name already exists; please use a different name"] },
+        };
+      }
+    }
     return { actionStatus: "failed" };
   }
 

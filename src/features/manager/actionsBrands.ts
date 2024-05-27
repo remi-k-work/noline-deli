@@ -107,6 +107,15 @@ export async function newBrand(formState: BrandFormState, formData: FormData): P
     await createBrand(getCreatedByUser() ?? (await setCreatedByUser()), name, logoUrl);
   } catch (error) {
     // If a database error occurs, return a more specific error
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // Use the database's unique constraint violation to assure a distinct brand name
+      if (error.code === "P2002") {
+        return {
+          actionStatus: "failed",
+          allFieldErrors: { name: ["That brand name already exists; please use a different name"] },
+        };
+      }
+    }
     return { actionStatus: "failed" };
   }
 

@@ -93,18 +93,18 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
         {subCategory ? (
           <>
             <PencilSquareIcon width={64} height={64} />
-            Edit Subcategory
+            Edit SubCategory
           </>
         ) : (
           <>
             <PlusCircleIcon width={64} height={64} />
-            New Subcategory
+            New SubCategory
           </>
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        {/* <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}> */}
-        <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as SubCategoryFormSchemaType, ev)}>
+        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as SubCategoryFormSchemaType, ev)}> */}
           <FormSelectField
             fieldName={"categoryId"}
             fieldLabel={"parent category"}

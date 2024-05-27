@@ -30,7 +30,7 @@ export default async function SubCategoriesTableView({ searchParamsState: { sort
       <>
         <SubCategoriesBrowseBar itemsPerPage={10} totalItems={totalItems} />
         <br />
-        <NotFound message={"Subcategories were not found!"} />
+        <NotFound message={"SubCategories were not found!"} />
       </>
     );
 

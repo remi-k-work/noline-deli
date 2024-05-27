@@ -87,8 +87,8 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        {/* <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}> */}
-        <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as CategoryFormSchemaType, ev)}>
+        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as CategoryFormSchemaType, ev)}> */}
           <FormInputField
             fieldName={"name"}
             fieldLabel={"name"}

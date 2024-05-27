@@ -2,7 +2,7 @@
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
 
-  min-inline-size: var(--size-content-2);
+  flex: 1 0 100%;
 
   display: grid;
 
