@@ -17,7 +17,11 @@ export type CategoryFormSchemaType = z.infer<typeof CategoryFormSchema.schema>;
 export default class CategoryFormSchema extends FormSchemaBase<CategoryFormSchemaType> {
   // Schema-based form validation with zod
   public static readonly schema = z.object({
-    name: z.string().trim().min(1, { message: "Please specify the name of this category" }),
+    name: z
+      .string()
+      .trim()
+      .min(1, { message: "Please specify the name of this category" })
+      .max(25, { message: "Please keep the name to a maximum of 25 characters" }),
   });
 
   constructor(formData?: FormData) {

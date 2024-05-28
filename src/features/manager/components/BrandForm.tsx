@@ -101,6 +101,7 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
             spellCheck={"true"}
             autoComplete={"off"}
             required={true}
+            placeholder={"e.g., Wedel, Nivea"}
             defaultValue={defName}
           />
           <section className={styles["brand-form__logo"]}>

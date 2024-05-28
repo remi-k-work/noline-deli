@@ -98,6 +98,7 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
             spellCheck={"true"}
             autoComplete={"off"}
             required={true}
+            placeholder={"e.g., Meat & Seafood, Cheeses, Prepared Salads, Bakery Items"}
             defaultValue={defName}
           />
           <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />

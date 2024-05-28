@@ -56,6 +56,7 @@ export function PriceInCents({ priceInCents = 1, allFieldErrors }: PriceInCentsP
           max={"900000000"}
           step={"1"}
           required={true}
+          placeholder={"e.g., 9995"}
           defaultValue={priceInCents}
           onChange={(ev) => setCurrPriceInCents(Number(ev.target.value))}
         />

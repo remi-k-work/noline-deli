@@ -91,6 +91,10 @@ export default class PathFinder {
     return undefined;
   };
 
+  static schemaRefineImageUrl(inputUrl: string) {
+    return PathFinder.isImageSrcParsable(inputUrl);
+  }
+
   // Do a little parsing to ensure that the src is right, and "next/image" will not throw an exception
   private static isImageSrcParsable(imageSrc: string) {
     // Protocol-relative url (//) must be changed to an absolute url (http:// or https://)

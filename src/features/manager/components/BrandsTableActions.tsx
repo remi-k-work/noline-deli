@@ -74,16 +74,16 @@ export default function BrandsTableActions({ brandId, brandName, brandLogoUrl }:
         </ul>
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
-        <p>
+        <p className="mb-2 p-4">
           Are you certain you want to <b className="text-warning-content">remove</b> this brand?
         </p>
-        <div className="m-auto mb-4 mt-2 w-fit bg-error p-2 text-start">
+        <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
+        <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
           This operation will also <b className="text-warning-content">delete</b> the following:
-          <ul className="list-inside list-disc">
+          <ul className="list-outside list-disc pl-4">
             <li>All products associated with this brand!</li>
           </ul>
         </div>
-        <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
       </ConfirmDialog>
       {showFeedback && brandFormState.current && (
         <BrandsTableFeedback brandName={brandName} brandLogoUrl={brandLogoUrl} brandFormState={brandFormState.current} setShowFeedback={setShowFeedback} />

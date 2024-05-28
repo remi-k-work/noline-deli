@@ -37,7 +37,9 @@ export default function CategoriesTableEntry({ category }: CategoriesTableEntryP
   return (
     <tr className={clsx(styles["categories-table-entry"], { "text-base-content": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
       <td>
-        <Link href={PathFinder.toCategoryEdit(id)}>{name}</Link>
+        <Link href={PathFinder.toCategoryEdit(id)} className="link-hover link">
+          {name}
+        </Link>
       </td>
       <td>
         <CategoriesTableActions categoryId={id} categoryName={name} />

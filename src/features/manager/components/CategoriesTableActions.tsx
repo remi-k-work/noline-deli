@@ -72,17 +72,17 @@ export default function CategoriesTableActions({ categoryId, categoryName }: Cat
         </ul>
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
-        <p>
+        <p className="mb-2 p-4">
           Are you certain you want to <b className="text-warning-content">remove</b> this category?
         </p>
-        <div className="m-auto mb-4 mt-2 w-fit bg-error p-2 text-start">
+        <p className="text-center text-2xl font-bold">{categoryName}</p>
+        <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
           This operation will also <b className="text-warning-content">delete</b> the following:
-          <ul className="list-inside list-disc">
+          <ul className="list-outside list-disc pl-4">
             <li>All subcategories associated with this category!</li>
             <li>All products associated with this category!</li>
           </ul>
         </div>
-        <p className="text-center text-2xl font-bold">{categoryName}</p>
       </ConfirmDialog>
       {showFeedback && categoryFormState.current && (
         <CategoriesTableFeedback categoryName={categoryName} categoryFormState={categoryFormState.current} setShowFeedback={setShowFeedback} />

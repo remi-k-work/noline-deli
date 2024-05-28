@@ -130,6 +130,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
             spellCheck={"true"}
             autoComplete={"off"}
             required={true}
+            placeholder={"e.g., Sloppy Joe's Surprise, Grandma's Award-Winning Pie"}
             defaultValue={defName}
           />
           <FormTextArea
@@ -138,9 +139,11 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
             allFieldErrors={allFieldErrors}
             cols={50}
             rows={6}
+            maxLength={2049}
             spellCheck={"true"}
             autoComplete={"off"}
             required={true}
+            placeholder={"Write a brief description of your product (e.g., features, benefits, target audience)"}
             defaultValue={defDescription}
           />
           <ProductFormImages theMainImageUrl={defTheMainImageUrl} moreImagesUrls={defMoreImagesUrls} allFieldErrors={allFieldErrors} />

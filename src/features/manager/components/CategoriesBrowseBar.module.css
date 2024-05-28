@@ -9,8 +9,8 @@
   gap: var(--size-3);
 
   grid-template-areas:
-    "tot spa sby sby sby"
-    "pag pag pag pag ncr";
+    "spa spa sby sby sby"
+    "tot pag pag pag ncr";
 
   border-start-start-radius: var(--size-3);
   border-start-end-radius: var(--size-3);

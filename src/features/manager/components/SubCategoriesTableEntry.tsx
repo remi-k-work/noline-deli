@@ -38,7 +38,9 @@ export default function SubCategoriesTableEntry({ subCategory }: SubCategoriesTa
   return (
     <tr className={clsx(styles["subcategories-table-entry"], { "text-base-content": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
       <td>
-        <Link href={PathFinder.toSubCategoryEdit(id)}>{name}</Link>
+        <Link href={PathFinder.toSubCategoryEdit(id)} className="link-hover link">
+          {name}
+        </Link>
       </td>
       <td>{parentCategoryName}</td>
       <td>

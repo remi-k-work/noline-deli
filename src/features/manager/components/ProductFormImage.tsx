@@ -80,12 +80,19 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
             spellCheck={"false"}
             autoComplete={"off"}
             required={true}
+            placeholder={"e.g., https://images.unsplash.com/example-photo"}
             value={currImageUrl}
             onChange={(ev) => {
               setCurrImageUrl(ev.target.value);
               setImageSrc(PathFinder.toProductImage(ev.target.value));
             }}
           />
+          <small className="text-info-content">
+            * please use image addresses from&nbsp;
+            <a className="link-hover link" href="https://unsplash.com/" target="_blank">
+              unsplash.com
+            </a>
+          </small>
         </footer>
       </section>
     );

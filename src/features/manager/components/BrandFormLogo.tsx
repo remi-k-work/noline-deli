@@ -67,12 +67,19 @@ export default function BrandFormLogo({ logoUrl = "", allFieldErrors }: BrandFor
           spellCheck={"false"}
           autoComplete={"off"}
           required={true}
+          placeholder={"e.g., https://images.unsplash.com/example-photo"}
           value={currLogoUrl}
           onChange={(ev) => {
             setCurrLogoUrl(ev.target.value);
             setLogoSrc(PathFinder.toBrandLogo(ev.target.value));
           }}
         />
+        <small className="text-info-content">
+          * please use image addresses from&nbsp;
+          <a className="link-hover link" href="https://unsplash.com/" target="_blank">
+            unsplash.com
+          </a>
+        </small>
       </footer>
     </section>
   );

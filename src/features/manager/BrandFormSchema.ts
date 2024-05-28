@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { FieldErrors } from "react-hook-form";
 import FormSchemaBase, { AllFieldErrors, FormStateBase } from "./FormSchemaBase";
+import PathFinder from "./PathFinder";
 
 // types
 interface BrandExcerpt {
@@ -18,8 +19,16 @@ export type BrandFormSchemaType = z.infer<typeof BrandFormSchema.schema>;
 export default class BrandFormSchema extends FormSchemaBase<BrandFormSchemaType> {
   // Schema-based form validation with zod
   public static readonly schema = z.object({
-    name: z.string().trim().min(1, { message: "Please specify the name of this brand" }),
-    logoUrl: z.string().trim().min(1, { message: "Kindly include the URL for the logo" }).url({ message: "That is an invalid URL" }),
+    name: z
+      .string()
+      .trim()
+      .min(1, { message: "Please specify the name of this brand" })
+      .max(25, { message: "Please keep the name to a maximum of 25 characters" }),
+    logoUrl: z
+      .string()
+      .trim()
+      .min(1, { message: "Kindly include the URL for the logo" })
+      .refine((val) => PathFinder.schemaRefineImageUrl(val), { message: "This URL is invalid; only images from {unsplash.com} are allowed at this time" }),
   });
 
   constructor(formData?: FormData) {

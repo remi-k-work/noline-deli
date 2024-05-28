@@ -73,18 +73,18 @@ export default function SubCategoriesTableActions({ subCategoryId, subCategoryNa
         </ul>
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
-        <p>
+        <p className="mb-2 p-4">
           Are you certain you want to <b className="text-warning-content">remove</b> this subcategory?
         </p>
-        <div className="m-auto mb-4 mt-2 w-fit bg-error p-2 text-start">
-          This operation will also <b className="text-warning-content">delete</b> the following:
-          <ul className="list-inside list-disc">
-            <li>All products associated with this subcategory!</li>
-          </ul>
-        </div>
         <p className="text-center text-2xl">
           {parentCategoryName} ► <b>{subCategoryName}</b>
         </p>
+        <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
+          This operation will also <b className="text-warning-content">delete</b> the following:
+          <ul className="list-outside list-disc pl-4">
+            <li>All products associated with this subcategory!</li>
+          </ul>
+        </div>
       </ConfirmDialog>
       {showFeedback && subCategoryFormState.current && (
         <SubCategoriesTableFeedback

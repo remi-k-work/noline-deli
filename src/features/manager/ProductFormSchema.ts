@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { FieldErrors } from "react-hook-form";
 import FormSchemaBase, { AllFieldErrors, FormStateBase } from "./FormSchemaBase";
+import PathFinder from "./PathFinder";
 
 // types
 interface ProductExcerpt {
@@ -23,11 +24,31 @@ export default class ProductFormSchema extends FormSchemaBase<ProductFormSchemaT
   // Schema-based form validation with zod
   public static readonly schema = z
     .object({
-      name: z.string().trim().min(1, { message: "Please specify the name of this product" }),
-      description: z.string().trim().min(1, { message: "Description is a mandatory field" }),
-      theMainImage: z.string().trim().min(1, { message: "Kindly include the URL for the main image" }).url({ message: "That is an invalid URL" }),
+      name: z
+        .string()
+        .trim()
+        .min(1, { message: "Please specify the name of this product" })
+        .max(40, { message: "Please keep the name to a maximum of 40 characters" }),
+      description: z
+        .string()
+        .trim()
+        .min(1, { message: "Description is a mandatory field" })
+        .max(2048, { message: "Please keep the description to a maximum of 2048 characters" }),
+      theMainImage: z
+        .string()
+        .trim()
+        .min(1, { message: "Kindly include the URL for the main image" })
+        .refine((val) => PathFinder.schemaRefineImageUrl(val), { message: "This URL is invalid; only images from {unsplash.com} are allowed at this time" }),
       extraImages: z
-        .array(z.string().trim().min(1, { message: "Kindly include the URL for this extra image" }).url({ message: "That is an invalid URL" }))
+        .array(
+          z
+            .string()
+            .trim()
+            .min(1, { message: "Kindly include the URL for this extra image" })
+            .refine((val) => PathFinder.schemaRefineImageUrl(val), {
+              message: "This URL is invalid; only images from {unsplash.com} are allowed at this time",
+            }),
+        )
         .optional(),
       price: z.coerce
         .number()

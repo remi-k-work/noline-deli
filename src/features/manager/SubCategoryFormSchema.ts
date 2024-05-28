@@ -19,7 +19,11 @@ export default class SubCategoryFormSchema extends FormSchemaBase<SubCategoryFor
   // Schema-based form validation with zod
   public static readonly schema = z.object({
     categoryId: z.string().trim().min(1, { message: "Please select a parent category for this subcategory" }),
-    name: z.string().trim().min(1, { message: "Please specify the name of this subcategory" }),
+    name: z
+      .string()
+      .trim()
+      .min(1, { message: "Please specify the name of this subcategory" })
+      .max(25, { message: "Please keep the name to a maximum of 25 characters" }),
   });
 
   constructor(formData?: FormData) {
