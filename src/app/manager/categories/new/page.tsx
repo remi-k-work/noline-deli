@@ -2,13 +2,14 @@
 import styles from "./page.module.css";
 
 // other libraries
-import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import CategoryForm from "@/features/manager/components/CategoryForm";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerCategories from "@/assets/manager/banner-categories.webp";
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► New Category",
@@ -17,8 +18,10 @@ export const metadata = {
 export default async function Page() {
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► New Category</h1>
-      <CategoryForm />
+      <SectionHero heroBanner={bannerCategories} sectionTitle={"Categories"} sectionLink={PathFinder.toAllCategories()} />
+      <section className="bg-base-content pb-4 pt-4">
+        <CategoryForm />
+      </section>
     </article>
   );
 }

@@ -8,13 +8,14 @@ import { notFound } from "next/navigation";
 import { getCategory } from "@/features/manager/dbCategories";
 
 // other libraries
-import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import CategoryForm from "@/features/manager/components/CategoryForm";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerCategories from "@/assets/manager/banner-categories.webp";
 
 // types
 interface PageProps {
@@ -37,8 +38,10 @@ export default async function Page({ params: { categoryId } }: PageProps) {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► Edit Category</h1>
-      <CategoryForm category={category} />
+      <SectionHero heroBanner={bannerCategories} sectionTitle={"Categories"} sectionLink={PathFinder.toAllCategories()} />
+      <section className="bg-base-content pb-4 pt-4">
+        <CategoryForm category={category} />
+      </section>
     </article>
   );
 }

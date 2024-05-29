@@ -13,9 +13,6 @@
     "spa spa sby sby sby"
     "pag pag pag pag npr";
 
-  border-start-start-radius: var(--size-3);
-  border-start-end-radius: var(--size-3);
-
   box-shadow: var(--inner-shadow-4);
 }
 

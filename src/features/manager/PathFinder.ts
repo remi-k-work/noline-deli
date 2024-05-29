@@ -39,6 +39,7 @@ enum PathTo {
 const REMOTE_HOSTNAME = "images.unsplash.com";
 
 export default class PathFinder {
+  static toManagerHome = () => PathTo.manager;
   static toAllBrands = () => PathTo.brands;
   static toAllCategories = () => PathTo.categories;
   static toAllSubCategories = () => PathTo.subCategories;

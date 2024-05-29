@@ -8,13 +8,14 @@ import { notFound } from "next/navigation";
 import { getSubCategory, allCategories } from "@/features/manager/dbCategories";
 
 // other libraries
-import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import SubCategoryForm from "@/features/manager/components/SubCategoryForm";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
 
 // types
 interface PageProps {
@@ -40,8 +41,10 @@ export default async function Page({ params: { subCategoryId } }: PageProps) {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► Edit SubCategory</h1>
-      <SubCategoryForm subCategory={subCategory} categories={categories} />
+      <SectionHero heroBanner={bannerSubCategories} sectionTitle={"SubCategories"} sectionLink={PathFinder.toAllSubCategories()} />
+      <section className="bg-base-content pb-4 pt-4">
+        <SubCategoryForm subCategory={subCategory} categories={categories} />
+      </section>
     </article>
   );
 }

@@ -1,0 +1,10 @@
+.header {
+  grid-area: header;
+
+  background: var(--surface-2);
+  color: var(--brand);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+  position: sticky;
+  inset-block-start: 0;
+}

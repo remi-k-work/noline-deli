@@ -1,0 +1,40 @@
+.page {
+  padding-inline: var(--size-fluid-3) var(--size-fluid-3);
+  padding-block: var(--size-3) var(--size-3);
+}
+
+.dashboard {
+  background: var(--dashboard-gradient);
+
+  padding-inline: var(--size-fluid-3) var(--size-fluid-3);
+  padding-block: var(--size-2) var(--size-2);
+
+  box-shadow: var(--shadow-6);
+}
+
+.dashboard > h4 {
+  inline-size: 100%;
+  max-inline-size: none;
+
+  background: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  text-align: center;
+  box-shadow: var(--inner-shadow-4);
+  font-weight: var(--font-weight-9);
+  border-start-start-radius: var(--size-3);
+  border-start-end-radius: var(--size-3);
+  margin-block-start: var(--size-4);
+}
+
+.dashboard__main-menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--size-3);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
+}

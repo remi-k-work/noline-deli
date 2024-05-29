@@ -5,13 +5,14 @@ import styles from "./page.module.css";
 import { allCategories } from "@/features/manager/dbCategories";
 
 // other libraries
-import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import SubCategoryForm from "@/features/manager/components/SubCategoryForm";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► New SubCategory",
@@ -23,8 +24,10 @@ export default async function Page() {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► New SubCategory</h1>
-      <SubCategoryForm categories={categories} />
+      <SectionHero heroBanner={bannerSubCategories} sectionTitle={"SubCategories"} sectionLink={PathFinder.toAllSubCategories()} />
+      <section className="bg-base-content pb-4 pt-4">
+        <SubCategoryForm categories={categories} />
+      </section>
     </article>
   );
 }

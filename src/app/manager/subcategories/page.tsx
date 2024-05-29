@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // other libraries
-import clsx from "clsx";
 import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import SubCategoriesTableView from "@/features/manager/components/SubCategoriesTableView";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
 
 // types
 interface PageProps {
@@ -28,7 +28,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► SubCategories</h1>
+      <SectionHero heroBanner={bannerSubCategories} sectionTitle={"SubCategories"} />
       <SubCategoriesTableView searchParamsState={searchParamsState} />
     </article>
   );

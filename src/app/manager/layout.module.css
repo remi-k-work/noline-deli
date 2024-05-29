@@ -1,3 +1,16 @@
 .layout {
-  display: block;
+  min-block-size: 100cqb;
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.layout__main {
+  grid-area: main;
 }

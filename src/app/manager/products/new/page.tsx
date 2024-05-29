@@ -5,13 +5,14 @@ import styles from "./page.module.css";
 import { getProductFormData } from "@/features/manager/dbProducts";
 
 // other libraries
-import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import SectionHero from "@/features/manager/components/SectionHero";
 import ProductForm from "@/features/manager/components/ProductForm";
 
 // assets
-import { lusitana } from "@/assets/fonts";
+import bannerProducts from "@/assets/manager/banner-products.webp";
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► New Product",
@@ -23,8 +24,10 @@ export default async function Page() {
 
   return (
     <article className={styles["page"]}>
-      <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Manager ► New Product</h1>
-      <ProductForm brands={brands} categories={categories} />
+      <SectionHero heroBanner={bannerProducts} sectionTitle={"Products"} sectionLink={PathFinder.toAllProducts()} />
+      <section className="bg-base-content pb-4 pt-4">
+        <ProductForm brands={brands} categories={categories} />
+      </section>
     </article>
   );
 }
