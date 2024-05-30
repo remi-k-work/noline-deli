@@ -44,6 +44,17 @@
   margin-block-start: var(--size-4);
 }
 
+.dashboard__manager {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--size-3);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-2) var(--size-2);
+  background: var(--surface-2);
+  box-shadow: var(--inner-shadow-4);
+}
+
 .dashboard__featured-products {
   display: flex;
   flex-wrap: wrap;

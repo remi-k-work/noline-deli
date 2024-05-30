@@ -3,12 +3,14 @@ import styles from "./page.module.css";
 
 // next
 import Image from "next/image";
+import Link from "next/link";
 
 // prisma and db access
 import { getDashboardData } from "@/features/search/searchDb";
 
 // other libraries
 import clsx from "clsx";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
@@ -19,6 +21,7 @@ import BrandPreview from "@/features/products/components/BrandPreview";
 // assets
 import { lusitana } from "@/assets/fonts";
 import hero from "@/assets/hero.jpg";
+import bannerManager from "@/assets/manager/banner-manager.webp";
 
 export default async function Page() {
   // Collect all of the necessary data for our dashboard (like featured products and brands)
@@ -28,6 +31,31 @@ export default async function Page() {
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
+          <article className={styles["dashboard"]}>
+            <h4 className={clsx(lusitana.className, "text-xl")}>Try our Manager Feature!</h4>
+            <section className={styles["dashboard__manager"]}>
+              <Link href={PathFinder.toManagerHome()} target="_blank" className="hero sepia hover:sepia-0">
+                <div className="hero-overlay">
+                  <Image src={bannerManager} alt={"Try our Manager Feature!"} className="h-48 w-full object-cover" />
+                </div>
+                <div className="hero-content">
+                  <p className={clsx(lusitana.className, "p-2 text-center text-xl text-neutral-content backdrop-brightness-50 backdrop-grayscale lg:text-2xl")}>
+                    Add, edit, and manage products, categories, brands, and images with ease
+                    <br />
+                    <small>
+                      login: <span className="text-warning">test</span>
+                    </small>
+                    &nbsp;&nbsp;&nbsp;
+                    <small>
+                      passw: <span className="text-warning">test</span>
+                    </small>
+                  </p>
+                </div>
+              </Link>
+            </section>
+          </article>
+          <br />
+          <br />
           <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Taste of Home, Delivered since 1992</h1>
           <header className={styles["hero"]}>
             <Image src={hero} alt={"Hero"} />
