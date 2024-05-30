@@ -43,7 +43,7 @@ export default function ProductsTableEntry({ product }: ProductsTableEntryProps)
   } = product;
 
   return (
-    <tr className={clsx(styles["products-table-entry"], { "text-base-content": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
+    <tr className={clsx(styles["products-table-entry"], { "text-error": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
       <td>
         <div className={styles["products-table-entry-image"]}>
           <Link href={PathFinder.toProductEdit(id)} className={styles["products-table-entry-image__link"]}>

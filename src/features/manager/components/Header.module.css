@@ -2,9 +2,12 @@
   grid-area: header;
 
   background: var(--surface-2);
-  color: var(--brand);
   padding-inline: var(--size-3);
-  padding-block: var(--size-2);
+  padding-block-start: var(--size-1);
   position: sticky;
   inset-block-start: 0;
+
+  display: flex;
+  justify-content: space-between;
+  gap: var(--size-3);
 }

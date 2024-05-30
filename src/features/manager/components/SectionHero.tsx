@@ -25,11 +25,11 @@ interface SectionLinkProps {
 export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: SectionHeroProps) {
   return (
     <header className="hero">
-      <div className="hero-overlay opacity-50">
+      <div className="hero-overlay">
         <Image src={heroBanner} alt={sectionTitle} className="h-24 w-full rounded-t-2xl object-cover sepia" priority />
       </div>
       <div className="hero-content justify-self-start">
-        <h1 className={clsx(lusitana.className, "text-xl text-neutral-content backdrop-blur-lg lg:text-3xl")}>
+        <h1 className={clsx(lusitana.className, "p-2 text-xl text-secondary backdrop-blur lg:text-3xl")}>
           <Link href={PathFinder.toManagerHome()} className="link-hover link">
             Manager
           </Link>

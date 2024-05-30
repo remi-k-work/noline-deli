@@ -39,7 +39,7 @@ export default async function Page({ params: { brandId } }: PageProps) {
   return (
     <article className={styles["page"]}>
       <SectionHero heroBanner={bannerBrands} sectionTitle={"Brands"} sectionLink={PathFinder.toAllBrands()} />
-      <section className="bg-base-content pb-4 pt-4">
+      <section className="bg-base-300 pb-4 pt-4">
         <BrandForm brand={brand} />
       </section>
     </article>

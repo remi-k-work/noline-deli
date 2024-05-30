@@ -76,7 +76,7 @@ export default function ProductsTableActions({ productId, productName, productIm
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-warning-content">remove</b> this product?
+          Are you certain you want to <b className="text-error">remove</b> this product?
         </p>
         <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
       </ConfirmDialog>

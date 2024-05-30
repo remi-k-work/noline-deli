@@ -39,7 +39,7 @@ export default async function Page({ params: { categoryId } }: PageProps) {
   return (
     <article className={styles["page"]}>
       <SectionHero heroBanner={bannerCategories} sectionTitle={"Categories"} sectionLink={PathFinder.toAllCategories()} />
-      <section className="bg-base-content pb-4 pt-4">
+      <section className="bg-base-300 pb-4 pt-4">
         <CategoryForm category={category} />
       </section>
     </article>

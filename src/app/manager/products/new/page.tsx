@@ -25,7 +25,7 @@ export default async function Page() {
   return (
     <article className={styles["page"]}>
       <SectionHero heroBanner={bannerProducts} sectionTitle={"Products"} sectionLink={PathFinder.toAllProducts()} />
-      <section className="bg-base-content pb-4 pt-4">
+      <section className="bg-base-300 pb-4 pt-4">
         <ProductForm brands={brands} categories={categories} />
       </section>
     </article>

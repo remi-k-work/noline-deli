@@ -37,7 +37,7 @@ export default function BrandsTableEntry({ brand }: BrandsTableEntryProps) {
   } = brand;
 
   return (
-    <tr className={clsx(styles["brands-table-entry"], { "text-base-content": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
+    <tr className={clsx(styles["brands-table-entry"], { "text-error": role === "ADMIN" || createdBy !== getCreatedByUser() })}>
       <td>
         <Link href={PathFinder.toBrandEdit(id)}>
           <Image

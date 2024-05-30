@@ -1,3 +1,5 @@
 .layout {
-  min-block-size: 100cqb;
+  min-block-size: 100vh;
+  min-block-size: 100svh;
+  min-block-size: 100dvh;
 }

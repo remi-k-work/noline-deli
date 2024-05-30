@@ -73,11 +73,11 @@ export default function CategoriesTableActions({ categoryId, categoryName }: Cat
       </div>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-warning-content">remove</b> this category?
+          Are you certain you want to <b className="text-error">remove</b> this category?
         </p>
         <p className="text-center text-2xl font-bold">{categoryName}</p>
         <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
-          This operation will also <b className="text-warning-content">delete</b> the following:
+          This operation will also <b className="text-error-content">delete</b> the following:
           <ul className="list-outside list-disc pl-4">
             <li>All subcategories associated with this category!</li>
             <li>All products associated with this category!</li>
