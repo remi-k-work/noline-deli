@@ -1,65 +1,5 @@
 [{
   "_id": {
-    "$oid": "65d9e642b31e9f9d87fedc58"
-  },
-  "name": "Shoes",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-02-24T12:51:14.324Z"
-  },
-  "updatedAt": {
-    "$date": "2024-02-24T12:49:37.195Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "65d9e73ab31e9f9d87fedc6a"
-  },
-  "name": "Clothes",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-02-24T12:55:22.251Z"
-  },
-  "updatedAt": {
-    "$date": "2024-02-24T12:54:48.657Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "65d9e758b31e9f9d87fedc6f"
-  },
-  "name": "Jewelry",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-02-24T12:55:51.878Z"
-  },
-  "updatedAt": {
-    "$date": "2024-02-24T12:55:29.130Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "65d9e77eb31e9f9d87fedc74"
-  },
-  "name": "Music",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-02-24T12:56:29.639Z"
-  },
-  "updatedAt": {
-    "$date": "2024-02-24T12:55:55.387Z"
-  }
-},
-{
-  "_id": {
     "$oid": "65f1acb6766da0fa0ce15ce7"
   },
   "name": "Chocolate Tablets",
@@ -70,8 +10,9 @@
     "$date": "2024-03-13T13:40:05.823Z"
   },
   "updatedAt": {
-    "$date": "2024-03-13T13:39:44.155Z"
-  }
+    "$date": "2024-05-22T11:20:08.794Z"
+  },
+  "isApproved": true
 },
 {
   "_id": {
@@ -85,6 +26,23 @@
     "$date": "2024-03-15T12:38:55.129Z"
   },
   "updatedAt": {
-    "$date": "2024-03-15T12:38:35.876Z"
-  }
+    "$date": "2024-05-22T10:25:27.554Z"
+  },
+  "isApproved": true
+},
+{
+  "_id": {
+    "$oid": "65f5ea087090e0e6b65e6ff4"
+  },
+  "name": "Cosmetics",
+  "createdBy": {
+    "$oid": "65d9e530b31e9f9d87fedc4c"
+  },
+  "createdAt": {
+    "$date": "2024-03-16T18:50:48.398Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-22T11:20:28.894Z"
+  },
+  "isApproved": true
 }]

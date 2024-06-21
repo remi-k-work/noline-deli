@@ -16,6 +16,8 @@
     "clsx": "^2.1.1",
     "daisyui": "^4.11.1",
     "eslint-config-prettier": "^9.1.0",
+    "jose": "^5.4.0",
+    "nanoid": "^5.0.7",
     "next": "^14.2.3",
     "open-props": "^1.7.4",
     "prettier": "^3.2.5",

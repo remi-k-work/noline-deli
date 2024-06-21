@@ -15,7 +15,7 @@ export default function ThemeSwitcher() {
 
   return (
     <section className={styles["theme-switcher"]}>
-      <button type="button" className="btn btn-circle btn-ghost" onClick={toggle}>
+      <button type="button" className="btn btn-circle btn-ghost" title={"Switch Theme"} onClick={toggle}>
         {isDarkMode !== undefined && (isDarkMode ? <SunIcon width={24} height={24} /> : <MoonIcon width={24} height={24} />)}
       </button>
     </section>

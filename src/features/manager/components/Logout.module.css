@@ -1,0 +1,13 @@
+.logout {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.logout button {
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.logout svg {
+  max-inline-size: none;
+}

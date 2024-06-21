@@ -13,6 +13,8 @@ enum SearchParamName {
 }
 
 enum PathTo {
+  managerLogin = "/auth/login",
+
   manager = "/manager",
 
   brands = manager + "/brands",
@@ -39,6 +41,8 @@ enum PathTo {
 const REMOTE_HOSTNAME = "images.unsplash.com";
 
 export default class PathFinder {
+  static toManagerLogin = () => PathTo.managerLogin;
+
   static toManagerHome = () => PathTo.manager;
   static toAllBrands = () => PathTo.brands;
   static toAllCategories = () => PathTo.categories;

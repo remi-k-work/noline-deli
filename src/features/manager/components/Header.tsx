@@ -11,6 +11,7 @@ import PathFinder from "../PathFinder";
 // components
 import NavBar from "./NavBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import Logout from "./Logout";
 
 export default async function Header() {
   return (
@@ -28,6 +29,7 @@ export default async function Header() {
       <div className="flex items-end gap-2">
         <NavBar />
         <ThemeSwitcher />
+        <Logout />
       </div>
     </header>
   );

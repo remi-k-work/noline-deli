@@ -20,7 +20,7 @@ interface FormFieldProps {
 }
 
 interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {
-  fieldType?: "text" | "number" | "url";
+  fieldType?: "text" | "number" | "url" | "password";
 }
 interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {}
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
