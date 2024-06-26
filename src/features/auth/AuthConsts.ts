@@ -25,3 +25,7 @@ export const REFRESH_TOKEN_COOKIE_OPTIONS = {
   sameSite: "strict",
   secure: process.env.NODE_ENV === "production",
 } satisfies Partial<ResponseCookie>;
+
+// Captcha-related constants (more app-specific)
+export const CAPTCHA_USERNAME = "captchaUser";
+export const CAPTCHA_PASSWORD = "captchaPass";

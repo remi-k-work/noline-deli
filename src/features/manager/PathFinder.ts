@@ -4,6 +4,7 @@ enum ParamName {
   categoryId = "[categoryId]",
   subCategoryId = "[subCategoryId]",
   productId = "[productId]",
+  captchaName = "[name]",
 }
 
 enum SearchParamName {
@@ -36,6 +37,8 @@ enum PathTo {
   productImages = "/product-images",
   brandLogos = "/brand-logos",
   imagePlaceholder = "/image.svg",
+
+  captcha = "/auth/captcha" + `/${ParamName.captchaName}`,
 }
 
 const REMOTE_HOSTNAME = "images.unsplash.com";
@@ -70,6 +73,9 @@ export default class PathFinder {
   static toProductEditFeedback = (productId: string) => `${PathFinder.toProductEdit(productId)}?${SearchParamName.actionFeedback}`;
 
   static toImagePlaceholder = () => PathTo.imagePlaceholder;
+
+  static toCaptcha = (captchaName: string, shouldReload?: boolean) =>
+    shouldReload ? PathTo.captcha.replace(ParamName.captchaName, captchaName) + `?${Date.now()}` : PathTo.captcha.replace(ParamName.captchaName, captchaName);
 
   static toResolvedProductImage = (imageUrl?: string) => PathFinder.toProductImage(imageUrl) ?? PathFinder.toImagePlaceholder();
   static toResolvedBrandLogo = (logoUrl?: string | null) => PathFinder.toBrandLogo(logoUrl) ?? PathFinder.toImagePlaceholder();

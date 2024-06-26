@@ -2,11 +2,15 @@
 
 // next
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 // other libraries
 import LoginFormSchema, { LoginFormState } from "./LoginFormSchema";
-import Auth from "@/lib/Auth";
-import { AuthError } from "@/lib/AuthBase";
+import Auth from "@/features/auth/Auth";
+import { AuthError } from "@/features/auth/AuthBase";
+import { getIronSession } from "iron-session";
+import { CaptchaSession } from "@/app/auth/captcha/[name]/route";
+import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/AuthConsts";
 
 export async function newLogin(formState: LoginFormState, formData: FormData): Promise<LoginFormState> {
   const loginFormSchema = new LoginFormSchema(formData);
@@ -31,10 +35,23 @@ export async function newLogin(formState: LoginFormState, formData: FormData): P
   } catch (error) {
     // If an auth error occurs, return a more specific error
     if (error instanceof AuthError) {
+      // Determine which section of the captcha-generated credentials does not match, if any, and offer a hint
+      const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+        password: process.env.SESSION_SECRET as string,
+        cookieName: CAPTCHA_USERNAME,
+      });
+      const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+        password: process.env.SESSION_SECRET as string,
+        cookieName: CAPTCHA_PASSWORD,
+      });
+
       return {
         actionStatus: "denied",
         loginExcerpt: { username },
-        allFieldErrors: { username: [error.message] },
+        allFieldErrors: {
+          username: username !== captchaUsername ? ["Please enter the auto-generated username"] : undefined,
+          password: password !== captchaPassword ? ["Please enter the auto-generated password"] : undefined,
+        },
       };
     }
     // Something else went wrong, so return a generic error

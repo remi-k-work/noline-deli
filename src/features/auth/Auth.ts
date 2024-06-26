@@ -1,9 +1,13 @@
 // next
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 // other libraries
 import AuthBase, { AuthError } from "./AuthBase";
 import { AccessTokenPayload, Credentials, RefreshTokenPayload } from "./AuthTypes";
+import { getIronSession } from "iron-session";
+import { CaptchaSession } from "@/app/auth/captcha/[name]/route";
+import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/AuthConsts";
 
 export default class Auth extends AuthBase {
   constructor(res?: NextResponse) {
@@ -12,7 +16,7 @@ export default class Auth extends AuthBase {
 
   // Log in with the provided credentials
   async logIn(credentials: Credentials) {
-    if (!this.isAuthenticated(credentials)) throw new AuthError("Unauthorized", 401);
+    if (!(await this.isAuthenticated(credentials))) throw new AuthError("Unauthorized", 401);
 
     await this.createAndStoreAccessToken(this.accessTokenPayload);
     await this.createAndStoreRefreshToken(this.refreshTokenPayload);
@@ -59,14 +63,25 @@ export default class Auth extends AuthBase {
   }
 
   // Normally, this is where the user's credentials are verified against the database
-  private isAuthenticated({ username, password }: Credentials) {
+  private async isAuthenticated({ username, password }: Credentials) {
     // const foundUser = await User.findOne({ username }).exec();
     // if (!foundUser || !foundUser.active) {
     //   return res.status(401).json({ message: "Unauthorized" });
     // }
     // const match = await bcrypt.compare(password, foundUser.password);
     // if (!match) return res.status(401).json({ message: "Unauthorized" });
-    if (username === "test" && password === "test") return true;
+
+    // Verify the user's credentials against the captcha-generated credentials
+    const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+      password: process.env.SESSION_SECRET as string,
+      cookieName: CAPTCHA_USERNAME,
+    });
+    const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+      password: process.env.SESSION_SECRET as string,
+      cookieName: CAPTCHA_PASSWORD,
+    });
+
+    if (username === captchaUsername && password === captchaPassword) return true;
 
     return false;
   }

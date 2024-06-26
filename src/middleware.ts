@@ -2,8 +2,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // other libraries
-import Auth from "./lib/Auth";
-import { AuthError } from "@/lib/AuthBase";
+import Auth from "./features/auth/Auth";
+import { AuthError } from "@/features/auth/AuthBase";
 import PathFinder from "./features/manager/PathFinder";
 
 export const config = {

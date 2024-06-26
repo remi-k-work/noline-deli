@@ -34,12 +34,14 @@ interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, className, ...props }: FormInputFieldProps) {
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormInputFieldProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
 
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>
+      {/* Render any {children} between the field and its label if specified (e.g., captcha) */}
+      {children}
       {/* We can omit the default type="text" and, by that, allow to define additional input types */}
       <input
         type={fieldType}

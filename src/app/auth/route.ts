@@ -2,14 +2,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // other libraries
-import Auth from "@/lib/Auth";
-import { Credentials } from "@/lib/AuthTypes";
-import { AuthError } from "@/lib/AuthBase";
+import Auth from "@/features/auth/Auth";
+import { Credentials } from "@/features/auth/AuthTypes";
+import { AuthError } from "@/features/auth/AuthBase";
 
 export const dynamic = "force-dynamic";
 
 // Obtain either the current or refreshed access token
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const auth = new Auth();
     const accessToken = await auth.getAccessToken();
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 }
 
 // Log the user out
-export function DELETE(req: NextRequest) {
+export function DELETE() {
   try {
     const auth = new Auth();
     auth.logOut();

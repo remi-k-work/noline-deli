@@ -36,19 +36,11 @@ export default async function Page() {
             <section className={styles["dashboard__manager"]}>
               <Link href={PathFinder.toManagerHome()} target="_blank" className="hero sepia hover:sepia-0">
                 <div className="hero-overlay">
-                  <Image src={bannerManager} alt={"Try our Manager Feature!"} className="h-48 w-full object-cover" />
+                  <Image src={bannerManager} alt={"Try our Manager Feature!"} className="h-48 w-full object-cover" priority />
                 </div>
                 <div className="hero-content">
                   <p className={clsx(lusitana.className, "p-2 text-center text-xl text-neutral-content backdrop-brightness-50 backdrop-grayscale lg:text-2xl")}>
                     Add, edit, and manage products, categories, brands, and images with ease
-                    <br />
-                    <small>
-                      login: <span className="text-warning">test</span>
-                    </small>
-                    &nbsp;&nbsp;&nbsp;
-                    <small>
-                      passw: <span className="text-warning">test</span>
-                    </small>
                   </p>
                 </div>
               </Link>

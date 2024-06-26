@@ -15,6 +15,7 @@ import LoginFormSchema, { LoginFormSchemaType, LoginFormState } from "../LoginFo
 import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
+import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/AuthConsts";
 
 // components
 import { FormInputField } from "./FormControls";
@@ -23,6 +24,7 @@ import LoginFormFeedback from "./LoginFormFeedback";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import Captcha from "@/features/auth/components/Captcha";
 
 // types
 interface TheFormWrappedProps {
@@ -70,9 +72,11 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
             spellCheck={"false"}
             autoComplete={"username"}
             required={true}
-            placeholder={"Enter your username"}
+            placeholder={"Enter the generated username"}
             defaultValue={""}
-          />
+          >
+            <Captcha captchaName={CAPTCHA_USERNAME} />
+          </FormInputField>
           <FormInputField
             fieldType={"password"}
             fieldName={"password"}
@@ -83,9 +87,11 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
             spellCheck={"false"}
             autoComplete={"current-password"}
             required={true}
-            placeholder={"Enter your password"}
+            placeholder={"Enter the generated password"}
             defaultValue={""}
-          />
+          >
+            <Captcha captchaName={CAPTCHA_PASSWORD} />
+          </FormInputField>
           <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
