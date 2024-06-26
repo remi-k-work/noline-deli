@@ -4,7 +4,7 @@
 import styles from "./Captcha.module.css";
 
 // react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // next
 import Image from "next/image";
@@ -21,6 +21,11 @@ interface CaptchaProps {
 
 export default function Captcha({ captchaName }: CaptchaProps) {
   const [captchaSrc, setCaptchaSrc] = useState(PathFinder.toCaptcha(captchaName));
+
+  useEffect(() => {
+    // Always reload the captcha to ensure that the browser does not display the cached version
+    setCaptchaSrc(PathFinder.toCaptcha(captchaName, true));
+  }, [captchaName]);
 
   return (
     <article className={styles["captcha"]}>
