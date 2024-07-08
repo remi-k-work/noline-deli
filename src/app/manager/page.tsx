@@ -15,6 +15,7 @@ import bannerBrands from "@/assets/manager/banner-brands.webp";
 import bannerCategories from "@/assets/manager/banner-categories.webp";
 import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
 import bannerProducts from "@/assets/manager/banner-products.webp";
+import bannerCharts from "@/assets/manager/banner-charts.webp";
 
 export const metadata = {
   title: "NoLine-Deli ► Manager",
@@ -27,6 +28,9 @@ export default async function Page() {
       <article className={styles["dashboard"]}>
         <h4 className={clsx(lusitana.className, "text-xl")}>Choose the Section to Manage</h4>
         <ul className={styles["dashboard__main-menu"]}>
+          <li>
+            <SectionLink linkBanner={bannerCharts} sectionTitle={"Charts"} sectionLink={PathFinder.toAllCharts()} />
+          </li>
           <li>
             <SectionLink linkBanner={bannerBrands} sectionTitle={"Brands"} sectionLink={PathFinder.toAllBrands()} />
           </li>

@@ -45,17 +45,14 @@ export async function updCategory(categoryId: string, formState: CategoryFormSta
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   let newCategoryId = categoryId;
   try {
     // Make sure we have permission for this item before proceeding
     if (await isAccessDeniedTo("category", categoryId)) {
-      return { actionStatus: "denied" };
+      return { ...formState, actionStatus: "denied" };
     }
 
     // Collect and prepare validated data for underlying database operations
@@ -69,13 +66,10 @@ export async function updCategory(categoryId: string, formState: CategoryFormSta
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // Use the database's unique constraint violation to assure a distinct category name
       if (error.code === "P2002") {
-        return {
-          actionStatus: "failed",
-          allFieldErrors: { name: ["That category name already exists; please use a different name"] },
-        };
+        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That category name already exists; please use a different name"] } };
       }
     }
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -93,10 +87,7 @@ export async function newCategory(formState: CategoryFormState, formData: FormDa
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   try {
@@ -110,13 +101,10 @@ export async function newCategory(formState: CategoryFormState, formData: FormDa
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // Use the database's unique constraint violation to assure a distinct category name
       if (error.code === "P2002") {
-        return {
-          actionStatus: "failed",
-          allFieldErrors: { name: ["That category name already exists; please use a different name"] },
-        };
+        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That category name already exists; please use a different name"] } };
       }
     }
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -126,5 +114,5 @@ export async function newCategory(formState: CategoryFormState, formData: FormDa
   // Return the new action state so that we can provide feedback to the user
   const { name } = validatedData!;
 
-  return { actionStatus: "succeeded", categoryExcerpt: { name } };
+  return { ...formState, actionStatus: "succeeded", categoryExcerpt: { name } };
 }

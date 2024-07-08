@@ -21,10 +21,10 @@ import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/AuthConsts";
 import { FormInputField } from "./FormControls";
 import FormSubmit from "./FormSubmit";
 import LoginFormFeedback from "./LoginFormFeedback";
+import Captcha from "@/features/auth/components/Captcha";
 
 // assets
 import { lusitana } from "@/assets/fonts";
-import Captcha from "@/features/auth/components/Captcha";
 
 // types
 interface TheFormWrappedProps {

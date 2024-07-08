@@ -34,6 +34,8 @@ enum PathTo {
   productNew = products + "/new",
   productEdit = products + `/${ParamName.productId}`,
 
+  charts = manager + "/charts",
+
   productImages = "/product-images",
   brandLogos = "/brand-logos",
   imagePlaceholder = "/image.svg",
@@ -51,6 +53,8 @@ export default class PathFinder {
   static toAllCategories = () => PathTo.categories;
   static toAllSubCategories = () => PathTo.subCategories;
   static toAllProducts = () => PathTo.products;
+
+  static toAllCharts = () => PathTo.charts;
 
   static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
   static toProductsByCategoryAndSubCategory = (categoryId: string, subCategoryId: string) =>

@@ -19,10 +19,7 @@ export async function newLogin(formState: LoginFormState, formData: FormData): P
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   // Collect and prepare validated data
@@ -46,6 +43,7 @@ export async function newLogin(formState: LoginFormState, formData: FormData): P
       });
 
       return {
+        ...formState,
         actionStatus: "denied",
         loginExcerpt: { username },
         allFieldErrors: {
@@ -55,12 +53,12 @@ export async function newLogin(formState: LoginFormState, formData: FormData): P
       };
     }
     // Something else went wrong, so return a generic error
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
   revalidatePath("/");
 
   // Return the new action state so that we can provide feedback to the user
-  return { actionStatus: "succeeded", loginExcerpt: { username } };
+  return { ...formState, actionStatus: "succeeded", loginExcerpt: { username } };
 }

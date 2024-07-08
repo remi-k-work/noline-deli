@@ -40,6 +40,11 @@ export function whereAdminApproved<WhereT>(): WhereT {
   return { AND: { OR: [{ user: { role: "ADMIN" }, isApproved: true }, { createdBy: getCreatedByUser() }] } } as WhereT;
 }
 
+// Gather only the stuff created by you, the user
+export function whereCreatedByYou<WhereT>(): WhereT {
+  return { createdBy: getCreatedByUser() } as WhereT;
+}
+
 export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {
   switch (itemType) {
     case "brand":

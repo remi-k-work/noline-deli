@@ -22,6 +22,27 @@
     --heading-gradient-1-light: var(--gradient-5);
     --dashboard-gradient-light: var(--gradient-15);
 
+    /* shadcn/ui (light) */
+    --background-light: 0 0% 100%;
+    --foreground-light: 20 14.3% 4.1%;
+    --card-light: 0 0% 100%;
+    --card-foreground-light: 20 14.3% 4.1%;
+    --popover-light: 0 0% 100%;
+    --popover-foreground-light: 20 14.3% 4.1%;
+    --primary-light: 24 9.8% 10%;
+    --primary-foreground-light: 60 9.1% 97.8%;
+    --secondary-light: 60 4.8% 95.9%;
+    --secondary-foreground-light: 24 9.8% 10%;
+    --muted-light: 60 4.8% 95.9%;
+    --muted-foreground-light: 25 5.3% 44.7%;
+    --accent-light: 60 4.8% 95.9%;
+    --accent-foreground-light: 24 9.8% 10%;
+    --destructive-light: 0 84.2% 60.2%;
+    --destructive-foreground-light: 60 9.1% 97.8%;
+    --border-light: 20 5.9% 90%;
+    --input-light: 20 5.9% 90%;
+    --ring-light: 20 14.3% 4.1%;
+
     /* dark */
     --brand-dark: var(--orange-3);
     --link-dark: var(--indigo-3);
@@ -39,6 +60,30 @@
     /* gradients */
     --heading-gradient-1-dark: var(--gradient-23);
     --dashboard-gradient-dark: var(--gradient-16);
+
+    /* shadcn/ui (dark) */
+    --background-dark: 20 14.3% 4.1%;
+    --foreground-dark: 60 9.1% 97.8%;
+    --card-dark: 20 14.3% 4.1%;
+    --card-foreground-dark: 60 9.1% 97.8%;
+    --popover-dark: 20 14.3% 4.1%;
+    --popover-foreground-dark: 60 9.1% 97.8%;
+    --primary-dark: 60 9.1% 97.8%;
+    --primary-foreground-dark: 24 9.8% 10%;
+    --secondary-dark: 12 6.5% 15.1%;
+    --secondary-foreground-dark: 60 9.1% 97.8%;
+    --muted-dark: 12 6.5% 15.1%;
+    --muted-foreground-dark: 24 5.4% 63.9%;
+    --accent-dark: 12 6.5% 15.1%;
+    --accent-foreground-dark: 60 9.1% 97.8%;
+    --destructive-dark: 0 62.8% 30.6%;
+    --destructive-foreground-dark: 60 9.1% 97.8%;
+    --border-dark: 12 6.5% 15.1%;
+    --input-dark: 12 6.5% 15.1%;
+    --ring-dark: 24 5.7% 82.9%;
+
+    /* shadcn/ui (shared) */
+    --radius: 0.5rem;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -56,6 +101,26 @@
       --form-field-alert-tx: var(--form-field-alert-tx-dark);
       --heading-gradient-1: var(--heading-gradient-1-dark);
       --dashboard-gradient: var(--dashboard-gradient-dark);
+
+      --background: var(--background-dark);
+      --foreground: var(--foreground-dark);
+      --card: var(--card-dark);
+      --card-foreground: var(--card-foreground-dark);
+      --popover: var(--popover-dark);
+      --popover-foreground: var(--popover-foreground-dark);
+      --primary: var(--primary-dark);
+      --primary-foreground: var(--primary-foreground-dark);
+      --secondary: var(--secondary-dark);
+      --secondary-foreground: var(--secondary-foreground-dark);
+      --muted: var(--muted-dark);
+      --muted-foreground: var(--muted-foreground-dark);
+      --accent: var(--accent-dark);
+      --accent-foreground: var(--accent-foreground-dark);
+      --destructive: var(--destructive-dark);
+      --destructive-foreground: var(--destructive-foreground-dark);
+      --border: var(--border-dark);
+      --input: var(--input-dark);
+      --ring: var(--ring-dark);
     }
   }
 
@@ -74,6 +139,26 @@
       --form-field-alert-tx: var(--form-field-alert-tx-light);
       --heading-gradient-1: var(--heading-gradient-1-light);
       --dashboard-gradient: var(--dashboard-gradient-light);
+
+      --background: var(--background-light);
+      --foreground: var(--foreground-light);
+      --card: var(--card-light);
+      --card-foreground: var(--card-foreground-light);
+      --popover: var(--popover-light);
+      --popover-foreground: var(--popover-foreground-light);
+      --primary: var(--primary-light);
+      --primary-foreground: var(--primary-foreground-light);
+      --secondary: var(--secondary-light);
+      --secondary-foreground: var(--secondary-foreground-light);
+      --muted: var(--muted-light);
+      --muted-foreground: var(--muted-foreground-light);
+      --accent: var(--accent-light);
+      --accent-foreground: var(--accent-foreground-light);
+      --destructive: var(--destructive-light);
+      --destructive-foreground: var(--destructive-foreground-light);
+      --border: var(--border-light);
+      --input: var(--input-light);
+      --ring: var(--ring-light);
     }
   }
 
@@ -91,6 +176,26 @@
     --form-field-alert-tx: var(--form-field-alert-tx-dark);
     --heading-gradient-1: var(--heading-gradient-1-dark);
     --dashboard-gradient: var(--dashboard-gradient-dark);
+
+    --background: var(--background-dark);
+    --foreground: var(--foreground-dark);
+    --card: var(--card-dark);
+    --card-foreground: var(--card-foreground-dark);
+    --popover: var(--popover-dark);
+    --popover-foreground: var(--popover-foreground-dark);
+    --primary: var(--primary-dark);
+    --primary-foreground: var(--primary-foreground-dark);
+    --secondary: var(--secondary-dark);
+    --secondary-foreground: var(--secondary-foreground-dark);
+    --muted: var(--muted-dark);
+    --muted-foreground: var(--muted-foreground-dark);
+    --accent: var(--accent-dark);
+    --accent-foreground: var(--accent-foreground-dark);
+    --destructive: var(--destructive-dark);
+    --destructive-foreground: var(--destructive-foreground-dark);
+    --border: var(--border-dark);
+    --input: var(--input-dark);
+    --ring: var(--ring-dark);
   }
 
   :root[data-theme="retro"] {
@@ -107,6 +212,26 @@
     --form-field-alert-tx: var(--form-field-alert-tx-light);
     --heading-gradient-1: var(--heading-gradient-1-light);
     --dashboard-gradient: var(--dashboard-gradient-light);
+
+    --background: var(--background-light);
+    --foreground: var(--foreground-light);
+    --card: var(--card-light);
+    --card-foreground: var(--card-foreground-light);
+    --popover: var(--popover-light);
+    --popover-foreground: var(--popover-foreground-light);
+    --primary: var(--primary-light);
+    --primary-foreground: var(--primary-foreground-light);
+    --secondary: var(--secondary-light);
+    --secondary-foreground: var(--secondary-foreground-light);
+    --muted: var(--muted-light);
+    --muted-foreground: var(--muted-foreground-light);
+    --accent: var(--accent-light);
+    --accent-foreground: var(--accent-foreground-light);
+    --destructive: var(--destructive-light);
+    --destructive-foreground: var(--destructive-foreground-light);
+    --border: var(--border-light);
+    --input: var(--input-light);
+    --ring: var(--ring-light);
   }
 
   body {
@@ -152,5 +277,11 @@
   p {
     max-inline-size: var(--size-content-3);
     text-wrap: pretty;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
 }

@@ -44,17 +44,14 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   let newProductId = productId;
   try {
     // Make sure we have permission for this item before proceeding
     if (await isAccessDeniedTo("product", productId)) {
-      return { actionStatus: "denied" };
+      return { ...formState, actionStatus: "denied" };
     }
 
     // Collect and prepare validated data for underlying database operations
@@ -78,7 +75,7 @@ export async function updProduct(productId: string, orgCreatedAt: Date, formStat
     newProductId = product.id;
   } catch (error) {
     // If a database error occurs, return a more specific error
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -96,10 +93,7 @@ export async function newProduct(formState: ProductFormState, formData: FormData
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   try {
@@ -121,7 +115,7 @@ export async function newProduct(formState: ProductFormState, formData: FormData
     );
   } catch (error) {
     // If a database error occurs, return a more specific error
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -131,5 +125,5 @@ export async function newProduct(formState: ProductFormState, formData: FormData
   // Return the new action state so that we can provide feedback to the user
   const { name, theMainImage, price } = validatedData!;
 
-  return { actionStatus: "succeeded", productExcerpt: { name, imageUrl: theMainImage, price } };
+  return { ...formState, actionStatus: "succeeded", productExcerpt: { name, imageUrl: theMainImage, price } };
 }

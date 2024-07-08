@@ -9,6 +9,8 @@ enum SearchParamName {
   currentPage = "page",
   sortBy = "sort",
   actionFeedback = "afeed",
+  chartKind = "chkind",
+  chartOption = "chopt",
 }
 
 type ParamsToSet = [SearchParamName, string?][];
@@ -16,6 +18,7 @@ type ParamsToDel = SearchParamName[];
 
 export type SortByField = "id" | "price" | "name";
 export type SortByOrder = "asc" | "desc";
+export type ChartKind = "ppc";
 
 export default class SearchParamsState {
   // All search params that maintain the current state that is kept in the current url
@@ -36,6 +39,10 @@ export default class SearchParamsState {
   public readonly sortByField: SortByField;
   public readonly sortByOrder: SortByOrder;
 
+  // Charts
+  public readonly chartKind?: ChartKind;
+  public readonly chartOption?: string;
+
   constructor(
     private readonly pathname: string,
     private readonly searchParams: ReadonlyURLSearchParams,
@@ -52,6 +59,9 @@ export default class SearchParamsState {
     this.sortBy = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
     this.sortByField = this.sortBy.split(",")[0] as SortByField;
     this.sortByOrder = this.sortBy.split(",")[1] as SortByOrder;
+
+    this.chartKind = (this.searchParams.get(SearchParamName.chartKind) as ChartKind) ?? undefined;
+    this.chartOption = this.searchParams.get(SearchParamName.chartOption) ?? undefined;
   }
 
   // Are we in action feedback mode?
@@ -129,6 +139,17 @@ export default class SearchParamsState {
     const paramsToSet: ParamsToSet = [];
     const newSortBy = `${newSortByField},${newSortByOrder}`;
     paramsToSet.push([SearchParamName.sortBy, newSortBy]);
+
+    this.updateParams(undefined, paramsToSet);
+
+    return this.hrefWithParams;
+  }
+
+  // The charts state has changed
+  chartsChanged(newChartKind: ChartKind, newChartOption: string) {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.chartKind, newChartKind]);
+    paramsToSet.push([SearchParamName.chartOption, newChartOption]);
 
     this.updateParams(undefined, paramsToSet);
 

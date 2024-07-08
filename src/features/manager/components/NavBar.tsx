@@ -43,6 +43,7 @@ function NavTabs() {
   const isCategoriesActive = pathname.includes(PathFinder.toAllCategories());
   const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
   const isProductsActive = pathname.includes(PathFinder.toAllProducts());
+  const isChartsActive = pathname.includes(PathFinder.toAllCharts());
 
   return (
     <div role="tablist" className="tabs tabs-lifted">
@@ -61,6 +62,9 @@ function NavTabs() {
       <NavLink href={PathFinder.toAllProducts()} role="tab" className="tab" isActive={isProductsActive} activeClass={"tab-active"}>
         Products
       </NavLink>
+      <NavLink href={PathFinder.toAllCharts()} role="tab" className="tab" isActive={isChartsActive} activeClass={"tab-active"}>
+        Charts
+      </NavLink>
     </div>
   );
 }
@@ -73,6 +77,7 @@ function NavMenu() {
   const isCategoriesActive = pathname.includes(PathFinder.toAllCategories());
   const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
   const isProductsActive = pathname.includes(PathFinder.toAllProducts());
+  const isChartsActive = pathname.includes(PathFinder.toAllCharts());
 
   return (
     <div className="dropdown dropdown-end">
@@ -103,6 +108,11 @@ function NavMenu() {
         <li>
           <NavLink href={PathFinder.toAllProducts()} isActive={isProductsActive} activeClass={"active"}>
             Products
+          </NavLink>
+        </li>
+        <li>
+          <NavLink href={PathFinder.toAllCharts()} isActive={isChartsActive} activeClass={"active"}>
+            Charts
           </NavLink>
         </li>
       </ul>

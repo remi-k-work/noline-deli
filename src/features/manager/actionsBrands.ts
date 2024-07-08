@@ -45,17 +45,14 @@ export async function updBrand(brandId: string, formState: BrandFormState, formD
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   let newBrandId = brandId;
   try {
     // Make sure we have permission for this item before proceeding
     if (await isAccessDeniedTo("brand", brandId)) {
-      return { actionStatus: "denied" };
+      return { ...formState, actionStatus: "denied" };
     }
 
     // Collect and prepare validated data for underlying database operations
@@ -69,13 +66,10 @@ export async function updBrand(brandId: string, formState: BrandFormState, formD
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // Use the database's unique constraint violation to assure a distinct brand name
       if (error.code === "P2002") {
-        return {
-          actionStatus: "failed",
-          allFieldErrors: { name: ["That brand name already exists; please use a different name"] },
-        };
+        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That brand name already exists; please use a different name"] } };
       }
     }
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -93,10 +87,7 @@ export async function newBrand(formState: BrandFormState, formData: FormData): P
   // If form validation fails, return errors promptly; otherwise, continue
   if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return {
-      actionStatus: "invalid",
-      allFieldErrors: allFieldErrorsServer,
-    };
+    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
   }
 
   try {
@@ -110,13 +101,10 @@ export async function newBrand(formState: BrandFormState, formData: FormData): P
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       // Use the database's unique constraint violation to assure a distinct brand name
       if (error.code === "P2002") {
-        return {
-          actionStatus: "failed",
-          allFieldErrors: { name: ["That brand name already exists; please use a different name"] },
-        };
+        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That brand name already exists; please use a different name"] } };
       }
     }
-    return { actionStatus: "failed" };
+    return { ...formState, actionStatus: "failed" };
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
@@ -126,5 +114,5 @@ export async function newBrand(formState: BrandFormState, formData: FormData): P
   // Return the new action state so that we can provide feedback to the user
   const { name, logoUrl } = validatedData!;
 
-  return { actionStatus: "succeeded", brandExcerpt: { name, logoUrl } };
+  return { ...formState, actionStatus: "succeeded", brandExcerpt: { name, logoUrl } };
 }
