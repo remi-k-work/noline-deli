@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 
 // other libraries
 import AuthBase, { AuthError } from "./AuthBase";
-import { AccessTokenPayload, Credentials, RefreshTokenPayload } from "./AuthTypes";
+import { AccessTokenPayload, Credentials, RefreshTokenPayload } from "./types";
 import { getIronSession } from "iron-session";
 import { CaptchaSession } from "@/app/auth/captcha/[name]/route";
-import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/AuthConsts";
+import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
 
 export default class Auth extends AuthBase {
   constructor(res?: NextResponse) {

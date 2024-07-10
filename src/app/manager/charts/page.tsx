@@ -5,15 +5,7 @@ import styles from "./page.module.css";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import {
-  productsPerBrand,
-  totalNumbers,
-  productsPerCategory,
-  allCategories,
-  ProductsPerCategoryData,
-  ProductsPerBrandData,
-  TotalNumbersData,
-} from "@/features/manager/charts/db";
+import { productsPerBrand, totalNumbers, productsPerCategory, allCategories, ProductsPerCategoryData } from "@/features/manager/charts/db";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
@@ -40,15 +32,16 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
 
-  // Collect all relevant totals (such as the total number of products and brands)
-  const totData: TotalNumbersData[] = await totalNumbers();
-  const ppbData: ProductsPerBrandData[] = await productsPerBrand();
+  // Collect all relevant totals (such as the total number of products and brands) plus other chart data
+  const [totData, ppbData, categories] = await Promise.all([totalNumbers(), productsPerBrand(), allCategories()]);
 
-  const categories = await allCategories();
+  // For products per category, use the selected chart's option if specified
+  const { chartKind, chartOption } = searchParamsState;
   let ppcData: ProductsPerCategoryData[] = [];
-  if (searchParamsState.chartKind === "ppc" && searchParamsState.chartOption) {
-    ppcData = await productsPerCategory(searchParamsState.chartOption);
+  if (chartKind === "ppc" && chartOption) {
+    ppcData = await productsPerCategory(chartOption);
   } else {
+    // No option was supplied; default to the first option, but only if any options are available
     if (categories.length > 0) ppcData = await productsPerCategory(categories[0].id);
   }
 

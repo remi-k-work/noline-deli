@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import { routeToProductDetails } from "@/features/products/helpers";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -45,11 +45,11 @@ export default function CartTableEntry({ cartItem }) {
               className="max-h-24 w-full rounded-lg object-cover"
             />
           </Link>
-          <div className={clsx(styles["cart-table-entry-image__info"], "dropdown")}>
+          <div className={cn(styles["cart-table-entry-image__info"], "dropdown")}>
             <div tabIndex={0} role="button" className="btn btn-circle btn-info">
               <InformationCircleIcon width={24} height={24} />
             </div>
-            <div tabIndex={0} className={clsx(styles["cart-table-entry__product-info"], "dropdown-content z-10 shadow")}>
+            <div tabIndex={0} className={cn(styles["cart-table-entry__product-info"], "dropdown-content z-10 shadow")}>
               <ProductInfo product={product} />
             </div>
           </div>

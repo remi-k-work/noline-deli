@@ -13,7 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { AdjustmentsHorizontalIcon, MagnifyingGlassCircleIcon, TrashIcon, TruckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
@@ -91,7 +91,7 @@ export default function ProductFilter({
   if (isIndicator) {
     return (
       numberOfProductFilters > 0 && (
-        <div className={clsx(styles["product-filter-indicator"], "dropdown dropdown-end")}>
+        <div className={cn(styles["product-filter-indicator"], "dropdown dropdown-end")}>
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
             <div className="indicator">
               <AdjustmentsHorizontalIcon width={24} height={24} />
@@ -133,7 +133,7 @@ export default function ProductFilter({
 
   return (
     <article className={styles["product-filter"]}>
-      <h4 className={clsx(lusitana.className, "text-xl")}>Filter Products</h4>
+      <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
       <form className={styles["product-filter__form"]}>
         <label htmlFor="byBrandId">Company Name</label>
         <select
@@ -217,7 +217,7 @@ export function ProductFilterSkeleton({ isIndicator = false, filteredCount = 0 }
 
   return (
     <article className={styles["product-filter-skeleton"]}>
-      <h4 className={clsx(lusitana.className, "text-xl")}>Filter Products</h4>
+      <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
       <form className={styles["product-filter-skeleton__form"]}>
         <label htmlFor="byBrandId">Company Name</label>
         <select id="byBrandId" name="byBrandId" className="select" disabled={true} />

@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 // other libraries
 import { nanoid } from "nanoid";
 import { SignJWT, jwtVerify } from "jose";
-import * as consts from "./AuthConsts";
-import { AccessTokenPayload, RefreshTokenPayload } from "./AuthTypes";
+import * as consts from "./consts";
+import { AccessTokenPayload, RefreshTokenPayload } from "./types";
 
 export class AuthError extends Error {
   constructor(

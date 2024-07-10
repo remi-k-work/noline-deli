@@ -9,7 +9,7 @@ import { getCart } from "@/features/cart/cartDb";
 import { getProductFilterData } from "@/features/search/searchDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // components
@@ -29,7 +29,7 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
   const [cart, productFilterData] = await Promise.all([getCart(), getProductFilterData()]);
 
   return (
-    <header className={clsx(styles["header"], "navbar z-30 flex-wrap gap-2")}>
+    <header className={cn(styles["header"], "navbar z-30 flex-wrap gap-2")}>
       <div className="flex-1">
         <Link href={"/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="117.213" height="64.418" viewBox="0 0 31.013 17.044">
@@ -64,7 +64,7 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
 
 export function HeaderSkeleton({ searchedCount, filteredCount }: HeaderProps) {
   return (
-    <header className={clsx(styles["header-skeleton"], "navbar z-30 flex-wrap gap-2")}>
+    <header className={cn(styles["header-skeleton"], "navbar z-30 flex-wrap gap-2")}>
       <div className="flex-1">
         <Link href={"/"}>
           <svg xmlns="http://www.w3.org/2000/svg" width="117.213" height="64.418" viewBox="0 0 31.013 17.044">

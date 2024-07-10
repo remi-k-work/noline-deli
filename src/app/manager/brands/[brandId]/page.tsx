@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getBrand } from "@/features/manager/dbBrands";
+import { getBrand } from "@/features/manager/brands/db";
 
 // other libraries
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import BrandForm from "@/features/manager/components/BrandForm";
+import BrandForm from "@/features/manager/brands/components/BrandForm";
 
 // assets
 import bannerBrands from "@/assets/manager/banner-brands.webp";

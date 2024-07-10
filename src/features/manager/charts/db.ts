@@ -4,7 +4,7 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/dbAccess";
+import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/auth/db";
 
 // types
 export interface TotalNumbersData {

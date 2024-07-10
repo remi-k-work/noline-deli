@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 import { Prisma } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
@@ -62,8 +62,8 @@ export default function CategoriesTreeView({ categories = [] }: CategoriesTreeVi
   }
 
   return (
-    <article className={clsx(styles["categories-tree-view"], "menu p-0")}>
-      <h4 className={clsx(lusitana.className, "text-xl")}>Browse by Category</h4>
+    <article className={cn(styles["categories-tree-view"], "menu p-0")}>
+      <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
       <CategoriesList categoriesList={getCategoriesTreeViewData(categories)} />
     </article>
   );
@@ -71,8 +71,8 @@ export default function CategoriesTreeView({ categories = [] }: CategoriesTreeVi
 
 export function CategoriesTreeViewSkeleton() {
   return (
-    <article className={clsx(styles["categories-tree-view-skeleton"], "menu p-0")}>
-      <h4 className={clsx(lusitana.className, "text-xl")}>Browse by Category</h4>
+    <article className={cn(styles["categories-tree-view-skeleton"], "menu p-0")}>
+      <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
     </article>
   );
 }
@@ -114,7 +114,7 @@ function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
             <Link
               href={searchParamsState.movedToNewLocation(href)}
               onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
-              className={clsx({ "font-bold text-accent": pathname === href })}
+              className={cn({ "font-bold text-accent": pathname === href })}
             >
               {label}
             </Link>
@@ -128,7 +128,7 @@ function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
           <Link
             href={searchParamsState.movedToNewLocation(href)}
             onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
-            className={clsx({ "font-bold text-accent": pathname === href })}
+            className={cn({ "font-bold text-accent": pathname === href })}
           >
             {label}
           </Link>

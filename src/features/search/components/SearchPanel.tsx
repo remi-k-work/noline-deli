@@ -10,7 +10,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import { pathToProductsSearch } from "@/features/products/helpers";
@@ -38,7 +38,7 @@ export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchP
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 
   return (
-    <label className={clsx(styles["search-panel"], !drawerToHide && "indicator", "input input-bordered")}>
+    <label className={cn(styles["search-panel"], !drawerToHide && "indicator", "input input-bordered")}>
       <input
         ref={searchRef}
         type="search"
@@ -70,7 +70,7 @@ export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchP
 
 export function SearchPanelSkeleton({ drawerToHide }: SearchPanelProps) {
   return (
-    <label className={clsx(styles["search-panel-skeleton"], !drawerToHide && "indicator", "input input-bordered")}>
+    <label className={cn(styles["search-panel-skeleton"], !drawerToHide && "indicator", "input input-bordered")}>
       <input type="search" name="search" size={15} maxLength={50} aria-label="Search" placeholder="Search" className="grow" disabled={true} />
 
       {drawerToHide ? (

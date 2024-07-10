@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Prisma } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -57,7 +57,7 @@ export default function SingleProductView({ product }: SingleProductViewProps) {
           />
         </>
       )}
-      <h2 className={clsx(lusitana.className, "text-4xl")}>{name}</h2>
+      <h2 className={cn(lusitana.className, "text-4xl")}>{name}</h2>
       <BrandTag brand={brand} />
       <p>{description}</p>
       <PriceTag priceInCents={price} />

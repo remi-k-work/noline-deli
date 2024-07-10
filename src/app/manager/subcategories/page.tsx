@@ -9,7 +9,7 @@ import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import SubCategoriesTableView from "@/features/manager/components/SubCategoriesTableView";
+import SubCategoriesTableView from "@/features/manager/subcategories/components/SubCategoriesTableView";
 
 // assets
 import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";

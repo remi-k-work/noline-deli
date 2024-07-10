@@ -5,7 +5,7 @@ import styles from "./Toastify.module.css";
 import { useEffect, useRef } from "react";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 // types
 interface ToastifyProps {
@@ -30,8 +30,8 @@ export default function Toastify({ hPos, vPos, type = "alert-info", onTimedOut, 
   }, []);
 
   return (
-    <section className={clsx(styles["toastify"], "toast", hPos, vPos)}>
-      <div className={clsx("alert", type)}>
+    <section className={cn(styles["toastify"], "toast", hPos, vPos)}>
+      <div className={cn("alert", type)}>
         <div>{children}</div>
       </div>
     </section>

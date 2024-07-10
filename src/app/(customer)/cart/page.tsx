@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { getCart } from "@/features/cart/cartDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 // components
 import NavBarDrawerContent from "@/components/NavBarDrawerContent";
@@ -28,7 +28,7 @@ export default async function Page() {
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Your Shopping Cart</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Your Shopping Cart</h1>
           {cart && cart.cartItems.length > 0 ? <CartTableView cart={cart} /> : <NotFound message={"Your cart is empty!"} />}
         </article>
       </NavBarDrawerContent>

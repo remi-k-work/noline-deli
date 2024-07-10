@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Prisma } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { TruckIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
 
@@ -37,7 +37,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
   return (
     <table className={styles["product-info"]}>
-      <thead className={clsx(lusitana.className)}>
+      <thead className={cn(lusitana.className)}>
         <tr>
           <th>Name</th>
           <th>Price</th>
@@ -54,7 +54,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </tr>
         {(categories.length > 0 || subCategories.length > 0) && (
           <>
-            <tr className={clsx(lusitana.className)}>
+            <tr className={cn(lusitana.className)}>
               <th>Category</th>
               <th>SubCategory</th>
             </tr>
@@ -78,7 +78,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         )}
         {brand && (
           <>
-            <tr className={clsx(lusitana.className)}>
+            <tr className={cn(lusitana.className)}>
               <th colSpan={2}>Brand</th>
             </tr>
             <tr>
@@ -90,7 +90,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         )}
         {moreImages.length > 0 && (
           <>
-            <tr className={clsx(lusitana.className)}>
+            <tr className={cn(lusitana.className)}>
               <th colSpan={2}>More Images</th>
             </tr>
             <tr>
@@ -112,7 +112,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             </tr>
           </>
         )}
-        <tr className={clsx(lusitana.className)}>
+        <tr className={cn(lusitana.className)}>
           <th colSpan={2}>Description</th>
         </tr>
         <tr>
@@ -122,7 +122,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </tr>
         {freeShipping && (
           <>
-            <tr className={clsx(lusitana.className)}>
+            <tr className={cn(lusitana.className)}>
               <th colSpan={2}>Other Info</th>
             </tr>
             <tr>

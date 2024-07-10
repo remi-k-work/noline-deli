@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { Product } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
@@ -68,7 +68,7 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
           </select>
         </span>
       </header>
-      <section className={clsx(styles["products-list__items"], isListMode && styles["products-list__items--list-mode"])}>
+      <section className={cn(styles["products-list__items"], isListMode && styles["products-list__items--list-mode"])}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} listMode={isListMode} />
         ))}
@@ -99,7 +99,7 @@ export function ProductsListSkeleton({ isListMode, sortBy }: ProductsListSkeleto
           </select>
         </span>
       </header>
-      <section className={clsx(styles["products-list-skeleton__items"], isListMode && styles["products-list-skeleton__items--list-mode"])}>
+      <section className={cn(styles["products-list-skeleton__items"], isListMode && styles["products-list-skeleton__items--list-mode"])}>
         <ProductCardSkeleton listMode={isListMode} />
         <ProductCardSkeleton listMode={isListMode} />
         <ProductCardSkeleton listMode={isListMode} />

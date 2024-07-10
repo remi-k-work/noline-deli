@@ -10,7 +10,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "../useSearchParamsState";
@@ -36,8 +36,8 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 
   return (
-    <section className={clsx("lg:tooltip", className)} data-tip="Search by keyword">
-      <label className={clsx(styles["search-panel"], "input input-bordered")}>
+    <section className={cn("lg:tooltip", className)} data-tip="Search by keyword">
+      <label className={cn(styles["search-panel"], "input input-bordered")}>
         <input
           ref={searchRef}
           type="search"

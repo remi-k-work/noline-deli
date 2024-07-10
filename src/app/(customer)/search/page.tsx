@@ -11,7 +11,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { searchProducts } from "@/features/search/searchDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
@@ -71,7 +71,7 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
     <>
       <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
             {getSectionTitle()} ► &quot;{keyword}&quot;
           </h1>
           <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
@@ -91,7 +91,7 @@ function PageSkeleton({ searchParamsState: { keyword, isListMode, sortBy } }: Pa
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
             {getSectionTitle()} ► &quot;{keyword}&quot;
           </h1>
           <PaginateSkeleton />

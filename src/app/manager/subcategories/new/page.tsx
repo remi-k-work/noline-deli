@@ -2,14 +2,14 @@
 import styles from "./page.module.css";
 
 // prisma and db access
-import { allCategories } from "@/features/manager/dbCategories";
+import { allCategories } from "@/features/manager/categories/db";
 
 // other libraries
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import SubCategoryForm from "@/features/manager/components/SubCategoryForm";
+import SubCategoryForm from "@/features/manager/subcategories/components/SubCategoryForm";
 
 // assets
 import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";

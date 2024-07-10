@@ -7,7 +7,7 @@ import styles from "./CartIndicator.module.css";
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { routeToCart } from "@/features/cart/helpers";
@@ -17,7 +17,7 @@ export default function CartIndicator({ cart }) {
   if (!cart || (cart && cart.cartItems.length === 0)) {
     // If the cart is not there, display the empty cart indicator nonetheless
     return (
-      <div className={clsx(styles["cart-indicator"], "dropdown dropdown-end")}>
+      <div className={cn(styles["cart-indicator"], "dropdown dropdown-end")}>
         <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
           <div className="indicator">
             <ShoppingCartIcon width={24} height={24} />
@@ -41,7 +41,7 @@ export default function CartIndicator({ cart }) {
   const { totalQty, subTotal } = cart;
 
   return (
-    <div className={clsx(styles["cart-indicator"], "dropdown dropdown-end")}>
+    <div className={cn(styles["cart-indicator"], "dropdown dropdown-end")}>
       <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
         <div className="indicator">
           <ShoppingCartIcon width={24} height={24} />

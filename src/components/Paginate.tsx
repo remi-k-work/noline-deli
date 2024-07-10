@@ -7,7 +7,7 @@ import styles from "./Paginate.module.css";
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
@@ -45,7 +45,7 @@ export default function Paginate({ itemsPerPage, totalItems }: PaginateProps) {
             const currPageHref = searchParamsState.paginationChanged(pageNumber);
 
             return pageNumber === currentPage ? (
-              <span key={pageNumber} className={clsx(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
+              <span key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
                 {pageNumber}
               </span>
             ) : (
@@ -66,16 +66,16 @@ export default function Paginate({ itemsPerPage, totalItems }: PaginateProps) {
 export function PaginateSkeleton() {
   return (
     <section className={styles["paginate"]}>
-      <div className={clsx(styles["paginate__prev"], "skeleton")}>
+      <div className={cn(styles["paginate__prev"], "skeleton")}>
         <BackwardIcon width={24} height={24} />
       </div>
       <div className={styles["paginate__pages"]}>
-        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={clsx(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
       </div>
-      <div className={clsx(styles["paginate__next"], "skeleton")}>
+      <div className={cn(styles["paginate__next"], "skeleton")}>
         <ForwardIcon width={24} height={24} />
       </div>
     </section>

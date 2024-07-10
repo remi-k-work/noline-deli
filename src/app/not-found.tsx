@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 // components
 import Layout from "./(customer)/layout";
@@ -17,7 +17,7 @@ export default function NotFound() {
     <Layout>
       <NavBarDrawerContent>
         <div className="grid h-full place-content-center">
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Not Found</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Not Found</h1>
           <p>I could not find the requested resource.</p>
           <Link href={"/"} className="link-hover link">
             Return Home

@@ -2,12 +2,12 @@
 import styles from "./NotFound.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export default function NotFound({ message }) {
   return (
-    <h2 className={clsx(styles["not-found"], "bg-error text-2xl text-error-content")} role="alert">
+    <h2 className={cn(styles["not-found"], "bg-error text-2xl text-error-content")} role="alert">
       <ExclamationTriangleIcon width={48} height={48} className="flex-none" />
       {message}
     </h2>

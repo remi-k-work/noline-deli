@@ -1,0 +1,24 @@
+.products-table-entry__product-info {
+  inline-size: 75vw;
+  inline-size: 75svw;
+  inline-size: 75dvw;
+
+  max-inline-size: var(--size-content-3);
+}
+
+.products-table-entry-image {
+  display: grid;
+  place-items: center stretch;
+
+  grid-template-columns: [inf-start] var(--size-7) [img-start] auto [img-end inf-end];
+  grid-template-rows: [inf-start img-start] auto [img-end inf-end];
+}
+
+.products-table-entry-image__link {
+  grid-area: img;
+}
+
+.products-table-entry-image__info {
+  grid-area: inf;
+  place-self: center start;
+}

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // other libraries
 import Auth from "@/features/auth/Auth";
-import { Credentials } from "@/features/auth/AuthTypes";
+import { Credentials } from "@/features/auth/types";
 import { AuthError } from "@/features/auth/AuthBase";
 
 export const dynamic = "force-dynamic";

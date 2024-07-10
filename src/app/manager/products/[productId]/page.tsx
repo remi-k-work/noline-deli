@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getProduct, getProductFormData } from "@/features/manager/dbProducts";
+import { getProduct, getProductFormData } from "@/features/manager/products/db";
 
 // other libraries
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import ProductForm from "@/features/manager/components/ProductForm";
+import ProductForm from "@/features/manager/products/components/ProductForm";
 
 // assets
 import bannerProducts from "@/assets/manager/banner-products.webp";

@@ -5,17 +5,17 @@ import styles from "./Header.module.css";
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "../PathFinder";
 
 // components
 import NavBar from "./NavBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import Logout from "./Logout";
+import Logout from "../auth/components/Logout";
 
 export default async function Header() {
   return (
-    <header className={clsx(styles["header"], "z-30 text-primary")}>
+    <header className={cn(styles["header"], "z-30 text-primary")}>
       <Link href={PathFinder.toManagerHome()}>
         <svg xmlns="http://www.w3.org/2000/svg" width="60" height="32" viewBox="0 0 31.013 17.044">
           <path

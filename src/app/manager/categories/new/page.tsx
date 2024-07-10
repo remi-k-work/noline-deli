@@ -6,7 +6,7 @@ import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import CategoryForm from "@/features/manager/components/CategoryForm";
+import CategoryForm from "@/features/manager/categories/components/CategoryForm";
 
 // assets
 import bannerCategories from "@/assets/manager/banner-categories.webp";

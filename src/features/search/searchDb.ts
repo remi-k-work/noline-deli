@@ -4,7 +4,7 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import { whereAdminApproved } from "../manager/dbAccess";
+import { whereAdminApproved } from "../manager/auth/db";
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
 export const getDashboardData = cache(async () => {

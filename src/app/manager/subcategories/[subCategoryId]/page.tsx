@@ -5,14 +5,14 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getSubCategory, allCategories } from "@/features/manager/dbCategories";
+import { getSubCategory, allCategories } from "@/features/manager/categories/db";
 
 // other libraries
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import SubCategoryForm from "@/features/manager/components/SubCategoryForm";
+import SubCategoryForm from "@/features/manager/subcategories/components/SubCategoryForm";
 
 // assets
 import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";

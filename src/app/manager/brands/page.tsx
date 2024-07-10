@@ -9,7 +9,7 @@ import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import BrandsTableView from "@/features/manager/components/BrandsTableView";
+import BrandsTableView from "@/features/manager/brands/components/BrandsTableView";
 
 // assets
 import bannerBrands from "@/assets/manager/banner-brands.webp";

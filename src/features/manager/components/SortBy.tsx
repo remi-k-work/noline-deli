@@ -7,7 +7,7 @@ import styles from "./SortBy.module.css";
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon, CurrencyDollarIcon, LanguageIcon, TagIcon } from "@heroicons/react/24/solid";
 import { SortByField, SortByOrder } from "../SearchParamsState";
 import useSearchParamsState from "../useSearchParamsState";
@@ -37,13 +37,13 @@ export default function SortBy({ sortByFields, totalItems, className }: SortByPr
   return (
     // Do not render anything if there are no items to sort
     totalItems > 0 && (
-      <section className={clsx(styles["sort-by"], "dropdown dropdown-end", className)}>
+      <section className={cn(styles["sort-by"], "dropdown dropdown-end", className)}>
         <div className="lg:tooltip" data-tip="Sort items">
           <div tabIndex={0} role="button" className="p-2">
             <SortByIcon sortByField={sortByField} sortByOrder={sortByOrder} />
           </div>
         </div>
-        <div tabIndex={0} className={clsx(styles["sort-by__choices"], "dropdown-content")}>
+        <div tabIndex={0} className={cn(styles["sort-by__choices"], "dropdown-content")}>
           {sortByFields.includes("id") && (
             <>
               <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" />
@@ -83,7 +83,7 @@ function SortByLink({ newSortByField, newSortByOrder, description }: SortByLinkP
   const searchParamsState = useSearchParamsState();
 
   return searchParamsState.isSortBySelected(newSortByField, newSortByOrder) ? (
-    <div className={clsx(styles["sort-by__choice"], styles["sort-by__choice--current"])}>
+    <div className={cn(styles["sort-by__choice"], styles["sort-by__choice--current"])}>
       <SortByIcon sortByField={newSortByField} sortByOrder={newSortByOrder} />
       {description}
     </div>

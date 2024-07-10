@@ -2,9 +2,9 @@
 import styles from "./PriceTag.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 
 export default function PriceTag({ priceInCents }) {
-  return <span className={clsx(styles["price-tag"], "badge")}>{formatPrice(priceInCents)}</span>;
+  return <span className={cn(styles["price-tag"], "badge")}>{formatPrice(priceInCents)}</span>;
 }

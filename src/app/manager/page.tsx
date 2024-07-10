@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -26,7 +26,7 @@ export default async function Page() {
     <article className={styles["page"]}>
       <SectionHero heroBanner={bannerManager} sectionTitle={"Home"} />
       <article className={styles["dashboard"]}>
-        <h4 className={clsx(lusitana.className, "text-xl")}>Choose the Section to Manage</h4>
+        <h4 className={cn(lusitana.className, "text-xl")}>Choose the Section to Manage</h4>
         <ul className={styles["dashboard__main-menu"]}>
           <li>
             <SectionLink linkBanner={bannerCharts} sectionTitle={"Charts"} sectionLink={PathFinder.toAllCharts()} />

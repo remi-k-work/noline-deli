@@ -13,7 +13,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { allProductsByBrand, getBrand } from "@/features/products/productsDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "@/features/manager/PathFinder";
 import SearchParamsState from "@/lib/SearchParamsState";
 
@@ -89,7 +89,7 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
     <>
       <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
           {logoUrl && (
             <header className="mb-4">
               <Image
@@ -120,7 +120,7 @@ function PageSkeleton({ brandName, searchParamsState: { isListMode, sortBy } }: 
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
           <header className="mb-4">
             <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
           </header>

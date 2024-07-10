@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { routeToProductDetails } from "@/features/products/helpers";
 import { TruckIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
@@ -30,7 +30,7 @@ export default function ProductCard({ product, listMode = false }) {
   const isNew = Date.now() - new Date(createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;
 
   return listMode ? (
-    <article className={clsx(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
+    <article className={cn(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
       <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-start z-10">NEW</span>}
@@ -43,7 +43,7 @@ export default function ProductCard({ product, listMode = false }) {
           )}
         </figure>
         <div className="card-body">
-          <h2 className={clsx(lusitana.className, "card-title text-2xl")}>{name}</h2>
+          <h2 className={cn(lusitana.className, "card-title text-2xl")}>{name}</h2>
           <p>{description.substring(0, 250)}...</p>
           <div className="card-actions justify-end">
             <PriceTag priceInCents={price} />
@@ -52,7 +52,7 @@ export default function ProductCard({ product, listMode = false }) {
       </Link>
     </article>
   ) : (
-    <article className={clsx(styles["product-card"], "indicator")}>
+    <article className={cn(styles["product-card"], "indicator")}>
       <Link href={routeToProductDetails(name, id)} className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
@@ -72,7 +72,7 @@ export default function ProductCard({ product, listMode = false }) {
           )}
         </figure>
         <div className="card-body">
-          <h2 className={clsx(lusitana.className, "card-title text-lg")}>{name}</h2>
+          <h2 className={cn(lusitana.className, "card-title text-lg")}>{name}</h2>
           <div className="card-actions justify-end">
             <PriceTag priceInCents={price} />
           </div>
@@ -84,7 +84,7 @@ export default function ProductCard({ product, listMode = false }) {
 
 export function ProductCardSkeleton({ listMode = false }) {
   return listMode ? (
-    <article className={clsx(styles["product-card-skeleton"], styles["product-card-skeleton--list-mode"])}>
+    <article className={cn(styles["product-card-skeleton"], styles["product-card-skeleton--list-mode"])}>
       <div className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           <div className="skeleton h-72 w-72 rounded-lg"></div>
@@ -104,7 +104,7 @@ export function ProductCardSkeleton({ listMode = false }) {
       </div>
     </article>
   ) : (
-    <article className={clsx(styles["product-card-skeleton"])}>
+    <article className={cn(styles["product-card-skeleton"])}>
       <div className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           <div className="skeleton h-36 w-36 rounded-lg"></div>

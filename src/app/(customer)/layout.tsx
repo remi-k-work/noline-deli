@@ -2,11 +2,11 @@
 import styles from "./layout.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={clsx(styles["layout"], "drawer lg:drawer-open")}>
+    <div className={cn(styles["layout"], "drawer lg:drawer-open")}>
       <input id="navBar" type="checkbox" className="drawer-toggle" />
       {children}
     </div>

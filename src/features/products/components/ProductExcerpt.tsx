@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Prisma } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import { routeToProductDetails } from "@/features/products/helpers";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -39,13 +39,13 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
       <div className={styles["product-excerpt__background"]}></div>
       <Link
         href={routeToProductDetails(name, id)}
-        className={clsx(styles["product-excerpt__image"], "z-10 transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
+        className={cn(styles["product-excerpt__image"], "z-10 transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
       >
         <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-36 w-auto object-cover" />
       </Link>
-      <div className={clsx(styles["product-excerpt__price"], "z-10")}>{formatPrice(price)}</div>
-      <h2 className={clsx(styles["product-excerpt__name"], "z-10")}>{name}</h2>
-      <div className={clsx(styles["product-excerpt__more-info"], "collapse collapse-plus")}>
+      <div className={cn(styles["product-excerpt__price"], "z-10")}>{formatPrice(price)}</div>
+      <h2 className={cn(styles["product-excerpt__name"], "z-10")}>{name}</h2>
+      <div className={cn(styles["product-excerpt__more-info"], "collapse collapse-plus")}>
         <input type="checkbox" name="moreInfo" />
         <div className="collapse-title text-end text-2xl">
           <button type="button" className="btn btn-circle btn-info">

@@ -10,7 +10,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
 
@@ -38,7 +38,7 @@ export default function ImageSlider({ productName, moreImages = [] }) {
       <ArrowLeftCircleIcon
         width={24}
         height={24}
-        className={clsx(styles["image-slider__arrow"], styles["image-slider__arrow--left"])}
+        className={cn(styles["image-slider__arrow"], styles["image-slider__arrow--left"])}
         onClick={handlePrevSlideClicked}
       />
       {moreImages.map(({ imageUrl }, slideIndex) =>
@@ -68,13 +68,13 @@ export default function ImageSlider({ productName, moreImages = [] }) {
       <ArrowRightCircleIcon
         width={24}
         height={24}
-        className={clsx(styles["image-slider__arrow"], styles["image-slider__arrow--right"])}
+        className={cn(styles["image-slider__arrow"], styles["image-slider__arrow--right"])}
         onClick={handleNextSlideClicked}
       />
       <footer className={styles["image-slider__indicators"]}>
         {moreImages.map((_, slideIndex) =>
           currentSlide === slideIndex ? (
-            <span key={slideIndex} className={clsx(styles["image-slider-indicator"], styles["image-slider-indicator--current"])} />
+            <span key={slideIndex} className={cn(styles["image-slider-indicator"], styles["image-slider-indicator--current"])} />
           ) : (
             <span key={slideIndex} className={styles["image-slider-indicator"]} onClick={() => setCurrentSlide(slideIndex)} />
           ),

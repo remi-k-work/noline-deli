@@ -12,7 +12,7 @@ import { Product } from "@prisma/client";
 import { allProductsByCategory, allProductsByCategoryAndSubCategory, allProductsWithPagination } from "@/features/products/productsDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
@@ -115,7 +115,7 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
     <>
       <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
           <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
           <br />
           {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
@@ -133,7 +133,7 @@ function PageSkeleton({ categories, searchParamsState: { isListMode, sortBy } }:
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
           <PaginateSkeleton />
           <br />
           <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />

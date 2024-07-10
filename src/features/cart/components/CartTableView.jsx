@@ -2,7 +2,7 @@
 import styles from "./CartTableView.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 
 // components
@@ -22,7 +22,7 @@ export default function CartTableView({ cart }) {
 
   return (
     <table className={styles["cart-table-view"]}>
-      <thead className={clsx(lusitana.className)}>
+      <thead className={cn(lusitana.className)}>
         <tr>
           <th>Item</th>
           <th>Qty</th>
@@ -37,16 +37,16 @@ export default function CartTableView({ cart }) {
       </tbody>
       <tfoot>
         <tr>
-          <th className={clsx(lusitana.className, "text-end text-xl")}>Qty:</th>
-          <td className={clsx(lusitana.className, "text-xl font-bold")}>{totalQty}</td>
+          <th className={cn(lusitana.className, "text-end text-xl")}>Qty:</th>
+          <td className={cn(lusitana.className, "text-xl font-bold")}>{totalQty}</td>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <th colSpan={2} className={clsx(lusitana.className, "text-end text-xl")}>
+          <th colSpan={2} className={cn(lusitana.className, "text-end text-xl")}>
             Subtotal:
           </th>
-          <td className={clsx(lusitana.className, styles["cart-table-view__subtotal"], "text-xl font-bold")}>{formatPrice(subTotal)}</td>
+          <td className={cn(lusitana.className, styles["cart-table-view__subtotal"], "text-xl font-bold")}>{formatPrice(subTotal)}</td>
           <td>&nbsp;</td>
         </tr>
       </tfoot>

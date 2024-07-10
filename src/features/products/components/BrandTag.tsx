@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { routeToAllProductsByBrand } from "@/features/products/helpers";
 import PathFinder from "@/features/manager/PathFinder";
 
@@ -30,7 +30,7 @@ export default function BrandTag({ brand, isCompact = false }: BrandTagProps) {
 
   return isCompact ? (
     <section className={styles["brand-tag"]}>
-      <header className={clsx(styles["brand-tag__name"], "flex-1")}>{name}</header>
+      <header className={cn(styles["brand-tag__name"], "flex-1")}>{name}</header>
       <Link href={routeToAllProductsByBrand(name, id)} className="flex-none transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <Image src={PathFinder.toResolvedBrandLogo(logoUrl)} width={320} height={200} alt={name} sizes="50vw" className="max-h-16 w-auto object-contain" />
@@ -40,7 +40,7 @@ export default function BrandTag({ brand, isCompact = false }: BrandTagProps) {
   ) : (
     <section className={styles["brand-tag"]}>
       <header className="flex-1">Brand:</header>
-      <footer className={clsx(styles["brand-tag__name"], "flex-none")}>{name}</footer>
+      <footer className={cn(styles["brand-tag__name"], "flex-none")}>{name}</footer>
       <Link href={routeToAllProductsByBrand(name, id)} className="flex-none transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <Image src={PathFinder.toResolvedBrandLogo(logoUrl)} width={320} height={200} alt={name} sizes="50vw" className="max-h-16 w-auto object-contain" />

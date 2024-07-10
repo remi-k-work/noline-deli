@@ -5,7 +5,7 @@ import styles from "./FormControls.module.css";
 import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import { RefCallBack } from "react-hook-form";
 import { AllFieldErrors } from "../FormSchemaBase";
@@ -48,7 +48,7 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allF
         id={fieldName}
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={clsx("input", className)}
+        className={cn("input", className)}
         // Hook up with the react hook form
         onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
         onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
@@ -72,7 +72,7 @@ export function FormCheckField({ fieldName, allFieldErrors, children, className,
           id={fieldName}
           name={fieldName}
           aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-          className={clsx("checkbox", className)}
+          className={cn("checkbox", className)}
           // Hook up with the react hook form
           onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
           onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
@@ -95,7 +95,7 @@ export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className,
         id={fieldName}
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={clsx("textarea", className)}
+        className={cn("textarea", className)}
         // Hook up with the react hook form
         onChange={handleChange as ChangeEventHandler<HTMLTextAreaElement>}
         onBlur={handleBlur as FocusEventHandler<HTMLTextAreaElement>}
@@ -117,7 +117,7 @@ export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, childre
         id={fieldName}
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={clsx("select", className)}
+        className={cn("select", className)}
         // Hook up with the react hook form
         onChange={handleChange as ChangeEventHandler<HTMLSelectElement>}
         onBlur={handleBlur as FocusEventHandler<HTMLSelectElement>}
@@ -144,7 +144,7 @@ export function FormOutputField({ outputFor, fieldName, fieldLabel, children, cl
 
 export function ErrorMessage({ fieldErrors }: ErrorMessageProps) {
   return fieldErrors?.map((fieldError, errorIndex) => (
-    <p key={errorIndex} role="alert" className={clsx(styles["error-message"], "bg-error text-error-content")}>
+    <p key={errorIndex} role="alert" className={cn(styles["error-message"], "bg-error text-error-content")}>
       <ExclamationTriangleIcon width={24} height={24} className="flex-none" />
       {fieldError}
     </p>

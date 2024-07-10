@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import LoginForm from "@/features/manager/components/LoginForm";
+import LoginForm from "@/features/manager/auth/components/LoginForm";
 
 // assets
 import bannerLogin from "@/assets/manager/banner-login.webp";

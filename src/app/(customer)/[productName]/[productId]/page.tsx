@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import { getProduct } from "@/features/products/productsDb";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -87,7 +87,7 @@ async function PageSuspense({ productName, productId }: PageSuspenseProps) {
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
           <SingleProductView product={product} />
         </article>
       </NavBarDrawerContent>
@@ -101,7 +101,7 @@ function PageSkeleton({ productName }: PageSkeletonProps) {
     <>
       <NavBarDrawerContent>
         <article className={styles["page"]}>
-          <h1 className={clsx(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
           <SingleProductViewSkeleton />
         </article>
       </NavBarDrawerContent>

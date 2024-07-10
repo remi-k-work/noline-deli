@@ -12,7 +12,7 @@ import "open-props/masks/corner-cuts";
 import styles from "./layout.module.css";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 // assets
 import { inter } from "@/assets/fonts";
@@ -27,7 +27,7 @@ export const metadata = {
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, styles["layout"])}>{children}</body>
+      <body className={cn(inter.className, styles["layout"])}>{children}</body>
     </html>
   );
 }

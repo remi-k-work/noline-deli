@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import PathFinder from "../PathFinder";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
@@ -32,7 +32,7 @@ export default function NavBar() {
 }
 
 function NavLink({ isActive = false, activeClass, className, ...props }: NavLinkProps) {
-  return <Link {...props} className={clsx(className, isActive && activeClass)} onClick={() => (document.activeElement as HTMLElement)?.blur()} />;
+  return <Link {...props} className={cn(className, isActive && activeClass)} onClick={() => (document.activeElement as HTMLElement)?.blur()} />;
 }
 
 function NavTabs() {

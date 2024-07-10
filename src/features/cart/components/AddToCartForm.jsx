@@ -11,7 +11,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { addToCart } from "@/features/cart/cartActions";
 
 // other libraries
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { ShoppingCartIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 export default function AddToCartForm({ productId }) {
@@ -54,7 +54,7 @@ function AddToCartButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" className={clsx(styles["add-to-cart-button"], "btn btn-primary")} disabled={pending}>
+    <button type="submit" className={cn(styles["add-to-cart-button"], "btn btn-primary")} disabled={pending}>
       {pending ? (
         <>
           <span className="loading loading-spinner"></span>
