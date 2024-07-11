@@ -11,6 +11,10 @@ import { cn } from "@/lib/utils";
 import { BackwardIcon, CheckIcon, ForwardIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "../useSearchParamsState";
 
+// components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
 // types
 interface PaginateProps {
   itemsPerPage: number;
@@ -39,41 +43,58 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
     // Do not render anything if there are no items to display
     totalItems > 0 && (
       <section className={cn(styles["paginate"], className)}>
-        <div className="lg:tooltip" data-tip="Previous page">
-          <Link href={prevPageHref} className={styles["paginate__prev"]}>
-            <BackwardIcon width={24} height={24} />
-          </Link>
-        </div>
-        <div className={cn(styles["paginate__curr"], "dropdown dropdown-end")}>
-          <div className="lg:tooltip" data-tip="Change page">
-            <div tabIndex={0} role="button" className="min-w-16 p-2 text-center">
-              {currentPage}&nbsp;/&nbsp;{totalPages}
-            </div>
-          </div>
-          <ul tabIndex={0} className={cn(styles["paginate__pages"], "dropdown-content")}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href={prevPageHref} className={styles["paginate__prev"]}>
+              <BackwardIcon width={24} height={24} />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Previous page</p>
+          </TooltipContent>
+        </Tooltip>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className={cn(styles["paginate__curr"], "min-w-16 p-2 text-center")}>
+                  {currentPage}&nbsp;/&nbsp;{totalPages}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Change page</p>
+              </TooltipContent>
+            </Tooltip>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className={styles["paginate__pages"]}>
             {pageNumbers.map((pageNumber) => {
               const currPageHref = searchParamsState.paginationChanged(pageNumber);
 
               return pageNumber === currentPage ? (
-                <li key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
+                <DropdownMenuItem key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
                   {pageNumber}
                   <CheckIcon width={24} height={24} />
-                </li>
+                </DropdownMenuItem>
               ) : (
-                <li key={pageNumber} className={styles["paginate__page-number"]}>
+                <DropdownMenuItem key={pageNumber} className={styles["paginate__page-number"]}>
                   <Link href={currPageHref} className="block w-full">
                     {pageNumber}
                   </Link>
-                </li>
+                </DropdownMenuItem>
               );
             })}
-          </ul>
-        </div>
-        <div className="lg:tooltip" data-tip="Next page">
-          <Link href={nextPageHref} className={styles["paginate__next"]}>
-            <ForwardIcon width={24} height={24} />
-          </Link>
-        </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href={nextPageHref} className={styles["paginate__next"]}>
+              <ForwardIcon width={24} height={24} />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Next page</p>
+          </TooltipContent>
+        </Tooltip>
       </section>
     )
   );

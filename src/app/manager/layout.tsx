@@ -5,6 +5,7 @@ import styles from "./layout.module.css";
 import { cn } from "@/lib/utils";
 
 // components
+import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/features/manager/components/Header";
 import Footer from "@/features/manager/components/Footer";
 
@@ -12,7 +13,9 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <section className={cn(styles["layout"], "bg-base-100")}>
       <Header />
-      <main className={styles["layout__main"]}>{children}</main>
+      <main className={styles["layout__main"]}>
+        <TooltipProvider>{children}</TooltipProvider>
+      </main>
       <Footer />
     </section>
   );

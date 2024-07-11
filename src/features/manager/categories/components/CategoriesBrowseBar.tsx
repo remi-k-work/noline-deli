@@ -10,6 +10,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 
 // components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SearchPanel from "../../components/SearchPanel";
 import SortBy from "../../components/SortBy";
 import Paginate from "../../components/Paginate";
@@ -33,11 +34,16 @@ export default async function CategoriesBrowseBar({ itemsPerPage, totalItems }: 
       <SortBy sortByFields={["id", "name"]} totalItems={totalItems} className={styles["categories-browse-bar__sort-by"]} />
       <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} className={styles["categories-browse-bar__paginate"]} />
       <footer className={styles["categories-browse-bar__new-category"]}>
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Create a new category">
-          <Link href={PathFinder.toCategoryNew()} className="btn btn-circle">
-            <PlusCircleIcon width={24} height={24} />
-          </Link>
-        </div>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href={PathFinder.toCategoryNew()} className="btn btn-circle">
+              <PlusCircleIcon width={24} height={24} />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Create a new category</p>
+          </TooltipContent>
+        </Tooltip>
       </footer>
     </section>
   );

@@ -1,8 +1,5 @@
 "use client";
 
-// component css styles
-import styles from "./CategoriesTableActions.module.css";
-
 // react
 import { useRef, useState, useTransition } from "react";
 
@@ -14,12 +11,13 @@ import { useRouter } from "next/navigation";
 import { delCategory } from "../actions";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 import { CategoryFormState } from "../CategoryFormSchema";
 
 // components
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { CategoriesTableFeedback } from "./CategoryFormFeedback";
 
@@ -50,27 +48,35 @@ export default function CategoriesTableActions({ categoryId, categoryName }: Cat
 
   return (
     <>
-      <div className="dropdown dropdown-left">
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Perform actions with this category">
-          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-            {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
-          </div>
-        </div>
-        <ul tabIndex={0} className={cn(styles["categories-table-actions"], "dropdown-content -translate-y-1/4")}>
-          <li>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="btn btn-circle btn-ghost">
+                {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Perform actions with this category</p>
+            </TooltipContent>
+          </Tooltip>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent side="left">
+          <DropdownMenuLabel>Choose an Action</DropdownMenuLabel>
+          <DropdownMenuItem>
             <Link href={PathFinder.toCategoryEdit(categoryId)} className="btn btn-block">
               <PencilIcon width={24} height={24} />
               Edit
             </Link>
-          </li>
-          <li>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <button type="button" className="btn btn-warning btn-block" disabled={isPending} onClick={() => confirmDialogRef.current?.showModal()}>
               <TrashIcon width={24} height={24} />
               Delete
             </button>
-          </li>
-        </ul>
-      </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-error">remove</b> this category?

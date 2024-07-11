@@ -15,6 +15,9 @@ import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "../useSearchParamsState";
 
+// components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
 // types
 interface SearchPanelProps {
   className?: string;
@@ -36,22 +39,27 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 
   return (
-    <section className={cn("lg:tooltip", className)} data-tip="Search by keyword">
-      <label className={cn(styles["search-panel"], "input input-bordered")}>
-        <input
-          ref={searchRef}
-          type="search"
-          name="search"
-          size={15}
-          maxLength={50}
-          aria-label="Search"
-          placeholder="Search"
-          className="grow"
-          defaultValue={keyword}
-          onChange={(ev) => handleSearch(ev.target.value)}
-        />
-        <MagnifyingGlassCircleIcon width={24} height={24} />
-      </label>
-    </section>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <label className={cn(styles["search-panel"], className, "input input-bordered")}>
+          <input
+            ref={searchRef}
+            type="search"
+            name="search"
+            size={15}
+            maxLength={50}
+            aria-label="Search"
+            placeholder="Search"
+            className="grow"
+            defaultValue={keyword}
+            onChange={(ev) => handleSearch(ev.target.value)}
+          />
+          <MagnifyingGlassCircleIcon width={24} height={24} />
+        </label>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Search by keyword</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
