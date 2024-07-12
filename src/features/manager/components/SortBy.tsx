@@ -3,6 +3,9 @@
 // component css styles
 import styles from "./SortBy.module.css";
 
+// react
+import { Dispatch, SetStateAction, useState } from "react";
+
 // next
 import Link from "next/link";
 
@@ -32,17 +35,21 @@ interface SortByLinkProps {
   newSortByField: SortByField;
   newSortByOrder: SortByOrder;
   description: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SortBy({ sortByFields, totalItems, className }: SortByProps) {
   const searchParamsState = useSearchParamsState();
   const { sortByField, sortByOrder } = searchParamsState;
 
+  // The controlled open state of the drop-down menu
+  const [open, setOpen] = useState(false);
+
   return (
     // Do not render anything if there are no items to sort
     totalItems > 0 && (
       <section className={cn(styles["sort-by"], className)}>
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -58,20 +65,20 @@ export default function SortBy({ sortByFields, totalItems, className }: SortByPr
           <DropdownMenuContent className={styles["sort-by__choices"]}>
             {sortByFields.includes("id") && (
               <>
-                <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" />
-                <SortByLink newSortByField="id" newSortByOrder="desc" description="Newest item first" />
+                <SortByLink newSortByField="id" newSortByOrder="asc" description="Oldest item first" setOpen={setOpen} />
+                <SortByLink newSortByField="id" newSortByOrder="desc" description="Newest item first" setOpen={setOpen} />
               </>
             )}
             {sortByFields.includes("price") && (
               <>
-                <SortByLink newSortByField="price" newSortByOrder="asc" description="Least expensive first" />
-                <SortByLink newSortByField="price" newSortByOrder="desc" description="Most expensive first" />
+                <SortByLink newSortByField="price" newSortByOrder="asc" description="Least expensive first" setOpen={setOpen} />
+                <SortByLink newSortByField="price" newSortByOrder="desc" description="Most expensive first" setOpen={setOpen} />
               </>
             )}
             {sortByFields.includes("name") && (
               <>
-                <SortByLink newSortByField="name" newSortByOrder="asc" description="By name from A to Z" />
-                <SortByLink newSortByField="name" newSortByOrder="desc" description="By name from Z to A" />
+                <SortByLink newSortByField="name" newSortByOrder="asc" description="By name from A to Z" setOpen={setOpen} />
+                <SortByLink newSortByField="name" newSortByOrder="desc" description="By name from Z to A" setOpen={setOpen} />
               </>
             )}
           </DropdownMenuContent>
@@ -92,7 +99,7 @@ function SortByIcon({ sortByField, sortByOrder }: SortByIconProps) {
   );
 }
 
-function SortByLink({ newSortByField, newSortByOrder, description }: SortByLinkProps) {
+function SortByLink({ newSortByField, newSortByOrder, description, setOpen }: SortByLinkProps) {
   const searchParamsState = useSearchParamsState();
 
   return searchParamsState.isSortBySelected(newSortByField, newSortByOrder) ? (
@@ -102,7 +109,11 @@ function SortByLink({ newSortByField, newSortByOrder, description }: SortByLinkP
     </DropdownMenuItem>
   ) : (
     <DropdownMenuItem className={styles["sort-by__choice"]}>
-      <Link href={searchParamsState.sortByChanged(newSortByField, newSortByOrder)} className="flex w-full items-center justify-between">
+      <Link
+        href={searchParamsState.sortByChanged(newSortByField, newSortByOrder)}
+        className="flex w-full items-center justify-between"
+        onClick={() => setOpen(false)}
+      >
         <SortByIcon sortByField={newSortByField} sortByOrder={newSortByOrder} />
         {description}
       </Link>

@@ -3,6 +3,9 @@
 // component css styles
 import styles from "./BrowseByCategory.module.css";
 
+// react
+import { useState } from "react";
+
 // next
 import Link from "next/link";
 
@@ -12,6 +15,20 @@ import { CategoryWithSubCategory } from "../../categories/db";
 // other libraries
 import { cn } from "@/lib/utils";
 import useSearchParamsState from "../../useSearchParamsState";
+
+// components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // types
 interface BrowseByCategoryProps {
@@ -27,56 +44,83 @@ interface BrowseByContextProps {
 export default function BrowseByCategory({ categories, totalItems, className }: BrowseByCategoryProps) {
   const searchParamsState = useSearchParamsState();
 
+  // The controlled open state of the drop-down menu
+  const [open, setOpen] = useState(false);
+
   return (
     <section className={cn(styles["browse-by-category"], className)}>
       <header className={styles["browse-by-category__total"]}>
         <span className="badge badge-info">{totalItems}</span>
       </header>
-      <footer className={cn(styles["browse-by-category__context"], "dropdown lg:tooltip")} data-tip="View all items by category and subcategory">
-        {/* This is the "trigger" for a dropdown, and we need to style it so that it takes up the entire container */}
-        <div tabIndex={0} role="button" className="h-full p-2 text-start">
-          <BrowseByContext categories={categories} />
-        </div>
-        <ul tabIndex={0} className={cn(styles["browse-by-category__dropdown-content"], "menu dropdown-content bg-base-200")}>
-          <li>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger className={cn(styles["browse-by-category__context"])}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <footer>
+                <BrowseByContext categories={categories} />
+              </footer>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>View all items by category and subcategory</p>
+            </TooltipContent>
+          </Tooltip>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className={styles["browse-by-category__dropdown-content"]}>
+          <DropdownMenuItem>
             <Link
               href={searchParamsState.browseByCategoryChanged()}
-              onClick={() => (document.activeElement as HTMLElement)?.blur()}
-              className={cn({ "font-bold text-accent": searchParamsState.isNoCategorySelected && !searchParamsState.isSearchMode })}
+              className={cn({ "font-bold": searchParamsState.isNoCategorySelected && !searchParamsState.isSearchMode }, "block w-full")}
+              onClick={() => setOpen(false)}
             >
               All Products
             </Link>
-          </li>
-          {categories.map(({ id: categoryId, name, subCategories }) => (
-            <li key={categoryId}>
-              <details open>
-                <summary>
-                  <Link
-                    href={searchParamsState.browseByCategoryChanged(categoryId)}
-                    onClick={() => (document.activeElement as HTMLElement)?.blur()}
-                    className={cn({ "font-bold text-accent": searchParamsState.isCategorySelected(categoryId) })}
-                  >
-                    {name}
-                  </Link>
-                </summary>
-                <ul>
-                  {subCategories.map(({ id: subCategoryId, name }) => (
-                    <li key={subCategoryId}>
+          </DropdownMenuItem>
+          {categories.map(({ id: categoryId, name, subCategories }) =>
+            subCategories.length === 0 ? (
+              <DropdownMenuItem key={categoryId}>
+                <Link
+                  href={searchParamsState.browseByCategoryChanged(categoryId)}
+                  className={cn({ "font-bold": searchParamsState.isCategorySelected(categoryId) }, "block w-full")}
+                  onClick={() => setOpen(false)}
+                >
+                  {name}
+                </Link>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuSub key={categoryId}>
+                <DropdownMenuSubTrigger>
+                  <span className={cn({ "font-bold": searchParamsState.isCategorySelected(categoryId) })}>{name}</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>
                       <Link
-                        href={searchParamsState.browseByCategoryChanged(categoryId, subCategoryId)}
-                        onClick={() => (document.activeElement as HTMLElement)?.blur()}
-                        className={cn({ "font-bold text-accent": searchParamsState.isSubCategorySelected(subCategoryId) })}
+                        href={searchParamsState.browseByCategoryChanged(categoryId)}
+                        className={cn({ "font-bold": searchParamsState.isCategorySelected(categoryId) }, "block w-full")}
+                        onClick={() => setOpen(false)}
                       >
                         {name}
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            </li>
-          ))}
-        </ul>
-      </footer>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    {subCategories.map(({ id: subCategoryId, name }) => (
+                      <DropdownMenuItem key={subCategoryId}>
+                        <Link
+                          href={searchParamsState.browseByCategoryChanged(categoryId, subCategoryId)}
+                          className={cn({ "font-bold": searchParamsState.isSubCategorySelected(subCategoryId) }, "block w-full")}
+                          onClick={() => setOpen(false)}
+                        >
+                          {name}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+            ),
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </section>
   );
 }

@@ -3,6 +3,9 @@
 // component css styles
 import styles from "./Paginate.module.css";
 
+// react
+import { useState } from "react";
+
 // next
 import Link from "next/link";
 
@@ -24,6 +27,10 @@ interface PaginateProps {
 
 export default function Paginate({ itemsPerPage, totalItems, className }: PaginateProps) {
   const searchParamsState = useSearchParamsState();
+
+  // The controlled open state of the drop-down menu
+  const [open, setOpen] = useState(false);
+
   const { currentPage = 1 } = searchParamsState;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -53,7 +60,7 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
             <p>Previous page</p>
           </TooltipContent>
         </Tooltip>
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -77,7 +84,7 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
                 </DropdownMenuItem>
               ) : (
                 <DropdownMenuItem key={pageNumber} className={styles["paginate__page-number"]}>
-                  <Link href={currPageHref} className="block w-full">
+                  <Link href={currPageHref} className="block w-full" onClick={() => setOpen(false)}>
                     {pageNumber}
                   </Link>
                 </DropdownMenuItem>

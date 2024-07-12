@@ -19,20 +19,18 @@
 
 .browse-by-category__context {
   grid-area: ctx;
+
+  padding-inline: var(--size-2);
+  text-align: start;
 }
 
 .browse-by-category__dropdown-content {
-  inline-size: 75vw;
-  inline-size: 75svw;
-  inline-size: 75dvw;
-  max-inline-size: var(--size-content-3);
+  background: var(--surface-2);
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
 
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
-
-  z-index: 10;
 }
 
 /* || MEDIA QUERIES */
