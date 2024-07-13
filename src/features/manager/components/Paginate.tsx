@@ -61,12 +61,12 @@ export default function Paginate({ itemsPerPage, totalItems, className }: Pagina
           </TooltipContent>
         </Tooltip>
         <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className={styles["paginate__curr"]}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className={cn(styles["paginate__curr"], "min-w-16 p-2 text-center")}>
+                <header>
                   {currentPage}&nbsp;/&nbsp;{totalPages}
-                </div>
+                </header>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Change page</p>

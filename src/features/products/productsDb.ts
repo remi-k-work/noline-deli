@@ -6,13 +6,23 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { whereAdminApproved } from "../manager/auth/db";
 
+// types
+export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
+
+export const INCLUDE_PRODUCT_WITH_ALL = {
+  categories: { include: { category: true } },
+  subCategories: { include: { subCategory: true } },
+  moreImages: true,
+  brand: true,
+} satisfies Prisma.ProductInclude;
+
 // Get all the information you need about this particular product
 export const getProduct = cache((productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
   const product = prisma.product.findUnique({
     where: { ...whereAdminApproved<Prisma.ProductWhereUniqueInput>(), id: productId },
-    include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+    include: INCLUDE_PRODUCT_WITH_ALL,
   });
 
   // The concept is that the user's content will eventually be integrated with live and published content and made only available to the user on their computer

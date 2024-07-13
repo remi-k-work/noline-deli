@@ -5,6 +5,7 @@ import { cache } from "react";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { whereAdminApproved } from "../manager/auth/db";
+import { INCLUDE_PRODUCT_WITH_ALL } from "../products/productsDb";
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
 export const getDashboardData = cache(async () => {
@@ -12,7 +13,7 @@ export const getDashboardData = cache(async () => {
   const [allProducts, allBrands] = await Promise.all([
     prisma.product.findMany({
       where: { ...whereAdminApproved<Prisma.ProductWhereInput>() },
-      include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
+      include: INCLUDE_PRODUCT_WITH_ALL,
     }),
     prisma.brand.findMany({ where: { ...whereAdminApproved<Prisma.BrandWhereInput>() } }),
   ]);

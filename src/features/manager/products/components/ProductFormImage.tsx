@@ -26,9 +26,8 @@ interface ProductFormImageProps {
   allFieldErrors?: AllFieldErrors;
 }
 
-// eslint-disable-next-line react/display-name
 const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
-  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors }: ProductFormImageProps, ref) => {
+  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors, ...props }: ProductFormImageProps, ref) => {
     const [currImageUrl, setCurrImageUrl] = useState(imageUrl);
     const [imageSrc, setImageSrc] = useState(PathFinder.toProductImage(imageUrl));
     const defImageSrc = useDeferredValue(imageSrc);
@@ -42,7 +41,7 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
     }, [imageUrl]);
 
     return (
-      <section ref={ref} className={styles["product-form-image"]}>
+      <section ref={ref} className={styles["product-form-image"]} {...props}>
         <header className={styles["product-form-image__image"]}>
           <FormOutputField outputFor={fieldName} fieldName={`${fieldName}Preview`} fieldLabel={`${fieldLabel} preview`}>
             {defImageSrc ? (
@@ -98,5 +97,6 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
     );
   },
 );
+ProductFormImage.displayName = "ProductFormImage";
 
 export default ProductFormImage;

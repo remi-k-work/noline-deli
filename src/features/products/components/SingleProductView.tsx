@@ -5,7 +5,7 @@ import styles from "./SingleProductView.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { ProductWithAll } from "../productsDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -22,9 +22,7 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface SingleProductViewProps {
-  product: Prisma.ProductGetPayload<{
-    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
-  }>;
+  product: ProductWithAll;
 }
 
 export default function SingleProductView({ product }: SingleProductViewProps) {

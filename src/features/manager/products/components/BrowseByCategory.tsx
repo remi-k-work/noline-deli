@@ -4,7 +4,7 @@
 import styles from "./BrowseByCategory.module.css";
 
 // react
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 // next
 import Link from "next/link";
@@ -53,12 +53,10 @@ export default function BrowseByCategory({ categories, totalItems, className }: 
         <span className="badge badge-info">{totalItems}</span>
       </header>
       <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger className={cn(styles["browse-by-category__context"])}>
+        <DropdownMenuTrigger className={styles["browse-by-category__context"]}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <footer>
-                <BrowseByContext categories={categories} />
-              </footer>
+              <BrowseByContext categories={categories} />
             </TooltipTrigger>
             <TooltipContent>
               <p>View all items by category and subcategory</p>
@@ -125,14 +123,14 @@ export default function BrowseByCategory({ categories, totalItems, className }: 
   );
 }
 
-function BrowseByContext({ categories }: BrowseByContextProps) {
+const BrowseByContext = forwardRef<HTMLElement, BrowseByContextProps>(({ categories, ...props }: BrowseByContextProps, ref) => {
   const searchParamsState = useSearchParamsState();
 
   const currentCategory = categories.find(({ id }) => searchParamsState.isCategorySelected(id));
   const currentSubCategory = currentCategory?.subCategories.find(({ id }) => searchParamsState.isSubCategorySelected(id));
 
   return (
-    <>
+    <footer ref={ref} {...props}>
       {searchParamsState.isSearchMode ? (
         <>Search Results</>
       ) : searchParamsState.isNoCategorySelected ? (
@@ -144,6 +142,7 @@ function BrowseByContext({ categories }: BrowseByContextProps) {
       ) : (
         <>{currentCategory?.name}</>
       )}
-    </>
+    </footer>
   );
-}
+});
+BrowseByContext.displayName = "BrowseByContext";

@@ -1,5 +1,3 @@
-/* eslint-disable react/display-name */
-
 // component css styles
 import styles from "./ConfirmDialog.module.css";
 
@@ -19,9 +17,9 @@ interface ConfirmDialogProps {
   children: React.ReactNode;
 }
 
-const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children }: ConfirmDialogProps, ref) => {
+const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children, ...props }: ConfirmDialogProps, ref) => {
   return (
-    <dialog ref={ref} className={cn(styles["confirm-dialog"], "modal")}>
+    <dialog ref={ref} className={cn(styles["confirm-dialog"], "modal")} {...props}>
       <div className="modal-box p-0">
         <h2
           className={cn(lusitana.className, styles["confirm-dialog__title-bar"], "bg-gradient-to-r from-primary to-secondary text-xl font-bold text-neutral")}
@@ -46,5 +44,6 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
     </dialog>
   );
 });
+ConfirmDialog.displayName = "ConfirmDialog";
 
 export default ConfirmDialog;

@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { ComponentProps } from "react";
+import { ComponentProps, Dispatch, SetStateAction, useState } from "react";
 
 // next
 import { usePathname } from "next/navigation";
@@ -11,28 +11,27 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import PathFinder from "../PathFinder";
 import { Bars4Icon } from "@heroicons/react/24/solid";
+import useMediaQuery from "@/lib/useMediaQuery";
+
+// components
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // types
 interface NavLinkProps extends ComponentProps<typeof Link> {
   isActive: boolean;
   activeClass: string;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function NavBar() {
-  return (
-    <nav>
-      <div className="hidden lg:block">
-        <NavTabs />
-      </div>
-      <div className="lg:hidden">
-        <NavMenu />
-      </div>
-    </nav>
-  );
+  // Small devices (landscape phones, less than 768px)
+  const isSmall = useMediaQuery("(max-width: 767.98px)");
+
+  return <nav>{isSmall ? <NavMenu /> : <NavTabs />}</nav>;
 }
 
-function NavLink({ isActive = false, activeClass, className, ...props }: NavLinkProps) {
-  return <Link {...props} className={cn(className, isActive && activeClass)} onClick={() => (document.activeElement as HTMLElement)?.blur()} />;
+function NavLink({ isActive = false, activeClass, setOpen, className, ...props }: NavLinkProps) {
+  return <Link {...props} className={cn(className, isActive && activeClass, setOpen && "block w-full")} onClick={() => setOpen?.(false)} />;
 }
 
 function NavTabs() {
@@ -79,43 +78,46 @@ function NavMenu() {
   const isProductsActive = pathname.includes(PathFinder.toAllProducts());
   const isChartsActive = pathname.includes(PathFinder.toAllCharts());
 
+  // The controlled open state of the drop-down menu
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger className="btn btn-circle btn-ghost" title="Menu">
         <Bars4Icon width={24} height={24} />
-      </div>
-      <ul tabIndex={0} className="menu dropdown-content z-10 w-52 rounded-box bg-base-100 p-2 shadow">
-        <li>
-          <NavLink href={PathFinder.toManagerHome()} isActive={isHomeActive} activeClass={"active"}>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toManagerHome()} isActive={isHomeActive} activeClass={"font-bold"} setOpen={setOpen}>
             Home
           </NavLink>
-        </li>
-        <li>
-          <NavLink href={PathFinder.toAllBrands()} isActive={isBrandsActive} activeClass={"active"}>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllBrands()} isActive={isBrandsActive} activeClass={"font-bold"} setOpen={setOpen}>
             Brands
           </NavLink>
-        </li>
-        <li>
-          <NavLink href={PathFinder.toAllCategories()} isActive={isCategoriesActive} activeClass={"active"}>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllCategories()} isActive={isCategoriesActive} activeClass={"font-bold"} setOpen={setOpen}>
             Categories
           </NavLink>
-        </li>
-        <li>
-          <NavLink href={PathFinder.toAllSubCategories()} isActive={isSubCategoriesActive} activeClass={"active"}>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllSubCategories()} isActive={isSubCategoriesActive} activeClass={"font-bold"} setOpen={setOpen}>
             SubCategories
           </NavLink>
-        </li>
-        <li>
-          <NavLink href={PathFinder.toAllProducts()} isActive={isProductsActive} activeClass={"active"}>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllProducts()} isActive={isProductsActive} activeClass={"font-bold"} setOpen={setOpen}>
             Products
           </NavLink>
-        </li>
-        <li>
-          <NavLink href={PathFinder.toAllCharts()} isActive={isChartsActive} activeClass={"active"}>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllCharts()} isActive={isChartsActive} activeClass={"font-bold"} setOpen={setOpen}>
             Charts
           </NavLink>
-        </li>
-      </ul>
-    </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

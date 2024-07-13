@@ -4,7 +4,7 @@
 import styles from "./SortBy.module.css";
 
 // react
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, forwardRef, SetStateAction, useState } from "react";
 
 // next
 import Link from "next/link";
@@ -48,14 +48,12 @@ export default function SortBy({ sortByFields, totalItems, className }: SortByPr
   return (
     // Do not render anything if there are no items to sort
     totalItems > 0 && (
-      <section className={cn(styles["sort-by"], className)}>
+      <section className={className}>
         <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className={styles["sort-by"]}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="p-2">
-                  <SortByIcon sortByField={sortByField} sortByOrder={sortByOrder} />
-                </div>
+                <SortByIcon sortByField={sortByField} sortByOrder={sortByOrder} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>Sort items</p>
@@ -88,16 +86,17 @@ export default function SortBy({ sortByFields, totalItems, className }: SortByPr
   );
 }
 
-function SortByIcon({ sortByField, sortByOrder }: SortByIconProps) {
+const SortByIcon = forwardRef<HTMLElement, SortByIconProps>(({ sortByField, sortByOrder, ...props }: SortByIconProps, ref) => {
   return (
-    <div className="flex items-center">
+    <header ref={ref} className="flex items-center" {...props}>
       {sortByField === "id" && <TagIcon width={24} height={24} />}
       {sortByField === "price" && <CurrencyDollarIcon width={24} height={24} />}
       {sortByField === "name" && <LanguageIcon width={24} height={24} />}
       {sortByOrder === "asc" ? <ChevronUpIcon width={24} height={24} /> : <ChevronDownIcon width={24} height={24} />}
-    </div>
+    </header>
   );
-}
+});
+SortByIcon.displayName = "SortByIcon";
 
 function SortByLink({ newSortByField, newSortByOrder, description, setOpen }: SortByLinkProps) {
   const searchParamsState = useSearchParamsState();

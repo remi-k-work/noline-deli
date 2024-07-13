@@ -14,9 +14,6 @@
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
 
-  display: flex;
-  align-items: center;
-
   border-radius: var(--radius-3);
   border: var(--border-size-1) solid var(--surface-2);
 }
@@ -24,8 +21,13 @@
 .paginate__curr {
   cursor: pointer;
 
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
   border-radius: var(--radius-3);
   border: var(--border-size-1) solid var(--surface-2);
+
+  min-inline-size: var(--size-10);
 }
 
 .paginate__pages {

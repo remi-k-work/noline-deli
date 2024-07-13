@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { ProductWithAll } from "../productsDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -20,9 +20,7 @@ import ProductInfo from "./ProductInfo";
 
 // types
 interface ProductExcerptProps {
-  product: Prisma.ProductGetPayload<{
-    include: { categories: { include: { category: true } }; subCategories: { include: { subCategory: true } }; moreImages: true; brand: true };
-  }>;
+  product: ProductWithAll;
 }
 
 export default function ProductExcerpt({ product }: ProductExcerptProps) {
