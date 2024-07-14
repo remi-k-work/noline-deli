@@ -5,10 +5,8 @@
 
   display: grid;
 
-  grid-template-columns: [bck-start img-start nam-start inf-start] auto [img-end prc-start] auto [prc-end] auto [nam-end bck-end inf-end];
-  grid-template-rows:
-    [prc-start bck-start img-start inf-start] auto [prc-end] var(--size-9) [nam-start] auto [img-end] auto [nam-end] auto var(--size-3)
-    [bck-end inf-end];
+  grid-template-columns: [bck-start inf-start img-start nam-start] auto [inf-end] auto [img-end prc-start] auto [prc-end nam-end bck-end];
+  grid-template-rows: [bck-start prc-start img-start inf-start] auto [prc-end inf-end] var(--size-9) [nam-start] auto [img-end nam-end bck-end];
 }
 
 .product-excerpt__image {
@@ -21,6 +19,7 @@
 
 .product-excerpt__background {
   grid-area: bck;
+
   background: var(--surface-2);
   border-radius: var(--radius-blob-1);
   box-shadow: var(--shadow-6);
@@ -28,7 +27,6 @@
 
 .product-excerpt__name {
   grid-area: nam;
-  align-self: center;
 
   max-inline-size: var(--size-content-2);
   font-size: var(--font-size-2);
@@ -42,7 +40,7 @@
 
 .product-excerpt__price {
   grid-area: prc;
-  align-self: center;
+  place-self: end;
 
   background: var(--surface-4);
   padding-inline: var(--size-1);
@@ -54,4 +52,5 @@
 
 .product-excerpt__more-info {
   grid-area: inf;
+  place-self: start;
 }

@@ -6,15 +6,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import { routeToProductDetails } from "@/features/products/helpers";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./CartTableForms";
-import ProductInfo from "@/features/products/components/ProductInfo";
+import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";
 
 export default function CartTableEntry({ cartItem }) {
   // Ensure the cart item exists
@@ -45,14 +43,7 @@ export default function CartTableEntry({ cartItem }) {
               className="max-h-24 w-full rounded-lg object-cover"
             />
           </Link>
-          <div className={cn(styles["cart-table-entry-image__info"], "dropdown")}>
-            <div tabIndex={0} role="button" className="btn btn-circle btn-info">
-              <InformationCircleIcon width={24} height={24} />
-            </div>
-            <div tabIndex={0} className={cn(styles["cart-table-entry__product-info"], "dropdown-content z-10 shadow")}>
-              <ProductInfo product={product} />
-            </div>
-          </div>
+          <ProductInfoTrigger product={product} className={styles["cart-table-entry-image__info"]} />
         </div>
       </td>
       <td>

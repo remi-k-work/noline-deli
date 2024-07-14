@@ -4,11 +4,14 @@ import styles from "./layout.module.css";
 // other libraries
 import { cn } from "@/lib/utils";
 
+// components
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={cn(styles["layout"], "drawer lg:drawer-open")}>
       <input id="navBar" type="checkbox" className="drawer-toggle" />
-      {children}
+      <TooltipProvider>{children}</TooltipProvider>
     </div>
   );
 }

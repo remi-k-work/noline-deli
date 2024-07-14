@@ -16,14 +16,6 @@
   overflow: clip;
 }
 
-.cart-table-entry__product-info {
-  inline-size: 75vw;
-  inline-size: 75svw;
-  inline-size: 75dvw;
-
-  max-inline-size: var(--size-content-3);
-}
-
 .cart-table-entry-image {
   inline-size: 100%;
   display: grid;
