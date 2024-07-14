@@ -4,42 +4,8 @@
 
   background: var(--surface-2);
   color: var(--text-1);
-
-  border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
 
   table-layout: fixed;
   border-collapse: collapse;
-  text-align: center;
-}
-
-.product-info > thead th:nth-child(1) {
-  inline-size: 50%;
-  text-align: start;
-}
-
-.product-info > thead th:nth-child(2) {
-  inline-size: 50%;
-  text-align: end;
-}
-
-.product-info > thead th {
-  padding-inline: var(--size-1);
-  padding-block: var(--size-1);
-
-  background: var(--surface-2);
-  color: var(--text-2);
-}
-
-.product-info > tbody > tr > td {
-  padding-inline: var(--size-1);
-  padding-block: var(--size-1);
-}
-
-.product-info > tbody > tr:nth-child(even) td {
-  background: var(--surface-4);
-}
-
-.product-info > tbody > tr:nth-child(odd) td {
-  background: var(--surface-3);
 }

@@ -11,13 +11,12 @@ import { ProductWithAll } from "../db";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 import useMediaQuery from "@/lib/useMediaQuery";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
-import ProductInfo from "@/features/products/components/ProductInfo";
+import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";
 import ProductsTableActions from "./ProductsTableActions";
 
 // types
@@ -55,7 +54,10 @@ export default function ProductsTableEntry({ product, createdByUser }: ProductsT
     >
       <TableCell>
         <article className={styles["products-table-entry-image"]}>
-          <Link href={PathFinder.toProductEdit(id)} className={styles["products-table-entry-image__link"]}>
+          <Link
+            href={PathFinder.toProductEdit(id)}
+            className={cn(styles["products-table-entry-image__link"], "transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
+          >
             <Image
               src={PathFinder.toResolvedProductImage(imageUrl)}
               width={320}
@@ -66,19 +68,14 @@ export default function ProductsTableEntry({ product, createdByUser }: ProductsT
               className="h-auto max-h-14 w-auto rounded-lg object-cover"
             />
           </Link>
-          <section className={cn(styles["products-table-entry-image__info"], "dropdown dropdown-right")}>
-            <header className="lg:tooltip lg:tooltip-right" data-tip="Display all information about this product">
-              <div tabIndex={0} role="button" className="btn btn-circle btn-info">
-                <InformationCircleIcon width={24} height={24} />
-              </div>
-            </header>
-            <aside tabIndex={0} className={cn(styles["products-table-entry__product-info"], "dropdown-content z-10 shadow")}>
-              <ProductInfo product={product} />
-            </aside>
-          </section>
+          <ProductInfoTrigger product={product} className={cn(styles["products-table-entry-image__info"], "z-10")} />
         </article>
       </TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>
+        <Link href={PathFinder.toProductEdit(id)} className="link-hover link">
+          {name}
+        </Link>
+      </TableCell>
       {!isSmall && (
         <>
           <TableCell>
