@@ -13,6 +13,7 @@ import { useFormContext } from "react-hook-form";
 import { AllFieldErrors } from "../../FormSchemaBase";
 
 // components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ProductFormImage from "./ProductFormImage";
 
 // assets
@@ -104,13 +105,14 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
   return (
     <section className={styles["product-form-images"]}>
       <header className={cn(lusitana.className, styles["product-form-images__label"])}>Product Images</header>
-      <div className={styles["product-form-images__toolbar"]}>
-        <div className="lg:tooltip lg:tooltip-left" data-tip="Add a new image">
-          <button type="button" className="btn btn-circle" onClick={handleAddNewImageClicked}>
-            <PlusCircleIcon width={24} height={24} />
-          </button>
-        </div>
-      </div>
+      <Tooltip>
+        <TooltipTrigger type="button" className={cn(styles["product-form-images__toolbar"], "btn btn-circle")} onClick={handleAddNewImageClicked}>
+          <PlusCircleIcon width={24} height={24} />
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          <p>Add a new image</p>
+        </TooltipContent>
+      </Tooltip>
       <div className={styles["product-form-images__view"]}>
         <ProductFormImage
           ref={(productImageNode) => addThisProductImageNodeRef(0, productImageNode)}
@@ -131,16 +133,22 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           />
         ))}
       </div>
-      <div className={cn(styles["product-form-images__prev-img"], "lg:tooltip lg:tooltip-right")} data-tip="View the previous image">
-        <button type="button" className="btn btn-circle" onClick={() => handleViewedImageChanged(-1)}>
+      <Tooltip>
+        <TooltipTrigger type="button" className={cn(styles["product-form-images__prev-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(-1)}>
           <ArrowLeftCircleIcon width={24} height={24} />
-        </button>
-      </div>
-      <div className={cn(styles["product-form-images__next-img"], "lg:tooltip lg:tooltip-left")} data-tip="View the next image">
-        <button type="button" className="btn btn-circle" onClick={() => handleViewedImageChanged(+1)}>
+        </TooltipTrigger>
+        <TooltipContent side="right">
+          <p>View the previous image</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger type="button" className={cn(styles["product-form-images__next-img"], "btn btn-circle")} onClick={() => handleViewedImageChanged(+1)}>
           <ArrowRightCircleIcon width={24} height={24} />
-        </button>
-      </div>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          <p>View the next image</p>
+        </TooltipContent>
+      </Tooltip>
       <footer className={styles["product-form-images__statusbar"]}>
         <section className={cn(styles["jump-to-image-mob"], "dropdown dropdown-top")}>
           <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
@@ -171,17 +179,23 @@ export default function ProductFormImages({ theMainImageUrl = "", moreImagesUrls
           </div>
         </section>
         <section className={styles["jump-to-image-reg"]}>
-          <div className="lg:tooltip" data-tip="Jump to the main image">
-            <button type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(0)}>
+          <Tooltip>
+            <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(0)}>
               {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
-            </button>
-          </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Jump to the main image</p>
+            </TooltipContent>
+          </Tooltip>
           {currMoreImagesUrls.map((_, extraImageIndex) => (
-            <div key={extraImageIndex} className="lg:tooltip" data-tip={`Jump to an extra image nr ${extraImageIndex + 1}`}>
-              <button type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
+            <Tooltip key={extraImageIndex}>
+              <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
                 {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
-              </button>
-            </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{`Jump to an extra image nr ${extraImageIndex + 1}`}</p>
+              </TooltipContent>
+            </Tooltip>
           ))}
         </section>
       </footer>

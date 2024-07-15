@@ -10,11 +10,13 @@ import { forwardRef, useDeferredValue, useEffect, useState } from "react";
 import Image from "next/image";
 
 // other libraries
+import { cn } from "@/lib/utils";
 import PathFinder from "../../PathFinder";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { AllFieldErrors } from "../../FormSchemaBase";
 
 // components
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { FormInputField, FormOutputField } from "../../components/FormControls";
 
 // types
@@ -24,10 +26,11 @@ interface ProductFormImageProps {
   imageUrl?: string;
   onRemoveImageClicked?: () => void;
   allFieldErrors?: AllFieldErrors;
+  className?: string;
 }
 
 const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
-  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors, ...props }: ProductFormImageProps, ref) => {
+  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors, className, ...props }: ProductFormImageProps, ref) => {
     const [currImageUrl, setCurrImageUrl] = useState(imageUrl);
     const [imageSrc, setImageSrc] = useState(PathFinder.toProductImage(imageUrl));
     const defImageSrc = useDeferredValue(imageSrc);
@@ -41,7 +44,7 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
     }, [imageUrl]);
 
     return (
-      <section ref={ref} className={styles["product-form-image"]} {...props}>
+      <section ref={ref} className={cn(styles["product-form-image"], className)} {...props}>
         <header className={styles["product-form-image__image"]}>
           <FormOutputField outputFor={fieldName} fieldName={`${fieldName}Preview`} fieldLabel={`${fieldLabel} preview`}>
             {defImageSrc ? (
@@ -61,13 +64,19 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
             )}
           </FormOutputField>
         </header>
-        <div className={styles["product-form-image__toolbar"]}>
-          <div className="lg:tooltip lg:tooltip-left" data-tip="Remove this image">
-            <button type="button" className="btn btn-circle" disabled={!onRemoveImageClicked} onClick={() => onRemoveImageClicked && onRemoveImageClicked()}>
-              <TrashIcon width={24} height={24} />
-            </button>
-          </div>
-        </div>
+        <Tooltip>
+          <TooltipTrigger
+            type="button"
+            className={cn(styles["product-form-image__toolbar"], "btn btn-circle")}
+            disabled={!onRemoveImageClicked}
+            onClick={() => onRemoveImageClicked && onRemoveImageClicked()}
+          >
+            <TrashIcon width={24} height={24} />
+          </TooltipTrigger>
+          <TooltipContent side="left">
+            <p>Remove this image</p>
+          </TooltipContent>
+        </Tooltip>
         <footer className={styles["product-form-image__url"]}>
           <FormInputField
             fieldType={"url"}

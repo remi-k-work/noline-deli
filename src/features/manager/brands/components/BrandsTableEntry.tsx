@@ -57,7 +57,11 @@ export default function BrandsTableEntry({ brand, createdByUser }: BrandsTableEn
           />
         </Link>
       </TableCell>
-      <TableCell>{name}</TableCell>
+      <TableCell>
+        <Link href={PathFinder.toBrandEdit(id)} className="link-hover link">
+          {name}
+        </Link>
+      </TableCell>
       {!isSmall && <TableCell className="overflow-clip whitespace-nowrap">{logoUrl}</TableCell>}
       <TableCell>
         <BrandsTableActions brandId={id} brandName={name} brandLogoUrl={logoUrl} />
