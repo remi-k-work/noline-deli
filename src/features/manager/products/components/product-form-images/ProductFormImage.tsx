@@ -11,13 +11,13 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../PathFinder";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { AllFieldErrors } from "../../FormSchemaBase";
+import { AllFieldErrors } from "../../../FormSchemaBase";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { FormInputField, FormOutputField } from "../../components/FormControls";
+import { FormInputField, FormOutputField } from "../../../components/FormControls";
 
 // types
 interface ProductFormImageProps {
@@ -69,7 +69,7 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
             type="button"
             className={cn(styles["product-form-image__toolbar"], "btn btn-circle")}
             disabled={!onRemoveImageClicked}
-            onClick={() => onRemoveImageClicked && onRemoveImageClicked()}
+            onClick={() => onRemoveImageClicked?.()}
           >
             <TrashIcon width={24} height={24} />
           </TooltipTrigger>

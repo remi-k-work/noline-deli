@@ -1,0 +1,10 @@
+.product-form-images__view {
+  grid-area: view;
+
+  display: flex;
+  gap: var(--size-2);
+
+  overflow-x: auto;
+
+  box-shadow: var(--inner-shadow-2);
+}

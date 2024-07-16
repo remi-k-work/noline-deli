@@ -1,0 +1,12 @@
+.product-form-images__statusbar {
+  grid-area: sbar;
+  place-self: center;
+}
+
+.jump-to-image-reg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--size-2);
+}

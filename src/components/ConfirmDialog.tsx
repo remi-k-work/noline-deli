@@ -34,7 +34,7 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
         <div className="py-4">{children}</div>
         <div className="modal-action">
           <form method="dialog">
-            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed && onConfirmed()}>
+            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed()}>
               <HandThumbUpIcon width={24} height={24} />
               Confirm
             </button>
