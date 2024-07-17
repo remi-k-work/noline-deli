@@ -2,7 +2,7 @@
 import styles from "./ConfirmDialog.module.css";
 
 // react
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ import { lusitana } from "@/assets/fonts";
 // types
 interface ConfirmDialogProps {
   onConfirmed: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children, ...props }: ConfirmDialogProps, ref) => {

@@ -4,26 +4,23 @@
   margin-inline: auto;
 
   background: var(--surface-3);
-  padding-inline: var(--size-3);
-  padding-block: var(--size-3);
+  padding-inline: var(--size-1);
+  padding-block: var(--size-1);
 
   display: grid;
   place-items: center;
 
-  -webkit-mask: var(--mask-corner-cut-circles-1);
+  -webkit-mask: var(--mask-corner-cut-angles-1);
 }
 
 .brand-excerpt__logo {
-  inline-size: var(--size-12);
-  block-size: var(--size-11);
-
   background: var(--surface-1);
   box-shadow: var(--inner-shadow-4);
 
   display: grid;
   place-items: center;
 
-  -webkit-mask: var(--mask-corner-cut-circles-1);
+  -webkit-mask: var(--mask-corner-cut-angles-1);
 }
 
 .brand-excerpt__name {

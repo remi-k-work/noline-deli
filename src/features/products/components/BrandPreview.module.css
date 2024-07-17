@@ -14,9 +14,6 @@
 }
 
 .brand-preview__logo {
-  inline-size: var(--size-12);
-  block-size: var(--size-11);
-
   background: var(--surface-1);
   box-shadow: var(--inner-shadow-4);
 
