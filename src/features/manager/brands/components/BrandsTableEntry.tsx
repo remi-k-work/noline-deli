@@ -53,7 +53,7 @@ export default function BrandsTableEntry({ brand, createdByUser }: BrandsTableEn
             alt={name}
             title={name}
             sizes="50vw"
-            className="m-auto h-auto max-h-14 w-auto rounded-lg object-cover"
+            className="m-auto max-h-14 w-auto rounded-lg object-cover"
           />
         </Link>
       </TableCell>

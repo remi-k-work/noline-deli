@@ -27,6 +27,7 @@
 
 .product-excerpt__name {
   grid-area: nam;
+  place-self: center stretch;
 
   max-inline-size: var(--size-content-2);
   font-size: var(--font-size-2);
@@ -40,7 +41,7 @@
 
 .product-excerpt__price {
   grid-area: prc;
-  place-self: end;
+  place-self: center end;
 
   background: var(--surface-4);
   padding-inline: var(--size-1);

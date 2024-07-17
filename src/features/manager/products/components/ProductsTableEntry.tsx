@@ -65,7 +65,7 @@ export default function ProductsTableEntry({ product, createdByUser }: ProductsT
               alt={name}
               title={name}
               sizes="50vw"
-              className="h-auto max-h-14 w-auto rounded-lg object-cover"
+              className="max-h-14 w-auto rounded-lg object-cover"
             />
           </Link>
           <ProductInfoTrigger product={product} className={cn(styles["products-table-entry-image__info"], "z-10")} />
