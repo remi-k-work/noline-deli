@@ -43,7 +43,7 @@ enum PathTo {
   captcha = "/auth/captcha" + `/${ParamName.captchaName}`,
 }
 
-const REMOTE_HOSTNAME = "images.unsplash.com";
+const REMOTE_HOSTNAMES = ["images.unsplash.com", "plus.unsplash.com"];
 
 export default class PathFinder {
   static toManagerLogin = () => PathTo.managerLogin;
@@ -126,10 +126,7 @@ export default class PathFinder {
       return false;
     }
 
-    // Right now, we only support "images.unsplash.com" as our possible remote hostname
-    if (parsedSrc.hostname !== REMOTE_HOSTNAME) return false;
-
-    // The src seems to be ok
-    return true;
+    // Check to ensure that the remote hostname provided by the user is on our allowed list
+    return REMOTE_HOSTNAMES.some((allowedHostname) => allowedHostname === parsedSrc.hostname);
   }
 }
