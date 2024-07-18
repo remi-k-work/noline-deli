@@ -2,10 +2,22 @@
 import { cookies } from "next/headers";
 
 // prisma and db access
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
+// types
+export type CartWithItems = Prisma.CartGetPayload<{ include: typeof INCLUDE_CART_WITH_ITEMS }>;
+export type DerivedCartWithItems = CartWithItems & { totalQty: number; subTotal: number };
+export type CartItemWithProduct = Prisma.CartsOnProductsGetPayload<{ include: typeof INCLUDE_CART_ITEM_WITH_PRODUCT }>;
+
+const INCLUDE_CART_ITEM_WITH_PRODUCT = {
+  product: { include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true } },
+} satisfies Prisma.CartsOnProductsInclude;
+
+const INCLUDE_CART_WITH_ITEMS = { cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT } } satisfies Prisma.CartInclude;
+
 // Increment the cart item quantity by one
-export function incCartItemQty(cartId, cartItemId) {
+export function incCartItemQty(cartId: string, cartItemId: string) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -14,7 +26,7 @@ export function incCartItemQty(cartId, cartItemId) {
 }
 
 // Decrement the cart item quantity by one
-export function decCartItemQty(cartId, cartItemId) {
+export function decCartItemQty(cartId: string, cartItemId: string) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -23,7 +35,7 @@ export function decCartItemQty(cartId, cartItemId) {
 }
 
 // Set the cart item quantity to the provided value
-export function setCartItemQty(cartId, cartItemId, quantity) {
+export function setCartItemQty(cartId: string, cartItemId: string, quantity: number) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({
     where: { id: cartId },
@@ -32,19 +44,19 @@ export function setCartItemQty(cartId, cartItemId, quantity) {
 }
 
 // Remove this cart item completely from our shopping basket
-export function delCartItem(cartId, cartItemId) {
+export function delCartItem(cartId: string, cartItemId: string) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({ where: { id: cartId }, data: { updatedAt: new Date(), cartItems: { delete: { id: cartItemId } } } });
 }
 
 // Create a new cart item within the chosen cart using the provided product
-export function newCartItem(cartId, productId) {
+export function newCartItem(cartId: string, productId: string) {
   // We set "updatedAt" in the cart ourselves because we are changing the linked cart items
   return prisma.cart.update({ where: { id: cartId }, data: { updatedAt: new Date(), cartItems: { create: { productId, quantity: 1 } } } });
 }
 
 // Get an existing or brand-new empty cart from our database
-export async function getCart() {
+export async function getCart(): Promise<DerivedCartWithItems | undefined> {
   // Try obtaining the current cart's id from a session cookie
   const localCartId = cookies().get("localCartId")?.value;
 
@@ -53,20 +65,7 @@ export async function getCart() {
   // *** TEST CODE ***
 
   // If the cart exists, obtain its contents, which should include cart items and product information
-  const cart = localCartId
-    ? await prisma.cart.findUnique({
-        where: { id: localCartId },
-        include: {
-          cartItems: {
-            include: {
-              product: {
-                include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true },
-              },
-            },
-          },
-        },
-      })
-    : null;
+  const cart = localCartId ? await prisma.cart.findUnique({ where: { id: localCartId }, include: INCLUDE_CART_WITH_ITEMS }) : undefined;
 
   if (!cart) {
     // Will we be able to set a new cart's id in a session cookie?
@@ -75,7 +74,7 @@ export async function getCart() {
       cookies().set("localCartId", "************************");
     } catch (error) {
       // Calling this from a server component will result in an error; exit with null immediately
-      return null;
+      return undefined;
     }
 
     // The cart does not yet exist; establish a new, empty one for this session
@@ -99,10 +98,10 @@ export async function getCart() {
 }
 
 // Use the cart's minimal state to derive extra data such as cart size and subtotal
-export function deriveTotalQty(cart) {
+function deriveTotalQty(cart: CartWithItems) {
   return cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0);
 }
 
-export function deriveSubTotal(cart) {
+function deriveSubTotal(cart: CartWithItems) {
   return cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity * cartItem.product.price, 0);
 }

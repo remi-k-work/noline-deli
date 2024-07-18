@@ -31,7 +31,7 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
       <DrawerTrigger className={className}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="btn btn-circle btn-info">
+            <div className="btn btn-circle glass btn-primary">
               <InformationCircleIcon width={24} height={24} />
             </div>
           </TooltipTrigger>
@@ -66,7 +66,7 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
       <DialogTrigger className={className}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="btn btn-circle btn-info">
+            <div className="btn btn-circle glass btn-primary">
               <InformationCircleIcon width={24} height={24} />
             </div>
           </TooltipTrigger>

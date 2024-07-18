@@ -5,22 +5,25 @@ import styles from "./CartTableEntry.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+// prisma and db access
+import { CartItemWithProduct } from "../cartDb";
+
 // other libraries
 import { formatPrice } from "@/lib/helpers";
 import { routeToProductDetails } from "@/features/products/helpers";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
+import { TableCell, TableRow } from "@/components/ui/table";
 import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./CartTableForms";
 import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";
 
-export default function CartTableEntry({ cartItem }) {
-  // Ensure the cart item exists
-  if (!cartItem) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+// types
+interface CartTableEntryProps {
+  cartItem: CartItemWithProduct;
+}
 
+export default function CartTableEntry({ cartItem }: CartTableEntryProps) {
   const {
     id,
     productId,
@@ -30,8 +33,8 @@ export default function CartTableEntry({ cartItem }) {
   } = cartItem;
 
   return (
-    <tr className={styles["cart-table-entry"]}>
-      <td>
+    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
+      <TableCell>
         <div className={styles["cart-table-entry-image"]}>
           <Link href={routeToProductDetails(name, productId)} className={styles["cart-table-entry-image__link"]}>
             <Image
@@ -45,18 +48,18 @@ export default function CartTableEntry({ cartItem }) {
           </Link>
           <ProductInfoTrigger product={product} className={styles["cart-table-entry-image__info"]} />
         </div>
-      </td>
-      <td>
-        <div className="flex flex-col place-content-center gap-1 sm:flex-row sm:gap-3">
+      </TableCell>
+      <TableCell>
+        <div className="flex flex-col place-content-center place-items-center gap-1 sm:flex-row sm:gap-3">
           <IncCartItemQtyForm cartItemId={id} />
           {quantity}
           <DecCartItemQtyForm cartItemId={id} />
         </div>
-      </td>
-      <td>{formatPrice(quantity * price)}</td>
-      <td>
-        <DelCartItemForm cartItemId={id} />
-      </td>
-    </tr>
+      </TableCell>
+      <TableCell className="overflow-clip whitespace-nowrap text-end">{formatPrice(quantity * price)}</TableCell>
+      <TableCell className="overflow-clip text-center">
+        <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
+      </TableCell>
+    </TableRow>
   );
 }

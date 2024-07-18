@@ -1,0 +1,10 @@
+.cart-table {
+  inline-size: 100%;
+  margin-inline: auto;
+
+  background: var(--surface-2);
+  box-shadow: var(--shadow-6);
+
+  table-layout: fixed;
+  border-collapse: collapse;
+}

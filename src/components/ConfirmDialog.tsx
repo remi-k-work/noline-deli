@@ -31,7 +31,8 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
         </h2>
-        <div className="py-4">{children}</div>
+        <br />
+        <div>{children}</div>
         <div className="modal-action">
           <form method="dialog">
             <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed()}>
