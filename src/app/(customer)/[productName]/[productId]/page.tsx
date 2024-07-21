@@ -15,8 +15,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
-import NavBarDrawerContent from "@/components/NavBarDrawerContent";
-import NavBarDrawerSide from "@/components/NavBarDrawerSide";
+import MainLayout from "@/components/MainLayout";
 import SingleProductView, { SingleProductViewSkeleton } from "@/features/products/components/SingleProductView";
 
 // assets
@@ -84,28 +83,22 @@ async function PageSuspense({ productName, productId }: PageSuspenseProps) {
   }
 
   return (
-    <>
-      <NavBarDrawerContent>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
-          <SingleProductView product={product} />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide />
-    </>
+    <MainLayout>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+        <SingleProductView product={product} />
+      </article>
+    </MainLayout>
   );
 }
 
 function PageSkeleton({ productName }: PageSkeletonProps) {
   return (
-    <>
-      <NavBarDrawerContent>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
-          <SingleProductViewSkeleton />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide />
-    </>
+    <MainLayout>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+        <SingleProductViewSkeleton />
+      </article>
+    </MainLayout>
   );
 }

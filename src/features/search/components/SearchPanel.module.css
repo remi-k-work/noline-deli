@@ -1,13 +1,13 @@
 .search-panel {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-1);
+
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--size-1);
 }
 
 .search-panel-skeleton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--size-1);
+  inline-size: 100%;
+  max-inline-size: var(--size-content-1);
 }

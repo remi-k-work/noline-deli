@@ -18,11 +18,11 @@ import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // types
 interface SearchPanelProps {
-  drawerToHide?: string;
   searchedCount?: number;
+  className?: string;
 }
 
-export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchPanelProps) {
+export default function SearchPanel({ searchedCount = 0, className }: SearchPanelProps) {
   const searchParamsState = useSearchParamsState(pathToProductsSearch);
   const { keyword } = searchParamsState;
 
@@ -31,56 +31,32 @@ export default function SearchPanel({ drawerToHide, searchedCount = 0 }: SearchP
 
   useEffect(() => {
     // Keep the keyword state in sync with search params
-    const search = searchRef.current!;
-    search.value = keyword;
+    const search = searchRef.current;
+    if (search) search.value = keyword;
   }, [keyword]);
 
   const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
 
   return (
-    <label className={cn(styles["search-panel"], !drawerToHide && "indicator", "input input-bordered")}>
+    <label className={cn(styles["search-panel"], "indicator", "input input-bordered", className)}>
       <input
         ref={searchRef}
         type="search"
         name="search"
-        size={15}
-        maxLength={50}
+        size={5}
+        maxLength={25}
         aria-label="Search"
         placeholder="Search"
         className="grow"
         defaultValue={keyword}
         onChange={(ev) => handleSearch(ev.target.value)}
       />
-
-      {drawerToHide ? (
-        // Provide an option to automatically conceal the drawer if this search panel is located inside one
-        <button type="button" className="btn btn-primary" onClick={() => ((document.getElementById(drawerToHide) as HTMLInputElement).checked = false)}>
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-          {keyword && searchedCount}
-        </button>
-      ) : (
-        <>
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-          {keyword && <span className="badge indicator-item badge-sm font-bold">{searchedCount}</span>}
-        </>
-      )}
+      <MagnifyingGlassCircleIcon width={24} height={24} />
+      {keyword && <span className="badge indicator-item badge-sm font-bold">{searchedCount}</span>}
     </label>
   );
 }
 
-export function SearchPanelSkeleton({ drawerToHide }: SearchPanelProps) {
-  return (
-    <label className={cn(styles["search-panel-skeleton"], !drawerToHide && "indicator", "input input-bordered")}>
-      <input type="search" name="search" size={15} maxLength={50} aria-label="Search" placeholder="Search" className="grow" disabled={true} />
-
-      {drawerToHide ? (
-        // Provide an option to automatically conceal the drawer if this search panel is located inside one
-        <button type="button" className="btn btn-primary" disabled={true}>
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-        </button>
-      ) : (
-        <MagnifyingGlassCircleIcon width={24} height={24} />
-      )}
-    </label>
-  );
+export function SearchPanelSkeleton({ className }: Omit<SearchPanelProps, "searchedCount">) {
+  return <div className={cn(styles["search-panel-skeleton"], "skeleton h-12 rounded-lg", className)} />;
 }

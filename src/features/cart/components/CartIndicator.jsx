@@ -1,8 +1,5 @@
 "use client";
 
-// component css styles
-import styles from "./CartIndicator.module.css";
-
 // next
 import Link from "next/link";
 
@@ -12,12 +9,12 @@ import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { routeToCart } from "@/features/cart/helpers";
 
-export default function CartIndicator({ cart }) {
+export default function CartIndicator({ cart, className = "" }) {
   // Ensure the cart exists
   if (!cart || (cart && cart.cartItems.length === 0)) {
     // If the cart is not there, display the empty cart indicator nonetheless
     return (
-      <div className={cn(styles["cart-indicator"], "dropdown dropdown-end")}>
+      <div className={cn("dropdown sm:dropdown-end", className)}>
         <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
           <div className="indicator">
             <ShoppingCartIcon width={24} height={24} />
@@ -41,7 +38,7 @@ export default function CartIndicator({ cart }) {
   const { totalQty, subTotal } = cart;
 
   return (
-    <div className={cn(styles["cart-indicator"], "dropdown dropdown-end")}>
+    <div className={cn("dropdown sm:dropdown-end", className)}>
       <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
         <div className="indicator">
           <ShoppingCartIcon width={24} height={24} />
@@ -63,15 +60,6 @@ export default function CartIndicator({ cart }) {
   );
 }
 
-export function CartIndicatorSkeleton() {
-  return (
-    <div className={styles["cart-indicator-skeleton"]}>
-      <div className="btn btn-circle btn-ghost">
-        <div className="indicator">
-          <ShoppingCartIcon width={24} height={24} />
-          <span className="badge indicator-item badge-sm">&nbsp;</span>
-        </div>
-      </div>
-    </div>
-  );
+export function CartIndicatorSkeleton({ className = "" }) {
+  return <div className={cn("skeleton h-12 w-12 rounded-full", className)} />;
 }

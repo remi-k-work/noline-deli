@@ -1,8 +1,10 @@
 "use client";
 
+// prisma and db access
+import { ProductsPerBrandData } from "../db";
+
 // other libraries
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { ProductsPerBrandData } from "../db";
 
 // types
 interface ProductsPerBrandChartProps {

@@ -1,8 +1,10 @@
 "use client";
 
+// prisma and db access
+import { TotalNumbersData } from "../db";
+
 // other libraries
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { TotalNumbersData } from "../db";
 
 // types
 interface TotalNumbersChartProps {

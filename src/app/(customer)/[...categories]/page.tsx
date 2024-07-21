@@ -16,8 +16,7 @@ import { cn } from "@/lib/utils";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
-import NavBarDrawerContent from "@/components/NavBarDrawerContent";
-import NavBarDrawerSide from "@/components/NavBarDrawerSide";
+import MainLayout from "@/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/components/Paginate";
 import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
 import NotFound from "@/components/NotFound";
@@ -112,36 +111,30 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
   else [totalItems, products] = await allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping);
 
   return (
-    <>
-      <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-          <br />
-          {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
-          <br />
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide searchedCount={totalItems} filteredCount={totalItems} />
-    </>
+    <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+        <br />
+        {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
+        <br />
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      </article>
+    </MainLayout>
   );
 }
 
 function PageSkeleton({ categories, searchParamsState: { isListMode, sortBy } }: PageSkeletonProps) {
   return (
-    <>
-      <NavBarDrawerContent>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
-          <PaginateSkeleton />
-          <br />
-          <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
-          <br />
-          <PaginateSkeleton />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide />
-    </>
+    <MainLayout>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+        <PaginateSkeleton />
+        <br />
+        <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+        <br />
+        <PaginateSkeleton />
+      </article>
+    </MainLayout>
   );
 }

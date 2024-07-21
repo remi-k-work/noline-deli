@@ -8,63 +8,39 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { CategoriesTreeViewData } from "@/features/search/searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
 // types
-type CategoriesTreeViewInputData = Prisma.CategoryGetPayload<{ include: { subCategories: true } }>;
-
-interface CategoriesTreeViewCategory {
+export interface CategoriesTreeViewEntry {
   label: string;
   href: string;
-  subCategories?: CategoriesTreeViewCategory[];
+  subCategories?: CategoriesTreeViewEntry[];
 }
 
 interface CategoriesTreeViewProps {
-  categories: CategoriesTreeViewInputData[];
+  data: CategoriesTreeViewData;
 }
 
 interface CategoriesListProps {
-  categoriesList: CategoriesTreeViewCategory[];
+  data: CategoriesTreeViewData;
 }
 
 interface CategoriesItemProps {
-  categoriesItem: CategoriesTreeViewCategory;
+  entry: CategoriesTreeViewEntry;
 }
 
-// Create a product category tree in the format that is needed by the categories tree view component
-// [{ label: "", href: "", subCategories: [{ label: "", href: "", subCategories: [{ ... }] }] }]
-function getCategoriesTreeViewData(categories: CategoriesTreeViewInputData[]): CategoriesTreeViewCategory[] {
-  const productCategories: CategoriesTreeViewCategory[] = [];
-  for (const { id: categoryId, name: categoryName, subCategories } of categories) {
-    productCategories.push({ label: categoryName, href: routeToProductsByCategory(categoryName, categoryId), subCategories: [] });
-    for (const { id: subCategoryId, name: subCategoryName } of subCategories) {
-      productCategories.at(-1)?.subCategories?.push({
-        label: subCategoryName,
-        href: routeToProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId),
-        subCategories: [],
-      });
-    }
-  }
-  return [{ label: "All Products", href: routeToAllProducts, subCategories: productCategories }];
-}
-
-export default function CategoriesTreeView({ categories = [] }: CategoriesTreeViewProps) {
-  if (categories.length === 0) {
-    return null;
-  }
-
+export default function CategoriesTreeView({ data }: CategoriesTreeViewProps) {
   return (
     <article className={cn(styles["categories-tree-view"], "menu p-0")}>
       <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
-      <CategoriesList categoriesList={getCategoriesTreeViewData(categories)} />
+      <CategoriesList data={data} />
     </article>
   );
 }
@@ -73,63 +49,63 @@ export function CategoriesTreeViewSkeleton() {
   return (
     <article className={cn(styles["categories-tree-view-skeleton"], "menu p-0")}>
       <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
+      {new Array(6).fill(null).map((_, index) => (
+        <ul key={index} className={styles["categories-list-skeleton"]}>
+          <li className={styles["categories-item-skeleton"]}>
+            <div className="skeleton mb-2 h-5 rounded-lg" />
+          </li>
+          <li className={styles["categories-item-skeleton"]}>
+            <ul className={styles["categories-list-skeleton"]}>
+              <li className={styles["categories-item-skeleton"]}>
+                <div className="skeleton mb-2 h-5 rounded-lg" />
+              </li>
+              <li className={styles["categories-item-skeleton"]}>
+                <div className="skeleton mb-2 h-5 rounded-lg" />
+              </li>
+              <li className={styles["categories-item-skeleton"]}>
+                <div className="skeleton mb-2 h-5 rounded-lg" />
+              </li>
+            </ul>
+          </li>
+        </ul>
+      ))}
     </article>
   );
 }
 
-function CategoriesList({ categoriesList = [] }: CategoriesListProps) {
-  if (categoriesList.length === 0) {
-    return null;
-  }
-
+function CategoriesList({ data }: CategoriesListProps) {
   return (
     <ul className={styles["categories-list"]}>
-      {categoriesList.map((categoriesItem, index) => (
-        <CategoriesItem key={index} categoriesItem={categoriesItem} />
+      {data.map((entry, index) => (
+        <CategoriesItem key={index} entry={entry} />
       ))}
     </ul>
   );
 }
 
-function CategoriesItem({ categoriesItem }: CategoriesItemProps) {
+function CategoriesItem({ entry }: CategoriesItemProps) {
   // Make sure to carry over currently used search params (product filter, viewing settings)
   const searchParamsState = useSearchParamsState();
   const pathname = usePathname();
 
-  // Ensure the categories item exists
-  if (!categoriesItem) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
-
-  const { label, href, subCategories = [] } = categoriesItem;
+  const { label, href, subCategories = [] } = entry;
 
   return (
     <li className={styles["categories-item"]}>
       {subCategories.length > 0 ? (
-        <details open>
-          <summary>
-            {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
-            {/* Also auto-hide the drawer after the user makes the selection */}
-            <Link
-              href={searchParamsState.movedToNewLocation(href)}
-              onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
-              className={cn({ "font-bold text-accent": pathname === href })}
-            >
-              {label}
-            </Link>
-          </summary>
-          <CategoriesList categoriesList={subCategories} />
-        </details>
+        <>
+          {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
+          {/* Also auto-hide the drawer after the user makes the selection */}
+          <Link href={searchParamsState.movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
+            {label}
+          </Link>
+          <CategoriesList data={subCategories} />
+        </>
       ) : (
         <>
           {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
           {/* Also auto-hide the drawer after the user makes the selection */}
-          <Link
-            href={searchParamsState.movedToNewLocation(href)}
-            onClick={() => ((document.getElementById("navBar") as HTMLInputElement).checked = false)}
-            className={cn({ "font-bold text-accent": pathname === href })}
-          >
+          <Link href={searchParamsState.movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
             {label}
           </Link>
         </>

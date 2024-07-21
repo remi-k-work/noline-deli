@@ -4,13 +4,13 @@
 import styles from "./ProductFilter.module.css";
 
 // react
-import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
 // next
 import { usePathname, useRouter } from "next/navigation";
 
 // prisma and db access
-import { Brand } from "@prisma/client";
+import { ProductFilterData } from "../searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -25,26 +25,21 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface ProductFilterProps {
-  byCompanyList: Brand[];
-  byPriceBelowMin: number | null;
-  byPriceBelowMax: number | null;
-  isIndicator?: boolean;
-  drawerToHide: string;
-  filteredCount?: number;
-}
-
-interface ProductFilterSkeletonProps {
+  data: ProductFilterData;
   isIndicator?: boolean;
   filteredCount?: number;
+  sheetMode?: boolean;
+  sheetSetOpen?: Dispatch<SetStateAction<boolean>>;
+  className?: string;
 }
 
 export default function ProductFilter({
-  byCompanyList,
-  byPriceBelowMin,
-  byPriceBelowMax,
+  data: { byCompanyList, byPriceBelowMin, byPriceBelowMax },
   isIndicator = false,
-  drawerToHide,
   filteredCount = 0,
+  sheetMode = false,
+  sheetSetOpen,
+  className,
 }: ProductFilterProps) {
   const searchParamsState = useSearchParamsState(undefined, byPriceBelowMax ?? undefined, byCompanyList);
   const { byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
@@ -81,58 +76,58 @@ export default function ProductFilter({
   // Remove all the filters; also reset the pagination position
   const handleClearFiltersClicked = useDebouncedCallback(() => replace(searchParamsState.productFilterCleared()), 600);
 
+  // Showing in the indicator mode? Also, do not show up in cases where no filters are being applied
+  if (isIndicator) {
+    return numberOfProductFilters > 0 ? (
+      <div className={cn("dropdown sm:dropdown-end", className)}>
+        <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+          <div className="indicator">
+            <AdjustmentsHorizontalIcon width={24} height={24} />
+            <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
+          </div>
+        </div>
+        <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 bg-base-100 shadow">
+          <div className="card-body">
+            <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
+            {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
+              <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
+                <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
+                  <XMarkIcon width={24} height={24} />
+                </button>
+                <span className="flex-1">
+                  {description} <b>{paramValue}</b>
+                </span>
+              </div>
+            ))}
+            <div className="card-actions">
+              <button
+                type="button"
+                className="btn btn-primary btn-block"
+                onClick={() => {
+                  (document.activeElement as HTMLElement)?.blur();
+                  handleClearFiltersClicked();
+                }}
+              >
+                <TrashIcon width={24} height={24} />
+                Clear All Filters
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className={cn("h-12 w-12 rounded-full", className)} />
+    );
+  }
+
   // Show a product filter only when displaying a bunch of products
   const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
   if (!productPaths.some((path) => pathname.startsWith(path))) {
     return null;
   }
 
-  // Showing in the indicator mode? Also, do not show up in cases where no filters are being applied
-  if (isIndicator) {
-    return (
-      numberOfProductFilters > 0 && (
-        <div className={cn(styles["product-filter-indicator"], "dropdown dropdown-end")}>
-          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-            <div className="indicator">
-              <AdjustmentsHorizontalIcon width={24} height={24} />
-              <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
-            </div>
-          </div>
-          <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 translate-x-1/2 bg-base-100 shadow">
-            <div className="card-body">
-              <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
-              {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
-                <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
-                  <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
-                    <XMarkIcon width={24} height={24} />
-                  </button>
-                  <span className="flex-1">
-                    {description} <b>{paramValue}</b>
-                  </span>
-                </div>
-              ))}
-              <div className="card-actions">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-block"
-                  onClick={() => {
-                    (document.activeElement as HTMLElement)?.blur();
-                    handleClearFiltersClicked();
-                  }}
-                >
-                  <TrashIcon width={24} height={24} />
-                  Clear All Filters
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    );
-  }
-
   return (
-    <article className={styles["product-filter"]}>
+    <article className={cn(styles["product-filter"], className)}>
       <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
       <form className={styles["product-filter__form"]}>
         <label htmlFor="byBrandId">Company Name</label>
@@ -188,60 +183,41 @@ export default function ProductFilter({
           <TrashIcon width={24} height={24} />
           Clear All Filters
         </button>
-        <button
-          type="button"
-          className="btn btn-primary mb-4 lg:hidden"
-          onClick={() => ((document.getElementById(drawerToHide) as HTMLInputElement).checked = false)}
-        >
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-          View {filteredCount} Products
-        </button>
+        {sheetMode && (
+          <button type="button" className="btn btn-primary mb-4" onClick={() => sheetSetOpen?.(false)}>
+            <MagnifyingGlassCircleIcon width={24} height={24} />
+            View {filteredCount} Products
+          </button>
+        )}
       </form>
     </article>
   );
 }
 
-export function ProductFilterSkeleton({ isIndicator = false, filteredCount = 0 }: ProductFilterSkeletonProps) {
-  if (isIndicator) {
-    return (
-      <div className={styles["product-filter-indicator-skeleton"]}>
-        <div className="btn btn-circle btn-ghost">
-          <div className="indicator">
-            <AdjustmentsHorizontalIcon width={24} height={24} />
-            <span className="badge indicator-item badge-sm">&nbsp;</span>
-          </div>
-        </div>
-      </div>
-    );
+export function ProductFilterSkeleton({ isIndicator = false, sheetMode = false, className }: Omit<ProductFilterProps, "data" | "filteredCount">) {
+  const pathname = usePathname();
+
+  if (isIndicator) return <div className={cn("skeleton h-12 w-12 rounded-full", className)} />;
+
+  // Show a product filter only when displaying a bunch of products
+  const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
+  if (!productPaths.some((path) => pathname.startsWith(path))) {
+    return null;
   }
 
   return (
-    <article className={styles["product-filter-skeleton"]}>
+    <article className={cn(styles["product-filter-skeleton"], className)}>
       <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
-      <form className={styles["product-filter-skeleton__form"]}>
-        <label htmlFor="byBrandId">Company Name</label>
-        <select id="byBrandId" name="byBrandId" className="select" disabled={true} />
-        <label htmlFor="byPriceBelow">Price Below</label>
-        <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
-          &nbsp;
-        </output>
-        <input type="range" id="byPriceBelow" name="byPriceBelow" className="range" disabled={true} />
-        <div className="mt-4 flex w-full place-items-center gap-4">
-          <label htmlFor="byFreeShipping" className="flex flex-1 items-center gap-2">
-            <TruckIcon width={24} height={24} />
-            Free Shipping
-          </label>
-          <input type="checkbox" id="byFreeShipping" name="byFreeShipping" className="checkbox" disabled={true} />
-        </div>
-        <button type="reset" className="btn btn-warning mb-4 mt-4" disabled={true}>
-          <TrashIcon width={24} height={24} />
-          Clear All Filters
-        </button>
-        <button type="button" className="btn btn-primary mb-4 lg:hidden" disabled={true}>
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-          View {filteredCount} Products
-        </button>
-      </form>
+      <div className={styles["product-filter-skeleton__form"]}>
+        <span className={styles["label"]}>Company Name</span>
+        <div className="skeleton h-12 rounded-lg" />
+        <span className={styles["label"]}>Price Below</span>
+        <div>&nbsp;</div>
+        <div className="skeleton h-6 rounded-lg" />
+        <div className="skeleton mt-4 h-6 rounded-lg" />
+        <div className="skeleton mb-4 mt-4 h-12 rounded-lg" />
+        {sheetMode && <div className="skeleton mb-4 h-12 rounded-lg" />}
+      </div>
     </article>
   );
 }

@@ -18,8 +18,7 @@ import PathFinder from "@/features/manager/PathFinder";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
-import NavBarDrawerContent from "@/components/NavBarDrawerContent";
-import NavBarDrawerSide from "@/components/NavBarDrawerSide";
+import MainLayout from "@/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/components/Paginate";
 import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
 import NotFound from "@/components/NotFound";
@@ -86,52 +85,46 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
   const { name, logoUrl } = brand;
 
   return (
-    <>
-      <NavBarDrawerContent searchedCount={totalItems} filteredCount={totalItems}>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
-          {logoUrl && (
-            <header className="mb-4">
-              <Image
-                src={PathFinder.toResolvedBrandLogo(logoUrl)}
-                width={640}
-                height={400}
-                alt={name}
-                sizes="100vw"
-                className="m-auto max-h-48 w-auto object-contain"
-                priority
-              />
-            </header>
-          )}
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-          <br />
-          {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
-          <br />
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide searchedCount={totalItems} filteredCount={totalItems} />
-    </>
+    <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+        {logoUrl && (
+          <header className="mb-4">
+            <Image
+              src={PathFinder.toResolvedBrandLogo(logoUrl)}
+              width={640}
+              height={400}
+              alt={name}
+              sizes="100vw"
+              className="m-auto max-h-48 w-auto object-contain"
+              priority
+            />
+          </header>
+        )}
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+        <br />
+        {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
+        <br />
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+      </article>
+    </MainLayout>
   );
 }
 
 function PageSkeleton({ brandName, searchParamsState: { isListMode, sortBy } }: PageSkeletonProps) {
   return (
-    <>
-      <NavBarDrawerContent>
-        <article className={styles["page"]}>
-          <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
-          <header className="mb-4">
-            <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
-          </header>
-          <PaginateSkeleton />
-          <br />
-          <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
-          <br />
-          <PaginateSkeleton />
-        </article>
-      </NavBarDrawerContent>
-      <NavBarDrawerSide />
-    </>
+    <MainLayout>
+      <article className={styles["page"]}>
+        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+        <header className="mb-4">
+          <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
+        </header>
+        <PaginateSkeleton />
+        <br />
+        <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+        <br />
+        <PaginateSkeleton />
+      </article>
+    </MainLayout>
   );
 }

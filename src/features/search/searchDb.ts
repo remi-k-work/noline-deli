@@ -5,7 +5,35 @@ import { cache } from "react";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { whereAdminApproved } from "../manager/auth/db";
-import { INCLUDE_PRODUCT_WITH_ALL } from "../products/productsDb";
+import { allCategories, INCLUDE_PRODUCT_WITH_ALL } from "../products/productsDb";
+
+// other libraries
+import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
+import { CategoriesTreeViewEntry } from "../products/components/CategoriesTreeView";
+
+// types
+export type DashboardData = Awaited<ReturnType<typeof getDashboardData>>;
+export type ProductFilterData = Awaited<ReturnType<typeof getProductFilterData>>;
+export type CategoriesTreeViewData = Awaited<ReturnType<typeof getCategoriesTreeViewData>>;
+
+// Create a product category tree in the format that is needed by the categories tree view component
+export const getCategoriesTreeViewData = cache(async (): Promise<CategoriesTreeViewEntry[]> => {
+  const categories = await allCategories();
+
+  const data: CategoriesTreeViewEntry[] = [];
+  for (const { id: categoryId, name: categoryName, subCategories } of categories) {
+    data.push({ label: categoryName, href: routeToProductsByCategory(categoryName, categoryId), subCategories: [] });
+    for (const { id: subCategoryId, name: subCategoryName } of subCategories) {
+      data.at(-1)?.subCategories?.push({
+        label: subCategoryName,
+        href: routeToProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId),
+        subCategories: [],
+      });
+    }
+  }
+
+  return [{ label: "All Products", href: routeToAllProducts, subCategories: data }];
+});
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
 export const getDashboardData = cache(async () => {

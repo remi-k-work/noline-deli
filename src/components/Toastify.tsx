@@ -1,8 +1,5 @@
-// component css styles
-import styles from "./Toastify.module.css";
-
 // react
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -13,7 +10,7 @@ interface ToastifyProps {
   vPos?: "toast-top" | "toast-middle" | "toast-bottom";
   type?: "alert-info" | "alert-success" | "alert-warning";
   onTimedOut: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function Toastify({ hPos, vPos, type = "alert-info", onTimedOut, children }: ToastifyProps) {
@@ -30,7 +27,7 @@ export default function Toastify({ hPos, vPos, type = "alert-info", onTimedOut, 
   }, []);
 
   return (
-    <section className={cn(styles["toastify"], "toast", hPos, vPos)}>
+    <section className={cn("toast z-50", hPos, vPos)}>
       <div className={cn("alert", type)}>
         <div>{children}</div>
       </div>

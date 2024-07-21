@@ -5,6 +5,13 @@
   color: var(--brand);
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-3);
+
   position: sticky;
   inset-block-start: 0;
 }
@@ -16,6 +23,13 @@
   color: var(--brand);
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-3);
+
   position: sticky;
   inset-block-start: 0;
 }

@@ -1,44 +1,45 @@
-// component css styles
-import styles from "./NavBar.module.css";
+"use client";
 
 // prisma and db access
-import { allCategories } from "@/features/products/productsDb";
-import { getProductFilterData } from "@/features/search/searchDb";
+import { CategoriesTreeViewData } from "@/features/search/searchDb";
+
+// other libraries
+import useMediaQuery from "@/lib/useMediaQuery";
 
 // components
-import SearchPanel, { SearchPanelSkeleton } from "@/features/search/components/SearchPanel";
 import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/products/components/CategoriesTreeView";
-import ProductFilter, { ProductFilterSkeleton } from "@/features/search/components/ProductFilter";
 
 // types
 interface NavBarProps {
-  searchedCount?: number;
-  filteredCount?: number;
+  categoriesTreeViewData: CategoriesTreeViewData;
+  sheetMode?: boolean;
+  className?: string;
 }
 
-export default async function NavBar({ searchedCount, filteredCount }: NavBarProps) {
-  // Fetch all data in parallel if possible and pass it down to components that require it
-  const [categories, productFilterData] = await Promise.all([allCategories(), getProductFilterData()]);
+export default function NavBar({ categoriesTreeViewData, sheetMode = false, className }: NavBarProps) {
+  // Large screens
+  const isLarge = useMediaQuery("(min-width: 1024px)");
 
   return (
-    <nav className={styles["navbar"]}>
-      <div className="lg:hidden">
-        <SearchPanel drawerToHide={"navBar"} searchedCount={searchedCount} />
-      </div>
-      <ProductFilter {...productFilterData} drawerToHide={"navBar"} filteredCount={filteredCount} />
-      <CategoriesTreeView categories={categories} />
-    </nav>
+    (isLarge || sheetMode) && (
+      <nav className={className}>
+        <section className="sticky top-20">
+          <CategoriesTreeView data={categoriesTreeViewData} />
+        </section>
+      </nav>
+    )
   );
 }
 
-export function NavBarSkeleton({ searchedCount, filteredCount }: NavBarProps) {
+export function NavBarSkeleton({ className }: Required<Pick<NavBarProps, "className">>) {
+  // Large screens
+  const isLarge = useMediaQuery("(min-width: 1024px)");
+
   return (
-    <nav className={styles["navbar-skeleton"]}>
-      <div className="lg:hidden">
-        <SearchPanelSkeleton drawerToHide={"navBar"} searchedCount={searchedCount} />
-      </div>
-      <ProductFilterSkeleton filteredCount={filteredCount} />
-      <CategoriesTreeViewSkeleton />
-    </nav>
+    isLarge && (
+      <nav className={className}>
+        <CategoriesTreeViewSkeleton />
+      </nav>
+    )
   );
 }

@@ -3,9 +3,11 @@
 // next
 import { useRouter } from "next/navigation";
 
+// prisma and db access
+import { AllCategoriesData, ProductsPerCategoryData } from "../db";
+
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { AllCategoriesData, ProductsPerCategoryData } from "../db";
 import useSearchParamsState from "../../useSearchParamsState";
 
 // components
