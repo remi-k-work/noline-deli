@@ -22,23 +22,23 @@ export default function NavBarSheetTrigger({ categoriesTreeViewData, className }
   // Large screens
   const isLarge = useMediaQuery("(min-width: 1024px)");
 
-  return !isLarge ? (
-    <Sheet>
-      <SheetTrigger className={cn("btn btn-circle btn-ghost", className)}>
-        <Bars4Icon width={24} height={24} />
-      </SheetTrigger>
-      <SheetContent side={"left"} className="bg-[--surface-2]">
-        <SheetHeader className="sr-only">
-          <SheetTitle>NavBar</SheetTitle>
-          <SheetDescription>NavBar</SheetDescription>
-        </SheetHeader>
-        <div className="max-h-[80vh] overflow-y-auto">
-          <NavBar categoriesTreeViewData={categoriesTreeViewData} sheetMode={true} />
-        </div>
-      </SheetContent>
-    </Sheet>
-  ) : (
-    <div className={cn("h-12 w-12 rounded-full", className)} />
+  return (
+    !isLarge && (
+      <Sheet>
+        <SheetTrigger className={cn("btn btn-circle btn-ghost", className)}>
+          <Bars4Icon width={24} height={24} />
+        </SheetTrigger>
+        <SheetContent side={"left"} className="bg-[--surface-2]">
+          <SheetHeader className="sr-only">
+            <SheetTitle>NavBar</SheetTitle>
+            <SheetDescription>NavBar</SheetDescription>
+          </SheetHeader>
+          <div className="max-h-[80vh] overflow-y-auto">
+            <NavBar categoriesTreeViewData={categoriesTreeViewData} sheetMode={true} />
+          </div>
+        </SheetContent>
+      </Sheet>
+    )
   );
 }
 

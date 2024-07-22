@@ -14,7 +14,7 @@ export default function CartIndicator({ cart, className = "" }) {
   if (!cart || (cart && cart.cartItems.length === 0)) {
     // If the cart is not there, display the empty cart indicator nonetheless
     return (
-      <div className={cn("dropdown sm:dropdown-end", className)}>
+      <div className={cn("dropdown md:dropdown-end", className)}>
         <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
           <div className="indicator">
             <ShoppingCartIcon width={24} height={24} />
@@ -38,7 +38,7 @@ export default function CartIndicator({ cart, className = "" }) {
   const { totalQty, subTotal } = cart;
 
   return (
-    <div className={cn("dropdown sm:dropdown-end", className)}>
+    <div className={cn("dropdown md:dropdown-end", className)}>
       <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
         <div className="indicator">
           <ShoppingCartIcon width={24} height={24} />

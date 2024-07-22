@@ -29,35 +29,27 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
 
   return (
     <header className={cn(styles["header"], "z-30")}>
-      <section className="flex flex-none items-center gap-3">
-        <HeaderLogo />
-        <NavBarSheetTrigger categoriesTreeViewData={categoriesTreeViewData} />
-      </section>
-      <SearchPanel searchedCount={searchedCount} className="flex-1" />
-      <section className="flex flex-1 items-center justify-around gap-3 sm:flex-none">
-        <ProductFilter data={productFilterData} isIndicator={true} filteredCount={filteredCount} />
-        <CartIndicator cart={cart} />
-        <SideBarSheetTrigger productFilterData={productFilterData} filteredCount={filteredCount} />
-        <ThemeSwitcher />
-      </section>
+      <HeaderLogo className={styles["header__logo"]} />
+      <NavBarSheetTrigger categoriesTreeViewData={categoriesTreeViewData} className={styles["header__navbar-sheet-trigger"]} />
+      <SearchPanel searchedCount={searchedCount} className={styles["header__search-panel"]} />
+      <ProductFilter data={productFilterData} isIndicator={true} filteredCount={filteredCount} className={styles["header__product-filter-indicator"]} />
+      <CartIndicator cart={cart} className={styles["header__cart-indicator"]} />
+      <SideBarSheetTrigger productFilterData={productFilterData} filteredCount={filteredCount} className={styles["header__sidebar-sheet-trigger"]} />
+      <ThemeSwitcher className={styles["header__theme-switcher"]} />
     </header>
   );
 }
 
 export function HeaderSkeleton() {
   return (
-    <header className={cn(styles["header-skeleton"], "z-30")}>
-      <section className="flex flex-none items-center gap-3">
-        <HeaderLogo />
-        <NavBarSheetTriggerSkeleton />
-      </section>
-      <SearchPanelSkeleton className="flex-1" />
-      <section className="flex flex-1 items-center justify-around gap-3 sm:flex-none">
-        <ProductFilterSkeleton isIndicator={true} />
-        <CartIndicatorSkeleton />
-        <SideBarSheetTriggerSkeleton />
-        <ThemeSwitcherSkeleton />
-      </section>
+    <header className={cn(styles["header"], "z-30")}>
+      <HeaderLogo className={styles["header__logo"]} />
+      <NavBarSheetTriggerSkeleton className={styles["header__navbar-sheet-trigger"]} />
+      <SearchPanelSkeleton className={styles["header__search-panel"]} />
+      <ProductFilterSkeleton isIndicator={true} className={styles["header__product-filter-indicator"]} />
+      <CartIndicatorSkeleton className={styles["header__cart-indicator"]} />
+      <SideBarSheetTriggerSkeleton className={styles["header__sidebar-sheet-trigger"]} />
+      <ThemeSwitcherSkeleton className={styles["header__theme-switcher"]} />
     </header>
   );
 }

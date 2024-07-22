@@ -78,53 +78,51 @@ export default function ProductFilter({
 
   // Showing in the indicator mode? Also, do not show up in cases where no filters are being applied
   if (isIndicator) {
-    return numberOfProductFilters > 0 ? (
-      <div className={cn("dropdown sm:dropdown-end", className)}>
-        <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-          <div className="indicator">
-            <AdjustmentsHorizontalIcon width={24} height={24} />
-            <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
+    return (
+      numberOfProductFilters > 0 && (
+        <div className={cn("dropdown md:dropdown-end", className)}>
+          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+            <div className="indicator">
+              <AdjustmentsHorizontalIcon width={24} height={24} />
+              <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
+            </div>
           </div>
-        </div>
-        <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 bg-base-100 shadow">
-          <div className="card-body">
-            <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
-            {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
-              <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
-                <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
-                  <XMarkIcon width={24} height={24} />
+          <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 bg-base-100 shadow">
+            <div className="card-body">
+              <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
+              {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
+                <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
+                  <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
+                    <XMarkIcon width={24} height={24} />
+                  </button>
+                  <span className="flex-1">
+                    {description} <b>{paramValue}</b>
+                  </span>
+                </div>
+              ))}
+              <div className="card-actions">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-block"
+                  onClick={() => {
+                    (document.activeElement as HTMLElement)?.blur();
+                    handleClearFiltersClicked();
+                  }}
+                >
+                  <TrashIcon width={24} height={24} />
+                  Clear All Filters
                 </button>
-                <span className="flex-1">
-                  {description} <b>{paramValue}</b>
-                </span>
               </div>
-            ))}
-            <div className="card-actions">
-              <button
-                type="button"
-                className="btn btn-primary btn-block"
-                onClick={() => {
-                  (document.activeElement as HTMLElement)?.blur();
-                  handleClearFiltersClicked();
-                }}
-              >
-                <TrashIcon width={24} height={24} />
-                Clear All Filters
-              </button>
             </div>
           </div>
         </div>
-      </div>
-    ) : (
-      <div className={cn("h-12 w-12 rounded-full", className)} />
+      )
     );
   }
 
   // Show a product filter only when displaying a bunch of products
   const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
-  if (!productPaths.some((path) => pathname.startsWith(path))) {
-    return null;
-  }
+  if (!productPaths.some((path) => pathname.startsWith(path))) return null;
 
   return (
     <article className={cn(styles["product-filter"], className)}>
@@ -201,9 +199,7 @@ export function ProductFilterSkeleton({ isIndicator = false, sheetMode = false, 
 
   // Show a product filter only when displaying a bunch of products
   const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
-  if (!productPaths.some((path) => pathname.startsWith(path))) {
-    return null;
-  }
+  if (!productPaths.some((path) => pathname.startsWith(path))) return null;
 
   return (
     <article className={cn(styles["product-filter-skeleton"], className)}>

@@ -1,9 +1,14 @@
 // next
 import Link from "next/link";
 
-export default function HeaderLogo() {
+// types
+interface HeaderLogoProps {
+  className?: string;
+}
+
+export default function HeaderLogo({ className }: HeaderLogoProps) {
   return (
-    <Link href={"/"}>
+    <Link href={"/"} className={className}>
       <svg xmlns="http://www.w3.org/2000/svg" width="117.213" height="64.418" viewBox="0 0 31.013 17.044">
         <path
           fill="currentColor"
