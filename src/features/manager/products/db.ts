@@ -10,6 +10,7 @@ import { whereAdminApproved } from "@/features/manager/auth/db";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
+export type ProductWithInfo = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_INFO }>;
 
 const INCLUDE_PRODUCT_WITH_ALL = {
   categories: { include: { category: true } },
@@ -17,6 +18,15 @@ const INCLUDE_PRODUCT_WITH_ALL = {
   moreImages: true,
   brand: true,
   user: true,
+} satisfies Prisma.ProductInclude;
+
+const INCLUDE_PRODUCT_WITH_INFO = {
+  categories: { include: { category: true } },
+  subCategories: { include: { subCategory: true } },
+  moreImages: true,
+  brand: true,
+  user: true,
+  _count: { select: { moreImages: true, carts: true } },
 } satisfies Prisma.ProductInclude;
 
 // Create and where clause generators and helpers
@@ -154,7 +164,7 @@ export function allProductsWithPagination(
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
-      include: INCLUDE_PRODUCT_WITH_ALL,
+      include: INCLUDE_PRODUCT_WITH_INFO,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

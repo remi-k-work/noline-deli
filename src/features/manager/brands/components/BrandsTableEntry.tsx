@@ -3,12 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { BrandWithUser } from "../db";
+import { BrandWithInfo } from "../db";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../../PathFinder";
 import useMediaQuery from "@/lib/useMediaQuery";
+import { formatDistanceToNow } from "date-fns";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -16,7 +18,7 @@ import BrandsTableActions from "./BrandsTableActions";
 
 // types
 interface BrandsTableEntryProps {
-  brand: BrandWithUser;
+  brand: BrandWithInfo;
   createdByUser?: string;
 }
 
@@ -36,6 +38,9 @@ export default function BrandsTableEntry({ brand, createdByUser }: BrandsTableEn
     logoUrl,
     createdBy,
     user: { role },
+    _count: { products },
+    createdAt,
+    updatedAt,
   } = brand;
 
   return (
@@ -62,7 +67,25 @@ export default function BrandsTableEntry({ brand, createdByUser }: BrandsTableEn
           {name}
         </Link>
       </TableCell>
-      {!isSmall && <TableCell className="overflow-clip whitespace-nowrap">{logoUrl}</TableCell>}
+      {isSmall ? (
+        <TableCell className="text-center">{products}</TableCell>
+      ) : (
+        <>
+          <TableCell className="overflow-clip whitespace-nowrap">{logoUrl}</TableCell>
+          <TableCell className="text-center">{products}</TableCell>
+          <TableCell className="text-center">
+            <span className="m-auto flex w-fit items-center gap-2">
+              <ClockIcon width={24} height={24} className="min-w-max" />
+              {formatDistanceToNow(createdAt)} ago
+            </span>
+            <hr className="border-dotted" />
+            <span className="m-auto flex w-fit items-center gap-2">
+              <ClockIcon width={24} height={24} className="min-w-max" />
+              {formatDistanceToNow(updatedAt)} ago
+            </span>
+          </TableCell>
+        </>
+      )}
       <TableCell>
         <BrandsTableActions brandId={id} brandName={name} brandLogoUrl={logoUrl} />
       </TableCell>

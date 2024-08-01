@@ -4,7 +4,7 @@
 import styles from "./BrandsTable.module.css";
 
 // prisma and db access
-import { BrandWithUser } from "../db";
+import { BrandWithInfo } from "../db";
 
 // other libraries
 import useMediaQuery from "@/lib/useMediaQuery";
@@ -18,7 +18,7 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface BrandsTableProps {
-  brands: BrandWithUser[];
+  brands: BrandWithInfo[];
   createdByUser?: string;
 }
 
@@ -33,13 +33,20 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
           {isSmall ? (
             <>
               <TableHead className="w-[--size-11]">&nbsp;</TableHead>
-              <TableHead className="w-full">Name</TableHead>
+              <TableHead className="w-1/2">Name</TableHead>
+              <TableHead className="w-1/2 text-center">Products#</TableHead>
             </>
           ) : (
             <>
               <TableHead className="w-[--size-13]">&nbsp;</TableHead>
-              <TableHead className="w-1/2">Name</TableHead>
-              <TableHead className="w-1/2">Logo Url</TableHead>
+              <TableHead className="w-1/4">Name</TableHead>
+              <TableHead className="w-1/4">Logo Url</TableHead>
+              <TableHead className="w-1/4 text-center">Products#</TableHead>
+              <TableHead className="w-1/4 text-center">
+                Created At
+                <hr className="border-dotted" />
+                Updated At
+              </TableHead>
             </>
           )}
           <TableHead className="w-[--size-9]">&nbsp;</TableHead>
@@ -55,13 +62,20 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
           {isSmall ? (
             <>
               <TableHead className="w-[--size-11]">&nbsp;</TableHead>
-              <TableHead className="w-full">Name</TableHead>
+              <TableHead className="w-1/2">Name</TableHead>
+              <TableHead className="w-1/2 text-center">Products#</TableHead>
             </>
           ) : (
             <>
               <TableHead className="w-[--size-13]">&nbsp;</TableHead>
-              <TableHead className="w-1/2">Name</TableHead>
-              <TableHead className="w-1/2">Logo Url</TableHead>
+              <TableHead className="w-1/4">Name</TableHead>
+              <TableHead className="w-1/4">Logo Url</TableHead>
+              <TableHead className="w-1/4 text-center">Products#</TableHead>
+              <TableHead className="w-1/4 text-center">
+                Created At
+                <hr className="border-dotted" />
+                Updated At
+              </TableHead>
             </>
           )}
           <TableHead className="w-[--size-9]">&nbsp;</TableHead>

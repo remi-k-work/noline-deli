@@ -6,13 +6,15 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "../db";
+import { ProductWithInfo } from "../db";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../../PathFinder";
 import useMediaQuery from "@/lib/useMediaQuery";
+import { formatDistanceToNow } from "date-fns";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -21,7 +23,7 @@ import ProductsTableActions from "./ProductsTableActions";
 
 // types
 interface ProductsTableEntryProps {
-  product: ProductWithAll;
+  product: ProductWithInfo;
   createdByUser?: string;
 }
 
@@ -44,6 +46,9 @@ export default function ProductsTableEntry({ product, createdByUser }: ProductsT
     subCategories,
     createdBy,
     user: { role },
+    _count: { moreImages, carts },
+    createdAt,
+    updatedAt,
   } = product;
 
   return (
@@ -73,26 +78,40 @@ export default function ProductsTableEntry({ product, createdByUser }: ProductsT
       </TableCell>
       <TableCell>
         <Link href={PathFinder.toProductEdit(id)} className="link-hover link">
-          {name}
+          <b>{name}</b>
         </Link>
+        <br />
+        <ul>
+          {categories.map(({ category: { id, name } }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+        <ul>
+          {subCategories.map(({ subCategory: { id, name } }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
       </TableCell>
       {!isSmall && (
         <>
-          <TableCell>
-            <ul>
-              {categories.map(({ category: { id, name } }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
+          <TableCell className="text-center">
+            {moreImages + 1}
+            <hr className="border-dotted" />
+            {carts}
+            <br />
+            <b>{formatPrice(price)}</b>
           </TableCell>
-          <TableCell>
-            <ul>
-              {subCategories.map(({ subCategory: { id, name } }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
+          <TableCell className="text-center">
+            <span className="m-auto flex w-fit items-center gap-2">
+              <ClockIcon width={24} height={24} className="min-w-max" />
+              {formatDistanceToNow(createdAt)} ago
+            </span>
+            <hr className="border-dotted" />
+            <span className="m-auto flex w-fit items-center gap-2">
+              <ClockIcon width={24} height={24} className="min-w-max" />
+              {formatDistanceToNow(updatedAt)} ago
+            </span>
           </TableCell>
-          <TableCell className="overflow-clip whitespace-nowrap text-end">{formatPrice(price)}</TableCell>
         </>
       )}
       <TableCell>

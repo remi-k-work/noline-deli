@@ -10,10 +10,14 @@ import { whereAdminApproved } from "@/features/manager/auth/db";
 export type CategoryWithSubCategory = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_SUBCATEGORY }>;
 export type CategoryWithUser = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_USER }>;
 export type SubCategoryWithUser = Prisma.SubCategoryGetPayload<{ include: typeof INCLUDE_SUBCATEGORY_WITH_USER }>;
+export type CategoryWithInfo = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_INFO }>;
+export type SubCategoryWithInfo = Prisma.SubCategoryGetPayload<{ include: typeof INCLUDE_SUBCATEGORY_WITH_INFO }>;
 
 const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { orderBy: { name: "asc" }, include: { user: true } }, user: true } satisfies Prisma.CategoryInclude;
 const INCLUDE_CATEGORY_WITH_USER = { user: true } satisfies Prisma.CategoryInclude;
 const INCLUDE_SUBCATEGORY_WITH_USER = { category: true, user: true } satisfies Prisma.SubCategoryInclude;
+const INCLUDE_CATEGORY_WITH_INFO = { user: true, _count: { select: { subCategories: true, products: true } } } satisfies Prisma.CategoryInclude;
+const INCLUDE_SUBCATEGORY_WITH_INFO = { category: true, user: true, _count: { select: { products: true } } } satisfies Prisma.SubCategoryInclude;
 
 // Create and where clause generators and helpers
 function whereKeywordCategory(keyword?: string): Prisma.CategoryWhereInput {
@@ -95,7 +99,7 @@ export function allCategoriesWithPagination(itemsPerPage: number, sortByField: s
     }),
     prisma.category.findMany({
       where: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), ...whereKeywordCategory(keyword) },
-      include: INCLUDE_CATEGORY_WITH_USER,
+      include: INCLUDE_CATEGORY_WITH_INFO,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,
@@ -114,7 +118,7 @@ export function allSubCategoriesWithPagination(itemsPerPage: number, sortByField
     }),
     prisma.subCategory.findMany({
       where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>(), ...whereKeywordSubCategory(keyword) },
-      include: INCLUDE_SUBCATEGORY_WITH_USER,
+      include: INCLUDE_SUBCATEGORY_WITH_INFO,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

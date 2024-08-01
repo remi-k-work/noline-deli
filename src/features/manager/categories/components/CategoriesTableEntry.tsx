@@ -2,11 +2,14 @@
 import Link from "next/link";
 
 // prisma and db access
-import { CategoryWithUser } from "../db";
+import { CategoryWithInfo } from "../db";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../../PathFinder";
+import useMediaQuery from "@/lib/useMediaQuery";
+import { formatDistanceToNow } from "date-fns";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -14,11 +17,14 @@ import CategoriesTableActions from "./CategoriesTableActions";
 
 // types
 interface CategoriesTableEntryProps {
-  category: CategoryWithUser;
+  category: CategoryWithInfo;
   createdByUser?: string;
 }
 
 export default function CategoriesTableEntry({ category, createdByUser }: CategoriesTableEntryProps) {
+  // Small devices (landscape phones, less than 768px)
+  const isSmall = useMediaQuery("(max-width: 767.98px)");
+
   // Ensure the category exists
   if (!category) {
     // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
@@ -30,6 +36,9 @@ export default function CategoriesTableEntry({ category, createdByUser }: Catego
     name,
     createdBy,
     user: { role },
+    _count: { subCategories, products },
+    createdAt,
+    updatedAt,
   } = category;
 
   return (
@@ -43,6 +52,21 @@ export default function CategoriesTableEntry({ category, createdByUser }: Catego
           {name}
         </Link>
       </TableCell>
+      <TableCell className="text-center">{subCategories}</TableCell>
+      <TableCell className="text-center">{products}</TableCell>
+      {!isSmall && (
+        <TableCell className="text-center">
+          <span className="m-auto flex w-fit items-center gap-2">
+            <ClockIcon width={24} height={24} className="min-w-max" />
+            {formatDistanceToNow(createdAt)} ago
+          </span>
+          <hr className="border-dotted" />
+          <span className="m-auto flex w-fit items-center gap-2">
+            <ClockIcon width={24} height={24} className="min-w-max" />
+            {formatDistanceToNow(updatedAt)} ago
+          </span>
+        </TableCell>
+      )}
       <TableCell>
         <CategoriesTableActions categoryId={id} categoryName={name} />
       </TableCell>

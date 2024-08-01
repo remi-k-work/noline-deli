@@ -8,8 +8,10 @@ import { whereAdminApproved } from "@/features/manager/auth/db";
 
 // types
 export type BrandWithUser = Prisma.BrandGetPayload<{ include: typeof INCLUDE_BRAND_WITH_USER }>;
+export type BrandWithInfo = Prisma.BrandGetPayload<{ include: typeof INCLUDE_BRAND_WITH_INFO }>;
 
 const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
+const INCLUDE_BRAND_WITH_INFO = { user: true, _count: { select: { products: true } } } satisfies Prisma.BrandInclude;
 
 // Create and where clause generators and helpers
 function whereKeyword(keyword?: string): Prisma.BrandWhereInput {
@@ -53,7 +55,7 @@ export function allBrandsWithPagination(itemsPerPage: number, sortByField: strin
     }),
     prisma.brand.findMany({
       where: { ...whereAdminApproved<Prisma.BrandWhereInput>(), ...whereKeyword(keyword) },
-      include: INCLUDE_BRAND_WITH_USER,
+      include: INCLUDE_BRAND_WITH_INFO,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,
