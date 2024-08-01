@@ -12,21 +12,24 @@ import { BrandWithUser } from "../../brands/db";
 import { CategoryWithSubCategory } from "../../categories/db";
 
 // server actions and mutations
-import { newProduct, updProduct } from "../actions";
+import { newProduct2, updProduct2 } from "@/features/manager/products/actions";
 
 // other libraries
+import { z } from "zod";
 import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";
-import ProductFormSchema, { ProductFormSchemaType, ProductFormState } from "../ProductFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
+import { productFormSchema } from "../schemas/productForm";
+import { ProductFormActionResult } from "../schemas/types";
+import PathFinder from "../../PathFinder";
+import useFormActionFeedback from "../../useFormActionFeedback";
 
 // components
 import { FormTextArea, FormInputField, FormCheckField } from "../../components/FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./ProductFormControls";
 import ProductFormImages from "./ProductFormImages";
 import FormSubmit from "../../components/FormSubmit";
-import ProductFormFeedback from "./ProductFormFeedback";
+import ProductExcerpt from "./ProductExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -61,19 +64,20 @@ export default function ProductForm({ product, brands, categories }: ProductForm
 }
 
 function TheFormWrapped({ product, brands, categories, onResetClicked }: TheFormWrappedProps) {
-  const {
-    isPending,
-    formState: productFormState,
-    formAction,
-    allFieldErrors,
+  // To provide feedback to the user
+  const { feedback, showFeedback } = useFormActionFeedback({
+    excerpt: product ? <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} /> : undefined,
+    pathToAllItems: PathFinder.toAllProducts(),
+  });
+
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    typeof productFormSchema,
+    readonly [productId: z.ZodString, orgCreatedAt: z.ZodDate] | readonly [],
+    ProductFormActionResult
+  >({
+    safeActionFunc: product ? updProduct2.bind(null, product.id, product.createdAt) : newProduct2,
+    formSchema: productFormSchema,
     showFeedback,
-    setShowFeedback,
-    onSubmit,
-    useFormMethods,
-  } = useFormActionWithVal<ProductFormState, ProductFormSchemaType>({
-    formActionFunc: product ? updProduct.bind(null, product.id, product.createdAt) : newProduct,
-    resolver: zodResolver(ProductFormSchema.schema),
-    formSchema: new ProductFormSchema(),
   });
 
   // Default values for the form
@@ -119,8 +123,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as ProductFormSchemaType, ev)}> */}
+        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
           <FormInputField
             fieldName={"name"}
             fieldLabel={"name"}
@@ -159,10 +162,10 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
             <TruckIcon width={24} height={24} />
             Free Shipping
           </FormCheckField>
-          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
-      {showFeedback && <ProductFormFeedback product={product} productFormState={productFormState} setShowFeedback={setShowFeedback} />}
+      {feedback}
     </article>
   );
 }

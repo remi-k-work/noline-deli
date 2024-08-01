@@ -17,7 +17,7 @@ import { CategoryWithSubCategory } from "../../categories/db";
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../../PathFinder";
 import { useFormContext } from "react-hook-form";
-import { AllFieldErrors } from "../../FormSchemaBase";
+import { AllFieldErrors } from "../../formActionTypes";
 
 // components
 import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "../../components/FormControls";
@@ -90,13 +90,11 @@ export function BrandAndLogo({ brands, selectedBrandId = "", allFieldErrors }: B
           onChange={(ev) => setCurrSelectedBrandId(ev.target.value)}
         >
           <option value="">Choose Brand</option>
-          {brands.map(({ id, name }) => {
-            return (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            );
-          })}
+          {brands.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </FormSelectField>
         <FormOutputField outputFor={"brandId"} fieldName={"brandLogo"} fieldLabel={"logo"}>
           {currentLogoSrc ? (
@@ -145,13 +143,11 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
           }}
         >
           <option value="">Choose Category</option>
-          {categories.map(({ id, name }) => {
-            return (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            );
-          })}
+          {categories.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </FormSelectField>
         <FormSelectField
           fieldName={"subCategoryId"}
@@ -169,13 +165,11 @@ export function CategoryAndSubCategory({ categories, selectedCategoryId = "", se
             // There is no need to select a subcategory when there are none available (default behavior)
             <option value="">Choose SubCategory</option>
           )}
-          {currentCategory?.subCategories.map(({ id, name }) => {
-            return (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            );
-          })}
+          {currentCategory?.subCategories.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </FormSelectField>
       </section>
       {allFieldErrors && allFieldErrors["categoryId"] && <ErrorMessage fieldErrors={allFieldErrors["categoryId"]} />}

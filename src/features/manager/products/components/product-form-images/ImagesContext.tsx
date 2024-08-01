@@ -4,7 +4,7 @@
 import { createContext, useContext, Dispatch, SetStateAction, ReactNode } from "react";
 
 // other libraries
-import { AllFieldErrors } from "../../../FormSchemaBase";
+import { AllFieldErrors } from "../../../formActionTypes";
 
 // types
 interface ImagesContextType {

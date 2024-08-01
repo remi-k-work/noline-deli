@@ -9,121 +9,106 @@ import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../auth/db
 import { createProduct, deleteProduct, updateProduct } from "./db";
 
 // other libraries
+import { z } from "zod";
+import { actionClient } from "@/lib/safeAction";
 import PathFinder from "../PathFinder";
-import ProductFormSchema, { ProductFormState } from "./ProductFormSchema";
+import { ProductFormActionResult } from "./schemas/types";
+import { dateSchema, objectIdSchema } from "../formActionTypes";
+import { productFormSchema } from "./schemas/productForm";
+import { handleValidationErrorsShape } from "./schemas/consts";
 
-export async function delProduct(productId: string): Promise<ProductFormState> {
-  // The just-deleted product excerpt
-  let name: string, imageUrl: string, price: number;
+export const newProduct2 = actionClient
+  .schema(productFormSchema, { handleValidationErrorsShape })
+  .action(async ({ parsedInput }): Promise<ProductFormActionResult> => {
+    // Collect and prepare validated data for underlying database operations
+    const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = parsedInput;
 
-  try {
-    // Make sure we have permission for this item before proceeding
-    if (await isAccessDeniedTo("product", productId)) {
-      return { actionStatus: "denied" };
+    try {
+      // Generate an entirely new product with all the associated data
+      await createProduct(
+        getCreatedByUser() ?? (await setCreatedByUser()),
+        brandId,
+        name,
+        description,
+        theMainImage,
+        price,
+        freeShipping,
+        categoryId,
+        subCategoryId,
+        extraImages,
+      );
+    } catch (error) {
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
     }
 
-    // Delete the given product and its associated data
-    ({ name, imageUrl, price } = await deleteProduct(productId));
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    return { actionStatus: "failed" };
-  }
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllProducts());
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllProducts());
-
-  // Return the recently removed product excerpt so we may provide feedback to the user
-  return { actionStatus: "succeeded", productExcerpt: { name, imageUrl, price } };
-}
-
-export async function updProduct(productId: string, orgCreatedAt: Date, formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
-  const productFormSchema = new ProductFormSchema(formData);
-  const { isSuccess, allFieldErrorsServer, validatedData } = productFormSchema;
-
-  // If form validation fails, return errors promptly; otherwise, continue
-  if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
-  }
+    return { actionStatus: "succeeded" };
+  });
 
-  let newProductId = productId;
-  try {
-    // Make sure we have permission for this item before proceeding
-    if (await isAccessDeniedTo("product", productId)) {
-      return { ...formState, actionStatus: "denied" };
+export const updProduct2 = actionClient
+  .schema(productFormSchema, { handleValidationErrorsShape })
+  .bindArgsSchemas<[productId: z.ZodString, orgCreatedAt: z.ZodDate]>([objectIdSchema, dateSchema])
+  .action(async ({ parsedInput, bindArgsParsedInputs: [productId, orgCreatedAt] }): Promise<ProductFormActionResult> => {
+    // Collect and prepare validated data for underlying database operations
+    const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = parsedInput;
+
+    let newProductId = productId;
+    try {
+      // Make sure we have permission for this item before proceeding
+      if (await isAccessDeniedTo("product", productId)) return { actionStatus: "denied" };
+
+      // To update an existing product, delete it and recreate it with new data
+      const [, product] = await updateProduct(
+        productId,
+        orgCreatedAt,
+        getCreatedByUser() ?? (await setCreatedByUser()),
+        brandId,
+        name,
+        description,
+        theMainImage,
+        price,
+        freeShipping,
+        categoryId,
+        subCategoryId,
+        extraImages,
+      );
+      newProductId = product.id;
+    } catch (error) {
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
     }
 
-    // Collect and prepare validated data for underlying database operations
-    const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = validatedData!;
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllProducts());
 
-    // To update an existing product, delete it and recreate it with new data
-    const [, product] = await updateProduct(
-      productId,
-      orgCreatedAt,
-      getCreatedByUser() ?? (await setCreatedByUser()),
-      brandId,
-      name,
-      description,
-      theMainImage,
-      price,
-      freeShipping,
-      categoryId,
-      subCategoryId,
-      extraImages,
-    );
-    newProductId = product.id;
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    return { ...formState, actionStatus: "failed" };
-  }
+    // Because the old url no longer exists, we must redirect to the newly constructed product url and provide feedback there
+    redirect(PathFinder.toProductEditFeedback(newProductId));
+  });
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllProducts());
+export const delProduct2 = actionClient
+  .schema(z.object({ productId: objectIdSchema }))
+  .action(async ({ parsedInput: { productId } }): Promise<ProductFormActionResult> => {
+    try {
+      // Make sure we have permission for this item before proceeding
+      if (await isAccessDeniedTo("product", productId)) return { actionStatus: "denied" };
 
-  // Because the old url no longer exists, we must redirect to the newly constructed product url and provide feedback there
-  redirect(PathFinder.toProductEditFeedback(newProductId));
-}
+      // Delete the given product and its associated data
+      await deleteProduct(productId);
+    } catch (error) {
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
+    }
 
-export async function newProduct(formState: ProductFormState, formData: FormData): Promise<ProductFormState> {
-  const productFormSchema = new ProductFormSchema(formData);
-  const { isSuccess, allFieldErrorsServer, validatedData } = productFormSchema;
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllProducts());
 
-  // If form validation fails, return errors promptly; otherwise, continue
-  if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
-  }
-
-  try {
-    // Collect and prepare validated data for underlying database operations
-    const { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping } = validatedData!;
-
-    // Generate an entirely new product with all the associated data
-    await createProduct(
-      getCreatedByUser() ?? (await setCreatedByUser()),
-      brandId,
-      name,
-      description,
-      theMainImage,
-      price,
-      freeShipping,
-      categoryId,
-      subCategoryId,
-      extraImages,
-    );
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    return { ...formState, actionStatus: "failed" };
-  }
-
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllProducts());
-
-  // Return the new action state so that we can provide feedback to the user
-  const { name, theMainImage, price } = validatedData!;
-
-  return { ...formState, actionStatus: "succeeded", productExcerpt: { name, imageUrl: theMainImage, price } };
-}
+    return { actionStatus: "succeeded" };
+  });

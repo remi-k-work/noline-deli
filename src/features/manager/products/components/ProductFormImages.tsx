@@ -9,7 +9,7 @@ import { useState } from "react";
 // other libraries
 import { cn } from "@/lib/utils";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
-import { AllFieldErrors } from "../../FormSchemaBase";
+import { AllFieldErrors } from "../../formActionTypes";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

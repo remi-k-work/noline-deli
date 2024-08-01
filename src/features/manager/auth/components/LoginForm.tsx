@@ -7,20 +7,21 @@ import styles from "./LoginForm.module.css";
 import { useState } from "react";
 
 // server actions and mutations
-import { newLogin } from "../actions";
+import { newLogin2 } from "../actions";
 
 // other libraries
 import { KeyIcon } from "@heroicons/react/24/solid";
-import LoginFormSchema, { LoginFormSchemaType, LoginFormState } from "../LoginFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
+import useFormActionWithVal from "../../useFormActionWithVal";
+import { loginFormSchema } from "../schemas/loginForm";
+import { LoginFormActionResult } from "../schemas/types";
+import PathFinder from "../../PathFinder";
+import useLoginActionFeedback from "../../useLoginActionFeedback";
 
 // components
 import { FormInputField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
-import LoginFormFeedback from "./LoginFormFeedback";
 import Captcha from "@/features/auth/components/Captcha";
 
 // assets
@@ -39,19 +40,16 @@ export default function LoginForm() {
 }
 
 function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
-  const {
-    isPending,
-    formState: loginFormState,
-    formAction,
-    allFieldErrors,
+  // To provide feedback to the user
+  const { feedback, showFeedback } = useLoginActionFeedback({
+    excerpt: <p className="text-center text-2xl font-bold">Guest</p>,
+    pathToAllItems: PathFinder.toManagerHome(),
+  });
+
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<typeof loginFormSchema, readonly [], LoginFormActionResult>({
+    safeActionFunc: newLogin2,
+    formSchema: loginFormSchema,
     showFeedback,
-    setShowFeedback,
-    onSubmit,
-    useFormMethods,
-  } = useFormActionWithVal<LoginFormState, LoginFormSchemaType>({
-    formActionFunc: newLogin,
-    resolver: zodResolver(LoginFormSchema.schema),
-    formSchema: new LoginFormSchema(),
   });
 
   return (
@@ -61,8 +59,7 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
         Login
       </h2>
       <FormProvider {...useFormMethods}>
-        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as LoginFormSchemaType, ev)}> */}
+        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
           <FormInputField
             fieldName={"username"}
             fieldLabel={"username"}
@@ -92,10 +89,10 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
           >
             <Captcha captchaName={CAPTCHA_PASSWORD} />
           </FormInputField>
-          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
-      {showFeedback && <LoginFormFeedback loginFormState={loginFormState} setShowFeedback={setShowFeedback} />}
+      {feedback}
     </article>
   );
 }

@@ -138,13 +138,11 @@ export default function ProductFilter({
           onChange={(ev) => handleByBrandIdChanged(ev.target.value)}
         >
           <option value="">All</option>
-          {byCompanyList.map(({ id, name }) => {
-            return (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            );
-          })}
+          {byCompanyList.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </select>
         <label htmlFor="byPriceBelow">Price Below</label>
         <output htmlFor="byPriceBelow" name="byPriceBelowOutput">

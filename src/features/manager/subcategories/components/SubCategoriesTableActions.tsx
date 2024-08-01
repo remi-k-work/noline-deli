@@ -1,25 +1,27 @@
 "use client";
 
 // react
-import { useRef, useState, useTransition } from "react";
+import { useRef, useTransition } from "react";
 
 // next
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delSubCategory } from "../actions";
+import { delSubCategory2 } from "../actions";
 
 // other libraries
+import { z } from "zod";
+import { waait } from "@/lib/helpers";
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
-import { SubCategoryFormState } from "../SubCategoryFormSchema";
+import useTableActionWithVal from "../../useTableActionWithVal";
+import { SubCategoryFormActionResult } from "../schemas/types";
 
 // components
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import { SubCategoriesTableFeedback } from "./SubCategoryFormFeedback";
 
 // types
 interface SubCategoriesTableActionsProps {
@@ -29,20 +31,23 @@ interface SubCategoriesTableActionsProps {
 }
 
 export default function SubCategoriesTableActions({ subCategoryId, subCategoryName, parentCategoryName }: SubCategoriesTableActionsProps) {
-  // To display a pending status while the server action is running
-  const [isPending, startTransition] = useTransition();
-
-  // Are we prepared to provide feedback to the user?
-  const [showFeedback, setShowFeedback] = useState(false);
+  const { execute, isExecuting, feedback } = useTableActionWithVal<z.ZodObject<{ subCategoryId: z.ZodString }>, readonly [], SubCategoryFormActionResult>({
+    safeActionFunc: delSubCategory2,
+    excerpt: (
+      <p className="text-center text-2xl">
+        {parentCategoryName} ► <b>{subCategoryName}</b>
+      </p>
+    ),
+  });
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const subCategoryFormState = useRef<SubCategoryFormState>();
+  const [, startTransition] = useTransition();
 
   function handleDeleteConfirmed() {
+    execute({ subCategoryId });
     startTransition(async () => {
-      subCategoryFormState.current = await delSubCategory(subCategoryId, parentCategoryName);
-      setShowFeedback(true);
+      await waait();
       refresh();
     });
   }
@@ -54,7 +59,7 @@ export default function SubCategoriesTableActions({ subCategoryId, subCategoryNa
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="btn btn-circle btn-ghost">
-                {isPending ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
+                {isExecuting ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
               </div>
             </TooltipTrigger>
             <TooltipContent side="left">
@@ -71,7 +76,7 @@ export default function SubCategoriesTableActions({ subCategoryId, subCategoryNa
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <button type="button" className="btn btn-warning btn-block" disabled={isPending} onClick={() => confirmDialogRef.current?.showModal()}>
+            <button type="button" className="btn btn-warning btn-block" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
               <TrashIcon width={24} height={24} />
               Delete
             </button>
@@ -92,14 +97,7 @@ export default function SubCategoriesTableActions({ subCategoryId, subCategoryNa
           </ul>
         </div>
       </ConfirmDialog>
-      {showFeedback && subCategoryFormState.current && (
-        <SubCategoriesTableFeedback
-          subCategoryName={subCategoryName}
-          parentCategoryName={parentCategoryName}
-          subCategoryFormState={subCategoryFormState.current}
-          setShowFeedback={setShowFeedback}
-        />
-      )}
+      {feedback}
     </>
   );
 }

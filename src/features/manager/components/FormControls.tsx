@@ -8,8 +8,8 @@ import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 import { cn } from "@/lib/utils";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import { RefCallBack } from "react-hook-form";
-import { AllFieldErrors } from "../FormSchemaBase";
 import useRegisterWithRHF from "../useRegisterWithRHF";
+import { AllFieldErrors } from "../formActionTypes";
 
 // types
 interface FormFieldProps {

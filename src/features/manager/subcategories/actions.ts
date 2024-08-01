@@ -10,109 +10,91 @@ import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../auth/db
 import { createSubCategory, deleteSubCategory, updateSubCategory } from "../categories/db";
 
 // other libraries
+import { z } from "zod";
+import { actionClient } from "@/lib/safeAction";
 import PathFinder from "../PathFinder";
-import SubCategoryFormSchema, { SubCategoryFormState } from "./SubCategoryFormSchema";
+import { SubCategoryFormActionResult } from "./schemas/types";
+import { objectIdSchema } from "../formActionTypes";
+import { subCategoryFormSchema } from "./schemas/subCategoryForm";
+import { handleValidationErrorsShape } from "./schemas/consts";
+import { returnValidationErrors } from "next-safe-action";
 
-export async function delSubCategory(subCategoryId: string, parentCategoryName: string): Promise<SubCategoryFormState> {
-  // The just-deleted subcategory excerpt
-  let name: string;
-
-  try {
-    // Make sure we have permission for this item before proceeding
-    if (await isAccessDeniedTo("subCategory", subCategoryId)) {
-      return { actionStatus: "denied" };
-    }
-
-    // Delete the given subcategory and its associated data
-    ({ name } = await deleteSubCategory(subCategoryId));
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    return { actionStatus: "failed" };
-  }
-
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllSubCategories());
-
-  // Return the recently removed subcategory excerpt so we may provide feedback to the user
-  return { actionStatus: "succeeded", subCategoryExcerpt: { name, parentCategoryName } };
-}
-
-export async function updSubCategory(subCategoryId: string, formState: SubCategoryFormState, formData: FormData): Promise<SubCategoryFormState> {
-  const subCategoryFormSchema = new SubCategoryFormSchema(formData);
-  const { isSuccess, allFieldErrorsServer, validatedData } = subCategoryFormSchema;
-
-  // If form validation fails, return errors promptly; otherwise, continue
-  if (!isSuccess) {
-    // Return the new action state so that we can provide feedback to the user
-    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
-  }
-
-  let newSubCategoryId = subCategoryId;
-  try {
-    // Make sure we have permission for this item before proceeding
-    if (await isAccessDeniedTo("subCategory", subCategoryId)) {
-      return { ...formState, actionStatus: "denied" };
-    }
-
+export const newSubCategory2 = actionClient
+  .schema(subCategoryFormSchema, { handleValidationErrorsShape })
+  .action(async ({ parsedInput }): Promise<SubCategoryFormActionResult> => {
     // Collect and prepare validated data for underlying database operations
-    const { categoryId, name } = validatedData!;
+    const { categoryId, name } = parsedInput;
 
-    // To update an existing subcategory, we cannot delete it and recreate it with new data
-    const subCategory = await updateSubCategory(subCategoryId, categoryId, name);
-    newSubCategoryId = subCategory.id;
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    try {
+      // Generate an entirely new subcategory with all the associated data
+      await createSubCategory(getCreatedByUser() ?? (await setCreatedByUser()), categoryId, name);
+    } catch (error) {
       // Use the database's unique constraint violation to assure a distinct subcategory name
-      if (error.code === "P2002") {
-        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That subcategory name already exists; please use a different name"] } };
-      }
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")
+        returnValidationErrors(subCategoryFormSchema, { name: { _errors: [`"${name}" already exists; please use a different name`] } });
+
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
     }
-    return { ...formState, actionStatus: "failed" };
-  }
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllSubCategories());
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllSubCategories());
 
-  // Because the old url no longer exists, we must redirect to the newly constructed subcategory url and provide feedback there
-  redirect(PathFinder.toSubCategoryEditFeedback(newSubCategoryId));
-}
-
-export async function newSubCategory(parentCategoryName: string, formState: SubCategoryFormState, formData: FormData): Promise<SubCategoryFormState> {
-  const subCategoryFormSchema = new SubCategoryFormSchema(formData);
-  const { isSuccess, allFieldErrorsServer, validatedData } = subCategoryFormSchema;
-
-  // If form validation fails, return errors promptly; otherwise, continue
-  if (!isSuccess) {
     // Return the new action state so that we can provide feedback to the user
-    return { ...formState, actionStatus: "invalid", allFieldErrors: allFieldErrorsServer };
-  }
+    return { actionStatus: "succeeded" };
+  });
 
-  try {
+export const updSubCategory2 = actionClient
+  .schema(subCategoryFormSchema, { handleValidationErrorsShape })
+  .bindArgsSchemas<[subCategoryId: z.ZodString]>([objectIdSchema])
+  .action(async ({ parsedInput, bindArgsParsedInputs: [subCategoryId] }): Promise<SubCategoryFormActionResult> => {
     // Collect and prepare validated data for underlying database operations
-    const { categoryId, name } = validatedData!;
+    const { categoryId, name } = parsedInput;
 
-    // Generate an entirely new subcategory with all the associated data
-    await createSubCategory(getCreatedByUser() ?? (await setCreatedByUser()), categoryId, name);
-  } catch (error) {
-    // If a database error occurs, return a more specific error
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    let newSubCategoryId = subCategoryId;
+    try {
+      // Make sure we have permission for this item before proceeding
+      if (await isAccessDeniedTo("subCategory", subCategoryId)) return { actionStatus: "denied" };
+
+      // To update an existing subcategory, we cannot delete it and recreate it with new data
+      const subCategory = await updateSubCategory(subCategoryId, categoryId, name);
+      newSubCategoryId = subCategory.id;
+    } catch (error) {
       // Use the database's unique constraint violation to assure a distinct subcategory name
-      if (error.code === "P2002") {
-        return { ...formState, actionStatus: "failed", allFieldErrors: { name: ["That subcategory name already exists; please use a different name"] } };
-      }
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")
+        returnValidationErrors(subCategoryFormSchema, { name: { _errors: [`"${name}" already exists; please use a different name`] } });
+
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
     }
-    return { ...formState, actionStatus: "failed" };
-  }
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath("/");
-  revalidatePath(PathFinder.toAllSubCategories());
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllSubCategories());
 
-  // Return the new action state so that we can provide feedback to the user
-  const { name } = validatedData!;
+    // Because the old url no longer exists, we must redirect to the newly constructed subcategory url and provide feedback there
+    redirect(PathFinder.toSubCategoryEditFeedback(newSubCategoryId));
+  });
 
-  return { ...formState, actionStatus: "succeeded", subCategoryExcerpt: { name, parentCategoryName } };
-}
+export const delSubCategory2 = actionClient
+  .schema(z.object({ subCategoryId: objectIdSchema }))
+  .action(async ({ parsedInput: { subCategoryId } }): Promise<SubCategoryFormActionResult> => {
+    try {
+      // Make sure we have permission for this item before proceeding
+      if (await isAccessDeniedTo("subCategory", subCategoryId)) return { actionStatus: "denied" };
+
+      // Delete the given subcategory and its associated data
+      await deleteSubCategory(subCategoryId);
+    } catch (error) {
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
+    }
+
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toAllSubCategories());
+
+    // Return the new action state so that we can provide feedback to the user
+    return { actionStatus: "succeeded" };
+  });

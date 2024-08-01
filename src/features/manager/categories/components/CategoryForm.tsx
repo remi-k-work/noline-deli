@@ -10,19 +10,21 @@ import { useState } from "react";
 import { CategoryWithUser } from "../db";
 
 // server actions and mutations
-import { newCategory, updCategory } from "../actions";
+import { newCategory2, updCategory2 } from "@/features/manager/categories/actions";
 
 // other libraries
+import { z } from "zod";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import CategoryFormSchema, { CategoryFormSchemaType, CategoryFormState } from "../CategoryFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
+import { categoryFormSchema } from "../schemas/categoryForm";
+import { CategoryFormActionResult } from "../schemas/types";
+import PathFinder from "../../PathFinder";
+import useFormActionFeedback from "../../useFormActionFeedback";
 
 // components
 import { FormInputField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
-import CategoryFormFeedback from "./CategoryFormFeedback";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -45,19 +47,20 @@ export default function CategoryForm({ category }: CategoryFormProps) {
 }
 
 function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
-  const {
-    isPending,
-    formState: categoryFormState,
-    formAction,
-    allFieldErrors,
+  // To provide feedback to the user
+  const { feedback, showFeedback } = useFormActionFeedback({
+    excerpt: category ? <p className="text-center text-2xl font-bold">{category.name}</p> : undefined,
+    pathToAllItems: PathFinder.toAllCategories(),
+  });
+
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    typeof categoryFormSchema,
+    readonly [categoryId: z.ZodString] | readonly [],
+    CategoryFormActionResult
+  >({
+    safeActionFunc: category ? updCategory2.bind(null, category.id) : newCategory2,
+    formSchema: categoryFormSchema,
     showFeedback,
-    setShowFeedback,
-    onSubmit,
-    useFormMethods,
-  } = useFormActionWithVal<CategoryFormState, CategoryFormSchemaType>({
-    formActionFunc: category ? updCategory.bind(null, category.id) : newCategory,
-    resolver: zodResolver(CategoryFormSchema.schema),
-    formSchema: new CategoryFormSchema(),
   });
 
   // Default values for the form
@@ -87,8 +90,7 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as CategoryFormSchemaType, ev)}> */}
+        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
           <FormInputField
             fieldName={"name"}
             fieldLabel={"name"}
@@ -101,10 +103,10 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
             placeholder={"e.g., Meat & Seafood, Cheeses, Prepared Salads, Bakery Items"}
             defaultValue={defName}
           />
-          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
-      {showFeedback && <CategoryFormFeedback category={category} categoryFormState={categoryFormState} setShowFeedback={setShowFeedback} />}
+      {feedback}
     </article>
   );
 }

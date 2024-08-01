@@ -10,20 +10,23 @@ import { useState } from "react";
 import { BrandWithUser } from "../db";
 
 // server actions and mutations
-import { newBrand, updBrand } from "../actions";
+import { newBrand2, updBrand2 } from "@/features/manager/brands/actions";
 
 // other libraries
+import { z } from "zod";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import BrandFormSchema, { BrandFormSchemaType, BrandFormState } from "../BrandFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
+import { brandFormSchema } from "../schemas/brandForm";
+import { BrandFormActionResult } from "../schemas/types";
+import PathFinder from "../../PathFinder";
+import useFormActionFeedback from "../../useFormActionFeedback";
 
 // components
 import { FormInputField } from "../../components/FormControls";
 import BrandFormLogo from "./BrandFormLogo";
 import FormSubmit from "../../components/FormSubmit";
-import BrandFormFeedback from "./BrandFormFeedback";
+import BrandExcerpt from "./BrandExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -46,19 +49,20 @@ export default function BrandForm({ brand }: BrandFormProps) {
 }
 
 function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
-  const {
-    isPending,
-    formState: brandFormState,
-    formAction,
-    allFieldErrors,
+  // To provide feedback to the user
+  const { feedback, showFeedback } = useFormActionFeedback({
+    excerpt: brand ? <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} /> : undefined,
+    pathToAllItems: PathFinder.toAllBrands(),
+  });
+
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    typeof brandFormSchema,
+    readonly [brandId: z.ZodString] | readonly [],
+    BrandFormActionResult
+  >({
+    safeActionFunc: brand ? updBrand2.bind(null, brand.id) : newBrand2,
+    formSchema: brandFormSchema,
     showFeedback,
-    setShowFeedback,
-    onSubmit,
-    useFormMethods,
-  } = useFormActionWithVal<BrandFormState, BrandFormSchemaType>({
-    formActionFunc: brand ? updBrand.bind(null, brand.id) : newBrand,
-    resolver: zodResolver(BrandFormSchema.schema),
-    formSchema: new BrandFormSchema(),
   });
 
   // Default values for the form
@@ -90,8 +94,7 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as BrandFormSchemaType, ev)}> */}
+        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
           <FormInputField
             fieldName={"name"}
             fieldLabel={"name"}
@@ -108,10 +111,10 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
             <header className={lusitana.className}>Brand Logo</header>
             <BrandFormLogo logoUrl={defLogoUrl} allFieldErrors={allFieldErrors} />
           </section>
-          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
-      {showFeedback && <BrandFormFeedback brand={brand} brandFormState={brandFormState} setShowFeedback={setShowFeedback} />}
+      {feedback}
     </article>
   );
 }

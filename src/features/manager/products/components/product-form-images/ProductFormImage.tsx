@@ -13,7 +13,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import PathFinder from "../../../PathFinder";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { AllFieldErrors } from "../../../FormSchemaBase";
+import { AllFieldErrors } from "../../../formActionTypes";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

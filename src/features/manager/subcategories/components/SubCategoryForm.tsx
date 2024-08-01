@@ -10,19 +10,21 @@ import { useState } from "react";
 import { CategoryWithSubCategory, SubCategoryWithUser } from "../../categories/db";
 
 // server actions and mutations
-import { newSubCategory, updSubCategory } from "../actions";
+import { newSubCategory2, updSubCategory2 } from "@/features/manager/subcategories/actions";
 
 // other libraries
+import { z } from "zod";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import SubCategoryFormSchema, { SubCategoryFormSchemaType, SubCategoryFormState } from "../SubCategoryFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
+import { subCategoryFormSchema } from "../schemas/subCategoryForm";
+import { SubCategoryFormActionResult } from "../schemas/types";
+import PathFinder from "../../PathFinder";
+import useFormActionFeedback from "../../useFormActionFeedback";
 
 // components
 import { FormInputField, FormSelectField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
-import SubCategoryFormFeedback from "./SubCategoryFormFeedback";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -54,21 +56,24 @@ export default function SubCategoryForm({ subCategory, categories }: SubCategory
 }
 
 function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrappedProps) {
-  const [parentCategoryName, setParentCategoryName] = useState("");
+  // To provide feedback to the user
+  const { feedback, showFeedback } = useFormActionFeedback({
+    excerpt: subCategory ? (
+      <p className="text-center text-2xl">
+        {subCategory.category.name} ► <b>{subCategory.name}</b>
+      </p>
+    ) : undefined,
+    pathToAllItems: PathFinder.toAllSubCategories(),
+  });
 
-  const {
-    isPending,
-    formState: subCategoryFormState,
-    formAction,
-    allFieldErrors,
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    typeof subCategoryFormSchema,
+    readonly [subCategoryId: z.ZodString] | readonly [],
+    SubCategoryFormActionResult
+  >({
+    safeActionFunc: subCategory ? updSubCategory2.bind(null, subCategory.id) : newSubCategory2,
+    formSchema: subCategoryFormSchema,
     showFeedback,
-    setShowFeedback,
-    onSubmit,
-    useFormMethods,
-  } = useFormActionWithVal<SubCategoryFormState, SubCategoryFormSchemaType>({
-    formActionFunc: subCategory ? updSubCategory.bind(null, subCategory.id) : newSubCategory.bind(null, parentCategoryName),
-    resolver: zodResolver(SubCategoryFormSchema.schema),
-    formSchema: new SubCategoryFormSchema(),
   });
 
   // Default values for the form
@@ -103,24 +108,14 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form action={formAction} noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          {/* <form action={formAction} noValidate={true} onSubmit={(ev) => onSubmit({} as SubCategoryFormSchemaType, ev)}> */}
-          <FormSelectField
-            fieldName={"categoryId"}
-            fieldLabel={"parent category"}
-            allFieldErrors={allFieldErrors}
-            required={true}
-            defaultValue={defCategoryId}
-            onChange={(ev) => setParentCategoryName(ev.target.selectedOptions[0].text)}
-          >
+        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          <FormSelectField fieldName={"categoryId"} fieldLabel={"parent category"} allFieldErrors={allFieldErrors} required={true} defaultValue={defCategoryId}>
             <option value="">Choose Parent Category</option>
-            {categories.map(({ id, name }) => {
-              return (
-                <option key={id} value={id}>
-                  {name}
-                </option>
-              );
-            })}
+            {categories.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
           </FormSelectField>
           <FormInputField
             fieldName={"name"}
@@ -134,10 +129,10 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
             placeholder={"e.g., Sliced Deli Meats, Smoked Sausages, Fresh Fish"}
             defaultValue={defName}
           />
-          <FormSubmit isPending={isPending} onSubmitCompleted={() => setShowFeedback(true)} onResetClicked={onResetClicked} />
+          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
         </form>
       </FormProvider>
-      {showFeedback && <SubCategoryFormFeedback subCategory={subCategory} subCategoryFormState={subCategoryFormState} setShowFeedback={setShowFeedback} />}
+      {feedback}
     </article>
   );
 }

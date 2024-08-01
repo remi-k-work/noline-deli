@@ -11,7 +11,7 @@ import Image from "next/image";
 
 // other libraries
 import PathFinder from "../../PathFinder";
-import { AllFieldErrors } from "../../FormSchemaBase";
+import { AllFieldErrors } from "../../formActionTypes";
 
 // components
 import { FormInputField, FormOutputField } from "../../components/FormControls";
