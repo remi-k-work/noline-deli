@@ -25,6 +25,7 @@ export default async function CartTableView() {
         <ShoppingBagIcon width={24} height={24} />
         Checkout Now
       </Link>
+      <br />
     </>
   );
 }
