@@ -8,7 +8,6 @@ import Image from "next/image";
 // other libraries
 import { cn } from "@/lib/utils";
 import { routeToProductDetails } from "@/features/products/helpers";
-import { TruckIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -16,6 +15,7 @@ import PriceTag from "./PriceTag";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { TruckIcon } from "@heroicons/react/24/solid";
 
 export default function ProductCard({ product, listMode = false }) {
   // Ensure the product exists

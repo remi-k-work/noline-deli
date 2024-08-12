@@ -17,19 +17,19 @@ import { lusitana } from "@/assets/fonts";
 // types
 interface CartTableProps {
   cart: DerivedCartWithItems;
+  shippingCost?: number;
 }
 
-export default function CartTable({ cart }: CartTableProps) {
-  const { cartItems, totalQty, subTotal } = cart;
+export default function CartTable({ cart, shippingCost }: CartTableProps) {
+  const { cartItems, totalQty, subTotal, taxAmount } = cart;
 
   return (
     <Table className={styles["cart-table"]}>
       <TableHeader className={lusitana.className}>
         <TableRow>
-          <TableHead className="w-[35%] text-center">Item</TableHead>
-          <TableHead className="w-[20%] text-center">Qty</TableHead>
-          <TableHead className="w-[30%] text-end">Total</TableHead>
-          <TableHead className="w-[15%]">&nbsp;</TableHead>
+          <TableHead className="w-[44%]">Item</TableHead>
+          <TableHead className="w-[24%]">Qty</TableHead>
+          <TableHead className="w-[32%] text-end">Total</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -40,17 +40,37 @@ export default function CartTable({ cart }: CartTableProps) {
       <TableFooter className={lusitana.className}>
         <TableRow>
           <TableHead className="text-end text-xl">Total Qty:</TableHead>
-          <TableHead className="text-center text-xl">{totalQty}</TableHead>
-          <TableHead>&nbsp;</TableHead>
+          <TableHead className="text-xl">{totalQty}</TableHead>
           <TableHead>&nbsp;</TableHead>
         </TableRow>
         <TableRow>
-          <TableHead colSpan={2} className="text-end text-xl">
-            Subtotal:
+          <TableHead className="text-end text-xl">Subtotal:</TableHead>
+          <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
+            {formatPrice(subTotal)}
           </TableHead>
-          <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(subTotal)}</TableHead>
-          <TableHead>&nbsp;</TableHead>
         </TableRow>
+        {shippingCost && (
+          <>
+            <TableRow>
+              <TableHead className="text-end text-xl">Taxes:</TableHead>
+              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
+                {formatPrice(taxAmount)}
+              </TableHead>
+            </TableRow>
+            <TableRow>
+              <TableHead className="text-end text-xl">Shipping:</TableHead>
+              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
+                {formatPrice(shippingCost)}
+              </TableHead>
+            </TableRow>
+            <TableRow>
+              <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
+              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-2xl underline">
+                {formatPrice(subTotal + taxAmount + shippingCost)}
+              </TableHead>
+            </TableRow>
+          </>
+        )}
       </TableFooter>
     </Table>
   );

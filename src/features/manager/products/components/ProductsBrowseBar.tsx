@@ -9,7 +9,6 @@ import { allCategories } from "../../categories/db";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 
 // components
@@ -21,6 +20,7 @@ import Paginate from "../../components/Paginate";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductsBrowseBarProps {

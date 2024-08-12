@@ -12,6 +12,8 @@ export interface FormActionResult {
 }
 
 // Frequently used schemas serve as building blocks for other schemas and safe action parameters
+export const emailSchema = z.string().trim().email();
+
 export const objectIdSchema = z
   .string()
   .trim()

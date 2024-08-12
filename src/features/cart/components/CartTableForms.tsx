@@ -7,13 +7,13 @@ import { useFormStatus } from "react-dom";
 // server actions and mutations
 import { incArticleByOne, decArticleByOne, deleteCartArticle } from "@/features/cart/cartActions";
 
-// other libraries
-import { PlusCircleIcon, MinusCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import ProductExcerpt from "@/features/manager/products/components/ProductExcerpt";
+
+// assets
+import { PlusCircleIcon, MinusCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface CartItemActionProps {

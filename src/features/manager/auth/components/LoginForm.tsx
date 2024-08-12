@@ -10,7 +10,6 @@ import { useState } from "react";
 import { newLogin2 } from "../actions";
 
 // other libraries
-import { KeyIcon } from "@heroicons/react/24/solid";
 import { FormProvider } from "react-hook-form";
 import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
 import useFormActionWithVal from "../../useFormActionWithVal";
@@ -26,6 +25,7 @@ import Captcha from "@/features/auth/components/Captcha";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { KeyIcon } from "@heroicons/react/24/solid";
 
 // types
 interface TheFormWrappedProps {

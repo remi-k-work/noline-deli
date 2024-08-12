@@ -12,12 +12,14 @@ import { ProductFilterData } from "@/features/search/searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import useMediaQuery from "@/lib/useMediaQuery";
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import SideBar from "@/components/SideBar";
+
+// assets
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 
 // types
 interface SideBarSheetTriggerProps {

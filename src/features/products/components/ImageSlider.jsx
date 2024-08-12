@@ -11,8 +11,10 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
+
+// assets
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 
 export default function ImageSlider({ productName, moreImages = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);

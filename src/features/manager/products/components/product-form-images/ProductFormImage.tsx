@@ -12,12 +12,14 @@ import Image from "next/image";
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../../../PathFinder";
-import { TrashIcon } from "@heroicons/react/24/solid";
 import { AllFieldErrors } from "../../../formActionTypes";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { FormInputField, FormOutputField } from "../../../components/FormControls";
+
+// assets
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductFormImageProps {

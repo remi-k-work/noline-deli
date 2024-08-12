@@ -7,7 +7,6 @@ import styles from "./ProductInfoTrigger.module.css";
 import { ProductWithAll } from "../productsDb";
 
 // other libraries
-import { InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import useMediaQuery from "@/lib/useMediaQuery";
 
 // components
@@ -15,6 +14,9 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import ProductInfo from "@/features/products/components/ProductInfo";
+
+// assets
+import { InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductInfoTriggerProps {

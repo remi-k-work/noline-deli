@@ -11,13 +11,15 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { ChevronDownIcon, ChevronUpIcon, CurrencyDollarIcon, LanguageIcon, TagIcon } from "@heroicons/react/24/solid";
 import { SortByField, SortByOrder } from "../SearchParamsState";
 import useSearchParamsState from "../useSearchParamsState";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+// assets
+import { ChevronDownIcon, ChevronUpIcon, CurrencyDollarIcon, LanguageIcon, TagIcon } from "@heroicons/react/24/solid";
 
 // types
 interface SortByProps {

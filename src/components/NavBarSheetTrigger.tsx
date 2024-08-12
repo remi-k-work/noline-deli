@@ -6,11 +6,13 @@ import { CategoriesTreeViewData } from "@/features/search/searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import useMediaQuery from "@/lib/useMediaQuery";
-import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import NavBar from "@/components/NavBar";
+
+// assets
+import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // types
 interface NavBarSheetTriggerProps {

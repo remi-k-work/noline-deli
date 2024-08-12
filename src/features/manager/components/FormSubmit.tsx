@@ -6,7 +6,7 @@ import styles from "./FormSubmit.module.css";
 // next
 import { useRouter } from "next/navigation";
 
-// other libraries
+// assets
 import { HandThumbDownIcon, HandThumbUpIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 // types

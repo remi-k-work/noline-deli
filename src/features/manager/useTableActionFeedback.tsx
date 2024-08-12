@@ -3,10 +3,12 @@ import { ReactNode, useCallback, useState } from "react";
 
 // other libraries
 import { FormActionResult } from "./formActionTypes";
-import { CheckBadgeIcon, CircleStackIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 
 // components
 import Toastify from "@/components/Toastify";
+
+// assets
+import { CheckBadgeIcon, CircleStackIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 
 // types
 interface UseTableActionFeedbackProps {

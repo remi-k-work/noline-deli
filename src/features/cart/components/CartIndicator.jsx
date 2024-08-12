@@ -5,9 +5,11 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { routeToCart } from "@/features/cart/helpers";
+
+// assets
+import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 export default function CartIndicator({ cart, className = "" }) {
   // Ensure the cart exists

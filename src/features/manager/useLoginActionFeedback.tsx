@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 
 // other libraries
 import { FormActionResult } from "./formActionTypes";
-import { CheckBadgeIcon, CircleStackIcon, ClipboardDocumentCheckIcon } from "@heroicons/react/24/solid";
 
 // components
 import Toastify from "@/components/Toastify";
+
+// assets
+import { CheckBadgeIcon, CircleStackIcon, ClipboardDocumentCheckIcon } from "@heroicons/react/24/solid";
 
 // types
 interface UseLoginActionFeedbackProps {

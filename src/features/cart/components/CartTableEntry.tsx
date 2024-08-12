@@ -49,17 +49,19 @@ export default function CartTableEntry({ cartItem }: CartTableEntryProps) {
           <ProductInfoTrigger product={product} className={styles["cart-table-entry-image__info"]} />
         </div>
       </TableCell>
-      <TableCell>
-        <div className="flex flex-col place-content-center place-items-center gap-1 sm:flex-row sm:gap-3">
-          <IncCartItemQtyForm cartItemId={id} />
-          {quantity}
-          <DecCartItemQtyForm cartItemId={id} />
-        </div>
+      <TableCell className="overflow-clip">
+        <section className="flex items-center gap-1">
+          <header className="flex flex-col items-center gap-1">
+            <IncCartItemQtyForm cartItemId={id} />
+            {quantity}
+            <DecCartItemQtyForm cartItemId={id} />
+          </header>
+          <footer>
+            <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
+          </footer>
+        </section>
       </TableCell>
       <TableCell className="overflow-clip whitespace-nowrap text-end">{formatPrice(quantity * price)}</TableCell>
-      <TableCell className="overflow-clip text-center">
-        <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
-      </TableCell>
     </TableRow>
   );
 }

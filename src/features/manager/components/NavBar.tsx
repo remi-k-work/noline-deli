@@ -10,11 +10,13 @@ import Link from "next/link";
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../PathFinder";
-import { Bars4Icon } from "@heroicons/react/24/solid";
 import useMediaQuery from "@/lib/useMediaQuery";
 
 // components
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+// assets
+import { Bars4Icon } from "@heroicons/react/24/solid";
 
 // types
 interface NavLinkProps extends ComponentProps<typeof Link> {

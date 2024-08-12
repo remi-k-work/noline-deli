@@ -11,11 +11,13 @@ import { Product } from "@prisma/client";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // components
 import ProductCard, { ProductCardSkeleton } from "./ProductCard";
+
+// assets
+import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductsListProps {

@@ -4,12 +4,14 @@
 import styles from "./JumpToImageMob.module.css";
 
 // other libraries
-import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 import { useImagesContext } from "./ImagesContext";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+// assets
+import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageMob() {
   const { currMoreImagesUrls, viewedProductImageIndex, setViewedProductImageIndex } = useImagesContext();

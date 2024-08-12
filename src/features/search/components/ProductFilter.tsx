@@ -14,7 +14,6 @@ import { ProductFilterData } from "../searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { AdjustmentsHorizontalIcon, MagnifyingGlassCircleIcon, TrashIcon, TruckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/lib/helpers";
 import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
 import { useDebouncedCallback } from "use-debounce";
@@ -22,6 +21,7 @@ import useSearchParamsState from "@/lib/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { AdjustmentsHorizontalIcon, MagnifyingGlassCircleIcon, TrashIcon, TruckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductFilterProps {

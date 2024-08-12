@@ -12,9 +12,11 @@ import { useRouter } from "next/navigation";
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 import { pathToProductsSearch } from "@/features/products/helpers";
 import useSearchParamsState from "@/lib/useSearchParamsState";
+
+// assets
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface SearchPanelProps {

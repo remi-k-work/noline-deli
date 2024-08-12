@@ -6,10 +6,12 @@ import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import { RefCallBack } from "react-hook-form";
 import useRegisterWithRHF from "../useRegisterWithRHF";
 import { AllFieldErrors } from "../formActionTypes";
+
+// assets
+import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface FormFieldProps {

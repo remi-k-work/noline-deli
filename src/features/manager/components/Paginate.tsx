@@ -11,12 +11,14 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { BackwardIcon, CheckIcon, ForwardIcon } from "@heroicons/react/24/solid";
 import useSearchParamsState from "../useSearchParamsState";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+// assets
+import { BackwardIcon, CheckIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
 // types
 interface PaginateProps {

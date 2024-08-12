@@ -12,6 +12,8 @@ import { addToCart } from "@/features/cart/cartActions";
 
 // other libraries
 import { cn } from "@/lib/utils";
+
+// assets
 import { ShoppingCartIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 export default function AddToCartForm({ productId }) {

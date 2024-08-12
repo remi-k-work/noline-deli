@@ -9,11 +9,13 @@ import { cn } from "@/lib/utils";
 import PathFinder from "../../PathFinder";
 import useMediaQuery from "@/lib/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
-import { ClockIcon } from "@heroicons/react/24/solid";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
 import CategoriesTableActions from "./CategoriesTableActions";
+
+// assets
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 // types
 interface CategoriesTableEntryProps {

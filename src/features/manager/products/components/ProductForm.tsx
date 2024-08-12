@@ -16,7 +16,6 @@ import { newProduct2, updProduct2 } from "@/features/manager/products/actions";
 
 // other libraries
 import { z } from "zod";
-import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { productFormSchema } from "../schemas/productForm";
@@ -33,6 +32,7 @@ import ProductExcerpt from "./ProductExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductFormProps {

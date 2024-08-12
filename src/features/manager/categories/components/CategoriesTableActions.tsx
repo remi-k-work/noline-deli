@@ -13,7 +13,6 @@ import { delCategory2 } from "../actions";
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 import useTableActionWithVal from "../../useTableActionWithVal";
 import { CategoryFormActionResult } from "../schemas/types";
@@ -22,6 +21,9 @@ import { CategoryFormActionResult } from "../schemas/types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
+
+// assets
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 // types
 interface CategoriesTableActionsProps {

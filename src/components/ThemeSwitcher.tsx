@@ -2,8 +2,10 @@
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import useDarkMode from "@/lib/useDarkMode";
+
+// assets
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ThemeSwitcherProps {

@@ -14,7 +14,6 @@ import { newBrand2, updBrand2 } from "@/features/manager/brands/actions";
 
 // other libraries
 import { z } from "zod";
-import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { brandFormSchema } from "../schemas/brandForm";
@@ -30,6 +29,7 @@ import BrandExcerpt from "./BrandExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface BrandFormProps {

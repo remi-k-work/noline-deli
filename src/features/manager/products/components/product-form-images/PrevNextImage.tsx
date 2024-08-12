@@ -5,11 +5,13 @@ import styles from "./PrevNextImage.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 import { useImagesContext } from "./ImagesContext";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
+// assets
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 
 export default function PrevNextImage() {
   const { currMoreImagesUrls, setViewedProductImageIndex } = useImagesContext();

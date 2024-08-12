@@ -8,7 +8,6 @@ import Image from "next/image";
 import { ProductWithAll } from "../productsDb";
 
 // other libraries
-import { TruckIcon } from "@heroicons/react/24/solid";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -18,6 +17,7 @@ import BrandTag from "./BrandTag";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { TruckIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductInfoProps {

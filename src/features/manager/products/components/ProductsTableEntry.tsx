@@ -14,12 +14,14 @@ import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../../PathFinder";
 import useMediaQuery from "@/lib/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
-import { ClockIcon } from "@heroicons/react/24/solid";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
 import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";
 import ProductsTableActions from "./ProductsTableActions";
+
+// assets
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductsTableEntryProps {

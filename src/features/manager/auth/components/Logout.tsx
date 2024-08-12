@@ -9,7 +9,7 @@ import { useEffect, useState, useTransition } from "react";
 // next
 import { useRouter } from "next/navigation";
 
-// other libraries
+// assets
 import { PowerIcon } from "@heroicons/react/24/solid";
 
 export default function Logout() {

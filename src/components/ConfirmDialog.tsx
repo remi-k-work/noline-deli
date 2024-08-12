@@ -6,10 +6,10 @@ import { forwardRef, ReactNode } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ConfirmDialogProps {

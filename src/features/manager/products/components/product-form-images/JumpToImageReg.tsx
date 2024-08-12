@@ -5,11 +5,13 @@ import styles from "./JumpToImageReg.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 import { useImagesContext } from "./ImagesContext";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
+// assets
+import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageReg() {
   const { currMoreImagesUrls, viewedProductImageIndex, setViewedProductImageIndex } = useImagesContext();

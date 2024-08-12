@@ -3,6 +3,8 @@ import styles from "./NotFound.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
+
+// assets
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export default function NotFound({ message }) {

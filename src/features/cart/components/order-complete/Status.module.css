@@ -1,0 +1,13 @@
+.status {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.status > h2 {
+  max-inline-size: none;
+  color: var(--text-2);
+  font-size: var(--font-size-4);
+  margin-block: 0 var(--size-3);
+}

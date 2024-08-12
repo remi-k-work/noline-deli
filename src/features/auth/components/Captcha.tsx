@@ -12,6 +12,8 @@ import Image from "next/image";
 // other libraries
 import PathFinder from "@/features/manager/PathFinder";
 import { CAPTCHA_HEIGHT, CAPTCHA_WIDTH } from "@/features/auth/components/CaptchaBackground";
+
+// assets
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 // types

@@ -13,7 +13,6 @@ import { delProduct2 } from "../actions";
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 import PathFinder from "../../PathFinder";
 import useTableActionWithVal from "../../useTableActionWithVal";
 import { ProductFormActionResult } from "../schemas/types";
@@ -23,6 +22,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import ProductExcerpt from "./ProductExcerpt";
+
+// assets
+import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductsTableActionsProps {

@@ -14,7 +14,6 @@ import { newSubCategory2, updSubCategory2 } from "@/features/manager/subcategori
 
 // other libraries
 import { z } from "zod";
-import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import useFormActionWithVal from "../../useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { subCategoryFormSchema } from "../schemas/subCategoryForm";
@@ -28,6 +27,7 @@ import FormSubmit from "../../components/FormSubmit";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface SubCategoryFormProps {

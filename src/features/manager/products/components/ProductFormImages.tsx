@@ -8,7 +8,6 @@ import { useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import { AllFieldErrors } from "../../formActionTypes";
 
 // components
@@ -20,6 +19,7 @@ import JumpToImage from "./product-form-images/JumpToImage";
 
 // assets
 import { lusitana } from "@/assets/fonts";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductFormImagesProps {
