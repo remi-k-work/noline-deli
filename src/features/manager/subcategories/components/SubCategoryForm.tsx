@@ -14,14 +14,17 @@ import { newSubCategory2, updSubCategory2 } from "@/features/manager/subcategori
 
 // other libraries
 import { z } from "zod";
-import useFormActionWithVal from "../../useFormActionWithVal";
+import { useSubCategoryFormStore } from "../stores/subCategoryFormProvider";
+import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { subCategoryFormSchema } from "../schemas/subCategoryForm";
 import { SubCategoryFormActionResult } from "../schemas/types";
 import PathFinder from "../../PathFinder";
-import useFormActionFeedback from "../../useFormActionFeedback";
+import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components
+import { SubCategoryFormStoreProvider } from "../stores/subCategoryFormProvider";
+import { AllFieldErrorsProvider } from "../../../../lib/contexts/AllFieldErrors";
 import { FormInputField, FormSelectField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
 
@@ -46,16 +49,16 @@ export default function SubCategoryForm({ subCategory, categories }: SubCategory
   const [formResetKey, setFormResetKey] = useState("SubCategoryForm");
 
   return (
-    <TheFormWrapped
-      key={formResetKey}
-      subCategory={subCategory}
-      categories={categories}
-      onResetClicked={() => setFormResetKey(`SubCategoryForm${Date.now()}`)}
-    />
+    <SubCategoryFormStoreProvider key={formResetKey} subCategory={subCategory}>
+      <TheFormWrapped subCategory={subCategory} categories={categories} onResetClicked={() => setFormResetKey(`SubCategoryForm${Date.now()}`)} />
+    </SubCategoryFormStoreProvider>
   );
 }
 
 function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrappedProps) {
+  const categoryId = useSubCategoryFormStore((state) => state.categoryId);
+  const name = useSubCategoryFormStore((state) => state.name);
+
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
     excerpt: subCategory ? (
@@ -76,22 +79,6 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
     showFeedback,
   });
 
-  // Default values for the form
-  let defCategoryId: string | undefined;
-  let defName: string | undefined;
-
-  // Are we in editing mode?
-  if (subCategory) {
-    // Yes, set all of the form's default values to match those from the edited subcategory
-    const {
-      category: { id },
-      name,
-    } = subCategory;
-
-    defCategoryId = id;
-    defName = name;
-  }
-
   return (
     <article className={styles["subcategory-form"]}>
       <h2 className={lusitana.className}>
@@ -108,29 +95,30 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          <FormSelectField fieldName={"categoryId"} fieldLabel={"parent category"} allFieldErrors={allFieldErrors} required={true} defaultValue={defCategoryId}>
-            <option value="">Choose Parent Category</option>
-            {categories.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </FormSelectField>
-          <FormInputField
-            fieldName={"name"}
-            fieldLabel={"name"}
-            allFieldErrors={allFieldErrors}
-            size={40}
-            maxLength={50}
-            spellCheck={"true"}
-            autoComplete={"off"}
-            required={true}
-            placeholder={"e.g., Sliced Deli Meats, Smoked Sausages, Fresh Fish"}
-            defaultValue={defName}
-          />
-          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
-        </form>
+        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+            <FormSelectField fieldName={"categoryId"} fieldLabel={"parent category"} required={true} defaultValue={categoryId}>
+              <option value="">Choose Parent Category</option>
+              {categories.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </FormSelectField>
+            <FormInputField
+              fieldName={"name"}
+              fieldLabel={"name"}
+              size={40}
+              maxLength={50}
+              spellCheck={"true"}
+              autoComplete={"off"}
+              required={true}
+              placeholder={"e.g., Sliced Deli Meats, Smoked Sausages, Fresh Fish"}
+              defaultValue={name}
+            />
+            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+          </form>
+        </AllFieldErrorsProvider>
       </FormProvider>
       {feedback}
     </article>

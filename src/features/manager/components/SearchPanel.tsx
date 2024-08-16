@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import useSearchParamsState from "../useSearchParamsState";
+import useSearchParamsState from "../hooks/useSearchParamsState";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

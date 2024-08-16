@@ -8,7 +8,7 @@ import { AllCategoriesData, ProductsPerCategoryData } from "../db";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import useSearchParamsState from "../../useSearchParamsState";
+import useSearchParamsState from "../../hooks/useSearchParamsState";
 
 // components
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

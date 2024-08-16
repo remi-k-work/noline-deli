@@ -7,7 +7,7 @@ import styles from "./ProductInfoTrigger.module.css";
 import { ProductWithAll } from "../productsDb";
 
 // other libraries
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

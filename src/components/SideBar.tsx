@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ProductFilterData } from "@/features/search/searchDb";
 
 // other libraries
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
 import ProductFilter, { ProductFilterSkeleton } from "@/features/search/components/ProductFilter";

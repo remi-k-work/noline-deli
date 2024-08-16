@@ -12,7 +12,6 @@ import Image from "next/image";
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../../../PathFinder";
-import { AllFieldErrors } from "../../../formActionTypes";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -27,12 +26,11 @@ interface ProductFormImageProps {
   fieldLabel: string;
   imageUrl?: string;
   onRemoveImageClicked?: () => void;
-  allFieldErrors?: AllFieldErrors;
   className?: string;
 }
 
 const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
-  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, allFieldErrors, className, ...props }: ProductFormImageProps, ref) => {
+  ({ fieldName, fieldLabel, imageUrl = "", onRemoveImageClicked, className, ...props }: ProductFormImageProps, ref) => {
     const [currImageUrl, setCurrImageUrl] = useState(imageUrl);
     const [imageSrc, setImageSrc] = useState(PathFinder.toProductImage(imageUrl));
     const defImageSrc = useDeferredValue(imageSrc);
@@ -84,7 +82,6 @@ const ProductFormImage = forwardRef<HTMLElement, ProductFormImageProps>(
             fieldType={"url"}
             fieldName={fieldName}
             fieldLabel={`${fieldLabel} url`}
-            allFieldErrors={allFieldErrors}
             size={40}
             maxLength={256}
             spellCheck={"false"}

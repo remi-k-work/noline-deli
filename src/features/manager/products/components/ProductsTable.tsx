@@ -7,7 +7,7 @@ import styles from "./ProductsTable.module.css";
 import { ProductWithInfo } from "../db";
 
 // other libraries
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";

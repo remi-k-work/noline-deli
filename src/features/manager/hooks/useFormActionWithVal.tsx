@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
 import { HookSafeActionFn, useAction } from "next-safe-action/hooks";
-import { AllFieldErrors, FormActionResult } from "./formActionTypes";
+import { AllFieldErrors, FormActionResult } from "../formActionTypes";
 
 // types
 interface UseFormActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {

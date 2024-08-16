@@ -14,14 +14,17 @@ import { newCategory2, updCategory2 } from "@/features/manager/categories/action
 
 // other libraries
 import { z } from "zod";
-import useFormActionWithVal from "../../useFormActionWithVal";
+import { useCategoryFormStore } from "../stores/categoryFormProvider";
+import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { categoryFormSchema } from "../schemas/categoryForm";
 import { CategoryFormActionResult } from "../schemas/types";
 import PathFinder from "../../PathFinder";
-import useFormActionFeedback from "../../useFormActionFeedback";
+import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components
+import { CategoryFormStoreProvider } from "../stores/categoryFormProvider";
+import { AllFieldErrorsProvider } from "../../../../lib/contexts/AllFieldErrors";
 import { FormInputField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
 
@@ -43,10 +46,16 @@ export default function CategoryForm({ category }: CategoryFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("CategoryForm");
 
-  return <TheFormWrapped key={formResetKey} category={category} onResetClicked={() => setFormResetKey(`CategoryForm${Date.now()}`)} />;
+  return (
+    <CategoryFormStoreProvider key={formResetKey} category={category}>
+      <TheFormWrapped category={category} onResetClicked={() => setFormResetKey(`CategoryForm${Date.now()}`)} />
+    </CategoryFormStoreProvider>
+  );
 }
 
 function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
+  const name = useCategoryFormStore((state) => state.name);
+
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
     excerpt: category ? <p className="text-center text-2xl font-bold">{category.name}</p> : undefined,
@@ -62,17 +71,6 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
     formSchema: categoryFormSchema,
     showFeedback,
   });
-
-  // Default values for the form
-  let defName: string | undefined;
-
-  // Are we in editing mode?
-  if (category) {
-    // Yes, set all of the form's default values to match those from the edited category
-    const { name } = category;
-
-    defName = name;
-  }
 
   return (
     <article className={styles["category-form"]}>
@@ -90,21 +88,22 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          <FormInputField
-            fieldName={"name"}
-            fieldLabel={"name"}
-            allFieldErrors={allFieldErrors}
-            size={40}
-            maxLength={50}
-            spellCheck={"true"}
-            autoComplete={"off"}
-            required={true}
-            placeholder={"e.g., Meat & Seafood, Cheeses, Prepared Salads, Bakery Items"}
-            defaultValue={defName}
-          />
-          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
-        </form>
+        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+            <FormInputField
+              fieldName={"name"}
+              fieldLabel={"name"}
+              size={40}
+              maxLength={50}
+              spellCheck={"true"}
+              autoComplete={"off"}
+              required={true}
+              placeholder={"e.g., Meat & Seafood, Cheeses, Prepared Salads, Bakery Items"}
+              defaultValue={name}
+            />
+            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+          </form>
+        </AllFieldErrorsProvider>
       </FormProvider>
       {feedback}
     </article>

@@ -7,8 +7,8 @@ import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 // other libraries
 import { cn } from "@/lib/utils";
 import { RefCallBack } from "react-hook-form";
-import useRegisterWithRHF from "../useRegisterWithRHF";
-import { AllFieldErrors } from "../formActionTypes";
+import useRegisterWithRHF from "../../../lib/hooks/useRegisterWithRHF";
+import { useAllFieldErrorsContext } from "../../../lib/contexts/AllFieldErrors";
 
 // assets
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
@@ -17,7 +17,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 interface FormFieldProps {
   fieldName: string;
   fieldLabel: string;
-  allFieldErrors?: AllFieldErrors;
+  renderErrors?: boolean;
   className?: string;
 }
 
@@ -28,7 +28,7 @@ interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {
 interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
 interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
 
-interface FormOutputFieldProps extends Omit<FormFieldProps, "allFieldErrors">, ComponentProps<"output"> {
+interface FormOutputFieldProps extends FormFieldProps, ComponentProps<"output"> {
   outputFor: string;
 }
 
@@ -36,8 +36,9 @@ interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormInputFieldProps) {
+export function FormInputField({ fieldType = "text", fieldName, fieldLabel, renderErrors = true, className, children, ...props }: FormInputFieldProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
+  const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <div className={styles["form-field"]}>
@@ -57,13 +58,14 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, allF
         ref={ref as RefCallBack}
         {...rest}
       />
-      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
+      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormCheckField({ fieldName, allFieldErrors, children, className, ...props }: FormCheckFieldProps) {
+export function FormCheckField({ fieldName, renderErrors = true, className, children, ...props }: FormCheckFieldProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
+  const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <>
@@ -82,13 +84,14 @@ export function FormCheckField({ fieldName, allFieldErrors, children, className,
           {...rest}
         />
       </div>
-      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
+      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </>
   );
 }
 
-export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className, ...props }: FormTextAreaProps) {
+export function FormTextArea({ fieldName, fieldLabel, renderErrors = true, className, ...props }: FormTextAreaProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"textarea", HTMLTextAreaElement>({ fieldName, props });
+  const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <div className={styles["form-field"]}>
@@ -104,13 +107,14 @@ export function FormTextArea({ fieldName, fieldLabel, allFieldErrors, className,
         ref={ref as RefCallBack}
         {...rest}
       />
-      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
+      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, children, className, ...props }: FormSelectFieldProps) {
+export function FormSelectField({ fieldName, fieldLabel, renderErrors = true, className, children, ...props }: FormSelectFieldProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"select", HTMLSelectElement>({ fieldName, props });
+  const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <div className={styles["form-field"]}>
@@ -128,12 +132,12 @@ export function FormSelectField({ fieldName, fieldLabel, allFieldErrors, childre
       >
         {children}
       </select>
-      {allFieldErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
+      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
     </div>
   );
 }
 
-export function FormOutputField({ outputFor, fieldName, fieldLabel, children, className, ...props }: FormOutputFieldProps) {
+export function FormOutputField({ outputFor, fieldName, fieldLabel, className, children, ...props }: FormOutputFieldProps) {
   return (
     <div className={styles["form-field"]}>
       <label htmlFor={fieldName}>{fieldLabel}</label>

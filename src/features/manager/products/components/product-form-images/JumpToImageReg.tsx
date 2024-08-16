@@ -5,7 +5,7 @@ import styles from "./JumpToImageReg.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useImagesContext } from "./ImagesContext";
+import { useProductFormStore } from "../../stores/productFormProvider";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -14,22 +14,24 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageReg() {
-  const { currMoreImagesUrls, viewedProductImageIndex, setViewedProductImageIndex } = useImagesContext();
+  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
+  const jumpedToImage = useProductFormStore((state) => state.jumpedToImage);
 
   return (
     <footer className={cn(styles["product-form-images__statusbar"], styles["jump-to-image-reg"])}>
       <Tooltip>
-        <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(0)}>
-          {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+        <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => jumpedToImage(0)}>
+          {viewedImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
         </TooltipTrigger>
         <TooltipContent>
           <p>Jump to the main image</p>
         </TooltipContent>
       </Tooltip>
-      {currMoreImagesUrls.map((_, extraImageIndex) => (
+      {moreImagesUrls.map((_, extraImageIndex) => (
         <Tooltip key={extraImageIndex}>
-          <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
-            {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+          <TooltipTrigger type="button" className="btn btn-circle btn-ghost" onClick={() => jumpedToImage(extraImageIndex + 1)}>
+            {viewedImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
           </TooltipTrigger>
           <TooltipContent>
             <p>{`Jump to an extra image nr ${extraImageIndex + 1}`}</p>

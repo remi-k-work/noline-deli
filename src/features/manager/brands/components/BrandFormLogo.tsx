@@ -4,36 +4,24 @@
 import styles from "./BrandFormLogo.module.css";
 
 // react
-import { useDeferredValue, useEffect, useState } from "react";
+import { useDeferredValue } from "react";
 
 // next
 import Image from "next/image";
 
 // other libraries
-import PathFinder from "../../PathFinder";
-import { AllFieldErrors } from "../../formActionTypes";
+import { useBrandFormStore } from "../stores/brandFormProvider";
 
 // components
 import { FormInputField, FormOutputField } from "../../components/FormControls";
 
-// types
-interface BrandFormLogoProps {
-  logoUrl?: string;
-  allFieldErrors?: AllFieldErrors;
-}
+export default function BrandFormLogo() {
+  const logoUrl = useBrandFormStore((state) => state.logoUrl);
+  const logoSrc = useBrandFormStore((state) => state.logoSrc);
+  const logoChanged = useBrandFormStore((state) => state.logoChanged);
+  const previewFailed = useBrandFormStore((state) => state.previewFailed);
 
-export default function BrandFormLogo({ logoUrl = "", allFieldErrors }: BrandFormLogoProps) {
-  const [currLogoUrl, setCurrLogoUrl] = useState(logoUrl);
-  const [logoSrc, setLogoSrc] = useState(PathFinder.toBrandLogo(logoUrl));
   const defLogoSrc = useDeferredValue(logoSrc);
-
-  // In react, props act like external instructions for a component,
-  // while usestate manages its own internal memory that persists between re-renders
-  useEffect(() => {
-    // So, make sure the internal state is consistent with the props being passed
-    setCurrLogoUrl(logoUrl);
-    setLogoSrc(PathFinder.toBrandLogo(logoUrl));
-  }, [logoUrl]);
 
   return (
     <section className={styles["brand-form-logo"]}>
@@ -47,7 +35,7 @@ export default function BrandFormLogo({ logoUrl = "", allFieldErrors }: BrandFor
               alt={"Logo Preview"}
               sizes="50vw"
               className="m-auto h-36 w-auto object-contain"
-              onError={() => setLogoSrc(PathFinder.toImagePlaceholder())}
+              onError={previewFailed}
             />
           ) : (
             <div className="grid h-36 w-full place-items-center">
@@ -61,18 +49,14 @@ export default function BrandFormLogo({ logoUrl = "", allFieldErrors }: BrandFor
           fieldType={"url"}
           fieldName={"logoUrl"}
           fieldLabel={"logo url"}
-          allFieldErrors={allFieldErrors}
           size={40}
           maxLength={256}
           spellCheck={"false"}
           autoComplete={"off"}
           required={true}
           placeholder={"e.g., https://images.unsplash.com/example-photo"}
-          value={currLogoUrl}
-          onChange={(ev) => {
-            setCurrLogoUrl(ev.target.value);
-            setLogoSrc(PathFinder.toBrandLogo(ev.target.value));
-          }}
+          value={logoUrl}
+          onChange={(ev) => logoChanged(ev.target.value)}
         />
         <small className="text-info-content">
           * please use image addresses from&nbsp;

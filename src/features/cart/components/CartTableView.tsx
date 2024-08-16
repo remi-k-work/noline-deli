@@ -26,6 +26,7 @@ export default async function CartTableView() {
         Checkout Now
       </Link>
       <br />
+      <br />
     </>
   );
 }

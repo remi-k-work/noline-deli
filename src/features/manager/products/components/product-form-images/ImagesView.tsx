@@ -7,16 +7,18 @@ import styles from "./ImagesView.module.css";
 import { useEffect, useRef } from "react";
 
 // other libraries
+import { useProductFormStore } from "../../stores/productFormProvider";
 import { useFormContext } from "react-hook-form";
-import { useImagesContext } from "./ImagesContext";
+import useIsMounted from "@/lib/hooks/useIsMounted";
 
 // components
 import ProductFormImage from "./ProductFormImage";
-import useIsMounted from "@/lib/useIsMounted";
 
 export default function ImagesView() {
-  const { theMainImageUrl, currMoreImagesUrls, setCurrMoreImagesUrls, viewedProductImageIndex, setViewedProductImageIndex, allFieldErrors } =
-    useImagesContext();
+  const theMainImageUrl = useProductFormStore((state) => state.theMainImageUrl);
+  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
+  const imageRemoved = useProductFormStore((state) => state.imageRemoved);
 
   const allProductImageNodesRef = useRef(new Map<number, HTMLElement>());
 
@@ -32,11 +34,11 @@ export default function ImagesView() {
     if (!isMounted.current) return;
 
     const allProductImageNodes = allProductImageNodesRef.current;
-    const viewedProductImageNode = allProductImageNodes.get(viewedProductImageIndex);
+    const viewedProductImageNode = allProductImageNodes.get(viewedImageIndex);
     if (viewedProductImageNode) {
       viewedProductImageNode.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
-  }, [viewedProductImageIndex]);
+  }, [viewedImageIndex]);
 
   function addThisProductImageNodeRef(nodeIndex: number, productImageNode: HTMLElement | null) {
     const allProductImageNodes = allProductImageNodesRef.current;
@@ -47,25 +49,6 @@ export default function ImagesView() {
     }
   }
 
-  function handleRemoveImageClicked(extraImageIndex: number) {
-    const allProductImageNodes = allProductImageNodesRef.current;
-    const totalProductImages = allProductImageNodes.size;
-    const lastProductImageIndex = totalProductImages - 1;
-
-    const viewedIndex = viewedProductImageIndex;
-    const targetIndex = extraImageIndex + 1;
-
-    // Keep the react hook form state in sync
-    unregister("extraImages");
-
-    setCurrMoreImagesUrls([...currMoreImagesUrls.slice(0, extraImageIndex), ...currMoreImagesUrls.slice(extraImageIndex + 1)]);
-    if (targetIndex < viewedIndex) {
-      setViewedProductImageIndex(targetIndex);
-    } else if (viewedIndex === lastProductImageIndex) {
-      setViewedProductImageIndex(viewedIndex - 1);
-    }
-  }
-
   return (
     <div className={styles["product-form-images__view"]}>
       <ProductFormImage
@@ -73,17 +56,20 @@ export default function ImagesView() {
         fieldName={"theMainImage"}
         fieldLabel={"the main image"}
         imageUrl={theMainImageUrl}
-        allFieldErrors={allFieldErrors}
       />
-      {currMoreImagesUrls.map((extraImageUrl, extraImageIndex) => (
+      {moreImagesUrls.map((extraImageUrl, extraImageIndex) => (
         <ProductFormImage
           key={`${extraImageUrl}.${extraImageIndex}`}
           ref={(productImageNode) => addThisProductImageNodeRef(extraImageIndex + 1, productImageNode)}
           fieldName={`extraImages.${extraImageIndex}`}
           fieldLabel={`extra image nr ${extraImageIndex + 1}`}
           imageUrl={extraImageUrl}
-          onRemoveImageClicked={() => handleRemoveImageClicked(extraImageIndex)}
-          allFieldErrors={allFieldErrors}
+          onRemoveImageClicked={() => {
+            imageRemoved(extraImageIndex);
+
+            // Keep the react hook form state in sync
+            unregister("extraImages");
+          }}
         />
       ))}
     </div>

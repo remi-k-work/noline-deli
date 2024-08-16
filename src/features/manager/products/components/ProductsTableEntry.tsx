@@ -12,7 +12,7 @@ import { ProductWithInfo } from "../db";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import PathFinder from "../../PathFinder";
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
 
 // components

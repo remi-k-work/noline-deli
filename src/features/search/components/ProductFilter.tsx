@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
 import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
 import { useDebouncedCallback } from "use-debounce";
-import useSearchParamsState from "@/lib/useSearchParamsState";
+import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";

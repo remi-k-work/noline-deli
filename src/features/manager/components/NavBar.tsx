@@ -10,7 +10,7 @@ import Link from "next/link";
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "../PathFinder";
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";

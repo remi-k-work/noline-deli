@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { pathToProductsSearch } from "@/features/products/helpers";
-import useSearchParamsState from "@/lib/useSearchParamsState";
+import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 
 // assets
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";

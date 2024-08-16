@@ -16,14 +16,17 @@ import { newProduct2, updProduct2 } from "@/features/manager/products/actions";
 
 // other libraries
 import { z } from "zod";
-import useFormActionWithVal from "../../useFormActionWithVal";
+import { useProductFormStore } from "../stores/productFormProvider";
+import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { productFormSchema } from "../schemas/productForm";
 import { ProductFormActionResult } from "../schemas/types";
 import PathFinder from "../../PathFinder";
-import useFormActionFeedback from "../../useFormActionFeedback";
+import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components
+import { ProductFormStoreProvider } from "../stores/productFormProvider";
+import { AllFieldErrorsProvider } from "../../../../lib/contexts/AllFieldErrors";
 import { FormTextArea, FormInputField, FormCheckField } from "../../components/FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./ProductFormControls";
 import ProductFormImages from "./ProductFormImages";
@@ -53,17 +56,17 @@ export default function ProductForm({ product, brands, categories }: ProductForm
   const [formResetKey, setFormResetKey] = useState("ProductForm");
 
   return (
-    <TheFormWrapped
-      key={formResetKey}
-      product={product}
-      brands={brands}
-      categories={categories}
-      onResetClicked={() => setFormResetKey(`ProductForm${Date.now()}`)}
-    />
+    <ProductFormStoreProvider key={formResetKey} product={product}>
+      <TheFormWrapped product={product} brands={brands} categories={categories} onResetClicked={() => setFormResetKey(`ProductForm${Date.now()}`)} />
+    </ProductFormStoreProvider>
   );
 }
 
 function TheFormWrapped({ product, brands, categories, onResetClicked }: TheFormWrappedProps) {
+  const name = useProductFormStore((state) => state.name);
+  const description = useProductFormStore((state) => state.description);
+  const freeShipping = useProductFormStore((state) => state.freeShipping);
+
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
     excerpt: product ? <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} /> : undefined,
@@ -79,33 +82,6 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
     formSchema: productFormSchema,
     showFeedback,
   });
-
-  // Default values for the form
-  let defName: string | undefined;
-  let defDescription: string | undefined;
-  let defTheMainImageUrl: string | undefined;
-  let defMoreImagesUrls: string[] | undefined;
-  let defPriceInCents: number | undefined;
-  let defSelectedCategoryId: string | undefined;
-  let defSelectedSubCategoryId: string | undefined;
-  let defSelectedBrandId: string | undefined;
-  let defFreeShipping: boolean | undefined;
-
-  // Are we in editing mode?
-  if (product) {
-    // Yes, set all of the form's default values to match those from the edited product
-    const { name, description, imageUrl, moreImages, price, categories, subCategories, brandId, freeShipping } = product;
-
-    defName = name;
-    defDescription = description;
-    defTheMainImageUrl = imageUrl;
-    defMoreImagesUrls = moreImages.map(({ imageUrl }) => imageUrl);
-    defPriceInCents = price;
-    defSelectedCategoryId = categories.length > 0 ? categories[0].categoryId : undefined;
-    defSelectedSubCategoryId = subCategories.length > 0 ? subCategories[0].subCategoryId : undefined;
-    defSelectedBrandId = brandId ?? undefined;
-    defFreeShipping = freeShipping;
-  }
 
   return (
     <article className={styles["product-form"]}>
@@ -123,47 +99,42 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          <FormInputField
-            fieldName={"name"}
-            fieldLabel={"name"}
-            allFieldErrors={allFieldErrors}
-            size={40}
-            maxLength={50}
-            spellCheck={"true"}
-            autoComplete={"off"}
-            required={true}
-            placeholder={"e.g., Sloppy Joe's Surprise, Grandma's Award-Winning Pie"}
-            defaultValue={defName}
-          />
-          <FormTextArea
-            fieldName={"description"}
-            fieldLabel={"description"}
-            allFieldErrors={allFieldErrors}
-            cols={50}
-            rows={6}
-            maxLength={2049}
-            spellCheck={"true"}
-            autoComplete={"off"}
-            required={true}
-            placeholder={"Write a brief description of your product (e.g., features, benefits, target audience)"}
-            defaultValue={defDescription}
-          />
-          <ProductFormImages theMainImageUrl={defTheMainImageUrl} moreImagesUrls={defMoreImagesUrls} allFieldErrors={allFieldErrors} />
-          <PriceInCents priceInCents={defPriceInCents} allFieldErrors={allFieldErrors} />
-          <CategoryAndSubCategory
-            categories={categories}
-            selectedCategoryId={defSelectedCategoryId}
-            selectedSubCategoryId={defSelectedSubCategoryId}
-            allFieldErrors={allFieldErrors}
-          />
-          <BrandAndLogo brands={brands} selectedBrandId={defSelectedBrandId} allFieldErrors={allFieldErrors} />
-          <FormCheckField fieldName={"freeShipping"} allFieldErrors={allFieldErrors} defaultChecked={defFreeShipping}>
-            <TruckIcon width={24} height={24} />
-            Free Shipping
-          </FormCheckField>
-          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
-        </form>
+        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+            <FormInputField
+              fieldName={"name"}
+              fieldLabel={"name"}
+              size={40}
+              maxLength={50}
+              spellCheck={"true"}
+              autoComplete={"off"}
+              required={true}
+              placeholder={"e.g., Sloppy Joe's Surprise, Grandma's Award-Winning Pie"}
+              defaultValue={name}
+            />
+            <FormTextArea
+              fieldName={"description"}
+              fieldLabel={"description"}
+              cols={50}
+              rows={6}
+              maxLength={2049}
+              spellCheck={"true"}
+              autoComplete={"off"}
+              required={true}
+              placeholder={"Write a brief description of your product (e.g., features, benefits, target audience)"}
+              defaultValue={description}
+            />
+            <ProductFormImages />
+            <PriceInCents />
+            <CategoryAndSubCategory categories={categories} />
+            <BrandAndLogo brands={brands} />
+            <FormCheckField fieldName={"freeShipping"} defaultChecked={freeShipping}>
+              <TruckIcon width={24} height={24} />
+              Free Shipping
+            </FormCheckField>
+            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+          </form>
+        </AllFieldErrorsProvider>
       </FormProvider>
       {feedback}
     </article>

@@ -4,7 +4,7 @@
 import styles from "./JumpToImageMob.module.css";
 
 // other libraries
-import { useImagesContext } from "./ImagesContext";
+import { useProductFormStore } from "../../stores/productFormProvider";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -14,7 +14,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageMob() {
-  const { currMoreImagesUrls, viewedProductImageIndex, setViewedProductImageIndex } = useImagesContext();
+  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
+  const jumpedToImage = useProductFormStore((state) => state.jumpedToImage);
 
   return (
     <DropdownMenu>
@@ -22,7 +24,7 @@ export default function JumpToImageMob() {
         <Tooltip>
           <TooltipTrigger asChild>
             <span className="btn btn-circle btn-ghost">
-              {viewedProductImageIndex + 1}&nbsp;/&nbsp;{currMoreImagesUrls.length + 1}
+              {viewedImageIndex + 1}&nbsp;/&nbsp;{moreImagesUrls.length + 1}
             </span>
           </TooltipTrigger>
           <TooltipContent>
@@ -33,19 +35,19 @@ export default function JumpToImageMob() {
       <DropdownMenuContent className={styles["jump-to-image__choices"]}>
         <DropdownMenuItem>
           <Tooltip>
-            <TooltipTrigger type="button" onClick={() => setViewedProductImageIndex(0)}>
-              {viewedProductImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+            <TooltipTrigger type="button" onClick={() => jumpedToImage(0)}>
+              {viewedImageIndex === 0 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
             </TooltipTrigger>
             <TooltipContent>
               <p>Jump to the main image</p>
             </TooltipContent>
           </Tooltip>
         </DropdownMenuItem>
-        {currMoreImagesUrls.map((_, extraImageIndex) => (
+        {moreImagesUrls.map((_, extraImageIndex) => (
           <DropdownMenuItem key={extraImageIndex}>
             <Tooltip>
-              <TooltipTrigger type="button" onClick={() => setViewedProductImageIndex(extraImageIndex + 1)}>
-                {viewedProductImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
+              <TooltipTrigger type="button" onClick={() => jumpedToImage(extraImageIndex + 1)}>
+                {viewedImageIndex === extraImageIndex + 1 ? <CubeIcon width={24} height={24} /> : <CubeTransparentIcon width={24} height={24} />}
               </TooltipTrigger>
               <TooltipContent>
                 <p>{`Jump to an extra image nr ${extraImageIndex + 1}`}</p>

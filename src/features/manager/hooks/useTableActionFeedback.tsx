@@ -2,7 +2,7 @@
 import { ReactNode, useCallback, useState } from "react";
 
 // other libraries
-import { FormActionResult } from "./formActionTypes";
+import { FormActionResult } from "../formActionTypes";
 
 // components
 import Toastify from "@/components/Toastify";

@@ -14,14 +14,17 @@ import { newBrand2, updBrand2 } from "@/features/manager/brands/actions";
 
 // other libraries
 import { z } from "zod";
-import useFormActionWithVal from "../../useFormActionWithVal";
+import { useBrandFormStore } from "../stores/brandFormProvider";
+import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { brandFormSchema } from "../schemas/brandForm";
 import { BrandFormActionResult } from "../schemas/types";
 import PathFinder from "../../PathFinder";
-import useFormActionFeedback from "../../useFormActionFeedback";
+import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components
+import { BrandFormStoreProvider } from "../stores/brandFormProvider";
+import { AllFieldErrorsProvider } from "../../../../lib/contexts/AllFieldErrors";
 import { FormInputField } from "../../components/FormControls";
 import BrandFormLogo from "./BrandFormLogo";
 import FormSubmit from "../../components/FormSubmit";
@@ -45,10 +48,16 @@ export default function BrandForm({ brand }: BrandFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("BrandForm");
 
-  return <TheFormWrapped key={formResetKey} brand={brand} onResetClicked={() => setFormResetKey(`BrandForm${Date.now()}`)} />;
+  return (
+    <BrandFormStoreProvider key={formResetKey} brand={brand}>
+      <TheFormWrapped brand={brand} onResetClicked={() => setFormResetKey(`BrandForm${Date.now()}`)} />
+    </BrandFormStoreProvider>
+  );
 }
 
 function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
+  const name = useBrandFormStore((state) => state.name);
+
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
     excerpt: brand ? <BrandExcerpt name={brand.name} logoUrl={brand.logoUrl} /> : undefined,
@@ -64,19 +73,6 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
     formSchema: brandFormSchema,
     showFeedback,
   });
-
-  // Default values for the form
-  let defName: string | undefined;
-  let defLogoUrl: string | undefined;
-
-  // Are we in editing mode?
-  if (brand) {
-    // Yes, set all of the form's default values to match those from the edited brand
-    const { name, logoUrl } = brand;
-
-    defName = name;
-    defLogoUrl = logoUrl ?? undefined;
-  }
 
   return (
     <article className={styles["brand-form"]}>
@@ -94,25 +90,26 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
         )}
       </h2>
       <FormProvider {...useFormMethods}>
-        <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-          <FormInputField
-            fieldName={"name"}
-            fieldLabel={"name"}
-            allFieldErrors={allFieldErrors}
-            size={40}
-            maxLength={50}
-            spellCheck={"true"}
-            autoComplete={"off"}
-            required={true}
-            placeholder={"e.g., Wedel, Nivea"}
-            defaultValue={defName}
-          />
-          <section className={styles["brand-form__logo"]}>
-            <header className={lusitana.className}>Brand Logo</header>
-            <BrandFormLogo logoUrl={defLogoUrl} allFieldErrors={allFieldErrors} />
-          </section>
-          <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
-        </form>
+        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+            <FormInputField
+              fieldName={"name"}
+              fieldLabel={"name"}
+              size={40}
+              maxLength={50}
+              spellCheck={"true"}
+              autoComplete={"off"}
+              required={true}
+              placeholder={"e.g., Wedel, Nivea"}
+              defaultValue={name}
+            />
+            <section className={styles["brand-form__logo"]}>
+              <header className={lusitana.className}>Brand Logo</header>
+              <BrandFormLogo />
+            </section>
+            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+          </form>
+        </AllFieldErrorsProvider>
       </FormProvider>
       {feedback}
     </article>

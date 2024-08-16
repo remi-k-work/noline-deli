@@ -5,7 +5,7 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // other libraries
-import { FormActionResult } from "./formActionTypes";
+import { FormActionResult } from "../formActionTypes";
 import useSearchParamsState from "./useSearchParamsState";
 
 // components

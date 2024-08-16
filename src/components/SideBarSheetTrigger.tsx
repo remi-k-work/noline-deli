@@ -11,7 +11,7 @@ import { ProductFilterData } from "@/features/search/searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
 
 // components

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { Schema } from "zod";
 import { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
 import { HookSafeActionFn, useAction } from "next-safe-action/hooks";
-import { FormActionResult } from "./formActionTypes";
+import { FormActionResult } from "../formActionTypes";
 import useTableActionFeedback from "./useTableActionFeedback";
 
 // types

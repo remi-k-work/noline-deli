@@ -14,7 +14,7 @@ import { delCategory2 } from "../actions";
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
 import PathFinder from "../../PathFinder";
-import useTableActionWithVal from "../../useTableActionWithVal";
+import useTableActionWithVal from "../../hooks/useTableActionWithVal";
 import { CategoryFormActionResult } from "../schemas/types";
 
 // components

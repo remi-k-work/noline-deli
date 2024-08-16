@@ -5,7 +5,7 @@ import { CategoriesTreeViewData } from "@/features/search/searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useMediaQuery from "@/lib/useMediaQuery";
+import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";

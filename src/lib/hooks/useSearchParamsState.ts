@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import SearchParamsState from "./SearchParamsState";
+import SearchParamsState from "../SearchParamsState";
 
 export default function useSearchParamsState(customPathname?: string, byPriceBelowMax?: number, byBrandList?: Brand[]) {
   const pathname = usePathname();

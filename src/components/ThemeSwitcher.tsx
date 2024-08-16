@@ -2,7 +2,7 @@
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useDarkMode from "@/lib/useDarkMode";
+import useDarkMode from "@/lib/hooks/useDarkMode";
 
 // assets
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
