@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 // components
 import MainLayout from "@/components/MainLayout";
-import CartTableView from "@/features/cart/components/CartTableView";
+import { default as CartTableView } from "@/features/cart/components/cart-table/View";
 
 // assets
 import { lusitana } from "@/assets/fonts";

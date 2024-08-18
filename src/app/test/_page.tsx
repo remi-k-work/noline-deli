@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 // components
-import BrandForm from "@/features/manager/brands/components/BrandForm";
+import BrandForm from "@/features/manager/brands/components/brand-form";
 import CounterTest from "./CounterTest";
 
 export default async function Page() {

@@ -1,9 +1,0 @@
-.product-form-images__prev-img {
-  grid-area: pimg;
-  place-self: center;
-}
-
-.product-form-images__next-img {
-  grid-area: nimg;
-  place-self: center;
-}

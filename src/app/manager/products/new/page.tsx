@@ -9,7 +9,7 @@ import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import ProductForm from "@/features/manager/products/components/ProductForm";
+import ProductForm from "@/features/manager/products/components/product-form";
 
 // assets
 import bannerProducts from "@/assets/manager/banner-products.webp";

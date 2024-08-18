@@ -10,7 +10,7 @@ import stripe from "@/lib/stripe";
 
 // components
 import MainLayout from "@/components/MainLayout";
-import * as OrderComplete from "@/features/cart/components/order-complete";
+import OrderComplete from "@/features/cart/components/order-complete";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -35,7 +35,7 @@ export default async function Page({ searchParams: { payment_intent } }: PagePro
     <MainLayout>
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Order Complete</h1>
-        <OrderComplete.View paymentIntent={paymentIntent} />
+        <OrderComplete paymentIntent={paymentIntent} />
       </article>
     </MainLayout>
   );

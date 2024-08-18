@@ -1,0 +1,16 @@
+.entry-image {
+  inline-size: 100%;
+  display: grid;
+
+  grid-template-columns: [inf-start] var(--size-3) [img-start] auto [img-end inf-end];
+  grid-template-rows: [inf-start] var(--size-3) [img-start] auto [img-end inf-end];
+}
+
+.entry-image__link {
+  grid-area: img;
+}
+
+.entry-image__info {
+  grid-area: inf;
+  place-self: start;
+}

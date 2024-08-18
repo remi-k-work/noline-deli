@@ -1,0 +1,9 @@
+.prev-next__prev {
+  grid-area: pimg;
+  place-self: center;
+}
+
+.prev-next__next {
+  grid-area: nimg;
+  place-self: center;
+}

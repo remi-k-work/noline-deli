@@ -1,0 +1,30 @@
+.image-view {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  flex: 1 0 100%;
+
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto;
+
+  grid-template-areas:
+    "image tbar"
+    "url   url";
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+}
+
+.image-view__image {
+  grid-area: image;
+}
+
+.image-view__toolbar {
+  grid-area: tbar;
+}
+
+.image-view__url {
+  grid-area: url;
+}

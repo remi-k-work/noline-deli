@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 // components
 import MainLayout from "@/components/MainLayout";
-import CheckoutView from "@/features/cart/components/CheckoutView";
+import Checkout from "@/features/cart/components/checkout";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -26,7 +26,7 @@ export default async function Page() {
     <MainLayout>
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Checkout Page</h1>
-        <CheckoutView cart={cart} />
+        <Checkout cart={cart} />
       </article>
     </MainLayout>
   );

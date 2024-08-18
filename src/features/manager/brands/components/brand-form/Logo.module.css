@@ -1,0 +1,26 @@
+.logo {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  inline-size: 100%;
+
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+
+  grid-template-areas:
+    "logo"
+    "url";
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+}
+
+.logo__logo {
+  grid-area: logo;
+}
+
+.logo__url {
+  grid-area: url;
+}

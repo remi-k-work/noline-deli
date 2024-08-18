@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { getCart } from "@/features/cart/cartDb";
 
 // components
-import CheckoutView from "@/features/cart/components/CheckoutView";
+import Checkout from "@/features/cart/components/checkout";
 
 export default async function Page() {
   // const endpointUrl = new URL("/webhooks/stripe", process.env.NEXT_PUBLIC_SERVER_URL_PRO);
@@ -27,7 +27,7 @@ export default async function Page() {
 
   return (
     <article className={styles["page"]}>
-      <CheckoutView cart={cart} />
+      <Checkout cart={cart} />
     </article>
   );
 }
