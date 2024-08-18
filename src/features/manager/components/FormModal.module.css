@@ -1,0 +1,27 @@
+.form-modal {
+  background: none;
+
+  max-inline-size: 95vw;
+  max-block-size: min(95vh, 100%);
+  max-block-size: min(95dvb, 100%);
+
+  margin: auto;
+
+  display: grid;
+
+  overflow: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+
+  transition: opacity 1s var(--ease-3);
+}
+
+.form-modal:not([open]) {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.form-modal::backdrop {
+  backdrop-filter: blur(25px);
+  transition: backdrop-filter 1s ease;
+}
