@@ -130,6 +130,11 @@ export function createProduct(
   });
 }
 
+// Retrieve all products for the local in-memory representation used by the tanstack table
+export function allProductsForTableView() {
+  return prisma.product.findMany({ where: { ...whereAdminApproved<Prisma.ProductWhereInput>() }, include: INCLUDE_PRODUCT_WITH_INFO });
+}
+
 // Retrieve all products from an external source (database) using offset pagination
 export function allProductsWithPagination(
   itemsPerPage: number,

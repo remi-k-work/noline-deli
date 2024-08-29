@@ -1,0 +1,59 @@
+.by-category {
+  color: var(--text-2);
+  cursor: pointer;
+
+  max-inline-size: var(--size-content-2);
+
+  display: grid;
+
+  grid-template-columns: [tot-start ctx-start] auto [tot-end ctx-end];
+  grid-template-rows: [tot-start] min-content [tot-end ctx-start] auto [ctx-end];
+
+  border-radius: var(--radius-3);
+  border: var(--border-size-1) solid var(--surface-2);
+}
+
+.by-category__total {
+  grid-area: tot;
+}
+
+.by-category__context {
+  grid-area: ctx;
+
+  padding-inline: var(--size-2);
+  text-align: start;
+}
+
+.by-category__dropdown-content {
+  background: var(--surface-2);
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+}
+
+/* || MEDIA QUERIES */
+
+/* 
+  On touch devices, like iPads, the hover state is sticky, so the button stays blue after tapping it. I do not want that:
+  https://stackoverflow.com/questions/17233804/how-to-prevent-sticky-hover-effects-for-buttons-on-touch-devices
+*/
+@media (hover: hover) and (pointer: fine) {
+  .by-category {
+    transition: all 0.5s var(--ease-3);
+  }
+
+  .by-category:hover {
+    background: var(--surface-2);
+    color: var(--text-1);
+  }
+}
+
+/* Medium screens */
+@media screen and (min-width: 768px) {
+  .by-category {
+    grid-template-columns: [tot-start] min-content [tot-end ctx-start] auto [ctx-end];
+    grid-template-rows: [tot-start] var(--size-2) [ctx-start] auto [tot-end ctx-end];
+  }
+}
