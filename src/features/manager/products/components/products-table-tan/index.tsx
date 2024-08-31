@@ -19,9 +19,8 @@ import NotFound from "@/components/NotFound";
 import { lusitana } from "@/assets/fonts";
 
 export default function ProductsTable() {
-  const { table, createdByUser } = useTanTableInstanceContext();
+  const { createdByUser, table, totalItems } = useTanTableInstanceContext();
 
-  const totalItems = table.getFilteredRowModel().rows.length;
   if (totalItems === 0)
     return (
       <>

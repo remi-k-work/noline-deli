@@ -79,6 +79,11 @@
     transition: all 0.5s var(--ease-3);
   }
 
+  .paginate__prev:disabled,
+  .paginate__next:disabled {
+    cursor: not-allowed;
+  }
+  
   .paginate__prev:hover:not(:disabled),
   .paginate__next:hover:not(:disabled),
   .paginate__curr:hover:not(:disabled) {

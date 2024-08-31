@@ -23,8 +23,7 @@ interface SearchPanelProps {
 }
 
 export default function SearchPanel({ className }: SearchPanelProps) {
-  const { table } = useTanTableInstanceContext();
-  const keyword = table.getState().globalFilter ?? "";
+  const { table, keyword } = useTanTableInstanceContext();
 
   const searchRef = useRef<HTMLInputElement>(null);
 

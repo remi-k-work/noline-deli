@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useCallback } from "react";
 
 // prisma and db access
 import { ProductWithInfo } from "@/features/manager/products/db";
@@ -19,7 +19,18 @@ interface TanTableInstanceContextType {
   products: ProductWithInfo[];
   categories: CategoryWithSubCategory[];
   createdByUser?: string;
+
   table: Table<ProductRow>;
+  totalItems: number;
+  keyword: string;
+  currentCategory: string;
+  currentSubCategory: string;
+  isSearchMode: boolean;
+  isNoCategorySelected: boolean;
+  currentPage: number;
+  totalPages: number;
+
+  browsedByCategory: (categoryName?: string, subCategoryName?: string) => void;
 }
 
 interface TanTableInstanceProviderProps {
@@ -58,7 +69,53 @@ export function TanTableInstanceProvider({ products, categories, createdByUser, 
     },
   });
 
-  return <TanTableInstanceContext.Provider value={{ products, categories, createdByUser, table }}>{children}</TanTableInstanceContext.Provider>;
+  // Determine the total number of viewable items once all filters are applied
+  const totalItems = table.getFilteredRowModel().rows.length;
+
+  const keyword = table.getState().globalFilter ?? "";
+  const currentCategory = table.getColumn("category")?.getFilterValue() as string;
+  const currentSubCategory = table.getColumn("subCategory")?.getFilterValue() as string;
+
+  // Are we in search mode?
+  const isSearchMode = !!table.getState().globalFilter;
+
+  // Has no category been selected? Are we, in other words, browsing all the products?
+  const isNoCategorySelected = !currentCategory && !currentSubCategory;
+
+  const currentPage = table.getState().pagination.pageIndex + 1;
+  const totalPages = table.getPageCount();
+
+  const browsedByCategory = useCallback(
+    (categoryName?: string, subCategoryName?: string) => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+      if (categoryName) table.getColumn("category")?.setFilterValue(categoryName);
+      if (subCategoryName) table.getColumn("subCategory")?.setFilterValue(subCategoryName);
+    },
+    [table],
+  );
+
+  return (
+    <TanTableInstanceContext.Provider
+      value={{
+        products,
+        categories,
+        createdByUser,
+        table,
+        totalItems,
+        keyword,
+        currentCategory,
+        currentSubCategory,
+        isSearchMode,
+        isNoCategorySelected,
+        currentPage,
+        totalPages,
+        browsedByCategory,
+      }}
+    >
+      {children}
+    </TanTableInstanceContext.Provider>
+  );
 }
 
 export function useTanTableInstanceContext() {

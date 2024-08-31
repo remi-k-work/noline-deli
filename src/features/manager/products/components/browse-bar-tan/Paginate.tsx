@@ -23,14 +23,10 @@ interface PaginateProps {
 }
 
 export default function Paginate({ className }: PaginateProps) {
-  const { table } = useTanTableInstanceContext();
+  const { table, totalItems, currentPage, totalPages } = useTanTableInstanceContext();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
-
-  const totalItems = table.getFilteredRowModel().rows.length;
-  const currentPage = table.getState().pagination.pageIndex + 1;
-  const totalPages = table.getPageCount();
 
   const pageNumbers: number[] = [];
   for (let i = 1; i <= totalPages; i++) {

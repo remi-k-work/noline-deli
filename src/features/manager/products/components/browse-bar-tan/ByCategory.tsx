@@ -30,12 +30,7 @@ interface ByCategoryProps {
 }
 
 export default function ByCategory({ className }: ByCategoryProps) {
-  const { table, categories } = useTanTableInstanceContext();
-
-  const totalItems = table.getFilteredRowModel().rows.length;
-  const isSearchMode = !!table.getState().globalFilter;
-  const currentCategory = table.getColumn("category")?.getFilterValue() as string;
-  const currentSubCategory = table.getColumn("subCategory")?.getFilterValue() as string;
+  const { categories, totalItems, currentCategory, currentSubCategory, isSearchMode, isNoCategorySelected, browsedByCategory } = useTanTableInstanceContext();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
@@ -58,10 +53,9 @@ export default function ByCategory({ className }: ByCategoryProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className={styles["by-category__dropdown-content"]}>
           <DropdownMenuItem
-            className={cn({ "font-bold": isSearchMode })}
+            className={cn({ "font-bold": isNoCategorySelected && !isSearchMode })}
             onClick={() => {
-              table.resetGlobalFilter();
-              table.resetColumnFilters();
+              browsedByCategory();
               setOpen(false);
             }}
           >
@@ -73,9 +67,7 @@ export default function ByCategory({ className }: ByCategoryProps) {
                 key={categoryId}
                 className={cn({ "font-bold": currentCategory === categoryName })}
                 onClick={() => {
-                  table.resetGlobalFilter();
-                  table.resetColumnFilters();
-                  table.getColumn("category")?.setFilterValue(categoryName);
+                  browsedByCategory(categoryName);
                   setOpen(false);
                 }}
               >
@@ -92,9 +84,7 @@ export default function ByCategory({ className }: ByCategoryProps) {
                       key={categoryId}
                       className={cn({ "font-bold": currentCategory === categoryName })}
                       onClick={() => {
-                        table.resetGlobalFilter();
-                        table.resetColumnFilters();
-                        table.getColumn("category")?.setFilterValue(categoryName);
+                        browsedByCategory(categoryName);
                         setOpen(false);
                       }}
                     >
@@ -106,10 +96,7 @@ export default function ByCategory({ className }: ByCategoryProps) {
                         key={subCategoryId}
                         className={cn({ "font-bold": currentSubCategory === subCategoryName })}
                         onClick={() => {
-                          table.resetGlobalFilter();
-                          table.resetColumnFilters();
-                          table.getColumn("category")?.setFilterValue(categoryName);
-                          table.getColumn("subCategory")?.setFilterValue(subCategoryName);
+                          browsedByCategory(categoryName, subCategoryName);
                           setOpen(false);
                         }}
                       >
@@ -128,17 +115,13 @@ export default function ByCategory({ className }: ByCategoryProps) {
 }
 
 const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
-  const { table } = useTanTableInstanceContext();
-
-  const isSearchMode = !!table.getState().globalFilter;
-  const currentCategory = table.getColumn("category")?.getFilterValue() as string;
-  const currentSubCategory = table.getColumn("subCategory")?.getFilterValue() as string;
+  const { currentCategory, currentSubCategory, isSearchMode, isNoCategorySelected } = useTanTableInstanceContext();
 
   return (
     <footer ref={ref} {...props}>
       {isSearchMode ? (
         <>Search Results</>
-      ) : !currentCategory ? (
+      ) : isNoCategorySelected ? (
         <>All Products</>
       ) : currentSubCategory ? (
         <>
