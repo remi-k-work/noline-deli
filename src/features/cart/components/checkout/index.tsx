@@ -7,13 +7,13 @@ import styles from "./index.module.css";
 import { useEffect, useState } from "react";
 
 // prisma and db access
-import { DerivedCartWithItems } from "@/features/cart/cartDb";
+import { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // components
 import NotFound from "@/components/NotFound";
 import ElementsProvider from "@/features/cart/components/checkout/ElementsProvider";
 import Form from "@/features/cart/components/checkout/Form";
-import ShippingMethod, { SHIPPING_COSTS } from "./ShippingMethod";
+import ShippingMethod, { SHIPPING_COSTS, SHIPPING_METHODS } from "./ShippingMethod";
 import CartTable from "@/features/cart/components/cart-table";
 
 // assets
@@ -27,6 +27,7 @@ interface CheckoutProps {
 
 export default function Checkout({ cart }: CheckoutProps) {
   const [shippingCost, setShippingCost] = useState(SHIPPING_COSTS[0]);
+  const [shippingMethod, setShippingMethod] = useState(SHIPPING_METHODS[0]);
   const [totalAmount, setTotalAmount] = useState(cart?.subTotal ?? 0);
 
   useEffect(() => {
@@ -37,9 +38,21 @@ export default function Checkout({ cart }: CheckoutProps) {
 
   return (
     <article className={styles["checkout"]}>
-      <ShippingMethod onShippingMethodChanged={(shippingCost) => setShippingCost(shippingCost)} className={styles["checkout__shipping-method"]} />
+      <ShippingMethod
+        onShippingMethodChanged={(shippingCost, shippingMethod) => {
+          setShippingCost(shippingCost);
+          setShippingMethod(shippingMethod);
+        }}
+        className={styles["checkout__shipping-method"]}
+      />
       <ElementsProvider amount={totalAmount}>
-        <Form cart={cart} shippingCost={shippingCost} billAndShipCn={styles["checkout__billing-and-shipping"]} placeOrderCn={styles["checkout__place-order"]} />
+        <Form
+          cart={cart}
+          shippingCost={shippingCost}
+          shippingMethod={shippingMethod}
+          billAndShipCn={styles["checkout__billing-and-shipping"]}
+          placeOrderCn={styles["checkout__place-order"]}
+        />
       </ElementsProvider>
       <section className={styles["checkout__order-summary"]}>
         <h2 className={lusitana.className}>

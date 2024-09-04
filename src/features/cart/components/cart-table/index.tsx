@@ -2,7 +2,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import { DerivedCartWithItems } from "../../cartDb";
+import { DerivedCartWithItems } from "../../db/cart";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";

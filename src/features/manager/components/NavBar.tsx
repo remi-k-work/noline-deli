@@ -26,10 +26,10 @@ interface NavLinkProps extends ComponentProps<typeof Link> {
 }
 
 export default function NavBar() {
-  // Small devices (landscape phones, less than 768px)
-  const isSmall = useMediaQuery("(max-width: 767.98px)");
+  // Large screens
+  const isLarge = useMediaQuery("(min-width: 1024px)");
 
-  return <nav>{isSmall ? <NavMenu /> : <NavTabs />}</nav>;
+  return <nav>{isLarge ? <NavTabs /> : <NavMenu />}</nav>;
 }
 
 function NavLink({ isActive = false, activeClass, setOpen, className, ...props }: NavLinkProps) {
@@ -45,6 +45,7 @@ function NavTabs() {
   const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
   const isProductsActive = pathname.includes(PathFinder.toAllProducts());
   const isChartsActive = pathname.includes(PathFinder.toAllCharts());
+  const isOrdersActive = pathname.includes(PathFinder.toAllOrders());
 
   return (
     <div role="tablist" className="tabs tabs-lifted">
@@ -66,6 +67,9 @@ function NavTabs() {
       <NavLink href={PathFinder.toAllCharts()} role="tab" className="tab" isActive={isChartsActive} activeClass={"tab-active"}>
         Charts
       </NavLink>
+      <NavLink href={PathFinder.toAllOrders()} role="tab" className="tab" isActive={isOrdersActive} activeClass={"tab-active"}>
+        Orders
+      </NavLink>
     </div>
   );
 }
@@ -79,6 +83,7 @@ function NavMenu() {
   const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
   const isProductsActive = pathname.includes(PathFinder.toAllProducts());
   const isChartsActive = pathname.includes(PathFinder.toAllCharts());
+  const isOrdersActive = pathname.includes(PathFinder.toAllOrders());
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
@@ -117,6 +122,11 @@ function NavMenu() {
         <DropdownMenuItem>
           <NavLink href={PathFinder.toAllCharts()} isActive={isChartsActive} activeClass={"font-bold"} setOpen={setOpen}>
             Charts
+          </NavLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <NavLink href={PathFinder.toAllOrders()} isActive={isOrdersActive} activeClass={"font-bold"} setOpen={setOpen}>
+            Orders
           </NavLink>
         </DropdownMenuItem>
       </DropdownMenuContent>

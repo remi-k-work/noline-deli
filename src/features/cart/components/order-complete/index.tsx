@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getOrderedCart } from "@/features/cart/cartDb";
+import { getOrderedCart } from "@/features/cart/db/cart";
 
 // other libraries
 import Stripe from "stripe";

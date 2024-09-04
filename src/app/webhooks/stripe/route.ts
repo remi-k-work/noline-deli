@@ -1,6 +1,9 @@
 // next
 import { NextRequest, NextResponse } from "next/server";
 
+// prisma and db access
+import { newOrder } from "@/features/cart/db/orders";
+
 // other libraries
 import stripe from "@/lib/stripe";
 
@@ -33,9 +36,21 @@ export async function POST(req: NextRequest) {
     }
     // Sent when a customer successfully completes a payment
     case "payment_intent.succeeded": {
-      // Send the customer an order confirmation and fulfill their order
-      const paymentIntent = event.data.object;
-      console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+      try {
+        // Send the customer an order confirmation and fulfill their order
+        const paymentIntent = event.data.object;
+
+        // Retrieve the details of the latest charge created by this payment intent
+        const latestCharge = await stripe.charges.retrieve(paymentIntent.latest_charge as string);
+
+        // Place a new order for either an existing or new customer
+        await newOrder(paymentIntent, latestCharge);
+
+        console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+      } catch (error) {
+        // The funds have been captured; however, something went wrong throughout our fulfillment procedure
+        // To cancel the payment after capture, you will need to issue a refund (https://stripe.com/docs/api/refunds)
+      }
       break;
     }
     // Sent when a customer attempts a payment, but the payment fails

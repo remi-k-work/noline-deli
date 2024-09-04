@@ -83,7 +83,7 @@
   .paginate__next:disabled {
     cursor: not-allowed;
   }
-  
+
   .paginate__prev:hover:not(:disabled),
   .paginate__next:hover:not(:disabled),
   .paginate__curr:hover:not(:disabled) {

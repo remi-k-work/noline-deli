@@ -2,7 +2,7 @@
 import styles from "./Header.module.css";
 
 // prisma and db access
-import { getCart } from "@/features/cart/cartDb";
+import { getCart } from "@/features/cart/db/cart";
 import { getCategoriesTreeViewData, getProductFilterData } from "@/features/search/searchDb";
 
 // other libraries

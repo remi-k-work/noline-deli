@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 // prisma and db access
-import { getCart } from "@/features/cart/cartDb";
+import { getCart } from "@/features/cart/db/cart";
 
 // other libraries
 import { cn } from "@/lib/utils";

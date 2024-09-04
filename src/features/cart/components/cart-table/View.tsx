@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 // prisma and db access
-import { getCart } from "../../cartDb";
+import { getCart } from "../../db/cart";
 
 // components
 import NotFound from "@/components/NotFound";

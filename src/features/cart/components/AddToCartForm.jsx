@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 // server actions and mutations
-import { addToCart } from "@/features/cart/cartActions";
+import { addToCart } from "@/features/cart/actions/cart";
 
 // other libraries
 import { cn } from "@/lib/utils";

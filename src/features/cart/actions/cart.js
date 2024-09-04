@@ -4,10 +4,10 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "./cartDb";
+import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "../db/cart";
 
 // other libraries
-import { pathToCart } from "./helpers";
+import { pathToCart } from "../helpers";
 import { pathToProductDetails } from "@/features/products/helpers";
 
 export async function deleteCartArticle(cartItemId) {

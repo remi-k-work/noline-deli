@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 // server actions and mutations
-import { incArticleByOne, decArticleByOne, deleteCartArticle } from "@/features/cart/cartActions";
+import { incArticleByOne, decArticleByOne, deleteCartArticle } from "@/features/cart/actions/cart";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

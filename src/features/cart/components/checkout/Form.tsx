@@ -4,10 +4,10 @@
 import { FormEvent, useState } from "react";
 
 // prisma and db access
-import { DerivedCartWithItems } from "@/features/cart/cartDb";
+import { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // server actions and mutations
-import { createPaymentIntent } from "../../actions";
+import { createPaymentIntent } from "../../actions/checkout";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -25,11 +25,12 @@ import { BanknotesIcon, CreditCardIcon } from "@heroicons/react/24/solid";
 interface FormProps {
   cart: DerivedCartWithItems;
   shippingCost: number;
+  shippingMethod: string;
   billAndShipCn: string;
   placeOrderCn: string;
 }
 
-export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount }, shippingCost, billAndShipCn, placeOrderCn }: FormProps) {
+export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount }, shippingCost, shippingMethod, billAndShipCn, placeOrderCn }: FormProps) {
   // Returns a reference to the stripe instance passed to the elements provider
   const stripe = useStripe();
 
@@ -59,7 +60,7 @@ export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount },
       return;
     }
 
-    const result = await createPaymentIntent({ customerEmail, orderedCartId, subTotal, taxAmount, shippingCost });
+    const result = await createPaymentIntent({ customerEmail, orderedCartId, subTotal, taxAmount, shippingCost, shippingMethod });
     if (!result?.data?.clientSecret) {
       setErrorMessage("We were unable to create the payment intent!");
       setIsLoading(false);

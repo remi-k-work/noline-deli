@@ -5,6 +5,7 @@ enum ParamName {
   subCategoryId = "[subCategoryId]",
   productId = "[productId]",
   captchaName = "[name]",
+  orderId = "[orderId]",
 }
 
 enum SearchParamName {
@@ -36,6 +37,9 @@ enum PathTo {
 
   charts = manager + "/charts",
 
+  orders = manager + "/orders",
+  orderView = orders + `/${ParamName.orderId}`,
+
   productImages = "/product-images",
   brandLogos = "/brand-logos",
   imagePlaceholder = "/image.svg",
@@ -53,8 +57,8 @@ export default class PathFinder {
   static toAllCategories = () => PathTo.categories;
   static toAllSubCategories = () => PathTo.subCategories;
   static toAllProducts = () => PathTo.products;
-
   static toAllCharts = () => PathTo.charts;
+  static toAllOrders = () => PathTo.orders;
 
   static toProductsByCategory = (categoryId: string) => `${PathTo.products}?${SearchParamName.categoryId}=${categoryId}`;
   static toProductsByCategoryAndSubCategory = (categoryId: string, subCategoryId: string) =>
@@ -75,6 +79,8 @@ export default class PathFinder {
   static toProductNew = () => PathTo.productNew;
   static toProductEdit = (productId: string) => PathTo.productEdit.replace(ParamName.productId, productId);
   static toProductEditFeedback = (productId: string) => `${PathFinder.toProductEdit(productId)}?${SearchParamName.actionFeedback}`;
+
+  static toOrderView = (orderId: string) => PathTo.orderView.replace(ParamName.orderId, orderId);
 
   static toImagePlaceholder = () => PathTo.imagePlaceholder;
 

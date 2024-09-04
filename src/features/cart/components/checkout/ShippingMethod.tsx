@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils";
 
 // types
 interface ShippingMethodProps {
-  onShippingMethodChanged: (shippingCost: number) => void;
+  onShippingMethodChanged: (shippingCost: number, shippingMethod: string) => void;
   className?: string;
 }
 
 export const SHIPPING_COSTS: readonly number[] = [1000, 1500, 2500];
+export const SHIPPING_METHODS: readonly string[] = ["Standard", "Express", "Overnight"];
 
 export default function ShippingMethod({ onShippingMethodChanged, className }: ShippingMethodProps) {
   return (
@@ -21,11 +22,11 @@ export default function ShippingMethod({ onShippingMethodChanged, className }: S
         name="shippingMethod"
         className="select"
         defaultValue={SHIPPING_COSTS[0]}
-        onChange={(ev) => onShippingMethodChanged(Number(ev.target.value))}
+        onChange={(ev) => onShippingMethodChanged(Number(ev.target.value), ev.target.options[ev.target.selectedIndex].text)}
       >
-        <option value={SHIPPING_COSTS[0]}>Standard</option>
-        <option value={SHIPPING_COSTS[1]}>Express</option>
-        <option value={SHIPPING_COSTS[2]}>Overnight</option>
+        <option value={SHIPPING_COSTS[0]}>{SHIPPING_METHODS[0]}</option>
+        <option value={SHIPPING_COSTS[1]}>{SHIPPING_METHODS[1]}</option>
+        <option value={SHIPPING_COSTS[2]}>{SHIPPING_METHODS[2]}</option>
       </select>
     </section>
   );
