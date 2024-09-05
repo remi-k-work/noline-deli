@@ -1,0 +1,8 @@
+.search-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-1);
+
+  max-inline-size: var(--size-content-2);
+}

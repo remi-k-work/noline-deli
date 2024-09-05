@@ -1,0 +1,45 @@
+.browse-bar {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: var(--size-3);
+
+  grid-template-areas:
+    "bsc bsc bsc"
+    "spa spa spa"
+    ".   .   pag";
+
+  box-shadow: var(--inner-shadow-4);
+}
+
+.browse-bar__browse-by-category {
+  grid-area: bsc;
+}
+
+.browse-bar__search-panel {
+  grid-area: spa;
+}
+
+.browse-bar__paginate {
+  grid-area: pag;
+}
+
+/* || MEDIA QUERIES */
+
+/* Medium screens */
+@media screen and (min-width: 768px) {
+  .browse-bar {
+    grid-template-areas:
+      "bsc spa pag"
+      "bsc spa pag"
+      "bsc spa pag";
+  }
+
+  .browse-bar__search-panel {
+    place-self: center start;
+  }
+}

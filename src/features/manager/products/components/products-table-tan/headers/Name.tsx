@@ -4,7 +4,7 @@ import { ProductRow } from "../Columns";
 
 // components
 import { TableHead } from "@/components/ui/table";
-import ColumnHeader from "./ColumnHeader";
+import ColumnHeader from "../../../../components/ColumnHeader";
 
 // types
 interface NameProps {
