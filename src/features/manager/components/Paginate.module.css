@@ -67,10 +67,6 @@
 
 /* || MEDIA QUERIES */
 
-/* 
-  On touch devices, like iPads, the hover state is sticky, so the button stays blue after tapping it. I do not want that:
-  https://stackoverflow.com/questions/17233804/how-to-prevent-sticky-hover-effects-for-buttons-on-touch-devices
-*/
 @media (hover: hover) and (pointer: fine) {
   .paginate__prev,
   .paginate__next,

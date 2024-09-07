@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { OrderWithInfo } from "@/features/manager/orders/db";
+import { OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
@@ -17,7 +17,7 @@ import { default as TotalPaidCell } from "./cells/TotalPaid";
 import { default as StatusCell } from "./cells/Status";
 
 // Define the row shape
-export interface OrderRow extends OrderWithInfo {}
+export interface OrderRow extends OrderWithItems {}
 
 const columnHelper = createColumnHelper<OrderRow>();
 

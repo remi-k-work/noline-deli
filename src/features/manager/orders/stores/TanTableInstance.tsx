@@ -1,10 +1,10 @@
 "use client";
 
 // react
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useCallback } from "react";
 
 // prisma and db access
-import { OrderWithInfo } from "@/features/manager/orders/db";
+import { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, Table, useReactTable } from "@tanstack/react-table";
@@ -15,7 +15,8 @@ import { columnsLarge, columnsSmall, OrderRow } from "../components/orders-table
 
 // types
 interface TanTableInstanceContextType {
-  orders: OrderWithInfo[];
+  orders: OrderWithItems[];
+  browseBarData: BrowseBarData;
 
   table: Table<OrderRow>;
   totalItems: number;
@@ -23,16 +24,19 @@ interface TanTableInstanceContextType {
   isSearchMode: boolean;
   currentPage: number;
   totalPages: number;
+
+  browsedByCustomer: (customerEmail: string) => void;
 }
 
 interface TanTableInstanceProviderProps {
-  orders: OrderWithInfo[];
+  orders: OrderWithItems[];
+  browseBarData: BrowseBarData;
   children: ReactNode;
 }
 
 const TanTableInstanceContext = createContext<TanTableInstanceContextType | undefined>(undefined);
 
-export function TanTableInstanceProvider({ orders, children }: TanTableInstanceProviderProps) {
+export function TanTableInstanceProvider({ orders, browseBarData, children }: TanTableInstanceProviderProps) {
   // Small devices (landscape phones, less than 768px)
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
@@ -72,16 +76,27 @@ export function TanTableInstanceProvider({ orders, children }: TanTableInstanceP
   const currentPage = table.getState().pagination.pageIndex + 1;
   const totalPages = table.getPageCount();
 
+  const browsedByCustomer = useCallback(
+    (customerEmail: string) => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+      table.getColumn("customerEmail")?.setFilterValue(customerEmail);
+    },
+    [table],
+  );
+
   return (
     <TanTableInstanceContext.Provider
       value={{
         orders,
+        browseBarData,
         table,
         totalItems,
         keyword,
         isSearchMode,
         currentPage,
         totalPages,
+        browsedByCustomer,
       }}
     >
       {children}

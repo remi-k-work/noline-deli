@@ -16,7 +16,7 @@
   box-shadow: var(--inner-shadow-4);
 }
 
-.browse-bar__browse-by-category {
+.browse-bar__browse-by {
   grid-area: bsc;
 }
 

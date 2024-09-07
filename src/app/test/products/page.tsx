@@ -1,4 +1,5 @@
 // component css styles
+import { getBrowseBarData } from "@/features/manager/orders/db";
 import styles from "./page.module.css";
 
 // components
@@ -9,9 +10,8 @@ export const metadata = {
 };
 
 export default async function Page() {
-  return (
-    <article className={styles["page"]}>
-      <ProductsTableView />
-    </article>
-  );
+  await getBrowseBarData();
+  // console.log(a, b);
+
+  return <article className={styles["page"]}>{/* <ProductsTableView /> */}</article>;
 }

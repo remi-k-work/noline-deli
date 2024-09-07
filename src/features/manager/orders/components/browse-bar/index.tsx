@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 import { cn } from "@/lib/utils";
 
 // components
-import ByCategory from "./ByCategory";
+import BrowseBy from "./browse-by";
 import SearchPanel from "./SearchPanel";
 import Paginate from "./Paginate";
 
@@ -17,7 +17,7 @@ import { lusitana } from "@/assets/fonts";
 export default function BrowseBar() {
   return (
     <section className={cn(lusitana.className, styles["browse-bar"], "bg-base-100")}>
-      <ByCategory className={styles["browse-bar__browse-by-category"]} />
+      <BrowseBy className={styles["browse-bar__browse-by"]} />
       <SearchPanel className={styles["browse-bar__search-panel"]} />
       <Paginate className={styles["browse-bar__paginate"]} />
     </section>

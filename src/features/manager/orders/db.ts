@@ -1,17 +1,81 @@
+// react
+import { cache } from "react";
+
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // types
-export type OrderWithInfo = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_INFO }>;
+export type OrderWithItems = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_ITEMS }>;
 
-const INCLUDE_ORDER_WITH_INFO = {
+interface OrdersByCustomer {
+  email: string;
+  name: string;
+  orders: number;
+}
+
+interface OrdersByShipping {
+  shipping: string;
+  orders: number;
+}
+
+interface OrdersByStatus {
+  status: string;
+  orders: number;
+}
+
+interface OrdersByBrand {
+  brandName: string;
+  orders: number;
+}
+
+export interface BrowseBarData {
+  ordersByCustomer: OrdersByCustomer[];
+  ordersByShipping: OrdersByShipping[];
+  ordersByStatus: OrdersByStatus[];
+  ordersByBrand: OrdersByBrand[];
+}
+
+const INCLUDE_ORDER_WITH_ITEMS = {
   orderedItems: true,
   customer: true,
-  _count: { select: { orderedItems: true } },
 } satisfies Prisma.OrderInclude;
+
+// Gather all the necessary data for the browse bar to use
+export const getBrowseBarData = cache(async () => {
+  const data: BrowseBarData = { ordersByCustomer: [], ordersByShipping: [], ordersByStatus: [], ordersByBrand: [] };
+
+  // Create data that will be used to display options for browsing orders by customer
+  for (const {
+    email,
+    name,
+    _count: { orders },
+  } of await prisma.customer.findMany({ select: { email: true, name: true, _count: { select: { orders: true } } } })) {
+    data.ordersByCustomer.push({ email, name, orders });
+  }
+
+  // Create data that will be used to display options for browsing orders by shipping
+  for (const { shippingMethod, _count } of await prisma.order.groupBy({ by: "shippingMethod", _count: true, orderBy: { shippingMethod: "asc" } })) {
+    data.ordersByShipping.push({ shipping: shippingMethod, orders: _count });
+  }
+
+  // Create data that will be used to display options for browsing orders by status
+  for (const { status, _count } of await prisma.order.groupBy({ by: "status", _count: true, orderBy: { status: "asc" } })) {
+    data.ordersByStatus.push({ status, orders: _count });
+  }
+
+  // Create data that will be used to display options for browsing orders by brand
+  for (const { brandName } of await prisma.orderedItem.findMany({ distinct: "brandName", select: { brandName: true } })) {
+    data.ordersByBrand.push({
+      brandName,
+      orders: (await prisma.orderedItem.findMany({ distinct: "orderId", where: { brandName }, select: { orderId: true } })).length,
+    });
+  }
+
+  return data;
+});
 
 // Retrieve all orders for the local in-memory representation used by the tanstack table
 export function allOrdersForTableView() {
-  return prisma.order.findMany({ include: INCLUDE_ORDER_WITH_INFO });
+  return prisma.order.findMany({ include: INCLUDE_ORDER_WITH_ITEMS });
 }
