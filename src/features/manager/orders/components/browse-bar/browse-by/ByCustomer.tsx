@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 // other libraries
+import { cn } from "@/lib/utils";
 import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
 
 // components
@@ -15,22 +16,25 @@ interface ByCustomerProps {
 export default function ByCustomer({ setOpen }: ByCustomerProps) {
   const {
     browseBarData: { ordersByCustomer },
+    currentCustomerEmail,
     browsedByCustomer,
   } = useTanTableInstanceContext();
 
   return (
     <DropdownMenuSub>
-      <DropdownMenuSubTrigger>By Customer</DropdownMenuSubTrigger>
+      <DropdownMenuSubTrigger>
+        <span className={cn({ "font-bold": currentCustomerEmail })}>By Customer</span>
+      </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           {ordersByCustomer.map(({ email, name, orders }) => (
             <DropdownMenuItem
               key={email}
+              className={cn("flex items-center justify-between gap-4", { "font-bold": currentCustomerEmail === email })}
               onClick={() => {
                 browsedByCustomer(email);
                 setOpen(false);
               }}
-              className="flex items-center justify-between gap-4"
             >
               <p className="flex-1">
                 {email}

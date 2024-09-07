@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 // other libraries
+import { cn } from "@/lib/utils";
 import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
 
 // components
@@ -15,20 +16,25 @@ interface ByShippingProps {
 export default function ByShipping({ setOpen }: ByShippingProps) {
   const {
     browseBarData: { ordersByShipping },
+    currentShippingMethod,
+    browsedByShipping,
   } = useTanTableInstanceContext();
 
   return (
     <DropdownMenuSub>
-      <DropdownMenuSubTrigger>By Shipping</DropdownMenuSubTrigger>
+      <DropdownMenuSubTrigger>
+        <span className={cn({ "font-bold": currentShippingMethod })}>By Shipping</span>
+      </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           {ordersByShipping.map(({ shipping, orders }) => (
             <DropdownMenuItem
               key={shipping}
+              className={cn("flex items-center justify-between gap-4", { "font-bold": currentShippingMethod === shipping })}
               onClick={() => {
+                browsedByShipping(shipping);
                 setOpen(false);
               }}
-              className="flex items-center justify-between gap-4"
             >
               <p className="flex-1">{shipping}</p>
               <span className="badge badge-info flex-none">{orders}</span>
