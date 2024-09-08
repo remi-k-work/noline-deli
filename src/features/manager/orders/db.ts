@@ -5,8 +5,18 @@ import { cache } from "react";
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
+// other libraries
+import { RANGE_OPTIONS } from "@/lib/rangeOptions";
+
 // types
 export type OrderWithItems = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_ITEMS }>;
+
+interface OrdersByDate {
+  rangeLabel: string;
+  startDate: Date;
+  endDate: Date;
+  orders: number;
+}
 
 interface OrdersByCustomer {
   email: string;
@@ -30,6 +40,7 @@ interface OrdersByBrand {
 }
 
 export interface BrowseBarData {
+  ordersByDate: OrdersByDate[];
   ordersByCustomer: OrdersByCustomer[];
   ordersByShipping: OrdersByShipping[];
   ordersByStatus: OrdersByStatus[];
@@ -43,7 +54,17 @@ const INCLUDE_ORDER_WITH_ITEMS = {
 
 // Gather all the necessary data for the browse bar to use
 export const getBrowseBarData = cache(async () => {
-  const data: BrowseBarData = { ordersByCustomer: [], ordersByShipping: [], ordersByStatus: [], ordersByBrand: [] };
+  const data: BrowseBarData = { ordersByDate: [], ordersByCustomer: [], ordersByShipping: [], ordersByStatus: [], ordersByBrand: [] };
+
+  // Create data that will be used to display options for browsing orders by date
+  for (const { label, startDate, endDate } of Object.values(RANGE_OPTIONS)) {
+    data.ordersByDate.push({
+      rangeLabel: label,
+      startDate,
+      endDate,
+      orders: await prisma.order.count({ where: { created: { gte: startDate, lte: endDate } } }),
+    });
+  }
 
   // Create data that will be used to display options for browsing orders by customer
   for (const {

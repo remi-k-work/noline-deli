@@ -9,6 +9,7 @@ import { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db";
 // other libraries
 import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, Table, useReactTable } from "@tanstack/react-table";
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import { RangeOption } from "@/lib/rangeOptions";
 
 // components
 import { columnsLarge, columnsSmall, OrderRow } from "../components/orders-table/Columns";
@@ -21,6 +22,7 @@ interface TanTableInstanceContextType {
   table: Table<OrderRow>;
   totalItems: number;
   keyword: string;
+  currentDate: RangeOption;
   currentCustomerEmail: string;
   currentShippingMethod: string;
   currentStatus: string;
@@ -31,6 +33,7 @@ interface TanTableInstanceContextType {
   totalPages: number;
 
   browsedAll: () => void;
+  browsedByDate: (rangeOption: RangeOption) => void;
   browsedByCustomer: (customerEmail: string) => void;
   browsedByShipping: (shippingMethod: string) => void;
   browsedByStatus: (status: string) => void;
@@ -78,6 +81,7 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
   const totalItems = table.getFilteredRowModel().rows.length;
 
   const keyword = table.getState().globalFilter ?? "";
+  const currentDate = table.getColumn("created")?.getFilterValue() as RangeOption;
   const currentCustomerEmail = table.getColumn("customerEmail")?.getFilterValue() as string;
   const currentShippingMethod = table.getColumn("shippingMethod")?.getFilterValue() as string;
   const currentStatus = table.getColumn("status")?.getFilterValue() as string;
@@ -87,7 +91,7 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
   const isSearchMode = !!table.getState().globalFilter;
 
   // Has no filter been selected? In other words, are we browsing all of the items?
-  const isBrowsingAll = !currentCustomerEmail && !currentShippingMethod && !currentStatus && !currentBrand && !isSearchMode;
+  const isBrowsingAll = table.getState().columnFilters.length === 0 && !isSearchMode;
 
   const currentPage = table.getState().pagination.pageIndex + 1;
   const totalPages = table.getPageCount();
@@ -96,6 +100,15 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
     table.resetGlobalFilter();
     table.resetColumnFilters();
   }, [table]);
+
+  const browsedByDate = useCallback(
+    (rangeOption: RangeOption) => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+      table.getColumn("created")?.setFilterValue(rangeOption);
+    },
+    [table],
+  );
 
   const browsedByCustomer = useCallback(
     (customerEmail: string) => {
@@ -141,6 +154,7 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
         table,
         totalItems,
         keyword,
+        currentDate,
         currentCustomerEmail,
         currentShippingMethod,
         currentStatus,
@@ -150,6 +164,7 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
         currentPage,
         totalPages,
         browsedAll,
+        browsedByDate,
         browsedByCustomer,
         browsedByShipping,
         browsedByStatus,

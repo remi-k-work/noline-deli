@@ -5,6 +5,7 @@ import { OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { dateBetweenFilterFn } from "@/lib/filters";
 
 // components
 import { default as OrderNumberHeader } from "./headers/OrderNumber";
@@ -23,7 +24,7 @@ const columnHelper = createColumnHelper<OrderRow>();
 
 export const columnsLarge: ColumnDef<OrderRow>[] = [
   columnHelper.accessor("orderNumber", { sortingFn: "alphanumericCaseSensitive" }),
-  columnHelper.accessor("created", { sortingFn: "datetime" }),
+  columnHelper.accessor("created", { sortingFn: "datetime", filterFn: dateBetweenFilterFn }),
   columnHelper.accessor("totalQty", {}),
   columnHelper.accessor("shippingMethod", {}),
   columnHelper.accessor("totalPaid", {}),
@@ -80,7 +81,7 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
 
 export const columnsSmall: ColumnDef<OrderRow>[] = [
   columnHelper.accessor("orderNumber", { sortingFn: "alphanumericCaseSensitive" }),
-  columnHelper.accessor("created", { sortingFn: "datetime" }),
+  columnHelper.accessor("created", { sortingFn: "datetime", filterFn: dateBetweenFilterFn }),
   columnHelper.accessor("totalQty", {}),
   columnHelper.accessor("shippingMethod", {}),
   columnHelper.accessor("totalPaid", {}),

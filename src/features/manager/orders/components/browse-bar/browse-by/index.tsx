@@ -12,9 +12,11 @@ import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import ByContext from "./ByContext";
 import AllOrders from "./AllOrders";
+import ByDate from "./ByDate";
+import ByCustomDate from "./ByCustomDate";
 import ByCustomer from "./ByCustomer";
 import ByShipping from "./ByShipping";
 import ByStatus from "./ByStatus";
@@ -49,6 +51,8 @@ export default function BrowseBy({ className }: BrowseByProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className={styles["browse-by__dropdown-content"]}>
           <AllOrders setOpen={setOpen} />
+          <ByDate setOpen={setOpen} />
+          <ByCustomDate setOpen={setOpen} />
           <ByCustomer setOpen={setOpen} />
           <ByShipping setOpen={setOpen} />
           <ByStatus setOpen={setOpen} />

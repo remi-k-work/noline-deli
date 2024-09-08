@@ -7,7 +7,7 @@ import { forwardRef } from "react";
 import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
 
 const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
-  const { currentCustomerEmail, currentShippingMethod, currentStatus, currentBrand, isSearchMode, isBrowsingAll } = useTanTableInstanceContext();
+  const { currentDate, currentCustomerEmail, currentShippingMethod, currentStatus, currentBrand, isSearchMode, isBrowsingAll } = useTanTableInstanceContext();
 
   if (isSearchMode)
     return (
@@ -25,7 +25,9 @@ const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
 
   return (
     <footer ref={ref} {...props}>
-      {currentCustomerEmail ? (
+      {currentDate ? (
+        <>By Date ► {currentDate.label}</>
+      ) : currentCustomerEmail ? (
         <>By Customer ► {currentCustomerEmail}</>
       ) : currentShippingMethod ? (
         <>By Shipping ► {currentShippingMethod}</>
