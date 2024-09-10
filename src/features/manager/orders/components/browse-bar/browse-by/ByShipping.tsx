@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 
 // components
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
@@ -16,8 +16,8 @@ interface ByShippingProps {
 export default function ByShipping({ setOpen }: ByShippingProps) {
   const {
     browseBarData: { ordersByShipping },
-    currentShippingMethod,
-    browsedByShipping,
+    tableState: { currentShippingMethod },
+    tableActions: { browsedByShipping },
   } = useTanTableInstanceContext();
 
   return (

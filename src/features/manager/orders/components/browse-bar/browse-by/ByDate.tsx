@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 
 // components
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
@@ -16,14 +16,14 @@ interface ByDateProps {
 export default function ByDate({ setOpen }: ByDateProps) {
   const {
     browseBarData: { ordersByDate },
-    currentDate,
-    browsedByDate,
+    tableState: { currentDate },
+    tableActions: { browsedByDate },
   } = useTanTableInstanceContext();
 
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
-        <span className={cn({ "font-bold": currentDate })}>By Date</span>
+        <span className={cn({ "font-bold": currentDate && "label" in currentDate })}>By Date</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>

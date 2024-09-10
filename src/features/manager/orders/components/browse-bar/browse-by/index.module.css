@@ -6,8 +6,8 @@
 
   display: grid;
 
-  grid-template-columns: [tot-start ctx-start] auto [tot-end ctx-end];
-  grid-template-rows: [tot-start] min-content [tot-end ctx-start] auto [ctx-end];
+  grid-template-columns: [tot-start] auto [tot-end ctx-start] 1fr [ctx-end];
+  grid-template-rows: [tot-start ctx-start] auto [tot-end ctx-end];
 
   border-radius: var(--radius-3);
   border: var(--border-size-1) solid var(--surface-2);
@@ -43,13 +43,5 @@
   .browse-by:hover {
     background: var(--surface-2);
     color: var(--text-1);
-  }
-}
-
-/* Medium screens */
-@media screen and (min-width: 768px) {
-  .browse-by {
-    grid-template-columns: [tot-start] min-content [tot-end ctx-start] auto [ctx-end];
-    grid-template-rows: [tot-start] var(--size-2) [ctx-start] auto [tot-end ctx-end];
   }
 }

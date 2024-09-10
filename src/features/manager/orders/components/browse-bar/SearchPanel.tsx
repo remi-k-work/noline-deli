@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import { useTanTableInstanceContext } from "../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -23,7 +23,10 @@ interface SearchPanelProps {
 }
 
 export default function SearchPanel({ className }: SearchPanelProps) {
-  const { table, keyword } = useTanTableInstanceContext();
+  const {
+    table,
+    tableState: { keyword },
+  } = useTanTableInstanceContext();
 
   const searchRef = useRef<HTMLInputElement>(null);
 

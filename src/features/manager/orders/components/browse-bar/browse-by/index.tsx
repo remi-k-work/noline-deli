@@ -8,7 +8,7 @@ import { useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -28,7 +28,9 @@ interface BrowseByProps {
 }
 
 export default function BrowseBy({ className }: BrowseByProps) {
-  const { totalItems } = useTanTableInstanceContext();
+  const {
+    tableState: { totalItems },
+  } = useTanTableInstanceContext();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);

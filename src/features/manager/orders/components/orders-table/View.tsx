@@ -2,7 +2,7 @@
 import { allOrdersForTableView, getBrowseBarData } from "@/features/manager/orders/db";
 
 // components
-import { TanTableInstanceProvider } from "../../stores/TanTableInstance";
+import { TanTableInstanceProvider } from "../../stores/tan-table-instance";
 import BrowseBar from "../browse-bar";
 import NotFound from "@/components/NotFound";
 import OrdersTable from ".";

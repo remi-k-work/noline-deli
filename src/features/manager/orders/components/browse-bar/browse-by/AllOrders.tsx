@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 
 // components
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
@@ -14,7 +14,10 @@ interface AllOrdersProps {
 }
 
 export default function AllOrders({ setOpen }: AllOrdersProps) {
-  const { isBrowsingAll, browsedAll } = useTanTableInstanceContext();
+  const {
+    tableState: { isBrowsingAll },
+    tableActions: { browsedAll },
+  } = useTanTableInstanceContext();
 
   return (
     <DropdownMenuItem

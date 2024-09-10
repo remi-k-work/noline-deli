@@ -8,7 +8,7 @@ import { Fragment } from "react";
 
 // other libraries
 import { flexRender } from "@tanstack/react-table";
-import { useTanTableInstanceContext } from "../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
 // components
 import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table";
@@ -18,7 +18,10 @@ import NotFound from "@/components/NotFound";
 import { lusitana } from "@/assets/fonts";
 
 export default function OrdersTable() {
-  const { table, totalItems } = useTanTableInstanceContext();
+  const {
+    table,
+    tableState: { totalItems },
+  } = useTanTableInstanceContext();
 
   if (totalItems === 0)
     return (

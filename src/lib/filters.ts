@@ -1,15 +1,22 @@
 // other libraries
 import { FilterFn } from "@tanstack/react-table";
 import { RangeOption } from "./rangeOptions";
+import { DateRange } from "react-day-picker";
 
-const dateBetweenFilterFn: FilterFn<any> = (row, columnId, value: RangeOption) => {
+const dateBetweenFilterFn: FilterFn<any> = (row, columnId, value: RangeOption | DateRange) => {
   const date = row.getValue(columnId);
   if (!(date instanceof Date)) {
     console.error(`Value of column "${columnId}" is expected to be a date, but got ${date}`);
     return false;
   }
 
-  const { startDate: start, endDate: end } = value;
+  let start: Date | undefined;
+  let end: Date | undefined;
+
+  // To distinguish between RangeOption and DateRange types, use the "in" operator narrowing
+  if ("label" in value) ({ startDate: start, endDate: end } = value);
+  else ({ from: start, to: end } = value);
+
   if (!(start instanceof Date || start === undefined) || !(end instanceof Date || end === undefined)) {
     console.error(`Filter value of column "${columnId}" is expected to be an array of two dates, but got ${value}`);
     return false;
