@@ -14,13 +14,9 @@ import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import ByContext from "./ByContext";
-import AllOrders from "./AllOrders";
-import ByDate from "./ByDate";
-import ByCustomDate from "./ByCustomDate";
-import ByCustomer from "./ByCustomer";
-import ByShipping from "./ByShipping";
-import ByStatus from "./ByStatus";
-import ByBrand from "./ByBrand";
+import AllProducts from "./AllProducts";
+import ByCategory from "./ByCategory";
+import BySubCategory from "./BySubCategory";
 
 // types
 interface BrowseByProps {
@@ -47,18 +43,14 @@ export default function BrowseBy({ className }: BrowseByProps) {
               <ByContext />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Browse orders</p>
+              <p>Browse products</p>
             </TooltipContent>
           </Tooltip>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" alignOffset={-36} className={styles["browse-by__dropdown-content"]}>
-          <AllOrders setOpen={setOpen} />
-          <ByDate setOpen={setOpen} />
-          <ByCustomDate setOpen={setOpen} />
-          <ByCustomer setOpen={setOpen} />
-          <ByShipping setOpen={setOpen} />
-          <ByStatus setOpen={setOpen} />
-          <ByBrand setOpen={setOpen} />
+          <AllProducts setOpen={setOpen} />
+          <ByCategory setOpen={setOpen} />
+          <BySubCategory setOpen={setOpen} />
         </DropdownMenuContent>
       </DropdownMenu>
     </section>

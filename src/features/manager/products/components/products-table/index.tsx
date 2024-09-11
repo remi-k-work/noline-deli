@@ -3,116 +3,62 @@
 // component css styles
 import styles from "./index.module.css";
 
-// prisma and db access
-import { ProductWithInfo } from "../../db";
+// react
+import { Fragment } from "react";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import { cn } from "@/lib/utils";
+import { flexRender } from "@tanstack/react-table";
+import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
 // components
-import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import Entry from "./Entry";
+import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table";
+import NotFound from "@/components/NotFound";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 
-// types
-interface ProductsTableProps {
-  products: ProductWithInfo[];
-  createdByUser?: string;
-}
+export default function ProductsTable() {
+  const {
+    createdByUser,
+    table,
+    tableState: { totalItems },
+  } = useTanTableInstanceContext();
 
-export default function ProductsTable({ products, createdByUser }: ProductsTableProps) {
-  // Small devices (landscape phones, less than 768px)
-  const isSmall = useMediaQuery("(max-width: 767.98px)");
+  if (totalItems === 0)
+    return (
+      <>
+        <br />
+        <NotFound message={"Products were not found!"} />
+      </>
+    );
 
   return (
     <Table className={styles["products-table"]}>
       <TableHeader className={lusitana.className}>
-        <TableRow>
-          {isSmall ? (
-            <>
-              <TableHead className="w-[--size-11]">&nbsp;</TableHead>
-              <TableHead className="w-full">
-                <b>Name</b>
-                <br />
-                Category
-                <br />
-                SubCategory
-              </TableHead>
-            </>
-          ) : (
-            <>
-              <TableHead className="w-[--size-13]">&nbsp;</TableHead>
-              <TableHead className="w-2/4">
-                <b>Name</b>
-                <br />
-                Category
-                <br />
-                SubCategory
-              </TableHead>
-              <TableHead className="w-1/4 text-center">
-                Images#
-                <hr className="border-dotted" />
-                Popularity#
-                <br />
-                <b>Price</b>
-              </TableHead>
-              <TableHead className="w-1/4 text-center">
-                Created At
-                <hr className="border-dotted" />
-                Updated At
-              </TableHead>
-            </>
-          )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
-        </TableRow>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
+              <Fragment key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</Fragment>
+            ))}
+          </TableRow>
+        ))}
       </TableHeader>
       <TableBody>
-        {products.map((product) => (
-          <Entry key={product.id} product={product} createdByUser={createdByUser} />
+        {table.getRowModel().rows.map((row) => (
+          <TableRow
+            key={row.id}
+            data-state={row.getIsSelected() && "selected"}
+            className={cn("odd:bg-[--surface-3] even:bg-[--surface-4]", {
+              "text-error": row.original.user.role === "ADMIN" || row.original.createdBy !== createdByUser,
+            })}
+          >
+            {row.getVisibleCells().map((cell) => (
+              <Fragment key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Fragment>
+            ))}
+          </TableRow>
         ))}
       </TableBody>
-      <TableFooter className={lusitana.className}>
-        <TableRow>
-          {isSmall ? (
-            <>
-              <TableHead className="w-[--size-11]">&nbsp;</TableHead>
-              <TableHead className="w-full">
-                <b>Name</b>
-                <br />
-                Category
-                <br />
-                SubCategory
-              </TableHead>
-            </>
-          ) : (
-            <>
-              <TableHead className="w-[--size-13]">&nbsp;</TableHead>
-              <TableHead className="w-2/4">
-                <b>Name</b>
-                <br />
-                Category
-                <br />
-                SubCategory
-              </TableHead>
-              <TableHead className="w-1/4 text-center">
-                Images#
-                <hr className="border-dotted" />
-                Popularity#
-                <br />
-                <b>Price</b>
-              </TableHead>
-              <TableHead className="w-1/4 text-center">
-                Created At
-                <hr className="border-dotted" />
-                Updated At
-              </TableHead>
-            </>
-          )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 }

@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import { default as ProductsTableView } from "@/features/manager/products/components/products-table-tan/View";
+import { default as ProductsTableView } from "@/features/manager/products/components/products-table/View";
 
 // assets
 import bannerProducts from "@/assets/manager/banner-products.webp";

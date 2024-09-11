@@ -8,7 +8,7 @@ import { useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../stores/TanTableInstance";
+import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -23,7 +23,10 @@ interface PaginateProps {
 }
 
 export default function Paginate({ className }: PaginateProps) {
-  const { table, currentPage, totalPages } = useTanTableInstanceContext();
+  const {
+    table,
+    tableState: { currentPage, totalPages },
+  } = useTanTableInstanceContext();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);

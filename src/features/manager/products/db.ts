@@ -12,6 +12,28 @@ import { whereAdminApproved } from "@/features/manager/auth/db";
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
 export type ProductWithInfo = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_INFO }>;
 
+interface ProductsByBrand {
+  brandName: string;
+  products: number;
+}
+
+interface ProductsByCategory {
+  categoryName: string;
+  products: number;
+}
+
+interface ProductsBySubCategory {
+  categoryName: string;
+  subCategoryName: string;
+  products: number;
+}
+
+export interface BrowseBarData {
+  productsByBrand: ProductsByBrand[];
+  productsByCategory: ProductsByCategory[];
+  productsBySubCategory: ProductsBySubCategory[];
+}
+
 const INCLUDE_PRODUCT_WITH_ALL = {
   categories: { include: { category: true } },
   subCategories: { include: { subCategory: true } },
@@ -28,6 +50,54 @@ const INCLUDE_PRODUCT_WITH_INFO = {
   user: true,
   _count: { select: { moreImages: true, carts: true } },
 } satisfies Prisma.ProductInclude;
+
+// Gather all the necessary data for the browse bar to use
+export const getBrowseBarData = cache(async () => {
+  const data: BrowseBarData = { productsByBrand: [], productsByCategory: [], productsBySubCategory: [] };
+
+  // Create data that will be used to display options for browsing products by brand
+  for (const {
+    name: brandName,
+    _count: { products },
+  } of await prisma.brand.findMany({
+    where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
+    select: { name: true, _count: { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } },
+    orderBy: { name: "asc" },
+  })) {
+    data.productsByBrand.push({ brandName, products });
+  }
+
+  // Create data that will be used to display options for browsing products by category
+  for (const {
+    name: categoryName,
+    _count: { products },
+  } of await prisma.category.findMany({
+    where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
+    select: { name: true, _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } },
+    orderBy: { name: "asc" },
+  })) {
+    data.productsByCategory.push({ categoryName, products });
+  }
+
+  // Create data that will be used to display options for browsing products by subcategory
+  for (const {
+    name: subCategoryName,
+    category: { name: categoryName },
+    _count: { products },
+  } of await prisma.subCategory.findMany({
+    where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
+    select: {
+      name: true,
+      category: { select: { name: true } },
+      _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } },
+    },
+    orderBy: { name: "asc" },
+  })) {
+    data.productsBySubCategory.push({ categoryName, subCategoryName, products });
+  }
+
+  return data;
+});
 
 // Create and where clause generators and helpers
 function createSubCategories(subCategoryId?: string): Prisma.SubCategoriesOnProductsUncheckedCreateNestedManyWithoutProductInput | undefined {

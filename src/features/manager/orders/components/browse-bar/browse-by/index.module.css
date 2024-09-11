@@ -21,6 +21,7 @@
   grid-area: ctx;
 
   padding-inline: var(--size-2);
+  padding-block: var(--size-2);
   text-align: start;
 }
 

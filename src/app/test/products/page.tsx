@@ -1,5 +1,5 @@
 // component css styles
-import { getBrowseBarData } from "@/features/manager/orders/db";
+import { getBrowseBarData } from "@/features/manager/products/db";
 import styles from "./page.module.css";
 
 // components
