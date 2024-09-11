@@ -16,10 +16,10 @@ interface TotalPaidProps {
 export default function TotalPaid({ table: { getColumn }, className }: TotalPaidProps) {
   return (
     <TableHead className={cn("text-center", className)}>
+      <ColumnHeader column={getColumn("totalPaid")!} title="Total" />
+      <br />
       <ColumnHeader column={getColumn("totalQty")!} title="Items#" />
       <br />
-      <ColumnHeader column={getColumn("totalPaid")!} title="Total" />
-      <hr className="border-dotted" />
       <ColumnHeader column={getColumn("shippingMethod")!} title="Shipping" />
     </TableHead>
   );

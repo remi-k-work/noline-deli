@@ -9,6 +9,7 @@ export default function useTableState(table: Table<ProductRow>) {
   const totalItems = table.getFilteredRowModel().rows.length;
 
   const keyword = table.getState().globalFilter ?? "";
+  const currentBrand = table.getColumn("brandName")?.getFilterValue() as string;
   const currentCategory = table.getColumn("category")?.getFilterValue() as string;
   const currentSubCategory = table.getColumn("subCategory")?.getFilterValue() as string;
 
@@ -24,6 +25,7 @@ export default function useTableState(table: Table<ProductRow>) {
   return {
     totalItems,
     keyword,
+    currentBrand,
     currentCategory,
     currentSubCategory,
     isSearchMode,

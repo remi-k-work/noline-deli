@@ -14,10 +14,10 @@ interface TotalPaidProps {
 export default function TotalPaid({ row: { getValue } }: TotalPaidProps) {
   return (
     <TableCell className="text-center">
+      <b>{formatPrice(getValue("totalPaid"))}</b>
+      <br />
       {getValue("totalQty")}
       <br />
-      <b>{formatPrice(getValue("totalPaid"))}</b>
-      <hr className="border-dotted" />
       {getValue("shippingMethod")}
     </TableCell>
   );

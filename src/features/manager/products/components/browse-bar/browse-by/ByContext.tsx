@@ -8,7 +8,7 @@ import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 
 const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
   const {
-    tableState: { currentCategory, currentSubCategory, isSearchMode, isBrowsingAll },
+    tableState: { currentBrand, currentCategory, currentSubCategory, isSearchMode, isBrowsingAll },
   } = useTanTableInstanceContext();
 
   if (isSearchMode)
@@ -27,7 +27,13 @@ const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
 
   return (
     <footer ref={ref} {...props}>
-      {currentCategory && !currentSubCategory ? (
+      {currentBrand ? (
+        <p>
+          By Brand
+          <br />
+          <small>{currentBrand}</small>
+        </p>
+      ) : currentCategory && !currentSubCategory ? (
         <p>
           By Category
           <br />

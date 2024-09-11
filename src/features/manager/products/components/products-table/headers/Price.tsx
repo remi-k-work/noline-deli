@@ -16,11 +16,11 @@ interface PriceProps {
 export default function Price({ table: { getColumn }, className }: PriceProps) {
   return (
     <TableHead className={cn("text-center", className)}>
-      <ColumnHeader column={getColumn("images")!} title="Images#" />
-      <hr className="border-dotted" />
-      <ColumnHeader column={getColumn("popularity")!} title="Popularity#" />
-      <br />
       <ColumnHeader column={getColumn("price")!} title="Price" />
+      <br />
+      <ColumnHeader column={getColumn("images")!} title="Images#" />
+      <br />
+      <ColumnHeader column={getColumn("popularity")!} title="Popularity#" />
     </TableHead>
   );
 }

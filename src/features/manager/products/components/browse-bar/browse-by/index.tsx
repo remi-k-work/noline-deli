@@ -14,6 +14,7 @@ import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import ByContext from "./ByContext";
+import ByBrand from "./ByBrand";
 import AllProducts from "./AllProducts";
 import ByCategory from "./ByCategory";
 import BySubCategory from "./BySubCategory";
@@ -49,6 +50,7 @@ export default function BrowseBy({ className }: BrowseByProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" alignOffset={-36} className={styles["browse-by__dropdown-content"]}>
           <AllProducts setOpen={setOpen} />
+          <ByBrand setOpen={setOpen} />
           <ByCategory setOpen={setOpen} />
           <BySubCategory setOpen={setOpen} />
         </DropdownMenuContent>

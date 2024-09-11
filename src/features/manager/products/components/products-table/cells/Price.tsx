@@ -14,11 +14,11 @@ interface PriceProps {
 export default function Price({ row: { getValue } }: PriceProps) {
   return (
     <TableCell className="text-center">
-      {getValue("images")}
-      <hr className="border-dotted" />
-      {getValue("popularity")}
-      <br />
       <b>{formatPrice(getValue("price"))}</b>
+      <br />
+      {getValue("images")}
+      <br />
+      {getValue("popularity")}
     </TableCell>
   );
 }

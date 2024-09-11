@@ -34,6 +34,7 @@ export const columnsLarge: ColumnDef<ProductRow>[] = [
   columnHelper.accessor((row) => row.subCategories[0]?.subCategory.name, { id: "subCategory" }),
   columnHelper.accessor((row) => row._count.moreImages + 1, { id: "images" }),
   columnHelper.accessor("_count.carts", { id: "popularity" }),
+  columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive" }),
 
   columnHelper.display({ id: "item", header: () => <ItemHeader className="w-[--size-13]" />, cell: ({ row }) => <ItemCell row={row} /> }),
   columnHelper.display({ id: "nameAndCat", header: ({ table }) => <NameHeader table={table} className="w-2/4" />, cell: ({ row }) => <NameCell row={row} /> }),
@@ -61,6 +62,7 @@ export const columnsSmall: ColumnDef<ProductRow>[] = [
   columnHelper.accessor((row) => row.subCategories[0]?.subCategory.name, { id: "subCategory" }),
   columnHelper.accessor((row) => row._count.moreImages + 1, { id: "images" }),
   columnHelper.accessor("_count.carts", { id: "popularity" }),
+  columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive" }),
 
   columnHelper.display({ id: "item", header: () => <ItemHeader className="w-[--size-11]" />, cell: ({ row }) => <ItemCell row={row} /> }),
   columnHelper.display({ id: "nameAndCat", header: ({ table }) => <NameHeader table={table} className="w-full" />, cell: ({ row }) => <NameCell row={row} /> }),

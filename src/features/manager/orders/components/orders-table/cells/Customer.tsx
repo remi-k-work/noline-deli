@@ -13,7 +13,7 @@ interface CustomerProps {
 export default function Customer({ row: { getValue } }: CustomerProps) {
   return (
     <TableCell className="text-center">
-      {getValue("customerEmail")}
+      <b>{getValue("customerEmail")}</b>
       <br />
       {getValue("customerName")}
     </TableCell>

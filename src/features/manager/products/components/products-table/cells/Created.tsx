@@ -17,11 +17,11 @@ interface CreatedProps {
 export default function Created({ row: { getValue } }: CreatedProps) {
   return (
     <TableCell className="text-center">
+      <b>{getValue("brandName")}</b>
       <span className="m-auto flex w-fit items-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
         {formatDistanceToNow(getValue("createdAt"))} ago
       </span>
-      <hr className="border-dotted" />
       <span className="m-auto flex w-fit items-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
         {formatDistanceToNow(getValue("updatedAt"))} ago

@@ -13,6 +13,15 @@ export default function useTableActions(table: Table<ProductRow>) {
     table.resetColumnFilters();
   }, [table]);
 
+  const browsedByBrand = useCallback(
+    (brand: string) => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+      table.getColumn("brandName")?.setFilterValue(brand);
+    },
+    [table],
+  );
+
   const browsedByCategory = useCallback(
     (categoryName: string) => {
       table.resetGlobalFilter();
@@ -32,5 +41,5 @@ export default function useTableActions(table: Table<ProductRow>) {
     [table],
   );
 
-  return { browsedAll, browsedByCategory, browsedBySubCategory };
+  return { browsedAll, browsedByBrand, browsedByCategory, browsedBySubCategory };
 }

@@ -38,6 +38,7 @@ export function TanTableInstanceProvider({ products, browseBarData, createdByUse
         subCategory: false,
         images: false,
         popularity: false,
+        brandName: false,
       },
     },
   });
