@@ -30,6 +30,7 @@
 
 .browse-bar__new-product {
   grid-area: npr;
+  place-self: center end;
 }
 
 /* || MEDIA QUERIES */

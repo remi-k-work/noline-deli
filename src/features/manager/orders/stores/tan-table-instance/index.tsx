@@ -1,11 +1,12 @@
 "use client";
 
 // react
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 // other libraries
-import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, RowData } from "@tanstack/react-table";
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useSkipper from "@/lib/hooks/useSkipper";
 import useTableState from "./useTableState";
 import useTableActions from "./useTableActions";
 import { TanTableInstanceContextType, TanTableInstanceProviderProps } from "./types";
@@ -13,15 +14,26 @@ import { TanTableInstanceContextType, TanTableInstanceProviderProps } from "./ty
 // components
 import { columnsLarge, columnsSmall, OrderRow } from "../../components/orders-table/Columns";
 
+// types
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData extends RowData> {
+    updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+  }
+}
+
 const TanTableInstanceContext = createContext<TanTableInstanceContextType | undefined>(undefined);
 
 export function TanTableInstanceProvider({ orders, browseBarData, children }: TanTableInstanceProviderProps) {
   // Small devices (landscape phones, less than 768px)
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
+  const [data, setData] = useState(orders);
+  const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
+
   const table = useReactTable<OrderRow>({
     columns: isSmall ? columnsSmall : columnsLarge,
-    data: orders,
+    data,
+    autoResetPageIndex,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -40,6 +52,15 @@ export function TanTableInstanceProvider({ orders, browseBarData, children }: Ta
 
         allNames: false,
         allBrandNames: false,
+      },
+    },
+    meta: {
+      // Provide our updateData function to our table meta
+      updateData: (rowIndex: number, columnId: string, value: unknown) => {
+        // Skip page index reset until after next re-render
+        skipAutoResetPageIndex();
+
+        setData((old) => old.map((row, index) => (index === rowIndex ? { ...old[rowIndex]!, [columnId]: value } : row)));
       },
     },
   });

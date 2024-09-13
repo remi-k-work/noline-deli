@@ -60,7 +60,7 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
   columnHelper.display({
     id: "orderNumberAndCreated",
     header: ({ table }) => <OrderNumberHeader table={table} className="w-1/4" />,
-    cell: ({ row }) => <OrderNumberCell row={row} />,
+    cell: ({ row, table }) => <OrderNumberCell row={row} table={table} />,
   }),
   columnHelper.display({
     id: "customer",
@@ -75,7 +75,7 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
   columnHelper.display({
     id: "statusSelect",
     header: ({ table }) => <StatusHeader table={table} className="w-1/4" />,
-    cell: ({ row }) => <StatusCell row={row} />,
+    cell: ({ row, table }) => <StatusCell row={row} table={table} />,
   }),
 ] as ColumnDef<OrderRow, unknown>[];
 
@@ -116,17 +116,12 @@ export const columnsSmall: ColumnDef<OrderRow>[] = [
 
   columnHelper.display({
     id: "orderNumberAndCreated",
-    header: ({ table }) => <OrderNumberHeader table={table} className="w-2/4" />,
-    cell: ({ row }) => <OrderNumberCell row={row} />,
+    header: ({ table }) => <OrderNumberHeader table={table} includeStatus={true} className="w-2/4" />,
+    cell: ({ row, table }) => <OrderNumberCell row={row} table={table} includeStatus={true} />,
   }),
   columnHelper.display({
     id: "totalPaidAndShipping",
-    header: ({ table }) => <TotalPaidHeader table={table} className="w-1/4" />,
+    header: ({ table }) => <TotalPaidHeader table={table} className="w-2/4" />,
     cell: ({ row }) => <TotalPaidCell row={row} />,
-  }),
-  columnHelper.display({
-    id: "statusSelect",
-    header: ({ table }) => <StatusHeader table={table} className="w-1/4" />,
-    cell: ({ row }) => <StatusCell row={row} />,
   }),
 ] as ColumnDef<OrderRow, unknown>[];

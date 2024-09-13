@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import { OrderStatus, Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // other libraries
@@ -99,4 +99,9 @@ export const getBrowseBarData = cache(async () => {
 // Retrieve all orders for the local in-memory representation used by the tanstack table
 export function allOrdersForTableView() {
   return prisma.order.findMany({ include: INCLUDE_ORDER_WITH_ITEMS });
+}
+
+// Change the status of this order
+export function changeOrderStatus(orderId: string, newStatus: OrderStatus) {
+  return prisma.order.update({ where: { id: orderId }, data: { status: newStatus } });
 }
