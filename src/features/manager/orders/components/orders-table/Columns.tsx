@@ -26,12 +26,12 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
   columnHelper.accessor("orderNumber", { sortingFn: "alphanumericCaseSensitive" }),
   columnHelper.accessor("created", { sortingFn: "datetime", filterFn: dateBetweenFilterFn }),
   columnHelper.accessor("totalQty", {}),
-  columnHelper.accessor("shippingMethod", {}),
+  columnHelper.accessor("shippingMethod", { filterFn: "equalsString" }),
   columnHelper.accessor("totalPaid", {}),
-  columnHelper.accessor("status", {}),
+  columnHelper.accessor("status", { filterFn: "equalsString" }),
 
-  columnHelper.accessor("customer.email", { id: "customerEmail", sortingFn: "alphanumericCaseSensitive" }),
-  columnHelper.accessor("customer.name", { id: "customerName", sortingFn: "alphanumericCaseSensitive" }),
+  columnHelper.accessor("customer.email", { id: "customerEmail", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
+  columnHelper.accessor("customer.name", { id: "customerName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
 
   // Combine all ordered item names so that they function as searchable tags for this order
   columnHelper.accessor(
@@ -42,7 +42,7 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
       }
       return allNames;
     },
-    { id: "allNames" },
+    { id: "allNames", filterFn: "includesString" },
   ),
 
   // Combine all ordered item brand names so that they function as searchable tags for this order
@@ -54,7 +54,7 @@ export const columnsLarge: ColumnDef<OrderRow>[] = [
       }
       return allBrandNames;
     },
-    { id: "allBrandNames" },
+    { id: "allBrandNames", filterFn: "includesString" },
   ),
 
   columnHelper.display({
@@ -83,12 +83,12 @@ export const columnsSmall: ColumnDef<OrderRow>[] = [
   columnHelper.accessor("orderNumber", { sortingFn: "alphanumericCaseSensitive" }),
   columnHelper.accessor("created", { sortingFn: "datetime", filterFn: dateBetweenFilterFn }),
   columnHelper.accessor("totalQty", {}),
-  columnHelper.accessor("shippingMethod", {}),
+  columnHelper.accessor("shippingMethod", { filterFn: "equalsString" }),
   columnHelper.accessor("totalPaid", {}),
-  columnHelper.accessor("status", {}),
+  columnHelper.accessor("status", { filterFn: "equalsString" }),
 
-  columnHelper.accessor("customer.email", { id: "customerEmail", sortingFn: "alphanumericCaseSensitive" }),
-  columnHelper.accessor("customer.name", { id: "customerName", sortingFn: "alphanumericCaseSensitive" }),
+  columnHelper.accessor("customer.email", { id: "customerEmail", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
+  columnHelper.accessor("customer.name", { id: "customerName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
 
   // Combine all ordered item names so that they function as searchable tags for this order
   columnHelper.accessor(
@@ -99,7 +99,7 @@ export const columnsSmall: ColumnDef<OrderRow>[] = [
       }
       return allNames;
     },
-    { id: "allNames" },
+    { id: "allNames", filterFn: "includesString" },
   ),
 
   // Combine all ordered item brand names so that they function as searchable tags for this order
@@ -111,7 +111,7 @@ export const columnsSmall: ColumnDef<OrderRow>[] = [
       }
       return allBrandNames;
     },
-    { id: "allBrandNames" },
+    { id: "allBrandNames", filterFn: "includesString" },
   ),
 
   columnHelper.display({

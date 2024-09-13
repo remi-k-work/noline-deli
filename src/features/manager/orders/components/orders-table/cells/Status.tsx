@@ -38,6 +38,7 @@ export function StatusCell({ table: { options }, row: { index, getValue, origina
       name={"orderStatus"}
       value={getValue("status")}
       onValueChange={async (value) => {
+        // Update the status of this order at both the tanstack table and the underlying database levels
         options.meta?.updateData(index, "status", value);
         await chgOrderStatus({ orderId: original.id, newStatus: value as OrderStatus });
       }}
