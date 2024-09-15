@@ -1,0 +1,15 @@
+.item-image-with-trigger {
+  display: grid;
+  place-items: center start;
+
+  grid-template-columns: [inf-start] var(--size-3) [img-start] auto [img-end inf-end];
+  grid-template-rows: [inf-start img-start] auto [img-end inf-end];
+}
+
+.item-image-with-trigger__image {
+  grid-area: img;
+}
+
+.item-image-with-trigger__trigger {
+  grid-area: inf;
+}

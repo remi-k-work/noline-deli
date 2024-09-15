@@ -1,0 +1,10 @@
+.ordered-item-info {
+  inline-size: 100%;
+
+  background: var(--surface-2);
+  color: var(--text-1);
+  box-shadow: var(--shadow-6);
+
+  table-layout: fixed;
+  border-collapse: collapse;
+}

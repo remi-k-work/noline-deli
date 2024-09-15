@@ -1,10 +1,10 @@
 "use client";
 
 // component css styles
-import styles from "./ProductInfoTrigger.module.css";
+import styles from "./OrderedItemInfoTrigger.module.css";
 
 // prisma and db access
-import { ProductWithAll } from "../productsDb";
+import { OrderedItem } from "@prisma/client";
 
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
@@ -13,18 +13,18 @@ import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
-import ProductInfo from "@/features/products/components/ProductInfo";
+import OrderedItemInfo from "@/features/manager/components/OrderedItemInfo";
 
 // assets
 import { InformationCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 // types
-interface ProductInfoTriggerProps {
-  product: ProductWithAll;
+interface OrderedItemInfoTriggerProps {
+  orderedItem: OrderedItem;
   className?: string;
 }
 
-export default function ProductInfoTrigger({ product, className }: ProductInfoTriggerProps) {
+export default function OrderedItemInfoTrigger({ orderedItem, className }: OrderedItemInfoTriggerProps) {
   // Small devices (landscape phones, less than 768px)
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
@@ -38,7 +38,7 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
             </div>
           </TooltipTrigger>
           <TooltipContent side="right">
-            <p>Detailed information about this product</p>
+            <p>Detailed information about this ordered item</p>
           </TooltipContent>
         </Tooltip>
       </DrawerTrigger>
@@ -46,12 +46,12 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
         <DrawerHeader className="m-auto">
           <DrawerTitle className="m-auto flex items-center gap-2">
             <InformationCircleIcon width={32} height={32} />
-            Product Info
+            Ordered Item Info
           </DrawerTitle>
-          <DrawerDescription className="sr-only">Detailed information about this product</DrawerDescription>
+          <DrawerDescription className="sr-only">Detailed information about this ordered item</DrawerDescription>
         </DrawerHeader>
         <div className="h-auto overflow-y-auto">
-          <ProductInfo product={product} />
+          <OrderedItemInfo orderedItem={orderedItem} />
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
@@ -73,20 +73,20 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
             </div>
           </TooltipTrigger>
           <TooltipContent side="right">
-            <p>Detailed information about this product</p>
+            <p>Detailed information about this ordered item</p>
           </TooltipContent>
         </Tooltip>
       </DialogTrigger>
-      <DialogContent className={styles["product-info-trigger__product-info"]}>
+      <DialogContent className={styles["ordered-item-info-trigger__product-info"]}>
         <DialogHeader className="m-auto">
           <DialogTitle className="m-auto flex items-center gap-2">
             <InformationCircleIcon width={32} height={32} />
-            Product Info
+            Ordered Item Info
           </DialogTitle>
-          <DialogDescription className="sr-only">Detailed information about this product</DialogDescription>
+          <DialogDescription className="sr-only">Detailed information about this ordered item</DialogDescription>
         </DialogHeader>
         <div className="max-h-[80vh] overflow-y-auto">
-          <ProductInfo product={product} />
+          <OrderedItemInfo orderedItem={orderedItem} />
         </div>
       </DialogContent>
     </Dialog>

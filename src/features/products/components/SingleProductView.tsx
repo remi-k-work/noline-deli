@@ -50,7 +50,7 @@ export default function SingleProductView({ product }: SingleProductViewProps) {
             height={400}
             alt={name}
             sizes="100vw"
-            className="h-96 w-auto object-contain"
+            className="m-auto h-96 w-auto object-contain"
             priority
           />
         </>

@@ -24,9 +24,9 @@ interface OrderNumberProps {
 export default function OrderNumber({ row, table, row: { getValue, original }, includeStatus = false }: OrderNumberProps) {
   return (
     <TableCell className="overflow-clip">
-      {/* <Link href={PathFinder.toOrderView(original.id)} className="link-hover link"> */}
-      <b>{getValue("orderNumber")}</b>
-      {/* </Link> */}
+      <Link href={PathFinder.toOrderView(original.id)} className="link-hover link">
+        <b>{getValue("orderNumber")}</b>
+      </Link>
       <span className="flex w-fit items-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
         {format(getValue("created"), "EEEE, MMMM d, yyyy")}

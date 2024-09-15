@@ -74,7 +74,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </TableRow>
         <TableRow className="bg-[--surface-3]">
           <TableCell colSpan={2}>
-            <p>{description}</p>
+            <p className="m-auto">{description}</p>
           </TableCell>
         </TableRow>
         <OtherInfo freeShipping={freeShipping} />

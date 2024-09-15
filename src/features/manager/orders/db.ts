@@ -105,3 +105,8 @@ export function allOrdersForTableView() {
 export function changeOrderStatus(orderId: string, newStatus: OrderStatus) {
   return prisma.order.update({ where: { id: orderId }, data: { status: newStatus } });
 }
+
+// Get all the information you need about this particular order
+export const getOrder = cache((orderId: string) => {
+  return prisma.order.findUnique({ where: { id: orderId }, include: INCLUDE_ORDER_WITH_ITEMS });
+});
