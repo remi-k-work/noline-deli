@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import { OrderStatus, Prisma } from "@prisma/client";
+import { OrderedItemStatus, OrderStatus, Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 
 // other libraries
@@ -101,12 +101,17 @@ export function allOrdersForTableView() {
   return prisma.order.findMany({ include: INCLUDE_ORDER_WITH_ITEMS });
 }
 
+// Get all the information you need about this particular order
+export const getOrder = cache((orderId: string) => {
+  return prisma.order.findUnique({ where: { id: orderId }, include: INCLUDE_ORDER_WITH_ITEMS });
+});
+
 // Change the status of this order
 export function changeOrderStatus(orderId: string, newStatus: OrderStatus) {
   return prisma.order.update({ where: { id: orderId }, data: { status: newStatus } });
 }
 
-// Get all the information you need about this particular order
-export const getOrder = cache((orderId: string) => {
-  return prisma.order.findUnique({ where: { id: orderId }, include: INCLUDE_ORDER_WITH_ITEMS });
-});
+// Change the status of this ordered item
+export function changeOrderedItemStatus(orderedItemId: string, newStatus: OrderedItemStatus) {
+  return prisma.orderedItem.update({ where: { id: orderedItemId }, data: { status: newStatus } });
+}

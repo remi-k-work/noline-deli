@@ -4,8 +4,8 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { changeOrderStatus } from "./db";
-import { OrderStatus } from "@prisma/client";
+import { changeOrderedItemStatus, changeOrderStatus } from "./db";
+import { OrderedItemStatus, OrderStatus } from "@prisma/client";
 
 // other libraries
 import { z } from "zod";
@@ -27,4 +27,20 @@ export const chgOrderStatus = actionClient
     // Revalidate, so the fresh data will be fetched from the server next time this path is visited
     revalidatePath("/");
     revalidatePath(PathFinder.toAllOrders());
+  });
+
+export const chgOrderedItemStatus = actionClient
+  .schema(z.object({ orderedItemId: objectIdSchema, newStatus: z.nativeEnum(OrderedItemStatus) }))
+  .action(async ({ parsedInput: { orderedItemId, newStatus } }) => {
+    try {
+      // Change the status of this ordered item
+      await changeOrderedItemStatus(orderedItemId, newStatus);
+    } catch (error) {
+      // If a database error occurs, rethrow, which means action simply "failed"
+      throw error;
+    }
+
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath("/");
+    revalidatePath(PathFinder.toOrderViewReval(), "page");
   });

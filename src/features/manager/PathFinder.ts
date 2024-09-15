@@ -81,6 +81,7 @@ export default class PathFinder {
   static toProductEditFeedback = (productId: string) => `${PathFinder.toProductEdit(productId)}?${SearchParamName.actionFeedback}`;
 
   static toOrderView = (orderId: string) => PathTo.orderView.replace(ParamName.orderId, orderId);
+  static toOrderViewReval = () => PathTo.orderView;
 
   static toImagePlaceholder = () => PathTo.imagePlaceholder;
 

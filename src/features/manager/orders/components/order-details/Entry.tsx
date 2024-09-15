@@ -10,6 +10,7 @@ import { formatPrice } from "@/lib/helpers";
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
 import ItemImageWithTrigger from "@/components/ItemImageWithTrigger";
+import Status from "./Status";
 
 // types
 interface EntryProps {
@@ -42,8 +43,11 @@ export default function Entry({ orderedItem }: EntryProps) {
           </article>
         )}
       </TableCell>
-      <TableCell className="overflow-clip text-center">{quantity}</TableCell>
-      <TableCell className="overflow-clip whitespace-nowrap text-end">{formatPrice(total)}</TableCell>
+      <TableCell className="overflow-clip whitespace-nowrap text-end">
+        {quantity} / {formatPrice(total)}
+        <br className="clear-end" />
+        <Status orderedItem={orderedItem} className="float-end w-fit" />
+      </TableCell>
     </TableRow>
   );
 }
