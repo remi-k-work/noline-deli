@@ -8,10 +8,10 @@ import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 // types
 interface ProductsPerBrandChartProps {
-  data: ProductsPerBrandData[];
+  data: ProductsPerBrandData;
 }
 
-export default function ProductsPerBrandChart({ data }: ProductsPerBrandChartProps) {
+export default function ProductsPerBrandChart({ data: { productsPerBrand } }: ProductsPerBrandChartProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <PieChart>
@@ -22,7 +22,7 @@ export default function ProductsPerBrandChart({ data }: ProductsPerBrandChartPro
           itemStyle={{ color: "var(--text-2)" }}
         />
         <Legend />
-        <Pie data={data} label={(item) => item.value} dataKey="products" nameKey="brand" stroke="hsl(var(--muted))" fill="var(--brand)" />
+        <Pie data={productsPerBrand} label={(item) => item.value} dataKey="products" nameKey="brand" stroke="hsl(var(--muted))" fill="var(--brand)" />
       </PieChart>
     </ResponsiveContainer>
   );

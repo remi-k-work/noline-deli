@@ -36,7 +36,7 @@ export default function Page() {
       // Execution is successful
       console.log(data);
     },
-    onError: ({ error: { bindArgsValidationErrors, validationErrors, serverError, fetchError } }) => {
+    onError: ({ error: { bindArgsValidationErrors, validationErrors, serverError } }) => {
       // Bind arguments inputs do not pass validation
       if (bindArgsValidationErrors) {
         console.log(bindArgsValidationErrors);
@@ -50,11 +50,6 @@ export default function Page() {
       // An error occurs during the action's server code execution
       if (serverError) {
         console.log(serverError);
-      }
-
-      // If a server-client communication error occurs, fetchError will be set to the error message
-      if (fetchError) {
-        console.log(fetchError);
       }
     },
   });

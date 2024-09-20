@@ -5,10 +5,12 @@ import styles from "./page.module.css";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { productsPerBrand, totalNumbers, productsPerCategory, allCategories, ProductsPerCategoryData } from "@/features/manager/charts/db";
+import { ordersByDay, productsPerBrand, productsPerCategory, totalNumbers } from "@/features/manager/charts/db";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
+import { RANGE_OPTIONS } from "@/lib/rangeOptions";
+import { formatPrice } from "@/lib/helpers";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
@@ -16,6 +18,7 @@ import ChartCard from "@/features/manager/charts/components/ChartCard";
 import TotalNumbersChart from "@/features/manager/charts/components/TotalNumbersChart";
 import ProductsPerBrandChart from "@/features/manager/charts/components/ProductsPerBrandChart";
 import ProductsPerCategoryChart, { ProductsPerCategoryOptions } from "@/features/manager/charts/components/ProductsPerCategoryChart";
+import OrdersByDayChart, { OrdersByDayOptions } from "@/features/manager/charts/components/OrdersByDayChart";
 
 // assets
 import bannerCharts from "@/assets/manager/banner-charts.webp";
@@ -32,18 +35,16 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
 
-  // Collect all relevant totals (such as the total number of products and brands) plus other chart data
-  const [totData, ppbData, categories] = await Promise.all([totalNumbers(), productsPerBrand(), allCategories()]);
-
   // For products per category, use the selected chart's option if specified
   const { chartKind, chartOption } = searchParamsState;
-  let ppcData: ProductsPerCategoryData[] = [];
-  if (chartKind === "ppc" && chartOption) {
-    ppcData = await productsPerCategory(chartOption);
-  } else {
-    // No option was supplied; default to the first option, but only if any options are available
-    if (categories.length > 0) ppcData = await productsPerCategory(categories[0].id);
-  }
+
+  // Collect all relevant totals (such as the total number of products and brands) plus other chart data
+  const [totData, ppbData, ppcData, obdData] = await Promise.all([
+    totalNumbers(),
+    productsPerBrand(),
+    productsPerCategory((chartKind === "ppc" && chartOption) || undefined),
+    ordersByDay((chartKind === "obd" && chartOption && RANGE_OPTIONS[chartOption]) || undefined),
+  ]);
 
   return (
     <article className={styles["page"]}>
@@ -55,8 +56,15 @@ export default async function Page({ searchParams }: PageProps) {
         <ChartCard title={"Products per Brand"}>
           <ProductsPerBrandChart data={ppbData} />
         </ChartCard>
-        <ChartCard title={"Products per Category"} options={<ProductsPerCategoryOptions categories={categories} />}>
+        <ChartCard title={"Products per Category"} options={<ProductsPerCategoryOptions data={ppcData} />}>
           <ProductsPerCategoryChart data={ppcData} />
+        </ChartCard>
+        <ChartCard
+          title={"Orders by Day"}
+          subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
+          options={<OrdersByDayOptions />}
+        >
+          <OrdersByDayChart data={obdData} />
         </ChartCard>
       </div>
     </article>

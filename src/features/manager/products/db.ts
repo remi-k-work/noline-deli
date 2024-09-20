@@ -6,7 +6,7 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { allBrands } from "../brands/db";
 import { allCategories } from "../categories/db";
-import { whereAdminApproved } from "@/features/manager/auth/db";
+import { countAdminApprovedProductsMtM, countAdminApprovedProductsOtM, whereAdminApproved } from "@/features/manager/auth/db";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
@@ -61,7 +61,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.brand.findMany({
     where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, _count: { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } },
+    select: { name: true, _count: countAdminApprovedProductsOtM() },
     orderBy: { name: "asc" },
   })) {
     data.productsByBrand.push({ brandName, products });
@@ -73,7 +73,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.category.findMany({
     where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
-    select: { name: true, _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } },
+    select: { name: true, _count: countAdminApprovedProductsMtM() },
     orderBy: { name: "asc" },
   })) {
     data.productsByCategory.push({ categoryName, products });
@@ -89,7 +89,7 @@ export const getBrowseBarData = cache(async () => {
     select: {
       name: true,
       category: { select: { name: true } },
-      _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } },
+      _count: countAdminApprovedProductsMtM(),
     },
     orderBy: { name: "asc" },
   })) {

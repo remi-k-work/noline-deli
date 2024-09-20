@@ -4,30 +4,105 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/auth/db";
+import {
+  countAdminApprovedProductsMtM,
+  countAdminApprovedProductsOtM,
+  getCreatedByUser,
+  whereAdminApproved,
+  whereCreatedByYou,
+} from "@/features/manager/auth/db";
+
+// other libraries
+import { RangeOption } from "@/lib/rangeOptions";
+import { isSameDay, startOfDay } from "date-fns";
 
 // types
-export interface TotalNumbersData {
+interface TotalNumbers {
   totCategory: string;
   itemsAdmin: number;
   itemsUser: number;
 }
 
-export interface ProductsPerBrandData {
+export interface TotalNumbersData {
+  totalNumbers: TotalNumbers[];
+}
+
+interface ProductsPerBrand {
   brand: string;
   products: number;
 }
 
-export interface AllCategoriesData {
+export interface ProductsPerBrandData {
+  productsPerBrand: ProductsPerBrand[];
+}
+
+interface Category {
   id: string;
   name: string;
 }
 
-export interface ProductsPerCategoryData {
+interface ProductsPerCategory {
   category: string;
   mCatProd?: number;
   sCatProd?: number;
 }
+
+export interface ProductsPerCategoryData {
+  categories: Category[];
+  productsPerCategory: ProductsPerCategory[];
+}
+
+interface OrdersByDay {
+  dayDate: Date;
+  dayName: string;
+  orders: number;
+  sales: number;
+}
+
+export interface OrdersByDayData {
+  ordersByDay: OrdersByDay[];
+  orders: number;
+  sales: number;
+}
+
+const SELECT_ORDERS_BY_DAY = { select: { created: true, totalPaid: true }, orderBy: { created: "asc" } } satisfies Prisma.OrderFindManyArgs;
+
+export const ordersByDay = cache(async (rangeOption?: RangeOption) => {
+  const [totals, orders] = await Promise.all([
+    // Gather both the total number of orders and the entire sales amount (totals)
+    prisma.order.aggregate({ _count: true, _sum: { totalPaid: true }, orderBy: { created: "asc" } }),
+    // Collect orders for a given time period or all of them (but only specific fields like order creation time and total paid amount)
+    rangeOption
+      ? prisma.order.findMany({ where: { created: { gte: rangeOption.startDate, lte: rangeOption.endDate } }, ...SELECT_ORDERS_BY_DAY })
+      : prisma.order.findMany({ ...SELECT_ORDERS_BY_DAY }),
+  ]);
+
+  // Group retrieved orders by the day they were placed, then aggregate the number of orders and sales amount for that day
+  const data: OrdersByDayData = { ordersByDay: [], orders: totals._count, sales: totals._sum.totalPaid ?? 0 };
+  data.ordersByDay = orders.reduce((acc, order) => {
+    // Does the orders-by-day entry already exist for this day? We compare only the dates, ignoring the time
+    const existingEntry = acc.find((ordersByDay) => isSameDay(ordersByDay.dayDate, order.created));
+
+    if (existingEntry) {
+      // Yes, boost both the number of orders and the total sales for this day
+      existingEntry.orders++;
+      existingEntry.sales += order.totalPaid;
+    } else {
+      // No, create a new orders-by-day entry
+      acc.push({
+        // We just care about the day the order was placed
+        dayDate: startOfDay(order.created),
+        dayName: startOfDay(order.created).toDateString(),
+        orders: 1,
+        sales: order.totalPaid,
+      });
+    }
+
+    return acc;
+  }, [] as OrdersByDay[]);
+
+  return data;
+});
 
 // Collect all relevant totals (such as the total number of products and brands)
 export const totalNumbers = cache(async () => {
@@ -47,13 +122,15 @@ export const totalNumbers = cache(async () => {
     createdByUser ? prisma.productImage.count({ where: { ...whereCreatedByYou<Prisma.ProductImageWhereInput>() } }) : 0,
   ]);
 
-  const data: TotalNumbersData[] = [
-    { totCategory: "Pr", itemsAdmin: totPrAdmin, itemsUser: totPrYou },
-    { totCategory: "Br", itemsAdmin: totBrAdmin, itemsUser: totBrYou },
-    { totCategory: "Ca", itemsAdmin: totCaAdmin, itemsUser: totCaYou },
-    { totCategory: "Su", itemsAdmin: totSuAdmin, itemsUser: totSuYou },
-    { totCategory: "Im", itemsAdmin: totImAdmin + totPrAdmin, itemsUser: totImYou + totPrYou },
-  ];
+  const data: TotalNumbersData = {
+    totalNumbers: [
+      { totCategory: "Pr", itemsAdmin: totPrAdmin, itemsUser: totPrYou },
+      { totCategory: "Br", itemsAdmin: totBrAdmin, itemsUser: totBrYou },
+      { totCategory: "Ca", itemsAdmin: totCaAdmin, itemsUser: totCaYou },
+      { totCategory: "Su", itemsAdmin: totSuAdmin, itemsUser: totSuYou },
+      { totCategory: "Im", itemsAdmin: totImAdmin + totPrAdmin, itemsUser: totImYou + totPrYou },
+    ],
+  };
 
   return data;
 });
@@ -61,15 +138,15 @@ export const totalNumbers = cache(async () => {
 export const productsPerBrand = cache(async () => {
   const brands = await prisma.brand.findMany({
     where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, _count: { select: { products: true } } },
+    select: { name: true, _count: countAdminApprovedProductsOtM() },
   });
 
-  const data: ProductsPerBrandData[] = brands.map(({ name, _count: { products } }) => ({ brand: name, products: products }));
+  const data: ProductsPerBrandData = { productsPerBrand: brands.map(({ name, _count: { products } }) => ({ brand: name, products: products })) };
 
   return data;
 });
 
-export const allCategories = cache(() => {
+const allCategories = cache(() => {
   return prisma.category.findMany({
     where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
     select: { id: true, name: true },
@@ -77,17 +154,33 @@ export const allCategories = cache(() => {
   });
 });
 
-export const productsPerCategory = cache(async (categoryId: string) => {
-  const category = await prisma.category.findUnique({
+const getCategory = cache((categoryId: string) => {
+  return prisma.category.findUnique({
     where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId },
     select: {
       name: true,
-      _count: { select: { products: true } },
-      subCategories: { select: { name: true, _count: { select: { products: true } } }, orderBy: { name: "asc" } },
+      _count: countAdminApprovedProductsMtM(),
+      subCategories: {
+        where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
+        select: { name: true, _count: countAdminApprovedProductsMtM() },
+        orderBy: { name: "asc" },
+      },
     },
   });
+});
 
-  const data: ProductsPerCategoryData[] = [];
+export const productsPerCategory = cache(async (categoryId?: string) => {
+  let categories: Awaited<ReturnType<typeof allCategories>>, category: Awaited<ReturnType<typeof getCategory>> | undefined;
+
+  if (categoryId) {
+    [categories, category] = await Promise.all([allCategories(), getCategory(categoryId)]);
+  } else {
+    // No category id was supplied; default to the first category id, but only if any categories are available
+    categories = await allCategories();
+    if (categories.length > 0) category = await getCategory(categories[0].id);
+  }
+
+  const data: ProductsPerCategoryData = { categories, productsPerCategory: [] };
   if (!category) return data;
 
   const {
@@ -95,14 +188,14 @@ export const productsPerCategory = cache(async (categoryId: string) => {
     _count: { products },
     subCategories,
   } = category;
-  data.push({ category: name, mCatProd: products });
+  data.productsPerCategory.push({ category: name, mCatProd: products });
 
   let subCategoryIndex = 0;
   for (const {
     name,
     _count: { products },
   } of subCategories) {
-    data.push({ category: name, sCatProd: products });
+    data.productsPerCategory.push({ category: name, sCatProd: products });
     subCategoryIndex++;
   }
 

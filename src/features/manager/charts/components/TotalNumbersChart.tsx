@@ -8,13 +8,13 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAx
 
 // types
 interface TotalNumbersChartProps {
-  data: TotalNumbersData[];
+  data: TotalNumbersData;
 }
 
-export default function TotalNumbersChart({ data }: TotalNumbersChartProps) {
+export default function TotalNumbersChart({ data: { totalNumbers } }: TotalNumbersChartProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
-      <BarChart data={data}>
+      <BarChart data={totalNumbers}>
         <CartesianGrid stroke="hsl(var(--muted))" />
         <XAxis dataKey="totCategory" stroke="hsl(var(--primary))" />
         <YAxis stroke="hsl(var(--primary))" hide={true} />

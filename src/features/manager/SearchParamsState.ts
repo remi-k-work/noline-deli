@@ -18,7 +18,7 @@ type ParamsToDel = SearchParamName[];
 
 export type SortByField = "id" | "price" | "name";
 export type SortByOrder = "asc" | "desc";
-export type ChartKind = "ppc";
+export type ChartKind = "ppc" | "obd";
 
 export default class SearchParamsState {
   // All search params that maintain the current state that is kept in the current url

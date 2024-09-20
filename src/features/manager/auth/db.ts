@@ -2,6 +2,7 @@
 import { cookies } from "next/headers";
 
 // prisma and db access
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { getBrand } from "../brands/db";
 import { getCategory, getSubCategory } from "../categories/db";
@@ -43,6 +44,14 @@ export function whereAdminApproved<WhereT>(): WhereT {
 // Gather only the stuff created by you, the user
 export function whereCreatedByYou<WhereT>(): WhereT {
   return { createdBy: getCreatedByUser() } as WhereT;
+}
+
+// Make sure to count only admin-approved + current user-created products (consider the relationship type)
+export function countAdminApprovedProductsMtM() {
+  return { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } };
+}
+export function countAdminApprovedProductsOtM() {
+  return { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } };
 }
 
 export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {

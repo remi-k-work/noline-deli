@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 
 // prisma and db access
-import { AllCategoriesData, ProductsPerCategoryData } from "../db";
+import { ProductsPerCategoryData } from "../db";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -15,17 +15,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 // types
 interface ProductsPerCategoryChartProps {
-  data: ProductsPerCategoryData[];
+  data: ProductsPerCategoryData;
 }
 
 interface ProductsPerCategoryOptionsProps {
-  categories: AllCategoriesData[];
+  data: ProductsPerCategoryData;
 }
 
-export default function ProductsPerCategoryChart({ data }: ProductsPerCategoryChartProps) {
+export default function ProductsPerCategoryChart({ data: { productsPerCategory } }: ProductsPerCategoryChartProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
-      <BarChart data={data} layout="vertical">
+      <BarChart data={productsPerCategory} layout="vertical">
         <CartesianGrid stroke="hsl(var(--muted))" />
         <XAxis type="number" stroke="hsl(var(--primary))" />
         <YAxis dataKey="category" type="category" stroke="hsl(var(--primary))" hide={true} />
@@ -42,7 +42,7 @@ export default function ProductsPerCategoryChart({ data }: ProductsPerCategoryCh
   );
 }
 
-export function ProductsPerCategoryOptions({ categories }: ProductsPerCategoryOptionsProps) {
+export function ProductsPerCategoryOptions({ data: { categories } }: ProductsPerCategoryOptionsProps) {
   const searchParamsState = useSearchParamsState();
   const { replace } = useRouter();
 
