@@ -4,13 +4,7 @@ import { cache } from "react";
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
-import {
-  countAdminApprovedProductsMtM,
-  countAdminApprovedProductsOtM,
-  getCreatedByUser,
-  whereAdminApproved,
-  whereCreatedByYou,
-} from "@/features/manager/auth/db";
+import { countAdminApprovedProducts, getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/auth/db";
 
 // other libraries
 import { RangeOption } from "@/lib/rangeOptions";
@@ -138,7 +132,7 @@ export const totalNumbers = cache(async () => {
 export const productsPerBrand = cache(async () => {
   const brands = await prisma.brand.findMany({
     where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, _count: countAdminApprovedProductsOtM() },
+    select: { name: true, ...countAdminApprovedProducts<Prisma.BrandSelect>("OtM") },
   });
 
   const data: ProductsPerBrandData = { productsPerBrand: brands.map(({ name, _count: { products } }) => ({ brand: name, products: products })) };
@@ -159,10 +153,10 @@ const getCategory = cache((categoryId: string) => {
     where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId },
     select: {
       name: true,
-      _count: countAdminApprovedProductsMtM(),
+      ...countAdminApprovedProducts<Prisma.CategorySelect>("MtM"),
       subCategories: {
         where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
-        select: { name: true, _count: countAdminApprovedProductsMtM() },
+        select: { name: true, ...countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM") },
         orderBy: { name: "asc" },
       },
     },

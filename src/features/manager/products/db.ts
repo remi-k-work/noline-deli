@@ -6,7 +6,7 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/db/prisma";
 import { allBrands } from "../brands/db";
 import { allCategories } from "../categories/db";
-import { countAdminApprovedProductsMtM, countAdminApprovedProductsOtM, whereAdminApproved } from "@/features/manager/auth/db";
+import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manager/auth/db";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
@@ -61,7 +61,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.brand.findMany({
     where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, _count: countAdminApprovedProductsOtM() },
+    select: { name: true, ...countAdminApprovedProducts<Prisma.BrandSelect>("OtM") },
     orderBy: { name: "asc" },
   })) {
     data.productsByBrand.push({ brandName, products });
@@ -73,7 +73,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.category.findMany({
     where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
-    select: { name: true, _count: countAdminApprovedProductsMtM() },
+    select: { name: true, ...countAdminApprovedProducts<Prisma.CategorySelect>("MtM") },
     orderBy: { name: "asc" },
   })) {
     data.productsByCategory.push({ categoryName, products });
@@ -86,11 +86,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.subCategory.findMany({
     where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
-    select: {
-      name: true,
-      category: { select: { name: true } },
-      _count: countAdminApprovedProductsMtM(),
-    },
+    select: { name: true, category: { select: { name: true } }, ...countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM") },
     orderBy: { name: "asc" },
   })) {
     data.productsBySubCategory.push({ categoryName, subCategoryName, products });

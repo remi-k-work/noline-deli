@@ -9,7 +9,6 @@ import { ordersByDay, productsPerBrand, productsPerCategory, totalNumbers } from
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
-import { RANGE_OPTIONS } from "@/lib/rangeOptions";
 import { formatPrice } from "@/lib/helpers";
 
 // components
@@ -34,16 +33,14 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
-
-  // For products per category, use the selected chart's option if specified
-  const { chartKind, chartOption } = searchParamsState;
+  const { chPpcCategoryId, chObdRangeOption } = searchParamsState;
 
   // Collect all relevant totals (such as the total number of products and brands) plus other chart data
   const [totData, ppbData, ppcData, obdData] = await Promise.all([
     totalNumbers(),
     productsPerBrand(),
-    productsPerCategory((chartKind === "ppc" && chartOption) || undefined),
-    ordersByDay((chartKind === "obd" && chartOption && RANGE_OPTIONS[chartOption]) || undefined),
+    productsPerCategory(chPpcCategoryId),
+    ordersByDay(chObdRangeOption),
   ]);
 
   return (

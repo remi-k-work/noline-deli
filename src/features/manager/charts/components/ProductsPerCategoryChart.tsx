@@ -44,14 +44,15 @@ export default function ProductsPerCategoryChart({ data: { productsPerCategory }
 
 export function ProductsPerCategoryOptions({ data: { categories } }: ProductsPerCategoryOptionsProps) {
   const searchParamsState = useSearchParamsState();
+  const { chPpcCategoryId } = searchParamsState;
   const { replace } = useRouter();
 
-  function handleOptionChanged(newOption: string) {
-    replace(searchParamsState.chartsChanged("ppc", newOption), { scroll: false });
-  }
-
   return (
-    <Select name={"categoryId"} defaultValue={categories[0]?.id} onValueChange={(value) => handleOptionChanged(value)}>
+    <Select
+      name={"categoryId"}
+      value={chPpcCategoryId ?? categories[0]?.id}
+      onValueChange={(value) => replace(searchParamsState.chartPpcCategoryChanged(value), { scroll: false })}
+    >
       <SelectTrigger>
         <SelectValue placeholder="Choose Category" />
       </SelectTrigger>

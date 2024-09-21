@@ -20,6 +20,24 @@ interface OrdersByDayChartProps {
   data: OrdersByDayData;
 }
 
+const CustomTooltip = ({ active, payload, label }: { active?: any; payload?: any; label?: any }) => {
+  if (active && payload && payload.length) {
+    return (
+      <p className="border border-[hsl(var(--muted))] bg-[hsl(var(--background))] p-2 text-[var(--text-1)]">
+        <span className="text-[var(--brand)]">{label}</span>
+        <br />
+        <span className="text-[var(--text-2)]">Orders : </span>
+        {payload[0].value}
+        <br />
+        <span className="text-[var(--text-2)]">Sales : </span>
+        {formatPrice(payload[1].value)}
+      </p>
+    );
+  }
+
+  return null;
+};
+
 export default function OrdersByDayChart({ data: { ordersByDay } }: OrdersByDayChartProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
@@ -27,15 +45,9 @@ export default function OrdersByDayChart({ data: { ordersByDay } }: OrdersByDayC
         <CartesianGrid stroke="hsl(var(--muted))" />
         <XAxis dataKey="dayName" stroke="hsl(var(--primary))" />
         <YAxis stroke="hsl(var(--primary))" tickFormatter={(tick) => formatPrice(tick)} />
-        <Tooltip
-          cursor={{ fill: "hsl(var(--muted))" }}
-          contentStyle={{ backgroundColor: "hsl(var(--background))" }}
-          labelStyle={{ color: "var(--text-1)" }}
-          itemStyle={{ color: "var(--text-2)" }}
-          formatter={(value) => formatPrice(value as number)}
-        />
-        <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary))" />
-        <Line dot={false} dataKey="sales" type="monotone" name="Sales" stroke="hsl(var(--secondary))" />
+        <Tooltip content={<CustomTooltip />} />
+        <Line dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary))" />
+        <Line dataKey="sales" type="monotone" name="Sales" stroke="var(--brand)" />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -43,14 +55,15 @@ export default function OrdersByDayChart({ data: { ordersByDay } }: OrdersByDayC
 
 export function OrdersByDayOptions() {
   const searchParamsState = useSearchParamsState();
+  const { chObdRangeKey } = searchParamsState;
   const { replace } = useRouter();
 
-  function handleOptionChanged(newOption: string) {
-    replace(searchParamsState.chartsChanged("obd", newOption), { scroll: false });
-  }
-
   return (
-    <Select name={"rangeOptions"} defaultValue={"All Time"} onValueChange={(value) => handleOptionChanged(value)}>
+    <Select
+      name={"rangeOptions"}
+      value={chObdRangeKey ?? "All Time"}
+      onValueChange={(value) => replace(searchParamsState.chartObdRangeChanged(value), { scroll: false })}
+    >
       <SelectTrigger>
         <SelectValue placeholder="Choose Range" />
       </SelectTrigger>

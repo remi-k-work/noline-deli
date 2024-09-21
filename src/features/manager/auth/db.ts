@@ -47,11 +47,10 @@ export function whereCreatedByYou<WhereT>(): WhereT {
 }
 
 // Make sure to count only admin-approved + current user-created products (consider the relationship type)
-export function countAdminApprovedProductsMtM() {
-  return { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } };
-}
-export function countAdminApprovedProductsOtM() {
-  return { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } };
+export function countAdminApprovedProducts<SelectT>(rel: "MtM" | "OtM"): SelectT {
+  return rel === "MtM"
+    ? ({ _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } } as SelectT)
+    : ({ _count: { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } as SelectT);
 }
 
 export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {
