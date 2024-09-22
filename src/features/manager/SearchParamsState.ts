@@ -15,6 +15,7 @@ enum SearchParamName {
   actionFeedback = "afeed",
   chPpcCategoryId = "chppco",
   chObdRangeKey = "chobdo",
+  chRbiRangeKey = "chrbio",
 }
 
 type ParamsToSet = [SearchParamName, string?][];
@@ -46,6 +47,8 @@ export default class SearchParamsState {
   public readonly chPpcCategoryId?: string;
   public readonly chObdRangeKey?: string;
   public readonly chObdRangeOption?: RangeOption;
+  public readonly chRbiRangeKey?: string;
+  public readonly chRbiRangeOption?: RangeOption;
 
   constructor(
     private readonly pathname: string,
@@ -66,9 +69,9 @@ export default class SearchParamsState {
 
     this.chPpcCategoryId = this.searchParams.get(SearchParamName.chPpcCategoryId) ?? undefined;
     this.chObdRangeKey = this.searchParams.get(SearchParamName.chObdRangeKey) ?? undefined;
-    this.chObdRangeOption = this.searchParams.has(SearchParamName.chObdRangeKey)
-      ? RANGE_OPTIONS[this.searchParams.get(SearchParamName.chObdRangeKey)!]
-      : undefined;
+    this.chObdRangeOption = this.chObdRangeKey ? RANGE_OPTIONS[this.chObdRangeKey] : undefined;
+    this.chRbiRangeKey = this.searchParams.get(SearchParamName.chRbiRangeKey) ?? undefined;
+    this.chRbiRangeOption = this.chRbiRangeKey ? RANGE_OPTIONS[this.chRbiRangeKey] : undefined;
   }
 
   // Are we in action feedback mode?
@@ -160,6 +163,11 @@ export default class SearchParamsState {
 
   chartObdRangeChanged(newRangeKey: string) {
     this.updateParams(undefined, [[SearchParamName.chObdRangeKey, newRangeKey]]);
+    return this.hrefWithParams;
+  }
+
+  chartRbiRangeChanged(newRangeKey: string) {
+    this.updateParams(undefined, [[SearchParamName.chRbiRangeKey, newRangeKey]]);
     return this.hrefWithParams;
   }
 

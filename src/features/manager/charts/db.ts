@@ -59,12 +59,50 @@ export interface OrdersByDayData {
   sales: number;
 }
 
+interface RevenueByItem {
+  itemName: string;
+  quantity: number;
+  total: number;
+}
+
+export interface RevenueByItemData {
+  revenueByItem: RevenueByItem[];
+  quantity: number;
+  total: number;
+}
+
 const SELECT_ORDERS_BY_DAY = { select: { created: true, totalPaid: true }, orderBy: { created: "asc" } } satisfies Prisma.OrderFindManyArgs;
+
+export const revenueByItem = cache(async (rangeOption?: RangeOption) => {
+  const [totals, items] = await Promise.all([
+    // Gather both the total quantity of ordered items and the entire total amount (totals)
+    prisma.orderedItem.aggregate({ _sum: { quantity: true, total: true } }),
+    // Collect ordered items for a given time period or all of them, group them by name, and aggregate their quantities and total amounts
+    rangeOption
+      ? prisma.orderedItem.groupBy({
+          where: { order: { created: { gte: rangeOption.startDate, lte: rangeOption.endDate } } },
+          by: "name",
+          _sum: { quantity: true, total: true },
+          orderBy: { name: "asc" },
+        })
+      : prisma.orderedItem.groupBy({ by: "name", _sum: { quantity: true, total: true }, orderBy: { name: "asc" } }),
+  ]);
+
+  const data: RevenueByItemData = { revenueByItem: [], quantity: totals._sum.quantity ?? 0, total: totals._sum.total ?? 0 };
+  for (const {
+    name,
+    _sum: { quantity, total },
+  } of items) {
+    data.revenueByItem.push({ itemName: name, quantity: quantity ?? 0, total: total ?? 0 });
+  }
+
+  return data;
+});
 
 export const ordersByDay = cache(async (rangeOption?: RangeOption) => {
   const [totals, orders] = await Promise.all([
     // Gather both the total number of orders and the entire sales amount (totals)
-    prisma.order.aggregate({ _count: true, _sum: { totalPaid: true }, orderBy: { created: "asc" } }),
+    prisma.order.aggregate({ _count: true, _sum: { totalPaid: true } }),
     // Collect orders for a given time period or all of them (but only specific fields like order creation time and total paid amount)
     rangeOption
       ? prisma.order.findMany({ where: { created: { gte: rangeOption.startDate, lte: rangeOption.endDate } }, ...SELECT_ORDERS_BY_DAY })

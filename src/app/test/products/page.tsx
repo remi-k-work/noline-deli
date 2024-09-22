@@ -1,6 +1,6 @@
 // component css styles
 import { getBrowseBarData } from "@/features/manager/products/db";
-import { ordersByDay } from "@/features/manager/charts/db";
+import { ordersByDay, revenueByItem } from "@/features/manager/charts/db";
 import styles from "./page.module.css";
 
 // components
@@ -12,7 +12,7 @@ export const metadata = {
 };
 
 export default async function Page() {
-  await ordersByDay(RANGE_OPTIONS.LAST_MONTH);
+  await revenueByItem(RANGE_OPTIONS.LAST_7_DAYS);
   // console.log(a, b);
 
   return <article className={styles["page"]}>{/* <ProductsTableView /> */}</article>;

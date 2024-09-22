@@ -86,7 +86,7 @@ export const getBrowseBarData = cache(async () => {
   }
 
   // Create data that will be used to display options for browsing orders by brand
-  for (const { brandName } of await prisma.orderedItem.findMany({ distinct: "brandName", select: { brandName: true } })) {
+  for (const { brandName } of await prisma.orderedItem.findMany({ distinct: "brandName", select: { brandName: true }, orderBy: { brandName: "asc" } })) {
     data.ordersByBrand.push({
       brandName,
       orders: (await prisma.orderedItem.findMany({ distinct: "orderId", where: { brandName }, select: { orderId: true } })).length,

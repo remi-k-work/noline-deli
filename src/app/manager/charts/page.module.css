@@ -2,3 +2,10 @@
   padding-inline: var(--size-fluid-3) var(--size-fluid-3);
   padding-block: var(--size-3) var(--size-3);
 }
+
+.page__charts-view {
+  display: grid;
+  gap: var(--size-3);
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-2)), 1fr));
+}

@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { ordersByDay, productsPerBrand, productsPerCategory, totalNumbers } from "@/features/manager/charts/db";
+import { ordersByDay, productsPerBrand, productsPerCategory, revenueByItem, totalNumbers } from "@/features/manager/charts/db";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
@@ -18,6 +18,7 @@ import TotalNumbersChart from "@/features/manager/charts/components/TotalNumbers
 import ProductsPerBrandChart from "@/features/manager/charts/components/ProductsPerBrandChart";
 import ProductsPerCategoryChart, { ProductsPerCategoryOptions } from "@/features/manager/charts/components/ProductsPerCategoryChart";
 import OrdersByDayChart, { OrdersByDayOptions } from "@/features/manager/charts/components/OrdersByDayChart";
+import RevenueByItemChart, { RevenueByItemOptions } from "@/features/manager/charts/components/RevenueByItemChart";
 
 // assets
 import bannerCharts from "@/assets/manager/banner-charts.webp";
@@ -33,20 +34,21 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
-  const { chPpcCategoryId, chObdRangeOption } = searchParamsState;
+  const { chPpcCategoryId, chObdRangeOption, chRbiRangeOption } = searchParamsState;
 
   // Collect all relevant totals (such as the total number of products and brands) plus other chart data
-  const [totData, ppbData, ppcData, obdData] = await Promise.all([
+  const [totData, ppbData, ppcData, obdData, rbiData] = await Promise.all([
     totalNumbers(),
     productsPerBrand(),
     productsPerCategory(chPpcCategoryId),
     ordersByDay(chObdRangeOption),
+    revenueByItem(chRbiRangeOption),
   ]);
 
   return (
     <article className={styles["page"]}>
       <SectionHero heroBanner={bannerCharts} sectionTitle={"Charts"} />
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <section className={styles["page__charts-view"]}>
         <ChartCard title={"Total Numbers"} subTitle={"Products, Brands, Categories, SubCategories, Product Images"}>
           <TotalNumbersChart data={totData} />
         </ChartCard>
@@ -63,7 +65,14 @@ export default async function Page({ searchParams }: PageProps) {
         >
           <OrdersByDayChart data={obdData} />
         </ChartCard>
-      </div>
+        <ChartCard
+          title={"Revenue by Item"}
+          subTitle={`Total Quantity: ${rbiData.quantity}, Total Amount: ${formatPrice(rbiData.total)}`}
+          options={<RevenueByItemOptions />}
+        >
+          <RevenueByItemChart data={rbiData} />
+        </ChartCard>
+      </section>
     </article>
   );
 }
