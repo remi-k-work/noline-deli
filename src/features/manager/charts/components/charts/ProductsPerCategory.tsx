@@ -4,17 +4,17 @@
 import { useRouter } from "next/navigation";
 
 // prisma and db access
-import { ProductsPerCategoryData } from "../db";
+import { ProductsPerCategoryData } from "../../db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import useSearchParamsState from "../../hooks/useSearchParamsState";
+import useSearchParamsState from "../../../hooks/useSearchParamsState";
 
 // components
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // types
-interface ProductsPerCategoryChartProps {
+interface ProductsPerCategoryProps {
   data: ProductsPerCategoryData;
 }
 
@@ -22,7 +22,7 @@ interface ProductsPerCategoryOptionsProps {
   data: ProductsPerCategoryData;
 }
 
-export default function ProductsPerCategoryChart({ data: { productsPerCategory } }: ProductsPerCategoryChartProps) {
+export default function ProductsPerCategory({ data: { productsPerCategory } }: ProductsPerCategoryProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <BarChart data={productsPerCategory} layout="vertical">

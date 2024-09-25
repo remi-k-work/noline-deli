@@ -1,17 +1,17 @@
 "use client";
 
 // prisma and db access
-import { ProductsPerBrandData } from "../db";
+import { ProductsPerBrandData } from "../../db/types";
 
 // other libraries
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 // types
-interface ProductsPerBrandChartProps {
+interface ProductsPerBrandProps {
   data: ProductsPerBrandData;
 }
 
-export default function ProductsPerBrandChart({ data: { productsPerBrand } }: ProductsPerBrandChartProps) {
+export default function ProductsPerBrand({ data: { productsPerBrand } }: ProductsPerBrandProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <PieChart>

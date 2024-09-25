@@ -5,14 +5,14 @@ import { ReactNode } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 // types
-interface ChartCardProps {
+interface ChartProps {
   title: string;
   subTitle?: string;
   options?: ReactNode;
   children: ReactNode;
 }
 
-export default function ChartCard({ title, subTitle, options, children }: ChartCardProps) {
+export default function Chart({ title, subTitle, options, children }: ChartProps) {
   return (
     <Card>
       <CardHeader>
@@ -22,7 +22,7 @@ export default function ChartCard({ title, subTitle, options, children }: ChartC
             <footer className="flex-none">{options}</footer>
           </section>
         ) : (
-          <CardTitle className="flex-1">{title}</CardTitle>
+          <CardTitle>{title}</CardTitle>
         )}
         {subTitle && <CardDescription>{subTitle}</CardDescription>}
       </CardHeader>

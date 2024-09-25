@@ -1,17 +1,17 @@
 "use client";
 
 // prisma and db access
-import { TotalNumbersData } from "../db";
+import { TotalNumbersData } from "../../db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 // types
-interface TotalNumbersChartProps {
+interface TotalNumbersProps {
   data: TotalNumbersData;
 }
 
-export default function TotalNumbersChart({ data: { totalNumbers } }: TotalNumbersChartProps) {
+export default function TotalNumbers({ data: { totalNumbers } }: TotalNumbersProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <BarChart data={totalNumbers}>

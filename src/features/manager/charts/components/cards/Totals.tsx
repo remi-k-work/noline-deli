@@ -5,13 +5,13 @@ import { Fragment } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 // types
-interface TotalsCardProps {
+interface TotalsProps {
   title: string;
   subTitles: string[];
   totals: number[];
 }
 
-export default function TotalsCard({ title, subTitles, totals }: TotalsCardProps) {
+export default function Totals({ title, subTitles, totals }: TotalsProps) {
   return (
     <Card>
       <CardHeader>

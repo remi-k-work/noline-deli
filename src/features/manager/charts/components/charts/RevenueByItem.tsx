@@ -1,22 +1,14 @@
 "use client";
 
-// next
-import { useRouter } from "next/navigation";
-
 // prisma and db access
-import { RevenueByItemData } from "../db";
+import { RevenueByItemData } from "../../db/types";
 
 // other libraries
 import { CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from "recharts";
-import useSearchParamsState from "../../hooks/useSearchParamsState";
-import { RANGE_OPTIONS } from "@/lib/rangeOptions";
 import { formatPrice } from "@/lib/helpers";
 
-// components
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
 // types
-interface RevenueByItemChartProps {
+interface RevenueByItemProps {
   data: RevenueByItemData;
 }
 
@@ -26,7 +18,7 @@ interface CustomTooltipProps {
   label?: any;
 }
 
-export default function RevenueByItemChart({ data: { revenueByItem } }: RevenueByItemChartProps) {
+export default function RevenueByItem({ data: { revenueByItem } }: RevenueByItemProps) {
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <ScatterChart data={revenueByItem}>
@@ -38,32 +30,6 @@ export default function RevenueByItemChart({ data: { revenueByItem } }: RevenueB
         <Scatter fill="var(--brand)" />
       </ScatterChart>
     </ResponsiveContainer>
-  );
-}
-
-export function RevenueByItemOptions() {
-  const searchParamsState = useSearchParamsState();
-  const { chRbiRangeKey } = searchParamsState;
-  const { replace } = useRouter();
-
-  return (
-    <Select
-      name={"rangeOptions"}
-      value={chRbiRangeKey ?? "All Time"}
-      onValueChange={(value) => replace(searchParamsState.chartRbiRangeChanged(value), { scroll: false })}
-    >
-      <SelectTrigger>
-        <SelectValue placeholder="Choose Range" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="All Time">All Time</SelectItem>
-        {Object.entries(RANGE_OPTIONS).map(([key, rangeOption]) => (
-          <SelectItem key={key} value={key}>
-            {rangeOption.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
   );
 }
 

@@ -5,7 +5,12 @@ import styles from "./page.module.css";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { ordersByDay, productsPerBrand, productsPerCategory, revenueByItem, totalNumbers } from "@/features/manager/charts/db";
+import ordersByDay from "@/features/manager/charts/db/ordersByDay";
+import productsPerBrand from "@/features/manager/charts/db/productsPerBrand";
+import productsPerCategory from "@/features/manager/charts/db/productsPerCategory";
+import revenueByItem from "@/features/manager/charts/db/revenueByItem";
+import totalNumbers from "@/features/manager/charts/db/totalNumbers";
+import customersByDay from "@/features/manager/charts/db/customersByDay";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
@@ -13,12 +18,14 @@ import { formatPrice } from "@/lib/helpers";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
-import ChartCard from "@/features/manager/charts/components/ChartCard";
-import TotalNumbersChart from "@/features/manager/charts/components/TotalNumbersChart";
-import ProductsPerBrandChart from "@/features/manager/charts/components/ProductsPerBrandChart";
-import ProductsPerCategoryChart, { ProductsPerCategoryOptions } from "@/features/manager/charts/components/ProductsPerCategoryChart";
-import OrdersByDayChart, { OrdersByDayOptions } from "@/features/manager/charts/components/OrdersByDayChart";
-import RevenueByItemChart, { RevenueByItemOptions } from "@/features/manager/charts/components/RevenueByItemChart";
+import { default as ChartCard } from "@/features/manager/charts/components/cards/Chart";
+import TimeRangeOptions from "@/features/manager/charts/components/charts/TimeRangeOptions";
+import TotalNumbers from "@/features/manager/charts/components/charts/TotalNumbers";
+import ProductsPerBrand from "@/features/manager/charts/components/charts/ProductsPerBrand";
+import ProductsPerCategory, { ProductsPerCategoryOptions } from "@/features/manager/charts/components/charts/ProductsPerCategory";
+import OrdersByDay from "@/features/manager/charts/components/charts/OrdersByDay";
+import RevenueByItem from "@/features/manager/charts/components/charts/RevenueByItem";
+import CustomersByDay from "@/features/manager/charts/components/charts/CustomersByDay";
 
 // assets
 import bannerCharts from "@/assets/manager/banner-charts.webp";
@@ -34,15 +41,16 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
-  const { chPpcCategoryId, chObdRangeOption, chRbiRangeOption } = searchParamsState;
+  const { chPpcCategoryId, chObdRangeKey, chObdRangeOption, chRbiRangeKey, chRbiRangeOption, chCbdRangeKey, chCbdRangeOption } = searchParamsState;
 
   // Collect all relevant totals (such as the total number of products and brands) plus other chart data
-  const [totData, ppbData, ppcData, obdData, rbiData] = await Promise.all([
+  const [totData, ppbData, ppcData, obdData, rbiData, cbdData] = await Promise.all([
     totalNumbers(),
     productsPerBrand(),
     productsPerCategory(chPpcCategoryId),
     ordersByDay(chObdRangeOption),
     revenueByItem(chRbiRangeOption),
+    customersByDay(chCbdRangeOption),
   ]);
 
   return (
@@ -50,27 +58,34 @@ export default async function Page({ searchParams }: PageProps) {
       <SectionHero heroBanner={bannerCharts} sectionTitle={"Charts"} />
       <section className={styles["page__charts-view"]}>
         <ChartCard title={"Total Numbers"} subTitle={"Products, Brands, Categories, SubCategories, Product Images"}>
-          <TotalNumbersChart data={totData} />
+          <TotalNumbers data={totData} />
         </ChartCard>
         <ChartCard title={"Products per Brand"}>
-          <ProductsPerBrandChart data={ppbData} />
+          <ProductsPerBrand data={ppbData} />
         </ChartCard>
         <ChartCard title={"Products per Category"} options={<ProductsPerCategoryOptions data={ppcData} />}>
-          <ProductsPerCategoryChart data={ppcData} />
+          <ProductsPerCategory data={ppcData} />
         </ChartCard>
         <ChartCard
           title={"Orders by Day"}
           subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
-          options={<OrdersByDayOptions />}
+          options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} />}
         >
-          <OrdersByDayChart data={obdData} />
+          <OrdersByDay data={obdData} />
         </ChartCard>
         <ChartCard
           title={"Revenue by Item"}
           subTitle={`Total Quantity: ${rbiData.quantity}, Total Amount: ${formatPrice(rbiData.total)}`}
-          options={<RevenueByItemOptions />}
+          options={<TimeRangeOptions chartType="rbi" rangeKey={chRbiRangeKey} />}
         >
-          <RevenueByItemChart data={rbiData} />
+          <RevenueByItem data={rbiData} />
+        </ChartCard>
+        <ChartCard
+          title={"Customers by Day"}
+          subTitle={`Total Customers: ${cbdData.customers}`}
+          options={<TimeRangeOptions chartType="cbd" rangeKey={chCbdRangeKey} />}
+        >
+          <CustomersByDay data={cbdData} />
         </ChartCard>
       </section>
     </article>

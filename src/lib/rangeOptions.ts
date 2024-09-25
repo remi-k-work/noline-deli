@@ -1,5 +1,29 @@
 // other libraries
-import { startOfDay, subDays } from "date-fns";
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMonths,
+  differenceInYears,
+  eachDayOfInterval,
+  eachHourOfInterval,
+  eachMonthOfInterval,
+  eachWeekOfInterval,
+  eachYearOfInterval,
+  endOfWeek,
+  interval,
+  isSameDay,
+  isSameHour,
+  isSameMonth,
+  isSameWeek,
+  isSameYear,
+  max,
+  min,
+  startOfWeek,
+  subDays,
+  subHours,
+  subMonths,
+  subYears,
+} from "date-fns";
 
 // types
 export interface RangeOption {
@@ -15,27 +39,87 @@ interface RangeOptions {
 export const RANGE_OPTIONS: RangeOptions = {
   LAST_24_HOURS: {
     label: "Last 24 Hours",
-    startDate: startOfDay(subDays(new Date(), 1)),
+    startDate: subHours(new Date(), 24),
     endDate: new Date(),
   },
   LAST_7_DAYS: {
     label: "Last 7 Days",
-    startDate: startOfDay(subDays(new Date(), 6)),
+    startDate: subDays(new Date(), 7),
     endDate: new Date(),
   },
   LAST_MONTH: {
     label: "Last Month",
-    startDate: startOfDay(subDays(new Date(), 29)),
+    startDate: subMonths(new Date(), 1),
     endDate: new Date(),
   },
   LAST_3_MONTHS: {
     label: "Last 3 Months",
-    startDate: startOfDay(subDays(new Date(), 89)),
+    startDate: subMonths(new Date(), 3),
     endDate: new Date(),
   },
   LAST_YEAR: {
     label: "Last Year",
-    startDate: startOfDay(subDays(new Date(), 364)),
+    startDate: subYears(new Date(), 1),
     endDate: new Date(),
   },
 };
+
+// Create a properly scaled time axis with the appropriate tick unit for a given time range
+export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endDate?: Date) {
+  // Select either the predefined range or a custom time range
+  rangeOption && ({ startDate, endDate } = rangeOption);
+  if (!startDate || !endDate) return {};
+
+  // "Last 24 Hours" selected range or a custom range inside that boundary
+  if (differenceInHours(endDate, startDate) <= 24) {
+    return {
+      timeAxis: eachHourOfInterval(interval(startDate, endDate)),
+      isSame: isSameHour,
+      format: new Intl.DateTimeFormat("en", { hour: "numeric", hourCycle: "h12" }).format,
+    };
+  }
+
+  // "Last 7 Days" selected range or a custom range inside that boundary
+  if (differenceInDays(endDate, startDate) <= 7) {
+    return {
+      timeAxis: eachDayOfInterval(interval(startDate, endDate)),
+      isSame: isSameDay,
+      format: new Intl.DateTimeFormat("en", { weekday: "short" }).format,
+    };
+  }
+
+  // "Last Month" selected range or a custom range inside that boundary
+  if (differenceInMonths(endDate, startDate) <= 1) {
+    return {
+      timeAxis: eachDayOfInterval(interval(startDate, endDate)),
+      isSame: isSameDay,
+      format: new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format,
+    };
+  }
+
+  // "Last 3 Months" selected range or a custom range inside that boundary
+  if (differenceInMonths(endDate, startDate) <= 3) {
+    return {
+      timeAxis: eachWeekOfInterval(interval(startDate, endDate)),
+      isSame: isSameWeek,
+      format: (date: Date) => {
+        const start = max([startOfWeek(date), startDate]);
+        const end = min([endOfWeek(date), endDate]);
+
+        return `${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(start)} - ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(end)}`;
+      },
+    };
+  }
+
+  // "Last Year" selected range or a custom range inside that boundary
+  if (differenceInYears(endDate, startDate) <= 1) {
+    return {
+      timeAxis: eachMonthOfInterval(interval(startDate, endDate)),
+      isSame: isSameMonth,
+      format: new Intl.DateTimeFormat("en", { month: "short" }).format,
+    };
+  }
+
+  // Anything beyond the one-year boundary
+  return { timeAxis: eachYearOfInterval(interval(startDate, endDate)), isSame: isSameYear, format: new Intl.DateTimeFormat("en", { year: "numeric" }).format };
+}
