@@ -26,7 +26,13 @@ const ordersByDay = cache(async (rangeOption?: RangeOption) => {
   if (timeAxis) for (const timeTick of timeAxis) ordersByDay.push({ dayDate: timeTick, dayName: format(timeTick), orders: 0, sales: 0 });
 
   // Group retrieved orders by the day they were placed, then aggregate the number of orders and sales amount for that day
-  const data: OrdersByDayData = { ordersByDay, orders: totals._count, sales: totals._sum.totalPaid ?? 0 };
+  const data: OrdersByDayData = {
+    ordersByDay,
+    orders: totals._count,
+    sales: totals._sum.totalPaid ?? 0,
+    startDate: totals._min.created ?? new Date(),
+    endDate: totals._max.created ?? new Date(),
+  };
   if (!timeAxis) return data;
 
   data.ordersByDay = orders.reduce((acc, order) => {

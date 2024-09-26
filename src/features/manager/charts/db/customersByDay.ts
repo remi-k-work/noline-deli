@@ -26,7 +26,12 @@ const customersByDay = cache(async (rangeOption?: RangeOption) => {
   if (timeAxis) for (const timeTick of timeAxis) customersByDay.push({ dayDate: timeTick, dayName: format(timeTick), customers: 0 });
 
   // Group retrieved customers by the day they were created, then aggregate the number of customers for that day
-  const data: CustomersByDayData = { customersByDay, customers: totals._count };
+  const data: CustomersByDayData = {
+    customersByDay,
+    customers: totals._count,
+    startDate: totals._min.createdAt ?? new Date(),
+    endDate: totals._max.createdAt ?? new Date(),
+  };
   if (!timeAxis) return data;
 
   data.customersByDay = customers.reduce((acc, customer) => {

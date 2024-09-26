@@ -41,16 +41,16 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
-  const { chPpcCategoryId, chObdRangeKey, chObdRangeOption, chRbiRangeKey, chRbiRangeOption, chCbdRangeKey, chCbdRangeOption } = searchParamsState;
+  const { chPpcCategoryId, chObdRangeKey, chRbiRangeKey, chCbdRangeKey, rangeOptionFromKey } = searchParamsState;
 
   // Collect all relevant totals (such as the total number of products and brands) plus other chart data
   const [totData, ppbData, ppcData, obdData, rbiData, cbdData] = await Promise.all([
     totalNumbers(),
     productsPerBrand(),
     productsPerCategory(chPpcCategoryId),
-    ordersByDay(chObdRangeOption),
-    revenueByItem(chRbiRangeOption),
-    customersByDay(chCbdRangeOption),
+    ordersByDay(rangeOptionFromKey(chObdRangeKey)),
+    revenueByItem(rangeOptionFromKey(chRbiRangeKey)),
+    customersByDay(rangeOptionFromKey(chCbdRangeKey)),
   ]);
 
   return (
@@ -69,21 +69,21 @@ export default async function Page({ searchParams }: PageProps) {
         <ChartCard
           title={"Orders by Day"}
           subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
-          options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} />}
+          options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} startDate={obdData.startDate} endDate={obdData.endDate} />}
         >
           <OrdersByDay data={obdData} />
         </ChartCard>
         <ChartCard
           title={"Revenue by Item"}
           subTitle={`Total Quantity: ${rbiData.quantity}, Total Amount: ${formatPrice(rbiData.total)}`}
-          options={<TimeRangeOptions chartType="rbi" rangeKey={chRbiRangeKey} />}
+          options={<TimeRangeOptions chartType="rbi" rangeKey={chRbiRangeKey} startDate={rbiData.startDate} endDate={rbiData.endDate} />}
         >
           <RevenueByItem data={rbiData} />
         </ChartCard>
         <ChartCard
           title={"Customers by Day"}
           subTitle={`Total Customers: ${cbdData.customers}`}
-          options={<TimeRangeOptions chartType="cbd" rangeKey={chCbdRangeKey} />}
+          options={<TimeRangeOptions chartType="cbd" rangeKey={chCbdRangeKey} startDate={cbdData.startDate} endDate={cbdData.endDate} />}
         >
           <CustomersByDay data={cbdData} />
         </ChartCard>

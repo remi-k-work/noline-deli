@@ -1,20 +1,48 @@
 // component css styles
-import { getBrowseBarData } from "@/features/manager/products/db";
 import styles from "./page.module.css";
 
-// components
-import { default as ProductsTableView } from "@/app/test/products/components/products-table-tan/View";
-import { RANGE_OPTIONS } from "@/lib/rangeOptions";
-import customersByDay from "@/features/manager/charts/db/customersByDay";
+// next
+import { ReadonlyURLSearchParams } from "next/navigation";
+
+// prisma and db access
 import ordersByDay from "@/features/manager/charts/db/ordersByDay";
+
+// other libraries
+import SearchParamsState from "@/features/manager/SearchParamsState";
+import { formatPrice } from "@/lib/helpers";
+
+// components
+import { default as ChartCard } from "@/features/manager/charts/components/cards/Chart";
+import TimeRangeOptions from "@/features/manager/charts/components/charts/TimeRangeOptions";
+import OrdersByDay from "@/features/manager/charts/components/charts/OrdersByDay";
+
+// types
+interface PageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► Products",
 };
 
-export default async function Page() {
+export default async function Page({ searchParams }: PageProps) {
+  const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
+  const { chObdRangeKey, rangeOptionFromKey } = searchParamsState;
+
+  const obdData = await ordersByDay(rangeOptionFromKey(chObdRangeKey));
+
   // console.log(await ordersByDay(RANGE_OPTIONS.LAST_YEAR));
   // console.log(a, b);
 
-  return <article className={styles["page"]}>{/* <ProductsTableView /> */}</article>;
+  return (
+    <article className={styles["page"]}>
+      <ChartCard
+        title={"Orders by Day"}
+        subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
+        options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} startDate={obdData.startDate} endDate={obdData.endDate} />}
+      >
+        <OrdersByDay data={obdData} />
+      </ChartCard>
+    </article>
+  );
 }

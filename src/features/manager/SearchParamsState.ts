@@ -4,6 +4,8 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 // other libraries
 import { RangeOption } from "@/lib/rangeOptions";
 import { RANGE_OPTIONS } from "@/lib/rangeOptions";
+import { DateRange } from "react-day-picker";
+import { endOfDay, startOfDay } from "date-fns";
 
 // types
 enum SearchParamName {
@@ -47,11 +49,8 @@ export default class SearchParamsState {
   // Charts
   public readonly chPpcCategoryId?: string;
   public readonly chObdRangeKey?: string;
-  public readonly chObdRangeOption?: RangeOption;
   public readonly chRbiRangeKey?: string;
-  public readonly chRbiRangeOption?: RangeOption;
   public readonly chCbdRangeKey?: string;
-  public readonly chCbdRangeOption?: RangeOption;
 
   constructor(
     private readonly pathname: string,
@@ -72,11 +71,32 @@ export default class SearchParamsState {
 
     this.chPpcCategoryId = this.searchParams.get(SearchParamName.chPpcCategoryId) ?? undefined;
     this.chObdRangeKey = this.searchParams.get(SearchParamName.chObdRangeKey) ?? undefined;
-    this.chObdRangeOption = this.chObdRangeKey ? RANGE_OPTIONS[this.chObdRangeKey] : undefined;
     this.chRbiRangeKey = this.searchParams.get(SearchParamName.chRbiRangeKey) ?? undefined;
-    this.chRbiRangeOption = this.chRbiRangeKey ? RANGE_OPTIONS[this.chRbiRangeKey] : undefined;
     this.chCbdRangeKey = this.searchParams.get(SearchParamName.chCbdRangeKey) ?? undefined;
-    this.chCbdRangeOption = this.chCbdRangeKey ? RANGE_OPTIONS[this.chCbdRangeKey] : undefined;
+  }
+
+  // Use the predefined range key value to extract the relevant range option
+  rangeOptionFromKey(rangeKey?: string): RangeOption | undefined {
+    if (rangeKey) {
+      // Are we working with a custom date range option?
+      if (rangeKey.startsWith("*")) {
+        // Yes, get both start and end dates from this range key value
+        const startDate: Date = new Date(rangeKey.substring(1).split(",")[0]);
+        const endDate: Date = new Date(rangeKey.substring(1).split(",")[1]);
+
+        // Has the same day been chosen as the start and end dates?
+        if (startDate.getTime() === endDate.getTime()) {
+          // Yes, divide the day into 24 hours (from beginning to end)
+          return { label: "Custom Date", startDate: startOfDay(startDate), endDate: endOfDay(endDate) };
+        }
+
+        // Return the custom date range option
+        return { label: "Custom Date", startDate, endDate };
+      } else {
+        // Otherwise, return the predefined range option
+        return RANGE_OPTIONS[rangeKey];
+      }
+    }
   }
 
   // Are we in action feedback mode?
@@ -170,14 +190,41 @@ export default class SearchParamsState {
     this.updateParams(undefined, [[SearchParamName.chObdRangeKey, newRangeKey]]);
     return this.hrefWithParams;
   }
+  chartObdCustomRangeProvided(dateRange: DateRange) {
+    this.updateParams(undefined, [
+      [
+        SearchParamName.chObdRangeKey,
+        `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
+      ],
+    ]);
+    return this.hrefWithParams;
+  }
 
   chartRbiRangeChanged(newRangeKey: string) {
     this.updateParams(undefined, [[SearchParamName.chRbiRangeKey, newRangeKey]]);
     return this.hrefWithParams;
   }
+  chartRbiCustomRangeProvided(dateRange: DateRange) {
+    this.updateParams(undefined, [
+      [
+        SearchParamName.chRbiRangeKey,
+        `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
+      ],
+    ]);
+    return this.hrefWithParams;
+  }
 
   chartCbdRangeChanged(newRangeKey: string) {
     this.updateParams(undefined, [[SearchParamName.chCbdRangeKey, newRangeKey]]);
+    return this.hrefWithParams;
+  }
+  chartCbdCustomRangeProvided(dateRange: DateRange) {
+    this.updateParams(undefined, [
+      [
+        SearchParamName.chCbdRangeKey,
+        `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
+      ],
+    ]);
     return this.hrefWithParams;
   }
 

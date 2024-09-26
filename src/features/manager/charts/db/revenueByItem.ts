@@ -9,9 +9,10 @@ import { RangeOption } from "@/lib/rangeOptions";
 import { RevenueByItemData } from "./types";
 
 const revenueByItem = cache(async (rangeOption?: RangeOption) => {
-  const [totals, items] = await Promise.all([
+  const [totalsItem, totalsOrder, items] = await Promise.all([
     // Gather both the total quantity of ordered items and the entire total amount (totals)
     prisma.orderedItem.aggregate({ _sum: { quantity: true, total: true } }),
+    prisma.order.aggregate({ _min: { created: true }, _max: { created: true } }),
     // Collect ordered items for a given time period or all of them, group them by name, and aggregate their quantities and total amounts
     rangeOption
       ? prisma.orderedItem.groupBy({
@@ -23,7 +24,13 @@ const revenueByItem = cache(async (rangeOption?: RangeOption) => {
       : prisma.orderedItem.groupBy({ by: "name", _sum: { quantity: true, total: true }, orderBy: { name: "asc" } }),
   ]);
 
-  const data: RevenueByItemData = { revenueByItem: [], quantity: totals._sum.quantity ?? 0, total: totals._sum.total ?? 0 };
+  const data: RevenueByItemData = {
+    revenueByItem: [],
+    quantity: totalsItem._sum.quantity ?? 0,
+    total: totalsItem._sum.total ?? 0,
+    startDate: totalsOrder._min.created ?? new Date(),
+    endDate: totalsOrder._max.created ?? new Date(),
+  };
   for (const {
     name,
     _sum: { quantity, total },

@@ -45,6 +45,8 @@ export interface OrdersByDayData {
   ordersByDay: OrdersByDay[];
   orders: number;
   sales: number;
+  startDate: Date;
+  endDate: Date;
 }
 
 interface RevenueByItem {
@@ -57,6 +59,8 @@ export interface RevenueByItemData {
   revenueByItem: RevenueByItem[];
   quantity: number;
   total: number;
+  startDate: Date;
+  endDate: Date;
 }
 
 export interface CustomersByDay {
@@ -68,4 +72,6 @@ export interface CustomersByDay {
 export interface CustomersByDayData {
   customersByDay: CustomersByDay[];
   customers: number;
+  startDate: Date;
+  endDate: Date;
 }

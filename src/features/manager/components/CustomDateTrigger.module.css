@@ -1,0 +1,7 @@
+.custom-date-trigger__custom-date {
+  inline-size: 95vw;
+  inline-size: 95svw;
+  inline-size: 95dvw;
+
+  max-inline-size: var(--size-content-3);
+}
