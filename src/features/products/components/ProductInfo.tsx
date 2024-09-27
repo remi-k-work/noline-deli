@@ -49,7 +49,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     return null;
   }
 
-  const { name, description, price, freeShipping, categories, subCategories, moreImages, brand } = product;
+  const { name, description, imageUrl, price, freeShipping, categories, subCategories, moreImages, brand } = product;
 
   return (
     <Table className={styles["product-info"]}>
@@ -64,6 +64,21 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <TableCell>{name}</TableCell>
           <TableCell className="text-end">
             <PriceTag priceInCents={price} />
+          </TableCell>
+        </TableRow>
+        <TableRow className={lusitana.className}>
+          <TableHead colSpan={2}>Image</TableHead>
+        </TableRow>
+        <TableRow className="bg-[--surface-3]">
+          <TableCell colSpan={2}>
+            <Image
+              src={PathFinder.toResolvedProductImage(imageUrl)}
+              width={640}
+              height={400}
+              alt={name}
+              sizes="50vw"
+              className="m-auto h-72 w-auto object-contain"
+            />
           </TableCell>
         </TableRow>
         <CategoryAndSubCategory categories={categories} subCategories={subCategories} />

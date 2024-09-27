@@ -1,83 +1,42 @@
 .header {
-  inline-size: 100%;
-
-  display: grid;
-
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto auto auto auto auto;
-  gap: var(--size-3);
-
-  grid-template-areas:
-    "onu"
-    "dat"
-    "ema"
-    "tot"
-    "pme"
-    "rec"
-    "sto";
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
 }
 
-.header h3 {
+.header > h2 {
   max-inline-size: none;
   background: var(--surface-4);
   color: var(--text-2);
-  padding-inline: var(--size-2);
+  padding-inline: var(--size-1);
   padding-block: var(--size-1);
+  border-radius: var(--radius-blob-4);
+  font-size: var(--font-size-5);
+  margin-block: 0 var(--size-6);
+  display: flex;
+  align-items: center;
+  gap: var(--size-3);
 }
 
-.header__order-number {
-  grid-area: onu;
+.header__summary {
+  display: grid;
+  gap: var(--size-3);
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
 }
 
-.header__date {
-  grid-area: dat;
+.header__summary h3 {
+  max-inline-size: none;
+  color: var(--text-2);
 }
 
-.header__email {
-  grid-area: ema;
+.header__summary > div {
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+  border-radius: var(--size-2);
 }
 
-.header__total {
-  grid-area: tot;
-}
-
-.header__payment-method {
-  grid-area: pme;
-}
-
-.header__receipt {
-  grid-area: rec;
-}
-
-.header__ship-to {
-  grid-area: sto;
-}
-
-/* || MEDIA QUERIES */
-
-/* 2XL screens */
-@media screen and (min-width: 2304px) {
-  .header {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
-
-    grid-template-areas:
-      "onu dat"
-      "ema tot"
-      "pme rec"
-      "sto sto";
-  }
-}
-
-/* 2XL screens */
-@media screen and (min-width: 3072px) {
-  .header {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-
-    grid-template-areas:
-      "onu dat ema"
-      "tot pme rec"
-      ".   sto .  ";
-  }
+.header__summary > div:nth-child(even) {
+  background: var(--surface-2);
 }

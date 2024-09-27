@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./index.module.css";
-
 // prisma and db access
 import { DerivedCartWithItems } from "../../db/cart";
 
@@ -24,12 +21,11 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
   const { cartItems, totalQty, subTotal, taxAmount } = cart;
 
   return (
-    <Table className={styles["cart-table"]}>
+    <Table>
       <TableHeader className={lusitana.className}>
         <TableRow>
-          <TableHead className="w-[44%]">Item</TableHead>
-          <TableHead className="w-[24%]">Qty</TableHead>
-          <TableHead className="w-[32%] text-end">Total</TableHead>
+          <TableHead className="w-[70%]">Item</TableHead>
+          <TableHead className="w-[30%] text-end">Qty / Total</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -39,35 +35,24 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
       </TableBody>
       <TableFooter className={lusitana.className}>
         <TableRow>
-          <TableHead className="text-end text-xl">Total Qty:</TableHead>
-          <TableHead className="text-xl">{totalQty}</TableHead>
-          <TableHead>&nbsp;</TableHead>
-        </TableRow>
-        <TableRow>
-          <TableHead className="text-end text-xl">Subtotal:</TableHead>
-          <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-            {formatPrice(subTotal)}
+          <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
+          <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
+            {totalQty} / {formatPrice(subTotal)}
           </TableHead>
         </TableRow>
         {shippingCost && (
           <>
             <TableRow>
               <TableHead className="text-end text-xl">Taxes:</TableHead>
-              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-                {formatPrice(taxAmount)}
-              </TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(taxAmount)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-xl">Shipping:</TableHead>
-              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-                {formatPrice(shippingCost)}
-              </TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(shippingCost)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-              <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-2xl underline">
-                {formatPrice(subTotal + taxAmount + shippingCost)}
-              </TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">{formatPrice(subTotal + taxAmount + shippingCost)}</TableHead>
             </TableRow>
           </>
         )}

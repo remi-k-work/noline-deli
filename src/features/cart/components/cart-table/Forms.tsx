@@ -51,7 +51,7 @@ function IncCartItemQtyButton() {
       <TooltipTrigger type="submit" className="btn btn-circle glass btn-secondary btn-sm" disabled={pending}>
         {pending ? <span className="loading loading-spinner"></span> : <PlusCircleIcon width={24} height={24} />}
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent side="left">
         <p>Increase quantity by one</p>
       </TooltipContent>
     </Tooltip>
@@ -78,7 +78,7 @@ function DecCartItemQtyButton() {
       <TooltipTrigger type="submit" className="btn btn-circle glass btn-secondary btn-sm" disabled={pending}>
         {pending ? <span className="loading loading-spinner"></span> : <MinusCircleIcon width={24} height={24} />}
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent side="left">
         <p>Decrease quantity by one</p>
       </TooltipContent>
     </Tooltip>

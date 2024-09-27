@@ -27,21 +27,18 @@ export default function Entry({ cartItem }: EntryProps) {
   return (
     <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
       <TableCell>
-        <ItemImageWithTrigger product={product} href={routeToProductDetails(name, productId)} />
-      </TableCell>
-      <TableCell className="overflow-clip">
         <section className="flex items-center gap-1">
-          <header className="flex flex-col items-center gap-1">
+          <ItemImageWithTrigger product={product} href={routeToProductDetails(name, productId)} />
+          <footer className="flex flex-col items-center gap-1">
             <IncCartItemQtyForm cartItemId={id} />
-            {quantity}
-            <DecCartItemQtyForm cartItemId={id} />
-          </header>
-          <footer>
             <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
+            <DecCartItemQtyForm cartItemId={id} />
           </footer>
         </section>
       </TableCell>
-      <TableCell className="overflow-clip whitespace-nowrap text-end">{formatPrice(quantity * price)}</TableCell>
+      <TableCell className="overflow-clip whitespace-nowrap text-end">
+        {quantity} / {formatPrice(quantity * price)}
+      </TableCell>
     </TableRow>
   );
 }

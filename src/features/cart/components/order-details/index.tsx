@@ -44,9 +44,8 @@ export default function OrderDetails({
       <Table>
         <TableHeader className={lusitana.className}>
           <TableRow>
-            <TableHead className="w-[60%]">Item</TableHead>
-            <TableHead className="w-[20%] text-center">Qty</TableHead>
-            <TableHead className="w-[20%] text-end">Total</TableHead>
+            <TableHead className="w-[70%]">Item and Description</TableHead>
+            <TableHead className="w-[30%] text-end">Qty / Total</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -56,31 +55,22 @@ export default function OrderDetails({
         </TableBody>
         <TableFooter className={lusitana.className}>
           <TableRow>
-            <TableHead className="text-end text-xl">Total Qty:</TableHead>
-            <TableHead className="text-center text-xl">{totalQty}</TableHead>
-            <TableHead>&nbsp;</TableHead>
-          </TableRow>
-          <TableRow>
-            <TableHead className="text-end text-xl">Subtotal:</TableHead>
-            <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-              {formatPrice(subTotal)}
+            <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
+              {totalQty} / {formatPrice(subTotal)}
             </TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Taxes:</TableHead>
-            <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-              {formatPrice(taxAmount)}
-            </TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(taxAmount)}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Shipping:</TableHead>
-            <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-xl">
-              {formatPrice(Number(shippingCost))}
-            </TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(Number(shippingCost))}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-            <TableHead colSpan={2} className="overflow-clip whitespace-nowrap text-end text-2xl underline">
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">
               {formatPrice(subTotal + taxAmount + Number(shippingCost))}
             </TableHead>
           </TableRow>

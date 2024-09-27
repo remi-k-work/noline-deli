@@ -2,6 +2,7 @@
 import { FilterFn } from "@tanstack/react-table";
 import { RangeOption } from "./rangeOptions";
 import { DateRange } from "react-day-picker";
+import { endOfDay, startOfDay } from "date-fns";
 
 const dateBetweenFilterFn: FilterFn<any> = (row, columnId, value: RangeOption | DateRange) => {
   const date = row.getValue(columnId);
@@ -20,6 +21,13 @@ const dateBetweenFilterFn: FilterFn<any> = (row, columnId, value: RangeOption | 
   if (!(start instanceof Date || start === undefined) || !(end instanceof Date || end === undefined)) {
     console.error(`Filter value of column "${columnId}" is expected to be an array of two dates, but got ${value}`);
     return false;
+  }
+
+  // Has the same day been chosen as the start and end dates?
+  if (start && end && start.getTime() === end.getTime()) {
+    // Yes, divide the day into 24 hours (from beginning to end)
+    start = startOfDay(start);
+    end = endOfDay(end);
   }
 
   // If one filter defined and date is undefined, filter it

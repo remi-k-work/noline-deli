@@ -31,10 +31,13 @@ export default async function OrderComplete({
   if (!orderedCart) notFound();
 
   return (
-    <article className={styles["order-complete"]}>
-      <Status paymentIntent={paymentIntent} className={styles["order-complete__status"]} />
-      <Header paymentIntent={paymentIntent} className={styles["order-complete__header"]} />
-      <OrderDetails orderedCart={orderedCart} paymentIntent={paymentIntent} className={styles["order-complete__details"]} />
-    </article>
+    <>
+      <Status paymentIntent={paymentIntent} />
+      <br />
+      <article className={styles["order-complete"]}>
+        <Header paymentIntent={paymentIntent} />
+        <OrderDetails orderedCart={orderedCart} paymentIntent={paymentIntent} />
+      </article>
+    </>
   );
 }

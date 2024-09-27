@@ -1,8 +1,12 @@
 .order-details {
-  inline-size: 100%;
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+  border-radius: var(--radius-3);
 }
 
 .order-details > h2 {
+  max-inline-size: none;
   background: var(--surface-4);
   color: var(--text-2);
   padding-inline: var(--size-1);
