@@ -1,7 +1,7 @@
 const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" });
 const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
-const DATE_TIME_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short" });
-const DATE_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium" });
+const DATE_TIME_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" });
+const DATE_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeZone: "UTC" });
 
 // Format the price from cents to dollars using usd currency
 export function formatCurrency(priceInCents: number) {

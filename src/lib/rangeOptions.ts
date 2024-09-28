@@ -75,7 +75,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachHourOfInterval(interval(startDate, endDate)),
       isSame: isSameHour,
-      format: new Intl.DateTimeFormat("en", { hour: "numeric", hourCycle: "h12" }).format,
+      format: new Intl.DateTimeFormat("en", { hour: "numeric", hourCycle: "h12", timeZone: "UTC" }).format,
     };
   }
 
@@ -84,7 +84,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachDayOfInterval(interval(startDate, endDate)),
       isSame: isSameDay,
-      format: new Intl.DateTimeFormat("en", { weekday: "short" }).format,
+      format: new Intl.DateTimeFormat("en", { weekday: "short", timeZone: "UTC" }).format,
     };
   }
 
@@ -93,7 +93,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachDayOfInterval(interval(startDate, endDate)),
       isSame: isSameDay,
-      format: new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format,
+      format: new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format,
     };
   }
 
@@ -106,7 +106,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
         const start = max([startOfWeek(date), startDate]);
         const end = min([endOfWeek(date), endDate]);
 
-        return `${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(start)} - ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(end)}`;
+        return `${new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(start)} - ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(end)}`;
       },
     };
   }
@@ -116,10 +116,14 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachMonthOfInterval(interval(startDate, endDate)),
       isSame: isSameMonth,
-      format: new Intl.DateTimeFormat("en", { month: "short" }).format,
+      format: new Intl.DateTimeFormat("en", { month: "short", timeZone: "UTC" }).format,
     };
   }
 
   // Anything beyond the one-year boundary
-  return { timeAxis: eachYearOfInterval(interval(startDate, endDate)), isSame: isSameYear, format: new Intl.DateTimeFormat("en", { year: "numeric" }).format };
+  return {
+    timeAxis: eachYearOfInterval(interval(startDate, endDate)),
+    isSame: isSameYear,
+    format: new Intl.DateTimeFormat("en", { year: "numeric", timeZone: "UTC" }).format,
+  };
 }
