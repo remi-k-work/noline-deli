@@ -7,7 +7,6 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { routeToProductDetails } from "@/features/products/helpers";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -31,7 +30,7 @@ export default function ProductCard({ product, listMode = false }) {
 
   return listMode ? (
     <article className={cn(styles["product-card"], styles["product-card--list-mode"], "indicator")}>
-      <Link href={routeToProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
+      <Link href={PathFinder.toSfProductDetails(name, id)} className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-start z-10">NEW</span>}
           <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="max-h-72 w-full object-cover" />
@@ -53,7 +52,7 @@ export default function ProductCard({ product, listMode = false }) {
     </article>
   ) : (
     <article className={cn(styles["product-card"], "indicator")}>
-      <Link href={routeToProductDetails(name, id)} className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
+      <Link href={PathFinder.toSfProductDetails(name, id)} className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
           {isNew && <span className="badge indicator-item badge-secondary indicator-center">NEW</span>}
           <Image

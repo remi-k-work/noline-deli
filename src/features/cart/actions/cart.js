@@ -7,8 +7,7 @@ import { revalidatePath } from "next/cache";
 import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "../db/cart";
 
 // other libraries
-import { pathToCart } from "../helpers";
-import { pathToProductDetails } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 export async function deleteCartArticle(cartItemId) {
   // Get an existing or brand-new empty cart from our database
@@ -18,7 +17,7 @@ export async function deleteCartArticle(cartItemId) {
   await delCartItem(cart.id, cartItemId);
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath(pathToCart);
+  revalidatePath(PathFinder.toSfCartReval());
 }
 
 export async function decArticleByOne(cartItemId) {
@@ -31,7 +30,7 @@ export async function decArticleByOne(cartItemId) {
     await decCartItemQty(cart.id, cartItemId);
 
     // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-    revalidatePath(pathToCart);
+    revalidatePath(PathFinder.toSfCartReval());
   }
 }
 
@@ -45,7 +44,7 @@ export async function incArticleByOne(cartItemId) {
     await incCartItemQty(cart.id, cartItemId);
 
     // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-    revalidatePath(pathToCart);
+    revalidatePath(PathFinder.toSfCartReval());
   }
 }
 
@@ -68,7 +67,7 @@ export async function addToCart(productId, formState) {
   }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath(pathToProductDetails, "page");
+  revalidatePath(PathFinder.toSfProductDetailsReval(), "page");
 
   // Get the recently modified cart state so we may provide feedback to the user
   const { totalQty, subTotal } = await getCart();

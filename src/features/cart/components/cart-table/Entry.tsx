@@ -3,7 +3,7 @@ import { CartItemWithProduct } from "../../db/cart";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
-import { routeToProductDetails } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -28,7 +28,7 @@ export default function Entry({ cartItem }: EntryProps) {
     <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
       <TableCell>
         <section className="flex items-center gap-1">
-          <ItemImageWithTrigger product={product} href={routeToProductDetails(name, productId)} />
+          <ItemImageWithTrigger product={product} href={PathFinder.toSfProductDetails(name, productId)} />
           <footer className="flex flex-col items-center gap-1">
             <IncCartItemQtyForm cartItemId={id} />
             <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />

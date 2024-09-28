@@ -6,7 +6,7 @@ import Link from "next/link";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import { routeToCart } from "@/features/cart/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 // assets
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
@@ -52,7 +52,7 @@ export default function CartIndicator({ cart, className = "" }) {
           <span className="text-lg font-bold">{totalQty} Item(s)</span>
           <span className="text-info">Subtotal: {formatPrice(subTotal)}</span>
           <div className="card-actions">
-            <Link href={routeToCart} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
+            <Link href={PathFinder.toSfCart()} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
               View Cart
             </Link>
           </div>

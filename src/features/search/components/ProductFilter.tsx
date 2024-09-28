@@ -15,7 +15,7 @@ import { ProductFilterData } from "../searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 import { useDebouncedCallback } from "use-debounce";
 import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 
@@ -121,8 +121,7 @@ export default function ProductFilter({
   }
 
   // Show a product filter only when displaying a bunch of products
-  const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
-  if (!productPaths.some((path) => pathname.startsWith(path))) return null;
+  if (!PathFinder.isBunchOfProducts(pathname)) return null;
 
   return (
     <article className={cn(styles["product-filter"], className)}>
@@ -196,8 +195,7 @@ export function ProductFilterSkeleton({ isIndicator = false, sheetMode = false, 
   if (isIndicator) return <div className={cn("skeleton h-12 w-12 rounded-full", className)} />;
 
   // Show a product filter only when displaying a bunch of products
-  const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
-  if (!productPaths.some((path) => pathname.startsWith(path))) return null;
+  if (!PathFinder.isBunchOfProducts(pathname)) return null;
 
   return (
     <article className={cn(styles["product-filter-skeleton"], className)}>

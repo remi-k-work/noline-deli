@@ -9,7 +9,6 @@ import Image from "next/image";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import { routeToAllProductsByBrand } from "@/features/products/helpers";
 import PathFinder from "@/features/manager/PathFinder";
 
 // types
@@ -28,7 +27,7 @@ export default function BrandPreview({ brand }: BrandPreviewProps) {
 
   return (
     <article className={styles["brand-preview"]}>
-      <Link href={routeToAllProductsByBrand(name, id)} className="transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
+      <Link href={PathFinder.toSfProductsByBrand(name, id)} className="transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
         {logoUrl && (
           <header className={styles["brand-preview__logo"]}>
             <Image src={PathFinder.toResolvedBrandLogo(logoUrl)} width={320} height={200} alt={name} sizes="50vw" className="object-contain" />

@@ -12,7 +12,7 @@ import { ProductFilterData } from "@/features/search/searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
-import { pathToProducts, pathToProductsBrand, pathToProductsSearch } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -37,8 +37,7 @@ export default function SideBarSheetTrigger({ productFilterData, filteredCount, 
 
   // Show a product filter only when displaying a bunch of products
   const pathname = usePathname();
-  const productPaths = [pathToProducts, pathToProductsSearch, pathToProductsBrand];
-  if (!productPaths.some((path) => pathname.startsWith(path))) return null;
+  if (!PathFinder.isBunchOfProducts(pathname)) return null;
 
   return (
     !isLarge && (

@@ -1,9 +1,13 @@
 // types
 enum ParamName {
   brandId = "[brandId]",
+  brandName = "[brandName]",
   categoryId = "[categoryId]",
+  categoryName = "[categoryName]",
   subCategoryId = "[subCategoryId]",
+  subCategoryName = "[subCategoryName]",
   productId = "[productId]",
+  productName = "[productName]",
   captchaName = "[name]",
   orderId = "[orderId]",
 }
@@ -15,6 +19,17 @@ enum SearchParamName {
 }
 
 enum PathTo {
+  storeFront = "",
+  sfAllProducts = storeFront + "/products",
+  sfProductsSearch = storeFront + "/search",
+  sfProductsBrand = storeFront + "/brand",
+  sfProductsByBrand = sfProductsBrand + `/${ParamName.brandName}/${ParamName.brandId}`,
+  sfProductsByCategory = sfAllProducts + `/${ParamName.categoryName}/${ParamName.categoryId}`,
+  sfProductsByCategoryAndSubCategory = sfProductsByCategory + `/${ParamName.subCategoryName}/${ParamName.subCategoryId}`,
+  sfProductDetails = storeFront + `/${ParamName.productName}/${ParamName.productId}`,
+
+  sfCart = storeFront + "/cart",
+
   managerLogin = "/auth/login",
 
   manager = "/manager",
@@ -50,6 +65,38 @@ enum PathTo {
 const REMOTE_HOSTNAMES = ["images.unsplash.com", "plus.unsplash.com"];
 
 export default class PathFinder {
+  static toSfAllProducts = () => PathTo.sfAllProducts;
+  static toSfProductsSearch = () => PathTo.sfProductsSearch;
+  static toSfProductsBrand = () => PathTo.sfProductsBrand;
+
+  static toSfProductsByBrand = (brandName: string, brandId: string) =>
+    // Incorporate the brand name in the url to make it search-engine-friendly
+    PathTo.sfProductsByBrand.replace(ParamName.brandName, encodeURIComponent(brandName)).replace(ParamName.brandId, brandId);
+
+  static toSfProductsByCategory = (categoryName: string, categoryId: string) =>
+    // Incorporate the category name in the url to make it search-engine-friendly
+    PathTo.sfProductsByCategory.replace(ParamName.categoryName, encodeURIComponent(categoryName)).replace(ParamName.categoryId, categoryId);
+
+  static toSfProductsByCategoryAndSubCategory = (categoryName: string, categoryId: string, subCategoryName: string, subCategoryId: string) =>
+    // Incorporate both category and subcategory names in the url to make it search-engine-friendly
+    PathTo.sfProductsByCategoryAndSubCategory
+      .replace(ParamName.categoryName, encodeURIComponent(categoryName))
+      .replace(ParamName.categoryId, categoryId)
+      .replace(ParamName.subCategoryName, encodeURIComponent(subCategoryName))
+      .replace(ParamName.subCategoryId, subCategoryId);
+
+  static toSfProductDetails = (productName: string, productId: string) =>
+    // Incorporate the product name in the url to make it search-engine-friendly
+    PathTo.sfProductDetails.replace(ParamName.productName, encodeURIComponent(productName)).replace(ParamName.productId, productId);
+  static toSfProductDetailsReval = () => PathTo.sfProductDetails;
+
+  static toSfCart = () => PathTo.sfCart;
+  static toSfCartReval = () => PathTo.sfCart;
+
+  // Are we displaying a bunch of products?
+  static isBunchOfProducts = (pathname: string) =>
+    [PathTo.sfAllProducts, PathTo.sfProductsSearch, PathTo.sfProductsBrand].some((path) => pathname.startsWith(path));
+
   static toManagerLogin = () => PathTo.managerLogin;
 
   static toManagerHome = () => PathTo.manager;

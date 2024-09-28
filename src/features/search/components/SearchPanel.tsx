@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import { pathToProductsSearch } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 
 // assets
@@ -25,7 +25,7 @@ interface SearchPanelProps {
 }
 
 export default function SearchPanel({ searchedCount = 0, className }: SearchPanelProps) {
-  const searchParamsState = useSearchParamsState(pathToProductsSearch);
+  const searchParamsState = useSearchParamsState(PathFinder.toSfProductsSearch());
   const { keyword } = searchParamsState;
 
   const { replace } = useRouter();

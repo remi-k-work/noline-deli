@@ -11,7 +11,6 @@ import { ProductWithAll } from "../productsDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import { routeToProductDetails } from "@/features/products/helpers";
 import PathFinder from "@/features/manager/PathFinder";
 
 // components
@@ -35,7 +34,7 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
     <article className={styles["product-excerpt"]}>
       <div className={styles["product-excerpt__background"]}></div>
       <Link
-        href={routeToProductDetails(name, id)}
+        href={PathFinder.toSfProductDetails(name, id)}
         className={cn(styles["product-excerpt__image"], "transition-transform delay-150 duration-700 ease-in-out hover:translate-x-2")}
       >
         <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-36 w-auto object-cover" />

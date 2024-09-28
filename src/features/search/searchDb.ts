@@ -8,7 +8,7 @@ import { whereAdminApproved } from "../manager/auth/db";
 import { allCategories, INCLUDE_PRODUCT_WITH_ALL } from "../products/productsDb";
 
 // other libraries
-import { routeToAllProducts, routeToProductsByCategory, routeToProductsByCategoryAndSubCategory } from "@/features/products/helpers";
+import PathFinder from "@/features/manager/PathFinder";
 import { CategoriesTreeViewEntry } from "../products/components/CategoriesTreeView";
 
 // types
@@ -22,17 +22,17 @@ export const getCategoriesTreeViewData = cache(async (): Promise<CategoriesTreeV
 
   const data: CategoriesTreeViewEntry[] = [];
   for (const { id: categoryId, name: categoryName, subCategories } of categories) {
-    data.push({ label: categoryName, href: routeToProductsByCategory(categoryName, categoryId), subCategories: [] });
+    data.push({ label: categoryName, href: PathFinder.toSfProductsByCategory(categoryName, categoryId), subCategories: [] });
     for (const { id: subCategoryId, name: subCategoryName } of subCategories) {
       data.at(-1)?.subCategories?.push({
         label: subCategoryName,
-        href: routeToProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId),
+        href: PathFinder.toSfProductsByCategoryAndSubCategory(categoryName, categoryId, subCategoryName, subCategoryId),
         subCategories: [],
       });
     }
   }
 
-  return [{ label: "All Products", href: routeToAllProducts, subCategories: data }];
+  return [{ label: "All Products", href: PathFinder.toSfAllProducts(), subCategories: data }];
 });
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
