@@ -2,7 +2,7 @@
 import { DerivedCartWithItems } from "../../db/cart";
 
 // other libraries
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -37,22 +37,24 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
         <TableRow>
           <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
           <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
-            {totalQty} / {formatPrice(subTotal)}
+            {totalQty} / {formatCurrency(subTotal)}
           </TableHead>
         </TableRow>
         {shippingCost && (
           <>
             <TableRow>
               <TableHead className="text-end text-xl">Taxes:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(taxAmount)}</TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(taxAmount)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-xl">Shipping:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(shippingCost)}</TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(shippingCost)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">{formatPrice(subTotal + taxAmount + shippingCost)}</TableHead>
+              <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">
+                {formatCurrency(subTotal + taxAmount + shippingCost)}
+              </TableHead>
             </TableRow>
           </>
         )}

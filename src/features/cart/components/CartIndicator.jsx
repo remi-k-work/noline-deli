@@ -5,7 +5,7 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // assets
@@ -50,7 +50,7 @@ export default function CartIndicator({ cart, className = "" }) {
       <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-52 bg-base-100 shadow">
         <div className="card-body">
           <span className="text-lg font-bold">{totalQty} Item(s)</span>
-          <span className="text-info">Subtotal: {formatPrice(subTotal)}</span>
+          <span className="text-info">Subtotal: {formatCurrency(subTotal)}</span>
           <div className="card-actions">
             <Link href={PathFinder.toSfCart()} className="btn btn-primary btn-block" onClick={() => document.activeElement?.blur()}>
               View Cart

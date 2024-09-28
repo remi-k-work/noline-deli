@@ -7,8 +7,7 @@ import Link from "next/link";
 // other libraries
 import { cn } from "@/lib/utils";
 import Stripe from "stripe";
-import { format } from "date-fns";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency, formatDateTime } from "@/lib/formatters";
 
 // components
 import ShipTo from "./ShipTo";
@@ -50,7 +49,7 @@ export default function Header({
         </div>
         <div>
           <h3 className={lusitana.className}>Date</h3>
-          <p>{format(created * 1000, "EEEE, MMMM d, yyyy")}</p>
+          <p>{formatDateTime(new Date(created * 1000))}</p>
         </div>
         <div>
           <h3 className={lusitana.className}>Email</h3>
@@ -58,7 +57,7 @@ export default function Header({
         </div>
         <div>
           <h3 className={lusitana.className}>Total</h3>
-          <p>{formatPrice(amount)}</p>
+          <p>{formatCurrency(amount)}</p>
         </div>
         <div>
           <h3 className={lusitana.className}>Payment Method</h3>

@@ -10,7 +10,7 @@ import { ProductWithAll } from "../productsDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // components
@@ -39,7 +39,7 @@ export default function ProductExcerpt({ product }: ProductExcerptProps) {
       >
         <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="100vw" className="h-36 w-auto object-cover" />
       </Link>
-      <div className={cn(styles["product-excerpt__price"])}>{formatPrice(price)}</div>
+      <div className={cn(styles["product-excerpt__price"])}>{formatCurrency(price)}</div>
       <h2 className={cn(styles["product-excerpt__name"], "z-10")}>{name}</h2>
       <ProductInfoTrigger product={product} className={cn(styles["product-excerpt__more-info"], "z-10")} />
     </article>

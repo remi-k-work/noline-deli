@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 
 // other libraries
 import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
+import { formatDate } from "@/lib/formatters";
 
 const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
   const {
@@ -36,12 +37,16 @@ const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {
       ) : currentCustomDate ? (
         <p>
           By Custom Date
-          <br />
-          <small>
-            {currentCustomDate.from?.toDateString()}
-            <br />
-            {currentCustomDate.to ? currentCustomDate.to.toDateString() : "Today"}
-          </small>
+          {currentCustomDate.from && (
+            <>
+              <br />
+              <small>
+                {formatDate(currentCustomDate.from)}
+                <br />
+                {currentCustomDate.to ? formatDate(currentCustomDate.to) : "Today"}
+              </small>
+            </>
+          )}
         </p>
       ) : currentCustomerEmail ? (
         <p>

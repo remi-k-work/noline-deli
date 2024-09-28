@@ -2,7 +2,7 @@
 import { CartItemWithProduct } from "../../db/cart";
 
 // other libraries
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // components
@@ -37,7 +37,7 @@ export default function Entry({ cartItem }: EntryProps) {
         </section>
       </TableCell>
       <TableCell className="overflow-clip whitespace-nowrap text-end">
-        {quantity} / {formatPrice(quantity * price)}
+        {quantity} / {formatCurrency(quantity * price)}
       </TableCell>
     </TableRow>
   );

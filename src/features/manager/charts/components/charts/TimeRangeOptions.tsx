@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import useSearchParamsState from "../../../hooks/useSearchParamsState";
 import { RANGE_OPTIONS } from "@/lib/rangeOptions";
 import { DateRange } from "react-day-picker";
+import { formatDate } from "@/lib/formatters";
 
 // components
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -44,11 +45,11 @@ export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDa
       <small className="mb-2 block text-[var(--text-2)]">
         <span className="flex items-center justify-between gap-2">
           <CalendarDateRangeIcon className="h-5 w-5" />
-          {rangeOption ? rangeOption.startDate.toDateString() : startDate.toDateString()}
+          {rangeOption ? formatDate(rangeOption.startDate) : formatDate(startDate)}
         </span>
         <span className="flex items-center justify-between gap-2">
           <CalendarDateRangeIcon className="h-5 w-5" />
-          {rangeOption ? rangeOption.endDate.toDateString() : endDate.toDateString()}
+          {rangeOption ? formatDate(rangeOption.endDate) : formatDate(endDate)}
         </span>
       </small>
       <Select

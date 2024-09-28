@@ -14,7 +14,7 @@ import { ProductFilterData } from "../searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 import { useDebouncedCallback } from "use-debounce";
 import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
@@ -145,7 +145,7 @@ export default function ProductFilter({
         </select>
         <label htmlFor="byPriceBelow">Price Below</label>
         <output htmlFor="byPriceBelow" name="byPriceBelowOutput">
-          {formatPrice(byPriceBelow)}
+          {formatCurrency(byPriceBelow)}
         </output>
         <input
           ref={byPriceBelowRef}

@@ -1,6 +1,6 @@
 // other libraries
 import { Row } from "@tanstack/react-table";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import { ProductRow } from "../Columns";
 
 // components
@@ -18,7 +18,7 @@ export default function Price({ row: { getValue } }: PriceProps) {
       <hr className="border-dotted" />
       {getValue("popularity")}
       <br />
-      <b>{formatPrice(getValue("price"))}</b>
+      <b>{formatCurrency(getValue("price"))}</b>
     </TableCell>
   );
 }

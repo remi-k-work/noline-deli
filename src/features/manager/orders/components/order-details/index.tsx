@@ -6,7 +6,7 @@ import { OrderWithItems } from "../../db";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -49,20 +49,20 @@ export default function OrderDetails({ order: { orderedItems, totalQty, subTotal
           <TableRow>
             <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
             <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
-              {totalQty} / {formatPrice(subTotal)}
+              {totalQty} / {formatCurrency(subTotal)}
             </TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Taxes:</TableHead>
-            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(taxAmount)}</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(taxAmount)}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Shipping:</TableHead>
-            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(shippingCost)}</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(shippingCost)}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-            <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">{formatPrice(totalPaid)}</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">{formatCurrency(totalPaid)}</TableHead>
           </TableRow>
         </TableFooter>
       </Table>

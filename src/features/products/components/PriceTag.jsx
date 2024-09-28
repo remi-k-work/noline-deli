@@ -3,8 +3,8 @@ import styles from "./PriceTag.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 export default function PriceTag({ priceInCents }) {
-  return <span className={cn(styles["price-tag"], "badge")}>{formatPrice(priceInCents)}</span>;
+  return <span className={cn(styles["price-tag"], "badge")}>{formatCurrency(priceInCents)}</span>;
 }

@@ -5,7 +5,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // types
 enum SearchParamName {
@@ -59,7 +59,7 @@ export default class SearchParamsState {
     this.byBrandId = this.searchParams.get(SearchParamName.byBrandId) ?? "";
     this.byPriceBelow = this.searchParams.has(SearchParamName.byPriceBelow)
       ? Number(this.searchParams.get(SearchParamName.byPriceBelow))
-      : this.byPriceBelowMax ?? 900000000;
+      : (this.byPriceBelowMax ?? 900000000);
     this.byFreeShipping = this.searchParams.get(SearchParamName.byFreeShipping) === "true";
 
     this.isListMode = this.searchParams.get(SearchParamName.isListMode) === "true";
@@ -168,7 +168,7 @@ export default class SearchParamsState {
         description: "Products by",
       });
     this.searchParams.has(SearchParamName.byPriceBelow) &&
-      appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatPrice(this.byPriceBelow), description: "Price is below" });
+      appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatCurrency(this.byPriceBelow), description: "Price is below" });
     this.searchParams.has(SearchParamName.byFreeShipping) &&
       appliedFilters.push({ paramName: SearchParamName.byFreeShipping, paramValue: "Free Shipping", description: "with" });
 

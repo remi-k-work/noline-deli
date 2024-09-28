@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { DateRange } from "react-day-picker";
+import { formatDate } from "@/lib/formatters";
 
 // components
 import { Calendar } from "@/components/ui/calendar";
@@ -65,14 +66,16 @@ function CalendarFooter({ dateRange, setOpen, onRangePicked }: CalendarFooterPro
       <InformationCircleIcon className="h-4 w-4" />
       <AlertTitle className="max-w-none">You selected</AlertTitle>
       <AlertDescription className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-5">
-        <span className="flex items-center gap-2">
-          <CalendarDateRangeIcon className="h-5 w-5" />
-          {dateRange.from?.toDateString()}
-        </span>
+        {dateRange.from && (
+          <span className="flex items-center gap-2">
+            <CalendarDateRangeIcon className="h-5 w-5" />
+            {formatDate(dateRange.from)}
+          </span>
+        )}
         {dateRange.to ? (
           <span className="flex items-center gap-2">
             <CalendarDateRangeIcon className="h-5 w-5" />
-            {dateRange.to?.toDateString()}
+            {formatDate(dateRange.to)}
           </span>
         ) : (
           <span className="flex items-center gap-2">

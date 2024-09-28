@@ -18,11 +18,6 @@ export function compute(ms: number) {
   while (performance.now() - startTime < ms) {}
 }
 
-// Format the price from cents to dollars using usd currency
-export function formatPrice(priceInCents: number) {
-  return (priceInCents / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
-}
-
 // Get a random number from the specified range
 export function getRandomInt(min: number, max: number) {
   // Use Math.random to get a decimal between 0 (inclusive) and 1 (exclusive)

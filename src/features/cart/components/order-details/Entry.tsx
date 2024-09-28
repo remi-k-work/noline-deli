@@ -2,7 +2,7 @@
 import { CartItemWithProduct } from "../../db/cart";
 
 // other libraries
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -33,7 +33,7 @@ export default function Entry({ orderedCartItem }: EntryProps) {
         </small>
       </TableCell>
       <TableCell className="overflow-clip whitespace-nowrap text-end">
-        {quantity} / {formatPrice(quantity * price)}
+        {quantity} / {formatCurrency(quantity * price)}
       </TableCell>
     </TableRow>
   );

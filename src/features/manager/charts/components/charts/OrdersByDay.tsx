@@ -5,7 +5,7 @@ import { OrdersByDayData } from "../../db/types";
 
 // other libraries
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // types
 interface OrdersByDayProps {
@@ -24,7 +24,7 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
       <LineChart data={ordersByDay}>
         <CartesianGrid stroke="hsl(var(--muted))" />
         <XAxis dataKey="dayName" stroke="hsl(var(--primary))" />
-        <YAxis stroke="hsl(var(--primary))" tickFormatter={(tick) => formatPrice(tick)} />
+        <YAxis stroke="hsl(var(--primary))" tickFormatter={(tick) => formatCurrency(tick)} />
         <Tooltip cursor={{ fill: "hsl(var(--muted))", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
         <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary))" />
         <Line dataKey="sales" type="monotone" name="Sales" stroke="var(--brand)" />
@@ -43,7 +43,7 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
         {payload[0].value}
         <br />
         <span className="text-[var(--text-2)]">Sales : </span>
-        {formatPrice(payload[1].value)}
+        {formatCurrency(payload[1].value)}
       </p>
     );
   }

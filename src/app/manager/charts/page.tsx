@@ -14,7 +14,7 @@ import customersByDay from "@/features/manager/charts/db/customersByDay";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
@@ -68,14 +68,14 @@ export default async function Page({ searchParams }: PageProps) {
         </ChartCard>
         <ChartCard
           title={"Orders by Day"}
-          subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
+          subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatCurrency(obdData.sales)}`}
           options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} startDate={obdData.startDate} endDate={obdData.endDate} />}
         >
           <OrdersByDay data={obdData} />
         </ChartCard>
         <ChartCard
           title={"Revenue by Item"}
-          subTitle={`Total Quantity: ${rbiData.quantity}, Total Amount: ${formatPrice(rbiData.total)}`}
+          subTitle={`Total Quantity: ${rbiData.quantity}, Total Amount: ${formatCurrency(rbiData.total)}`}
           options={<TimeRangeOptions chartType="rbi" rangeKey={chRbiRangeKey} startDate={rbiData.startDate} endDate={rbiData.endDate} />}
         >
           <RevenueByItem data={rbiData} />

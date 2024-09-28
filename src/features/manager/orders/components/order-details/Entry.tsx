@@ -5,7 +5,7 @@ import { OrderedItem } from "@prisma/client";
 
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -44,7 +44,7 @@ export default function Entry({ orderedItem }: EntryProps) {
         )}
       </TableCell>
       <TableCell className="overflow-clip whitespace-nowrap text-end">
-        {quantity} / {formatPrice(total)}
+        {quantity} / {formatCurrency(total)}
         <br className="clear-end" />
         <Status orderedItem={orderedItem} className="float-end w-fit" />
       </TableCell>

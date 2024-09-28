@@ -12,10 +12,10 @@ import { CategoryWithSubCategory } from "../../../categories/db";
 
 // other libraries
 import { useProductFormStore } from "../../stores/productFormProvider";
-import { useAllFieldErrorsContext } from "../../../../../lib/contexts/AllFieldErrors";
+import { useAllFieldErrorsContext } from "@/lib/contexts/AllFieldErrors";
 import { useFormContext } from "react-hook-form";
-import { formatPrice } from "@/lib/helpers";
-import PathFinder from "../../../../../lib/PathFinder";
+import { formatCurrency } from "@/lib/formatters";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "../../../components/FormControls";
@@ -52,7 +52,7 @@ export function PriceInCents() {
         <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
           <div className="stats min-w-full">
             <div className="stat">
-              <div className="stat-value text-base font-normal">{formatPrice(priceInCents)}</div>
+              <div className="stat-value text-base font-normal">{formatCurrency(priceInCents)}</div>
             </div>
           </div>
         </FormOutputField>

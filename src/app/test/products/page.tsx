@@ -9,7 +9,7 @@ import ordersByDay from "@/features/manager/charts/db/ordersByDay";
 
 // other libraries
 import SearchParamsState from "@/features/manager/SearchParamsState";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { default as ChartCard } from "@/features/manager/charts/components/cards/Chart";
@@ -38,7 +38,7 @@ export default async function Page({ searchParams }: PageProps) {
     <article className={styles["page"]}>
       <ChartCard
         title={"Orders by Day"}
-        subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatPrice(obdData.sales)}`}
+        subTitle={`Total Orders: ${obdData.orders}, Total Sales: ${formatCurrency(obdData.sales)}`}
         options={<TimeRangeOptions chartType="obd" rangeKey={chObdRangeKey} startDate={obdData.startDate} endDate={obdData.endDate} />}
       >
         <OrdersByDay data={obdData} />

@@ -4,7 +4,7 @@ import Link from "next/link";
 // other libraries
 import { Row, Table } from "@tanstack/react-table";
 import PathFinder from "@/lib/PathFinder";
-import { format } from "date-fns";
+import { formatDateTime } from "@/lib/formatters";
 import { OrderRow } from "../Columns";
 
 // components
@@ -29,7 +29,7 @@ export default function OrderNumber({ row, table, row: { getValue, original }, i
       </Link>
       <span className="flex w-fit items-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
-        {format(getValue("created"), "EEEE, MMMM d, yyyy")}
+        {formatDateTime(getValue("created"))}
       </span>
       {/* Merge this cell with another if it needs to squeeze more info (for example, on small displays) */}
       {includeStatus && <StatusCell row={row} table={table} triggerCn="w-fit" />}

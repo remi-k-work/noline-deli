@@ -7,7 +7,7 @@ import { DerivedCartWithItems } from "../../db/cart";
 // other libraries
 import { cn } from "@/lib/utils";
 import Stripe from "stripe";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -57,21 +57,21 @@ export default function OrderDetails({
           <TableRow>
             <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
             <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
-              {totalQty} / {formatPrice(subTotal)}
+              {totalQty} / {formatCurrency(subTotal)}
             </TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Taxes:</TableHead>
-            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(taxAmount)}</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(taxAmount)}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Shipping:</TableHead>
-            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatPrice(Number(shippingCost))}</TableHead>
+            <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(Number(shippingCost))}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
             <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">
-              {formatPrice(subTotal + taxAmount + Number(shippingCost))}
+              {formatCurrency(subTotal + taxAmount + Number(shippingCost))}
             </TableHead>
           </TableRow>
         </TableFooter>

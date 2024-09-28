@@ -1,6 +1,6 @@
 // other libraries
 import { Row } from "@tanstack/react-table";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import { OrderRow } from "../Columns";
 
 // components
@@ -14,7 +14,7 @@ interface TotalPaidProps {
 export default function TotalPaid({ row: { getValue } }: TotalPaidProps) {
   return (
     <TableCell className="text-center">
-      <b>{formatPrice(getValue("totalPaid"))}</b>
+      <b>{formatCurrency(getValue("totalPaid"))}</b>
       <br />
       {getValue("totalQty")}
       <br />

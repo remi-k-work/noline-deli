@@ -11,7 +11,7 @@ import { createPaymentIntent } from "../../actions/checkout";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 import { AddressElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 // components
@@ -106,7 +106,7 @@ export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount },
           ) : (
             <>
               <BanknotesIcon width={24} height={24} />
-              Place Order for {formatPrice(subTotal + taxAmount + shippingCost)}
+              Place Order for {formatCurrency(subTotal + taxAmount + shippingCost)}
             </>
           )}
         </button>

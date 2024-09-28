@@ -5,7 +5,7 @@ import { RevenueByItemData } from "../../db/types";
 
 // other libraries
 import { CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from "recharts";
-import { formatPrice } from "@/lib/helpers";
+import { formatCurrency } from "@/lib/formatters";
 
 // types
 interface RevenueByItemProps {
@@ -24,7 +24,7 @@ export default function RevenueByItem({ data: { revenueByItem } }: RevenueByItem
       <ScatterChart data={revenueByItem}>
         <CartesianGrid stroke="hsl(var(--muted))" />
         <XAxis type="number" dataKey="quantity" name="Quantity" stroke="hsl(var(--primary))" />
-        <YAxis type="number" dataKey="total" name="Total" stroke="hsl(var(--primary))" tickFormatter={(tick) => formatPrice(tick)} />
+        <YAxis type="number" dataKey="total" name="Total" stroke="hsl(var(--primary))" tickFormatter={(tick) => formatCurrency(tick)} />
         <ZAxis type="category" dataKey="itemName" name="Item" />
         <Tooltip cursor={{ fill: "hsl(var(--muted))", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
         <Scatter fill="var(--brand)" />
@@ -43,7 +43,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
         {payload[0].value}
         <br />
         <span className="text-[var(--text-2)]">Total : </span>
-        {formatPrice(payload[1].value)}
+        {formatCurrency(payload[1].value)}
       </p>
     );
   }

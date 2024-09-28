@@ -3,8 +3,9 @@ const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
 const DATE_TIME_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short" });
 const DATE_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium" });
 
-export function formatCurrency(amount: number) {
-  return CURRENCY_FORMATTER.format(amount);
+// Format the price from cents to dollars using usd currency
+export function formatCurrency(priceInCents: number) {
+  return CURRENCY_FORMATTER.format(priceInCents / 100);
 }
 
 export function formatNumber(number: number) {
