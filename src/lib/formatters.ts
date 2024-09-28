@@ -1,4 +1,4 @@
-const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", { currency: "USD", style: "currency", minimumFractionDigits: 0 });
+const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", { currency: "USD", style: "currency" });
 const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
 const DATE_TIME_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short" });
 const DATE_FORMATTER = new Intl.DateTimeFormat("en", { dateStyle: "medium" });

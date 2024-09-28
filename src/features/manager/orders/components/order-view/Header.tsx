@@ -49,7 +49,7 @@ export default function Header({
         </div>
         <div>
           <h3 className={lusitana.className}>Date</h3>
-          <p>{formatDateTime(new Date(created * 1000))}</p>
+          <p>{formatDateTime(new Date(new Date(created * 1000).toISOString()))}</p>
         </div>
         <div>
           <h3 className={lusitana.className}>Email</h3>
