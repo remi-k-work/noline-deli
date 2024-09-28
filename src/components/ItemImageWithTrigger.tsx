@@ -11,7 +11,7 @@ import { OrderedItem } from "@prisma/client";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";

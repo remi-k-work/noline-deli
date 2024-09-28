@@ -11,7 +11,7 @@ import { ProductWithAll } from "../productsDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";

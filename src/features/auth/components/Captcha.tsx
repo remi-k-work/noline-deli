@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import { CAPTCHA_HEIGHT, CAPTCHA_WIDTH } from "@/features/auth/components/CaptchaBackground";
 
 // assets

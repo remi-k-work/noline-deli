@@ -11,7 +11,7 @@ import { createProduct, deleteProduct, updateProduct } from "./db";
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import PathFinder from "../PathFinder";
+import PathFinder from "../../../lib/PathFinder";
 import { ProductFormActionResult } from "./schemas/types";
 import { dateSchema, objectIdSchema } from "../formActionTypes";
 import { productFormSchema } from "./schemas/productForm";

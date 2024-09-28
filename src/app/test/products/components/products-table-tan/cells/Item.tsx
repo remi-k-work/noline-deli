@@ -8,7 +8,7 @@ import Image from "next/image";
 // other libraries
 import { cn } from "@/lib/utils";
 import { Row } from "@tanstack/react-table";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import { ProductRow } from "../Columns";
 
 // components

@@ -1,6 +1,6 @@
 // other libraries
 import { createStore } from "zustand/vanilla";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../../lib/PathFinder";
 
 // types
 export interface BrandFormState {

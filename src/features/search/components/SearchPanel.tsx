@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 
 // assets

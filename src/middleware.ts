@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 // other libraries
 import Auth from "./features/auth/Auth";
 import { AuthError } from "@/features/auth/AuthBase";
-import PathFinder from "./features/manager/PathFinder";
+import PathFinder from "./lib/PathFinder";
 
 export const config = {
   matcher: "/manager/:path*",

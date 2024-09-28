@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { getProduct, getProductFormData } from "@/features/manager/products/db";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import SectionHero from "@/features/manager/components/SectionHero";

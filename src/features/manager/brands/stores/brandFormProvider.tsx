@@ -9,7 +9,7 @@ import { BrandWithUser } from "../db";
 // other libraries
 import { useStore } from "zustand";
 import { BrandFormState, BrandFormStore, BrandFormStoreApi, createBrandFormStore } from "./brandForm";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../../lib/PathFinder";
 
 // types
 interface BrandFormProviderProps {

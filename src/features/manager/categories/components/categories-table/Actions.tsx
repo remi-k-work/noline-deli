@@ -13,7 +13,7 @@ import { delCategory2 } from "../../actions";
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import PathFinder from "../../../PathFinder";
+import PathFinder from "../../../../../lib/PathFinder";
 import useTableActionWithVal from "../../../hooks/useTableActionWithVal";
 import { CategoryFormActionResult } from "../../schemas/types";
 

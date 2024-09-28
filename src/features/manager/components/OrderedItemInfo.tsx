@@ -8,7 +8,7 @@ import Image from "next/image";
 import { OrderedItem } from "@prisma/client";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

@@ -8,7 +8,7 @@ import { whereAdminApproved } from "../manager/auth/db";
 import { allCategories, INCLUDE_PRODUCT_WITH_ALL } from "../products/productsDb";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import { CategoriesTreeViewEntry } from "../products/components/CategoriesTreeView";
 
 // types

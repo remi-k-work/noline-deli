@@ -16,7 +16,7 @@ import { useLoginFormStore } from "../stores/loginFormProvider";
 import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { loginFormSchema } from "../schemas/loginForm";
 import { LoginFormActionResult } from "../schemas/types";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../../lib/PathFinder";
 import useLoginActionFeedback from "../../hooks/useLoginActionFeedback";
 
 // components

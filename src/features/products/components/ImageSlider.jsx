@@ -11,7 +11,7 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // assets
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";

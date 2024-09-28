@@ -7,7 +7,7 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import PriceTag from "./PriceTag";

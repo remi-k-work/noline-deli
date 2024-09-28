@@ -10,7 +10,7 @@ import { getDashboardData } from "@/features/search/searchDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import MainLayout from "@/components/MainLayout";

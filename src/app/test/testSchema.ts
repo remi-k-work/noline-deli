@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 import { errorMap } from "zod-validation-error";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // A custom error map to use with zod and get user-friendly messages automatically
 z.setErrorMap(errorMap);

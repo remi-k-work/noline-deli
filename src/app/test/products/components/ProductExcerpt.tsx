@@ -6,7 +6,7 @@ import Image from "next/image";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // types
 interface ProductExcerptProps {

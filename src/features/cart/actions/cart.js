@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "../db/cart";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 export async function deleteCartArticle(cartItemId) {
   // Get an existing or brand-new empty cart from our database

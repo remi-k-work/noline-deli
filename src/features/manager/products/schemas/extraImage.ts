@@ -1,7 +1,7 @@
 // other libraries
 import { z } from "zod";
 import { zfd } from "zod-form-data";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 export const extraImageSchema = zfd.text(
   z

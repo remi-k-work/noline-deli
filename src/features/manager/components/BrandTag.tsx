@@ -5,7 +5,7 @@ import styles from "./BrandTag.module.css";
 import Image from "next/image";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // types
 interface BrandTagProps {

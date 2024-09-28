@@ -13,7 +13,7 @@ import { delProduct2 } from "@/features/manager/products/actions";
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
 import { ProductFormActionResult } from "@/features/manager/products/schemas/types";
 import { Row } from "@tanstack/react-table";

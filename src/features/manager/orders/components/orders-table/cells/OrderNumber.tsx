@@ -3,7 +3,7 @@ import Link from "next/link";
 
 // other libraries
 import { Row, Table } from "@tanstack/react-table";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import { format } from "date-fns";
 import { OrderRow } from "../Columns";
 

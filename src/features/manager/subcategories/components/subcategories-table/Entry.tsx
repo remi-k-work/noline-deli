@@ -6,7 +6,7 @@ import { SubCategoryWithInfo } from "../../../categories/db";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../PathFinder";
+import PathFinder from "../../../../../lib/PathFinder";
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
 

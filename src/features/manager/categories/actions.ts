@@ -12,7 +12,7 @@ import { createCategory, deleteCategory, updateCategory } from "./db";
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import PathFinder from "../PathFinder";
+import PathFinder from "../../../lib/PathFinder";
 import { CategoryFormActionResult } from "./schemas/types";
 import { objectIdSchema } from "../formActionTypes";
 import { categoryFormSchema } from "./schemas/categoryForm";

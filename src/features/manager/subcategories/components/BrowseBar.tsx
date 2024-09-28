@@ -6,7 +6,7 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../../lib/PathFinder";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

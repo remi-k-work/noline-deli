@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 // other libraries
-import PathFinder from "../PathFinder";
+import PathFinder from "../../../lib/PathFinder";
 
 export default function HeaderLogo() {
   return (

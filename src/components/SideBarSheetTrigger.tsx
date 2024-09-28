@@ -12,7 +12,7 @@ import { ProductFilterData } from "@/features/search/searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";

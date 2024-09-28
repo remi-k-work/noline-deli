@@ -14,7 +14,7 @@ import { allProductsByBrand, getBrand } from "@/features/products/productsDb";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components

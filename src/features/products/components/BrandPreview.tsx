@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Brand } from "@prisma/client";
 
 // other libraries
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // types
 interface BrandPreviewProps {

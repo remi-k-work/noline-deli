@@ -15,7 +15,7 @@ import { useProductFormStore } from "../../stores/productFormProvider";
 import { useAllFieldErrorsContext } from "../../../../../lib/contexts/AllFieldErrors";
 import { useFormContext } from "react-hook-form";
 import { formatPrice } from "@/lib/helpers";
-import PathFinder from "../../../PathFinder";
+import PathFinder from "../../../../../lib/PathFinder";
 
 // components
 import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "../../../components/FormControls";

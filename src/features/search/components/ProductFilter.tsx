@@ -15,7 +15,7 @@ import { ProductFilterData } from "../searchDb";
 // other libraries
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/helpers";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import { useDebouncedCallback } from "use-debounce";
 import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 

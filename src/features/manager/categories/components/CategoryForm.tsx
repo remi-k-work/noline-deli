@@ -19,7 +19,7 @@ import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { categoryFormSchema } from "../schemas/categoryForm";
 import { CategoryFormActionResult } from "../schemas/types";
-import PathFinder from "../../PathFinder";
+import PathFinder from "../../../../lib/PathFinder";
 import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components

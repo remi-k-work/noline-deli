@@ -3,7 +3,7 @@ import { CartItemWithProduct } from "../../db/cart";
 
 // other libraries
 import { formatPrice } from "@/lib/helpers";
-import PathFinder from "@/features/manager/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
