@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
 import { DateRange } from "react-day-picker";
-import { formatDate } from "@/lib/formatters";
+import { convertLocalDateToUTCIgnoringTimezone, formatDate } from "@/lib/formatters";
 
 // components
 import { Calendar } from "@/components/ui/calendar";
@@ -88,7 +88,11 @@ function CalendarFooter({ dateRange, setOpen, onRangePicked }: CalendarFooterPro
         <Button
           type="button"
           onClick={() => {
-            onRangePicked(dateRange);
+            // Convert the local calendar date to utc to ensure consistency with our database and calculations
+            onRangePicked({
+              from: dateRange.from && convertLocalDateToUTCIgnoringTimezone(dateRange.from),
+              to: dateRange.to && convertLocalDateToUTCIgnoringTimezone(dateRange.to),
+            });
             setOpen(false);
           }}
         >

@@ -8,6 +8,7 @@ import prisma from "@/lib/db/prisma";
 import { createTimeAxis, RangeOption } from "@/lib/rangeOptions";
 import { OrdersByDay, OrdersByDayData } from "./types";
 import { SELECT_ORDERS_BY_DAY } from "./consts";
+import { convertLocalDateToUTCIgnoringTimezone } from "@/lib/formatters";
 
 const ordersByDay = cache(async (rangeOption?: RangeOption) => {
   const [totals, orders] = await Promise.all([
@@ -30,8 +31,8 @@ const ordersByDay = cache(async (rangeOption?: RangeOption) => {
     ordersByDay,
     orders: totals._count,
     sales: totals._sum.totalPaid ?? 0,
-    startDate: totals._min.created ?? new Date(),
-    endDate: totals._max.created ?? new Date(),
+    startDate: totals._min.created ?? convertLocalDateToUTCIgnoringTimezone(new Date()),
+    endDate: totals._max.created ?? convertLocalDateToUTCIgnoringTimezone(new Date()),
   };
   if (!timeAxis) return data;
 

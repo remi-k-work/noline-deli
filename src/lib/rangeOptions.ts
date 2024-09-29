@@ -1,4 +1,5 @@
 // other libraries
+import { convertLocalDateToUTCIgnoringTimezone } from "./formatters";
 import {
   differenceInDays,
   differenceInHours,
@@ -36,31 +37,33 @@ interface RangeOptions {
   [index: string]: RangeOption;
 }
 
+// Keep dates in utc for consistency and calculations, as "new Date()" constructor is timezone-aware
+// The returned date and time values are adjusted to the user/server local time zone (we do not want that)
 export const RANGE_OPTIONS: RangeOptions = {
   LAST_24_HOURS: {
     label: "Last 24 Hours",
-    startDate: subHours(new Date(), 24),
-    endDate: new Date(),
+    startDate: convertLocalDateToUTCIgnoringTimezone(subHours(new Date(), 24)),
+    endDate: convertLocalDateToUTCIgnoringTimezone(new Date()),
   },
   LAST_7_DAYS: {
     label: "Last 7 Days",
-    startDate: subDays(new Date(), 7),
-    endDate: new Date(),
+    startDate: convertLocalDateToUTCIgnoringTimezone(subDays(new Date(), 7)),
+    endDate: convertLocalDateToUTCIgnoringTimezone(new Date()),
   },
   LAST_MONTH: {
     label: "Last Month",
-    startDate: subMonths(new Date(), 1),
-    endDate: new Date(),
+    startDate: convertLocalDateToUTCIgnoringTimezone(subMonths(new Date(), 1)),
+    endDate: convertLocalDateToUTCIgnoringTimezone(new Date()),
   },
   LAST_3_MONTHS: {
     label: "Last 3 Months",
-    startDate: subMonths(new Date(), 3),
-    endDate: new Date(),
+    startDate: convertLocalDateToUTCIgnoringTimezone(subMonths(new Date(), 3)),
+    endDate: convertLocalDateToUTCIgnoringTimezone(new Date()),
   },
   LAST_YEAR: {
     label: "Last Year",
-    startDate: subYears(new Date(), 1),
-    endDate: new Date(),
+    startDate: convertLocalDateToUTCIgnoringTimezone(subYears(new Date(), 1)),
+    endDate: convertLocalDateToUTCIgnoringTimezone(new Date()),
   },
 };
 
@@ -75,7 +78,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachHourOfInterval(interval(startDate, endDate)),
       isSame: isSameHour,
-      format: new Intl.DateTimeFormat("en", { hour: "numeric", hourCycle: "h12", timeZone: "UTC" }).format,
+      format: new Intl.DateTimeFormat("en", { hour: "numeric", hourCycle: "h12" }).format,
     };
   }
 
@@ -84,7 +87,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachDayOfInterval(interval(startDate, endDate)),
       isSame: isSameDay,
-      format: new Intl.DateTimeFormat("en", { weekday: "short", timeZone: "UTC" }).format,
+      format: new Intl.DateTimeFormat("en", { weekday: "short" }).format,
     };
   }
 
@@ -93,7 +96,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachDayOfInterval(interval(startDate, endDate)),
       isSame: isSameDay,
-      format: new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format,
+      format: new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format,
     };
   }
 
@@ -106,7 +109,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
         const start = max([startOfWeek(date), startDate]);
         const end = min([endOfWeek(date), endDate]);
 
-        return `${new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(start)} - ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(end)}`;
+        return `${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(start)} - ${new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(end)}`;
       },
     };
   }
@@ -116,7 +119,7 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
     return {
       timeAxis: eachMonthOfInterval(interval(startDate, endDate)),
       isSame: isSameMonth,
-      format: new Intl.DateTimeFormat("en", { month: "short", timeZone: "UTC" }).format,
+      format: new Intl.DateTimeFormat("en", { month: "short" }).format,
     };
   }
 
@@ -124,6 +127,6 @@ export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endD
   return {
     timeAxis: eachYearOfInterval(interval(startDate, endDate)),
     isSame: isSameYear,
-    format: new Intl.DateTimeFormat("en", { year: "numeric", timeZone: "UTC" }).format,
+    format: new Intl.DateTimeFormat("en", { year: "numeric" }).format,
   };
 }

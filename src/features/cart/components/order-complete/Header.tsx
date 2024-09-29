@@ -7,9 +7,10 @@ import Link from "next/link";
 // other libraries
 import { cn } from "@/lib/utils";
 import Stripe from "stripe";
-import { formatCurrency, formatDateTime } from "@/lib/formatters";
+import { formatCurrency } from "@/lib/formatters";
 
 // components
+import UserDateTime from "@/components/UserDateTime";
 import ShipTo from "./ShipTo";
 
 // assets
@@ -53,7 +54,7 @@ export default function Header({
         </div>
         <div>
           <h3 className={lusitana.className}>Date</h3>
-          <p>{formatDateTime(new Date(created * 1000))}</p>
+          <UserDateTime created={created} />
         </div>
         <div>
           <h3 className={lusitana.className}>Email</h3>

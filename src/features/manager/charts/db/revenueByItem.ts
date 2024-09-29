@@ -7,6 +7,7 @@ import prisma from "@/lib/db/prisma";
 // other libraries
 import { RangeOption } from "@/lib/rangeOptions";
 import { RevenueByItemData } from "./types";
+import { convertLocalDateToUTCIgnoringTimezone } from "@/lib/formatters";
 
 const revenueByItem = cache(async (rangeOption?: RangeOption) => {
   const [totalsItem, totalsOrder, items] = await Promise.all([
@@ -28,8 +29,8 @@ const revenueByItem = cache(async (rangeOption?: RangeOption) => {
     revenueByItem: [],
     quantity: totalsItem._sum.quantity ?? 0,
     total: totalsItem._sum.total ?? 0,
-    startDate: totalsOrder._min.created ?? new Date(),
-    endDate: totalsOrder._max.created ?? new Date(),
+    startDate: totalsOrder._min.created ?? convertLocalDateToUTCIgnoringTimezone(new Date()),
+    endDate: totalsOrder._max.created ?? convertLocalDateToUTCIgnoringTimezone(new Date()),
   };
   for (const {
     name,
