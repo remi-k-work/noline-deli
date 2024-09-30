@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "@/features/products/db/types";
+import { ProductWithAll } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import ProductInfoTrigger from "@/features/products/components/ProductInfoTrigger";
+import ProductInfoTrigger from "@/features/storefront/components/products/ProductInfoTrigger";
 
 // types
 interface ProductExcerptProps {

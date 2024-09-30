@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // prisma and db access
-import dashboard from "@/features/products/db/get-data-for/dashboard";
+import dashboard from "@/features/storefront/db/get-data-for/dashboard";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -14,8 +14,8 @@ import PathFinder from "@/lib/PathFinder";
 
 // components
 import MainLayout from "@/components/MainLayout";
-import ProductExcerpt from "@/features/products/components/ProductExcerpt";
-import BrandPreview from "@/features/products/components/BrandPreview";
+import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
+import BrandPreview from "@/features/storefront/components/products/BrandPreview";
 
 // assets
 import { lusitana } from "@/assets/fonts";

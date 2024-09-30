@@ -1,5 +1,5 @@
 // prisma and db access
-import productFilter from "@/features/products/db/get-data-for/productFilter";
+import productFilter from "@/features/storefront/db/get-data-for/productFilter";
 
 // components
 import SideBar from "@/components/SideBar";

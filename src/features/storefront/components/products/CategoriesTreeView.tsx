@@ -8,7 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // prisma and db access
-import { CategoriesTreeViewData } from "@/features/products/db/types";
+import { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";

@@ -1,13 +1,13 @@
 "use client";
 
 // prisma and db access
-import { CategoriesTreeViewData } from "@/features/products/db/types";
+import { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
-import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/products/components/CategoriesTreeView";
+import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/CategoriesTreeView";
 
 // types
 interface NavBarProps {

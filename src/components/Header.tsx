@@ -3,17 +3,17 @@ import styles from "./Header.module.css";
 
 // prisma and db access
 import { getCart } from "@/features/cart/db/cart";
-import productFilter from "@/features/products/db/get-data-for/productFilter";
-import categoriesTreeView from "@/features/products/db/get-data-for/categoriesTreeView";
+import productFilter from "@/features/storefront/db/get-data-for/productFilter";
+import categoriesTreeView from "@/features/storefront/db/get-data-for/categoriesTreeView";
 
 // other libraries
 import { cn } from "@/lib/utils";
 
 // components
 import HeaderLogo from "./HeaderLogo";
-import ProductFilter, { ProductFilterSkeleton } from "@/features/search/components/ProductFilter";
+import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/ProductFilter";
 import CartIndicator, { CartIndicatorSkeleton } from "@/features/cart/components/CartIndicator";
-import SearchPanel, { SearchPanelSkeleton } from "@/features/search/components/SearchPanel";
+import SearchPanel, { SearchPanelSkeleton } from "@/features/storefront/components/search/SearchPanel";
 import ThemeSwitcher, { ThemeSwitcherSkeleton } from "./ThemeSwitcher";
 import NavBarSheetTrigger, { NavBarSheetTriggerSkeleton } from "./NavBarSheetTrigger";
 import SideBarSheetTrigger, { SideBarSheetTriggerSkeleton } from "./SideBarSheetTrigger";

@@ -1,10 +1,10 @@
 // prisma and db access
-import { ProductWithAll } from "@/features/products/db/types";
+import { ProductWithAll } from "@/features/storefront/db/types";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ResponsiveDialogTrigger from "@/components/ResponsiveDialogTrigger";
-import ProductInfo from "@/features/products/components/ProductInfo";
+import ProductInfo from "@/features/storefront/components/products/ProductInfo";
 
 // assets
 import { InformationCircleIcon } from "@heroicons/react/24/solid";

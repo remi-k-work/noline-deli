@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { default as searchProducts } from "@/features/products/db/all-products/search";
+import { default as searchProducts } from "@/features/storefront/db/all-products/search";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -17,7 +17,7 @@ import SearchParamsState from "@/lib/SearchParamsState";
 // components
 import MainLayout from "@/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
+import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/ProductsList";
 import NotFound from "@/components/NotFound";
 
 // assets

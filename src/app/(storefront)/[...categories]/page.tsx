@@ -9,9 +9,9 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
 import { Product } from "@prisma/client";
-import { default as allProductsByCategory } from "@/features/products/db/all-products/byCategory";
-import { default as allProductsByCategoryAndSubCategory } from "@/features/products/db/all-products/byCategoryAndSubCategory";
-import { default as allProductsWithPagination } from "@/features/products/db/all-products/withPagination";
+import { default as allProductsByCategory } from "@/features/storefront/db/all-products/byCategory";
+import { default as allProductsByCategoryAndSubCategory } from "@/features/storefront/db/all-products/byCategoryAndSubCategory";
+import { default as allProductsWithPagination } from "@/features/storefront/db/all-products/withPagination";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -20,7 +20,7 @@ import SearchParamsState from "@/lib/SearchParamsState";
 // components
 import MainLayout from "@/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/products/components/ProductsList";
+import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/ProductsList";
 import NotFound from "@/components/NotFound";
 
 // assets

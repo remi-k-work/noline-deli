@@ -1,5 +1,5 @@
 // prisma and db access
-import categoriesTreeView from "@/features/products/db/get-data-for/categoriesTreeView";
+import categoriesTreeView from "@/features/storefront/db/get-data-for/categoriesTreeView";
 
 // components
 import NavBar from "@/components/NavBar";

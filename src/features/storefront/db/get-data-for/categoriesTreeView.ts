@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import { allCategories } from "@/features/products/db";
+import { allCategories } from "@/features/storefront/db";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";

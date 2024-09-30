@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getProduct } from "@/features/products/db";
+import { getProduct } from "@/features/storefront/db";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ import PathFinder from "@/lib/PathFinder";
 
 // components
 import MainLayout from "@/components/MainLayout";
-import SingleProductView, { SingleProductViewSkeleton } from "@/features/products/components/SingleProductView";
+import SingleProductView, { SingleProductViewSkeleton } from "@/features/storefront/components/products/SingleProductView";
 
 // assets
 import { lusitana } from "@/assets/fonts";

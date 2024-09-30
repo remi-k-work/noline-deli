@@ -4,13 +4,13 @@
 import { Dispatch, SetStateAction } from "react";
 
 // prisma and db access
-import { ProductFilterData } from "@/features/products/db/types";
+import { ProductFilterData } from "@/features/storefront/db/types";
 
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";
 
 // components
-import ProductFilter, { ProductFilterSkeleton } from "@/features/search/components/ProductFilter";
+import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/ProductFilter";
 
 // types
 interface SideBarProps {
