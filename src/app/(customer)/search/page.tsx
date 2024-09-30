@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { searchProducts } from "@/features/search/searchDb";
+import { default as searchProducts } from "@/features/products/db/all-products/search";
 
 // other libraries
 import { cn } from "@/lib/utils";

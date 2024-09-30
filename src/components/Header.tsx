@@ -3,7 +3,8 @@ import styles from "./Header.module.css";
 
 // prisma and db access
 import { getCart } from "@/features/cart/db/cart";
-import { getCategoriesTreeViewData, getProductFilterData } from "@/features/search/searchDb";
+import productFilter from "@/features/products/db/get-data-for/productFilter";
+import categoriesTreeView from "@/features/products/db/get-data-for/categoriesTreeView";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -25,7 +26,7 @@ interface HeaderProps {
 
 export default async function Header({ searchedCount, filteredCount }: HeaderProps) {
   // Fetch all data in parallel if possible and pass it down to components that require it
-  const [cart, productFilterData, categoriesTreeViewData] = await Promise.all([getCart(), getProductFilterData(), getCategoriesTreeViewData()]);
+  const [cart, productFilterData, categoriesTreeViewData] = await Promise.all([getCart(), productFilter(), categoriesTreeView()]);
 
   return (
     <header className={cn(styles["header"], "z-30")}>

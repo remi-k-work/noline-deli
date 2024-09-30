@@ -1,5 +1,5 @@
 // prisma and db access
-import { getCategoriesTreeViewData } from "@/features/search/searchDb";
+import categoriesTreeView from "@/features/products/db/get-data-for/categoriesTreeView";
 
 // components
 import NavBar from "@/components/NavBar";
@@ -10,5 +10,5 @@ interface NavBarFetcherProps {
 }
 
 export default async function NavBarFetcher({ className }: NavBarFetcherProps) {
-  return <NavBar categoriesTreeViewData={await getCategoriesTreeViewData()} className={className} />;
+  return <NavBar categoriesTreeViewData={await categoriesTreeView()} className={className} />;
 }

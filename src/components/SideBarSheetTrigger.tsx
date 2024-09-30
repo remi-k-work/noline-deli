@@ -7,7 +7,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 // prisma and db access
-import { ProductFilterData } from "@/features/search/searchDb";
+import { ProductFilterData } from "@/features/products/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";

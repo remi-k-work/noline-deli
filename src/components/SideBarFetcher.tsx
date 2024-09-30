@@ -1,5 +1,5 @@
 // prisma and db access
-import { getProductFilterData } from "@/features/search/searchDb";
+import productFilter from "@/features/products/db/get-data-for/productFilter";
 
 // components
 import SideBar from "@/components/SideBar";
@@ -11,5 +11,5 @@ interface SideBarFetcherProps {
 }
 
 export default async function SideBarFetcher({ filteredCount, className }: SideBarFetcherProps) {
-  return <SideBar productFilterData={await getProductFilterData()} filteredCount={filteredCount} className={className} />;
+  return <SideBar productFilterData={await productFilter()} filteredCount={filteredCount} className={className} />;
 }

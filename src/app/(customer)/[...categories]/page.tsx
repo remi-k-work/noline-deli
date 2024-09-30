@@ -9,7 +9,9 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
 import { Product } from "@prisma/client";
-import { allProductsByCategory, allProductsByCategoryAndSubCategory, allProductsWithPagination } from "@/features/products/productsDb";
+import { default as allProductsByCategory } from "@/features/products/db/all-products/byCategory";
+import { default as allProductsByCategoryAndSubCategory } from "@/features/products/db/all-products/byCategoryAndSubCategory";
+import { default as allProductsWithPagination } from "@/features/products/db/all-products/withPagination";
 
 // other libraries
 import { cn } from "@/lib/utils";

@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { getProduct } from "@/features/products/productsDb";
+import { getProduct } from "@/features/products/db";
 
 // other libraries
 import { cn } from "@/lib/utils";

@@ -4,7 +4,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 // prisma and db access
-import { ProductFilterData } from "@/features/search/searchDb";
+import { ProductFilterData } from "@/features/products/db/types";
 
 // other libraries
 import useMediaQuery from "@/lib/hooks/useMediaQuery";

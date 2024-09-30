@@ -10,7 +10,7 @@ import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 // prisma and db access
-import { ProductFilterData } from "../searchDb";
+import { ProductFilterData } from "@/features/products/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";

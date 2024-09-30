@@ -10,7 +10,8 @@ import Image from "next/image";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { allProductsByBrand, getBrand } from "@/features/products/productsDb";
+import { default as allProductsByBrand } from "@/features/products/db/all-products/byBrand";
+import { getBrand } from "@/features/products/db";
 
 // other libraries
 import { cn } from "@/lib/utils";

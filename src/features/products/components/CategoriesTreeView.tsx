@@ -8,7 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // prisma and db access
-import { CategoriesTreeViewData } from "@/features/search/searchDb";
+import { CategoriesTreeViewData } from "@/features/products/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -17,30 +17,23 @@ import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
 // assets
 import { lusitana } from "@/assets/fonts";
 
-// types
-export interface CategoriesTreeViewEntry {
-  label: string;
-  href: string;
-  subCategories?: CategoriesTreeViewEntry[];
-}
-
 interface CategoriesTreeViewProps {
   data: CategoriesTreeViewData;
 }
 
 interface CategoriesListProps {
-  data: CategoriesTreeViewData;
+  data: CategoriesTreeViewData["categoriesTreeView"];
 }
 
 interface CategoriesItemProps {
-  entry: CategoriesTreeViewEntry;
+  entry: CategoriesTreeViewData["categoriesTreeView"][0];
 }
 
 export default function CategoriesTreeView({ data }: CategoriesTreeViewProps) {
   return (
     <article className={cn(styles["categories-tree-view"], "menu p-0")}>
       <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
-      <CategoriesList data={data} />
+      <CategoriesList data={data.categoriesTreeView} />
     </article>
   );
 }

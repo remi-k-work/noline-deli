@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "../productsDb";
+import { ProductWithAll } from "@/features/products/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";

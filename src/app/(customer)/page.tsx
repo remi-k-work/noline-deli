@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // prisma and db access
-import { getDashboardData } from "@/features/search/searchDb";
+import dashboard from "@/features/products/db/get-data-for/dashboard";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ import bannerManager from "@/assets/manager/banner-manager.webp";
 
 export default async function Page() {
   // Collect all of the necessary data for our dashboard (like featured products and brands)
-  const { featuredProducts, featuredBrands, totalProducts, totalBrands } = await getDashboardData();
+  const { featuredProducts, featuredBrands, totalProducts, totalBrands } = await dashboard();
 
   return (
     <MainLayout>
