@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 // components
-import Layout from "./(customer)/layout";
+import Layout from "./(storefront)/layout";
 import MainLayout from "@/components/MainLayout";
 
 // assets
