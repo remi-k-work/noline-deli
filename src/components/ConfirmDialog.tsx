@@ -27,6 +27,7 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
             styles["confirm-dialog__title-bar"],
             "bg-gradient-to-r from-primary to-secondary text-xl font-bold text-primary-foreground",
           )}
+          data-testid="titleBar"
         >
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
@@ -35,11 +36,11 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
         <div>{children}</div>
         <div className="modal-action">
           <form method="dialog">
-            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed()}>
+            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed()} data-testid="confirmButton">
               <HandThumbUpIcon width={24} height={24} />
               Confirm
             </button>
-            <button type="submit" className="btn btn-secondary m-4">
+            <button type="submit" className="btn btn-secondary m-4" data-testid="cancelButton">
               <HandThumbDownIcon width={24} height={24} />
               Cancel
             </button>
