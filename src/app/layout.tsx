@@ -13,6 +13,7 @@ import styles from "./layout.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
 
 // assets
 import { inter } from "@/assets/fonts";
@@ -27,7 +28,10 @@ export const metadata = {
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, styles["layout"])}>{children}</body>
+      <body className={cn(inter.className, styles["layout"])}>
+        {children}
+        <Analytics debug={false} />
+      </body>
     </html>
   );
 }
