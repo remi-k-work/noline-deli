@@ -96,7 +96,7 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
       </h2>
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
-          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          <form noValidate={true} onSubmit={onSubmit}>
             <FormSelectField fieldName={"categoryId"} fieldLabel={"parent category"} required={true} defaultValue={categoryId}>
               <option value="">Choose Parent Category</option>
               {categories.map(({ id, name }) => (

@@ -7,7 +7,10 @@ export interface LoginFormState {
   password: string;
 }
 
-interface LoginFormActions {}
+interface LoginFormActions {
+  usernameChanged: (username: string) => void;
+  passwordChanged: (password: string) => void;
+}
 
 export type LoginFormStore = LoginFormState & LoginFormActions;
 export type LoginFormStoreApi = ReturnType<typeof createLoginFormStore>;
@@ -18,7 +21,9 @@ const defaultInitState: LoginFormState = {
 };
 
 export const createLoginFormStore = (initState: LoginFormState = defaultInitState) => {
-  return createStore<LoginFormStore>()(() => ({
+  return createStore<LoginFormStore>()((set) => ({
     ...initState,
+    usernameChanged: (username) => set(() => ({ username })),
+    passwordChanged: (password) => set(() => ({ password })),
   }));
 };

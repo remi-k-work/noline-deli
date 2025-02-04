@@ -16,6 +16,26 @@ import { LoginFormActionResult } from "./schemas/types";
 import { handleValidationErrorsShape } from "./schemas/consts";
 import { returnValidationErrors } from "next-safe-action";
 
+// types
+interface GetCaptchasActionResult {
+  captchaUsername: string;
+  captchaPassword: string;
+}
+
+// Get the auto-generated captcha credentials
+export const getCaptchas = actionClient.action(async (): Promise<GetCaptchasActionResult> => {
+  const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+    password: process.env.SESSION_SECRET as string,
+    cookieName: CAPTCHA_USERNAME,
+  });
+  const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+    password: process.env.SESSION_SECRET as string,
+    cookieName: CAPTCHA_PASSWORD,
+  });
+
+  return { captchaUsername, captchaPassword };
+});
+
 export const newLogin2 = actionClient
   .schema(loginFormSchema, { handleValidationErrorsShape })
   .action(async ({ parsedInput }): Promise<LoginFormActionResult> => {

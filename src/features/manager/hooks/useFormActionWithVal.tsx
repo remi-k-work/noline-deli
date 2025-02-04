@@ -1,3 +1,6 @@
+// react
+import { FormEventHandler, useCallback } from "react";
+
 // other libraries
 import { Schema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,11 +58,27 @@ export default function useFormActionWithVal<S extends Schema, BAS extends reado
     },
   });
 
-  // Validate the data on the client-side using react's hook form, then run our server action, which validates again
-  const onSubmit: SubmitHandler<S> = (data, ev) => {
-    // We are submitting our server action independently
-    execute(new FormData(ev?.target) as any);
-  };
+  const onSubmitRHF: SubmitHandler<S> = useCallback(
+    (data, ev) => {
+      // We are submitting our server action independently
+      execute(new FormData(ev?.target) as any);
+    },
+    [execute],
+  );
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    (ev) => {
+      ev.preventDefault();
+
+      // Show the "invalid" feedback when react's hook form validation fails
+      const { trigger, handleSubmit } = useFormMethods;
+      trigger().then((isValid) => !isValid && showFeedback("invalid"));
+
+      // Validate the data on the client-side using react's hook form, then run our server action, which validates again
+      handleSubmit(onSubmitRHF)(ev);
+    },
+    [onSubmitRHF, showFeedback, useFormMethods],
+  );
 
   return {
     useFormMethods,

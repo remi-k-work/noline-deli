@@ -44,7 +44,7 @@ export default class SearchParamsState {
   public readonly sortBy: string;
 
   // Pagination
-  public readonly currentPage: number = this.searchParams.has(SearchParamName.currentPage) ? Number(this.searchParams.get(SearchParamName.currentPage)) : 1;
+  public readonly currentPage: number;
 
   constructor(
     private readonly pathname: string,
@@ -66,6 +66,8 @@ export default class SearchParamsState {
     this.sortByField = this.searchParams.get(SearchParamName.sortByField) ?? "id";
     this.sortByOrder = this.searchParams.get(SearchParamName.sortByOrder) ?? "desc";
     this.sortBy = `${this.sortByField}|${this.sortByOrder}`;
+
+    this.currentPage = this.searchParams.has(SearchParamName.currentPage) ? Number(this.searchParams.get(SearchParamName.currentPage)) : 1;
   }
 
   // When moving to a new location, reset the pagination position and do not carry any state from the search mode

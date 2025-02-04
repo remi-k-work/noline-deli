@@ -89,7 +89,7 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
       </h2>
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
-          <form noValidate={true} onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+          <form noValidate={true} onSubmit={onSubmit}>
             <FormInputField
               fieldName={"name"}
               fieldLabel={"name"}
