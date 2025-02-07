@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 
 // types
 export type CartWithItems = Prisma.CartGetPayload<{ include: typeof INCLUDE_CART_WITH_ITEMS }>;

@@ -12,7 +12,7 @@ import { CategoryWithSubCategory } from "../../../categories/db";
 
 // other libraries
 import { useProductFormStore } from "../../stores/productFormProvider";
-import { useAllFieldErrorsContext } from "@/lib/contexts/AllFieldErrors";
+import { useAllFieldErrorsContext } from "@/contexts/AllFieldErrors";
 import { useFormContext } from "react-hook-form";
 import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";

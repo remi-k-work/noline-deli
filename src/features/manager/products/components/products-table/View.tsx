@@ -1,6 +1,6 @@
 // prisma and db access
 import { allProductsForTableView, getBrowseBarData } from "@/features/manager/products/db";
-import { getCreatedByUser } from "@/features/manager/auth/db";
+import { getCreatedByUser } from "@/features/manager/login/db";
 
 // components
 import { TanTableInstanceProvider } from "../../stores/tan-table-instance";

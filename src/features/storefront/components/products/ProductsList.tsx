@@ -11,7 +11,7 @@ import { Product } from "@prisma/client";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
+import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // components
 import ProductCard, { ProductCardSkeleton } from "./ProductCard";

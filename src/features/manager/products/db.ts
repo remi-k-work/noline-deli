@@ -3,10 +3,10 @@ import { cache } from "react";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 import { allBrands } from "../brands/db";
 import { allCategories } from "../categories/db";
-import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manager/auth/db";
+import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manager/login/db";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;

@@ -29,7 +29,8 @@ export default function Logout() {
       setIsLoggedIn(res.ok);
     }
 
-    checkIfLoggedIn();
+    // Temporarily disable user authentication so that everyone can access the manager
+    // checkIfLoggedIn();
   }, []);
 
   function handleLogoutClicked() {
@@ -43,12 +44,10 @@ export default function Logout() {
   }
 
   return (
-    isLoggedIn && (
-      <section className={styles["logout"]}>
-        <button type="button" className="btn btn-circle btn-ghost" disabled={isPending} title={"Logout"} onClick={handleLogoutClicked}>
-          <PowerIcon width={24} height={24} />
-        </button>
-      </section>
-    )
+    <section className={styles["logout"]}>
+      <button type="button" className="btn btn-circle btn-ghost" disabled={isPending || !isLoggedIn} title={"Logout"} onClick={handleLogoutClicked}>
+        <PowerIcon width={24} height={24} />
+      </button>
+    </section>
   );
 }

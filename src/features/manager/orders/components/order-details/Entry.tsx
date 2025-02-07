@@ -4,7 +4,7 @@
 import { OrderedItem } from "@prisma/client";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatCurrency } from "@/lib/formatters";
 
 // components

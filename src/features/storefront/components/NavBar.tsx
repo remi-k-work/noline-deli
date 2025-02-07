@@ -4,7 +4,7 @@
 import { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/CategoriesTreeView";

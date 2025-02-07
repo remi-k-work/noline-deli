@@ -2,7 +2,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { DateRange } from "react-day-picker";
 import { convertLocalDateToUTCIgnoringTimezone, formatDate } from "@/lib/formatters";
 

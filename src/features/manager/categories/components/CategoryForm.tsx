@@ -24,7 +24,7 @@ import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components
 import { CategoryFormStoreProvider } from "../stores/categoryFormProvider";
-import { AllFieldErrorsProvider } from "../../../../lib/contexts/AllFieldErrors";
+import { AllFieldErrorsProvider } from "../../../../contexts/AllFieldErrors";
 import { FormInputField } from "../../components/FormControls";
 import FormSubmit from "../../components/FormSubmit";
 

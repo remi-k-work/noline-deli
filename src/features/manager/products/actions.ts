@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
-import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../auth/db";
+import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../login/db";
 import { createProduct, deleteProduct, updateProduct } from "./db";
 
 // other libraries

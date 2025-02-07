@@ -7,7 +7,16 @@ import { AuthError } from "@/features/auth/AuthBase";
 import PathFinder from "./lib/PathFinder";
 
 export const config = {
-  matcher: "/manager/:path*",
+  matcher: [
+    // Match all "/manager/*" routes except "/manager/login" (that should be public)
+    "/manager/@formModal/:path*",
+    "/manager/brands/:path*",
+    "/manager/categories/:path*",
+    "/manager/charts/:path*",
+    "/manager/orders/:path*",
+    "/manager/products/:path*",
+    "/manager/subcategories/:path*",
+  ],
 };
 
 export async function middleware(req: NextRequest) {

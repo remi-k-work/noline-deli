@@ -1,7 +1,7 @@
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
-import { whereAdminApproved } from "@/features/manager/auth/db";
+import prisma from "@/services/prisma";
+import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
 import { whereFilter } from "../helpers";

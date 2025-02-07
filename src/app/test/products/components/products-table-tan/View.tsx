@@ -1,7 +1,7 @@
 // prisma and db access
 import { allProductsForTableView } from "@/features/manager/products/db";
 import { allCategories } from "@/features/manager/categories/db";
-import { getCreatedByUser } from "@/features/manager/auth/db";
+import { getCreatedByUser } from "@/features/manager/login/db";
 
 // components
 import { TanTableInstanceProvider } from "../../stores/TanTableInstance";

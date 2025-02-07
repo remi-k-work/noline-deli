@@ -6,10 +6,10 @@ import { notFound } from "next/navigation";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import stripe from "@/lib/stripe";
+import stripe from "@/services/stripe";
 
 // components
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/features/storefront/components/MainLayout";
 import OrderComplete from "@/features/cart/components/order-complete";
 
 // assets

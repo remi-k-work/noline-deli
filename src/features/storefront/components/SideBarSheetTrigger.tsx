@@ -11,12 +11,12 @@ import { ProductFilterData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import PathFinder from "@/lib/PathFinder";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import SideBar from "@/components/SideBar";
+import SideBar from "./SideBar";
 
 // assets
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";

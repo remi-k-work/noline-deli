@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 import { useDebouncedCallback } from "use-debounce";
-import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
+import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";

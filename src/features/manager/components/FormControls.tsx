@@ -7,8 +7,8 @@ import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 // other libraries
 import { cn } from "@/lib/utils";
 import { RefCallBack } from "react-hook-form";
-import useRegisterWithRHF from "../../../lib/hooks/useRegisterWithRHF";
-import { useAllFieldErrorsContext } from "../../../lib/contexts/AllFieldErrors";
+import useRegisterWithRHF from "../../../hooks/useRegisterWithRHF";
+import { useAllFieldErrorsContext } from "../../../contexts/AllFieldErrors";
 
 // assets
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";

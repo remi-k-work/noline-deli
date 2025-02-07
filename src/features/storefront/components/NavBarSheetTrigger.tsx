@@ -5,11 +5,11 @@ import { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import NavBar from "@/components/NavBar";
+import NavBar from "./NavBar";
 
 // assets
 import { Bars4Icon } from "@heroicons/react/24/solid";

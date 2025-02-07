@@ -12,7 +12,7 @@ import { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
+import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";

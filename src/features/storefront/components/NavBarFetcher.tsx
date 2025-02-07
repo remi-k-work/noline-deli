@@ -2,7 +2,7 @@
 import categoriesTreeView from "@/features/storefront/db/get-data-for/categoriesTreeView";
 
 // components
-import NavBar from "@/components/NavBar";
+import NavBar from "./NavBar";
 
 // types
 interface NavBarFetcherProps {

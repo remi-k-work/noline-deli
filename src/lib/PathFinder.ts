@@ -30,9 +30,8 @@ enum PathTo {
 
   sfCart = storeFront + "/cart",
 
-  managerLogin = "/auth/login",
-
   manager = "/manager",
+  managerLogin = manager + "/login",
 
   brands = manager + "/brands",
   brandNew = brands + "/new",

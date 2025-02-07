@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 import { getBrand } from "../brands/db";
 import { getCategory, getSubCategory } from "../categories/db";
 import { getProduct } from "../products/db";

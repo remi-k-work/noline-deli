@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../auth/db";
+import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../login/db";
 import { createBrand, deleteBrand, updateBrand } from "./db";
 
 // other libraries

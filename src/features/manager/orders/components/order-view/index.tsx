@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { OrderWithItems } from "../../db";
 
 // other libraries
-import stripe from "@/lib/stripe";
+import stripe from "@/services/stripe";
 
 // components
 import Header from "./Header";

@@ -4,7 +4,7 @@
 import { createContext, useContext, ReactNode } from "react";
 
 // other libraries
-import { AllFieldErrors } from "../../features/manager/formActionTypes";
+import { AllFieldErrors } from "../features/manager/formActionTypes";
 
 // types
 interface AllFieldErrorsContextType {

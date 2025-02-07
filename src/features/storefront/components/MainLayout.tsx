@@ -5,9 +5,9 @@ import styles from "./MainLayout.module.css";
 import { ReactNode, Suspense } from "react";
 
 // components
-import Header, { HeaderSkeleton } from "@/components/Header";
-import Footer from "@/components/Footer";
-import { NavBarSkeleton } from "@/components/NavBar";
+import Header, { HeaderSkeleton } from "./Header";
+import Footer from "./Footer";
+import { NavBarSkeleton } from "./NavBar";
 import NavBarFetcher from "./NavBarFetcher";
 import { SideBarSkeleton } from "./SideBar";
 import SideBarFetcher from "./SideBarFetcher";

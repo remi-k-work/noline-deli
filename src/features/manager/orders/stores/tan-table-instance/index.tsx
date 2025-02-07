@@ -5,8 +5,8 @@ import { createContext, useContext, useState } from "react";
 
 // other libraries
 import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, RowData } from "@tanstack/react-table";
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
-import useSkipper from "@/lib/hooks/useSkipper";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import useSkipper from "@/hooks/useSkipper";
 import useTableState from "./useTableState";
 import useTableActions from "./useTableActions";
 import { TanTableInstanceContextType, TanTableInstanceProviderProps } from "./types";

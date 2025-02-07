@@ -11,8 +11,8 @@
     "header"
     "main"
     "footer";
-}
 
-.layout__main {
-  grid-area: main;
+  & > main {
+    grid-area: main;
+  }
 }

@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 import { SubCategoryWithInfo } from "../../../categories/db";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";

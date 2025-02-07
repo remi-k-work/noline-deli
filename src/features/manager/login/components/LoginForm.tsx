@@ -7,22 +7,22 @@ import styles from "./LoginForm.module.css";
 import { useEffect, useState } from "react";
 
 // server actions and mutations
-import { getCaptchas, newLogin2 } from "@/features/manager/auth/actions";
+import { getCaptchas, newLogin2 } from "@/features/manager/login/actions";
 
 // other libraries
 import { FormProvider } from "react-hook-form";
 import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
-import { useLoginFormStore } from "@/features/manager/auth/stores/loginFormProvider";
+import { useLoginFormStore } from "@/features/manager/login/stores/loginFormProvider";
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
-import { loginFormSchema } from "@/features/manager/auth/schemas/loginForm";
-import { LoginFormActionResult } from "@/features/manager/auth/schemas/types";
+import { loginFormSchema } from "@/features/manager/login/schemas/loginForm";
+import { LoginFormActionResult } from "@/features/manager/login/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useLoginActionFeedback from "@/features/manager/hooks/useLoginActionFeedback";
 import { waait } from "@/lib/helpers";
 
 // components
-import { LoginFormStoreProvider } from "@/features/manager/auth/stores/loginFormProvider";
-import { AllFieldErrorsProvider } from "@/lib/contexts/AllFieldErrors";
+import { LoginFormStoreProvider } from "@/features/manager/login/stores/loginFormProvider";
+import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
 import { FormInputField } from "@/features/manager/components/FormControls";
 import FormSubmit from "./FormSubmit";
 import Captcha from "@/features/auth/components/Captcha";

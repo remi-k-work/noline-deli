@@ -1,6 +1,6 @@
 // prisma and db access
 import { allBrandsWithPagination } from "../../db";
-import { getCreatedByUser } from "../../../auth/db";
+import { getCreatedByUser } from "../../../login/db";
 
 // other libraries
 import SearchParamsState from "../../../SearchParamsState";

@@ -1,7 +1,7 @@
 "use client";
 
 // other libraries
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import JumpToImageMob from "./JumpToImageMob";

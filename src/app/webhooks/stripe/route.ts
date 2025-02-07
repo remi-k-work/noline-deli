@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { newOrder } from "@/features/cart/db/orders";
 
 // other libraries
-import stripe from "@/lib/stripe";
+import stripe from "@/services/stripe";
 
 export async function POST(req: NextRequest) {
   // The incoming event

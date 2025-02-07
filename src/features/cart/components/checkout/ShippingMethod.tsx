@@ -9,8 +9,8 @@ interface ShippingMethodProps {
   className?: string;
 }
 
-export const SHIPPING_COSTS: readonly number[] = [1000, 1500, 2500];
-export const SHIPPING_METHODS: readonly string[] = ["Standard", "Express", "Overnight"];
+export const SHIPPING_COSTS: readonly number[] = [1000, 1500, 2500] as const;
+export const SHIPPING_METHODS: readonly string[] = ["Standard", "Express", "Overnight"] as const;
 
 export default function ShippingMethod({ onShippingMethodChanged, className }: ShippingMethodProps) {
   return (

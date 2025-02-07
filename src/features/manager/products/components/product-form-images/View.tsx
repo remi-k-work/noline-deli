@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 // other libraries
 import { useProductFormStore } from "../../stores/productFormProvider";
 import { useFormContext } from "react-hook-form";
-import useIsMounted from "@/lib/hooks/useIsMounted";
+import useIsMounted from "@/hooks/useIsMounted";
 
 // components
 import ImageView from "./ImageView";

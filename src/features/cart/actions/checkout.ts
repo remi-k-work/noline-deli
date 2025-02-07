@@ -3,7 +3,7 @@
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import stripe from "@/lib/stripe";
+import stripe from "@/services/stripe";
 import { nanoid } from "nanoid";
 import { emailSchema, objectIdSchema, priceSchema } from "../../manager/formActionTypes";
 

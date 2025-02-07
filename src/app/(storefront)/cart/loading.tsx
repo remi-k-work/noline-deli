@@ -1,5 +1,5 @@
 // components
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/features/storefront/components/MainLayout";
 
 export default function Loading() {
   return (

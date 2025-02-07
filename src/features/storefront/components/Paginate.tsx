@@ -8,7 +8,7 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import useSearchParamsState from "@/lib/hooks/useSearchParamsState";
+import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // assets
 import { BackwardIcon, ForwardIcon } from "@heroicons/react/24/solid";

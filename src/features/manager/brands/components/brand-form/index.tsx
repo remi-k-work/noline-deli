@@ -24,7 +24,7 @@ import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
 
 // components
 import { BrandFormStoreProvider } from "../../stores/brandFormProvider";
-import { AllFieldErrorsProvider } from "../../../../../lib/contexts/AllFieldErrors";
+import { AllFieldErrorsProvider } from "../../../../../contexts/AllFieldErrors";
 import { FormInputField } from "../../../components/FormControls";
 import Logo from "./Logo";
 import FormSubmit from "../../../components/FormSubmit";

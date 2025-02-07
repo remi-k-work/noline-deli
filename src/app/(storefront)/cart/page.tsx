@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { cn } from "@/lib/utils";
 
 // components
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/features/storefront/components/MainLayout";
 import { default as CartTableView } from "@/features/cart/components/cart-table/View";
 
 // assets

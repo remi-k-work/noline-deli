@@ -26,7 +26,7 @@ import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
 
 // components
 import { ProductFormStoreProvider } from "../../stores/productFormProvider";
-import { AllFieldErrorsProvider } from "../../../../../lib/contexts/AllFieldErrors";
+import { AllFieldErrorsProvider } from "../../../../../contexts/AllFieldErrors";
 import { FormTextArea, FormInputField, FormCheckField } from "../../../components/FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./Controls";
 import ProductFormImages from "../product-form-images";

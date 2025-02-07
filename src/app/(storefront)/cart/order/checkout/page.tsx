@@ -8,7 +8,7 @@ import { getCart } from "@/features/cart/db/cart";
 import { cn } from "@/lib/utils";
 
 // components
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/features/storefront/components/MainLayout";
 import Checkout from "@/features/cart/components/checkout";
 
 // assets

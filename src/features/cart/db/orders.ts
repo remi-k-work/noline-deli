@@ -1,6 +1,6 @@
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 import { getOrderedCart } from "./cart";
 
 // other libraries

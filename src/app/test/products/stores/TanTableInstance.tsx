@@ -9,7 +9,7 @@ import { CategoryWithSubCategory } from "@/features/manager/categories/db";
 
 // other libraries
 import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, Table, useReactTable } from "@tanstack/react-table";
-import useMediaQuery from "@/lib/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import { columnsLarge, columnsSmall, ProductRow } from "../components/products-table-tan/Columns";

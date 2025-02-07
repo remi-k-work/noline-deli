@@ -2,7 +2,7 @@
 import { cache } from "react";
 
 // prisma and db access
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 
 // other libraries
 import { createTimeAxis, RangeOption } from "@/lib/rangeOptions";

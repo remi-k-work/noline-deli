@@ -3,8 +3,8 @@ import { cache } from "react";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
-import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/auth/db";
+import prisma from "@/services/prisma";
+import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/login/db";
 
 // other libraries
 import { TotalNumbersData } from "./types";

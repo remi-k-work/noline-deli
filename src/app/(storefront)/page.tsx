@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/features/storefront/components/MainLayout";
 import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 import BrandPreview from "@/features/storefront/components/products/BrandPreview";
 

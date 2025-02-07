@@ -2,7 +2,7 @@
 import productFilter from "@/features/storefront/db/get-data-for/productFilter";
 
 // components
-import SideBar from "@/components/SideBar";
+import SideBar from "./SideBar";
 
 // types
 interface SideBarFetcherProps {

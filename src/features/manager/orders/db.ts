@@ -3,7 +3,7 @@ import { cache } from "react";
 
 // prisma and db access
 import { OrderedItemStatus, OrderStatus, Prisma } from "@prisma/client";
-import prisma from "@/lib/db/prisma";
+import prisma from "@/services/prisma";
 
 // other libraries
 import { RANGE_OPTIONS } from "@/lib/rangeOptions";
