@@ -1,0 +1,32 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+    provider     = "mongodb"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum OrderStatus {
+    IN_PROCESS
+    PARTIALLY_SHIPPED
+    SHIPPED
+    FULFILLED
+    CANCELLED
+    REFUNDED
+}
+
+enum OrderedItemStatus {
+    IN_PROCESS
+    SHIPPED
+    FULFILLED
+    CANCELLED
+    REFUNDED
+}

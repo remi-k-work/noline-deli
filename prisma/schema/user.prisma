@@ -1,0 +1,13 @@
+model User {
+    id    String  @id @default(auto()) @map("_id") @db.ObjectId
+    name  String?
+    email String? @unique
+    role  Role    @default(USER)
+
+    // A user can create many brands, categories, subcategories, products, and product images
+    brands        Brand[]
+    categories    Category[]
+    subCategories SubCategory[]
+    products      Product[]
+    productImages ProductImage[]
+}

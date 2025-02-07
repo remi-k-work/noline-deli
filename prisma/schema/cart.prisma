@@ -1,0 +1,18 @@
+model Cart {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // A cart can have many products/cart items (it can belong to many products/cart items)
+    cartItems CartsOnProducts[]
+}
+
+model CartsOnProducts {
+    id        String @id @default(auto()) @map("_id") @db.ObjectId
+    productId String @db.ObjectId
+    cartId    String @db.ObjectId
+    quantity  Int
+
+    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    cart    Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+}

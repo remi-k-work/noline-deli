@@ -1,0 +1,40 @@
+model Order {
+    id              String      @id @default(auto()) @map("_id") @db.ObjectId
+    customerId      String      @db.ObjectId
+    // The original payment intent received from stripe and related to this order
+    paymentIntentId String      @unique
+    orderNumber     String      @unique
+    created         DateTime
+    totalQty        Int
+    subTotal        Int
+    taxAmount       Int
+    shippingCost    Int
+    shippingMethod  String
+    totalPaid       Int
+    status          OrderStatus @default(IN_PROCESS)
+
+    // An order can have many ordered items
+    orderedItems OrderedItem[]
+
+    customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+model OrderedItem {
+    id              String            @id @default(auto()) @map("_id") @db.ObjectId
+    orderId         String            @db.ObjectId
+    productId       String            @db.ObjectId
+    // The original product may no longer exist, so we include the most significant information regarding an ordered item below
+    quantity        Int
+    name            String
+    description     String
+    imageUrl        String
+    price           Int
+    total           Int
+    brandName       String
+    brandLogo       String?
+    categoryName    String
+    subCategoryName String?
+    status          OrderedItemStatus @default(IN_PROCESS)
+
+    order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}

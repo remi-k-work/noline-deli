@@ -1,0 +1,14 @@
+model Brand {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    name       String   @unique
+    logoUrl    String?
+    createdBy  String   @db.ObjectId
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    isApproved Boolean  @default(false)
+
+    // A brand can have many products (it can belong to many products)
+    products Product[]
+
+    user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}

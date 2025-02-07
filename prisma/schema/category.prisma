@@ -1,0 +1,50 @@
+model Category {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    name       String   @unique
+    createdBy  String   @db.ObjectId
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    isApproved Boolean  @default(false)
+
+    // A category can have many subcategories (it can belong to many subcategories)
+    subCategories SubCategory[]
+
+    // A category can have many products (it can belong to many products)
+    products CategoriesOnProducts[]
+
+    user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model SubCategory {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    categoryId String   @db.ObjectId
+    name       String   @unique
+    createdBy  String   @db.ObjectId
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    isApproved Boolean  @default(false)
+
+    // A subcategory can have many products (it can belong to many products)
+    products SubCategoriesOnProducts[]
+
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    user     User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model CategoriesOnProducts {
+    id         String @id @default(auto()) @map("_id") @db.ObjectId
+    productId  String @db.ObjectId
+    categoryId String @db.ObjectId
+
+    product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+    category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model SubCategoriesOnProducts {
+    id            String @id @default(auto()) @map("_id") @db.ObjectId
+    productId     String @db.ObjectId
+    subCategoryId String @db.ObjectId
+
+    product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+    subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+}
