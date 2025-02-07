@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import Auth from "@/features/auth/Auth";
 import { AuthError } from "@/features/auth/AuthBase";
 import { getIronSession } from "iron-session";
-import { CaptchaSession } from "@/app/auth/captcha/[name]/route";
+import { CaptchaSession } from "@/app/api/auth/captcha/[name]/route";
 import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
 import { actionClient } from "@/lib/safeAction";
 import { loginFormSchema } from "./schemas/loginForm";

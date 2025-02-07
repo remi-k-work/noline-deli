@@ -9,6 +9,9 @@ import { useEffect, useState, useTransition } from "react";
 // next
 import { useRouter } from "next/navigation";
 
+// other libraries
+import PathFinder from "@/lib/PathFinder";
+
 // assets
 import { PowerIcon } from "@heroicons/react/24/solid";
 
@@ -25,7 +28,7 @@ export default function Logout() {
   useEffect(() => {
     // Is the user currently logged in?
     async function checkIfLoggedIn() {
-      const res = await fetch("/auth");
+      const res = await fetch(PathFinder.toAuth(), { method: "GET" });
       setIsLoggedIn(res.ok);
     }
 
@@ -36,7 +39,7 @@ export default function Logout() {
   function handleLogoutClicked() {
     startTransition(async () => {
       // Log the user out
-      await fetch("/auth", { method: "DELETE" });
+      await fetch(PathFinder.toAuth(), { method: "DELETE" });
 
       // Reload the manager
       refresh();

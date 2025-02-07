@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import AuthBase, { AuthError } from "./AuthBase";
 import { AccessTokenPayload, Credentials, RefreshTokenPayload } from "./types";
 import { getIronSession } from "iron-session";
-import { CaptchaSession } from "@/app/auth/captcha/[name]/route";
+import { CaptchaSession } from "@/app/api/auth/captcha/[name]/route";
 import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
 
 export default class Auth extends AuthBase {

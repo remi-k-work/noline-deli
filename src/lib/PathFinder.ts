@@ -58,10 +58,11 @@ enum PathTo {
   brandLogos = "/brand-logos",
   imagePlaceholder = "/image.svg",
 
-  captcha = "/auth/captcha" + `/${ParamName.captchaName}`,
+  auth = "/api/auth",
+  captcha = auth + "/captcha" + `/${ParamName.captchaName}`,
 }
 
-const REMOTE_HOSTNAMES = ["images.unsplash.com", "plus.unsplash.com"];
+const REMOTE_HOSTNAMES = ["images.unsplash.com", "plus.unsplash.com"] as const;
 
 export default class PathFinder {
   static toSfAllProducts = () => PathTo.sfAllProducts;
@@ -131,6 +132,7 @@ export default class PathFinder {
 
   static toImagePlaceholder = () => PathTo.imagePlaceholder;
 
+  static toAuth = () => PathTo.auth;
   static toCaptcha = (captchaName: string, shouldReload?: boolean) =>
     shouldReload ? PathTo.captcha.replace(ParamName.captchaName, captchaName) + `?${Date.now()}` : PathTo.captcha.replace(ParamName.captchaName, captchaName);
 
