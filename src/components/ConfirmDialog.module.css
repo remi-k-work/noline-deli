@@ -1,17 +1,97 @@
 .confirm-dialog {
   inline-size: 100%;
-  max-inline-size: var(--size-content-3);
-  margin-inline: auto;
+  block-size: 100%;
 
-  color: var(--text-1);
-}
-
-.confirm-dialog__title-bar {
   max-inline-size: none;
-  display: flex;
-  align-items: center;
-  gap: var(--size-2);
+  max-block-size: none;
 
-  padding-inline: var(--size-2);
-  padding-block: var(--size-1);
+  background-color: transparent;
+  color: hsl(var(--foreground));
+
+  display: grid;
+  place-items: center;
+
+  overscroll-behavior: contain;
+  z-index: var(--layer-important);
+
+  position: fixed;
+  inset-inline: 0;
+  inset-block: 0;
+  overflow: hidden;
+
+  transition:
+    display 0.3s var(--ease-3) allow-discrete,
+    opacity 0.3s var(--ease-3),
+    visibility 0.3s var(--ease-3) allow-discrete;
+
+  &::backdrop {
+    backdrop-filter: blur(25px);
+    transition: backdrop-filter 1s ease;
+  }
+
+  &[open] {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &:not([open]) {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  & > form {
+    inline-size: 100%;
+    max-inline-size: var(--size-content-3);
+    max-block-size: min(95vh, 100%);
+    max-block-size: min(95dvb, 100%);
+    border-radius: var(--radius-3);
+    overflow: hidden;
+
+    background: hsl(var(--background));
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+
+    & > header {
+      display: flex;
+      align-items: center;
+      gap: var(--size-2);
+
+      padding-inline: var(--size-2);
+      padding-block: var(--size-1);
+    }
+
+    & > article {
+      overflow-y: auto;
+      max-block-size: 100%;
+      overscroll-behavior-y: contain;
+
+      display: grid;
+      justify-items: start;
+
+      padding-inline: var(--size-2);
+      padding-block: var(--size-2);
+
+      z-index: var(--layer-1);
+    }
+
+    & > footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      gap: var(--size-4);
+
+      margin-block: var(--size-6) 0;
+      padding-inline: var(--size-2);
+      padding-block: var(--size-2);
+    }
+  }
 }

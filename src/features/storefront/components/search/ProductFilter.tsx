@@ -10,7 +10,7 @@ import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 // prisma and db access
-import { ProductFilterData } from "@/features/storefront/db/types";
+import type { ProductFilterData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -21,12 +21,11 @@ import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // assets
 import { lusitana } from "@/assets/fonts";
-import { AdjustmentsHorizontalIcon, MagnifyingGlassCircleIcon, TrashIcon, TruckIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassCircleIcon, TrashIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductFilterProps {
   data: ProductFilterData;
-  isIndicator?: boolean;
   filteredCount?: number;
   sheetMode?: boolean;
   sheetSetOpen?: Dispatch<SetStateAction<boolean>>;
@@ -35,14 +34,13 @@ interface ProductFilterProps {
 
 export default function ProductFilter({
   data: { byCompanyList, byPriceBelowMin, byPriceBelowMax },
-  isIndicator = false,
   filteredCount = 0,
   sheetMode = false,
   sheetSetOpen,
   className,
 }: ProductFilterProps) {
   const searchParamsState = useSearchParamsState(undefined, byPriceBelowMax ?? undefined, byCompanyList);
-  const { byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters } = searchParamsState;
+  const { byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -75,50 +73,6 @@ export default function ProductFilter({
 
   // Remove all the filters; also reset the pagination position
   const handleClearFiltersClicked = useDebouncedCallback(() => replace(searchParamsState.productFilterCleared()), 600);
-
-  // Showing in the indicator mode? Also, do not show up in cases where no filters are being applied
-  if (isIndicator) {
-    return (
-      numberOfProductFilters > 0 && (
-        <div className={cn("dropdown md:dropdown-end", className)}>
-          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-            <div className="indicator">
-              <AdjustmentsHorizontalIcon width={24} height={24} />
-              <span className="badge indicator-item badge-sm">{numberOfProductFilters}</span>
-            </div>
-          </div>
-          <div tabIndex={0} className="card dropdown-content card-compact z-10 mt-3 w-64 bg-base-100 shadow">
-            <div className="card-body">
-              <span className="text-lg font-bold">Applying {numberOfProductFilters} Filter(s)</span>
-              {searchParamsState.appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
-                <div key={filterIndex} className="flex items-center justify-center gap-4 text-info">
-                  <button type="button" className="btn btn-outline btn-sm flex-none" onClick={() => replace(searchParamsState.productFilterRemoved(paramName))}>
-                    <XMarkIcon width={24} height={24} />
-                  </button>
-                  <span className="flex-1">
-                    {description} <b>{paramValue}</b>
-                  </span>
-                </div>
-              ))}
-              <div className="card-actions">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-block"
-                  onClick={() => {
-                    (document.activeElement as HTMLElement)?.blur();
-                    handleClearFiltersClicked();
-                  }}
-                >
-                  <TrashIcon width={24} height={24} />
-                  Clear All Filters
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    );
-  }
 
   // Show a product filter only when displaying a bunch of products
   if (!PathFinder.isBunchOfProducts(pathname)) return null;
@@ -189,12 +143,9 @@ export default function ProductFilter({
   );
 }
 
-export function ProductFilterSkeleton({ isIndicator = false, sheetMode = false, className }: Omit<ProductFilterProps, "data" | "filteredCount">) {
-  const pathname = usePathname();
-
-  if (isIndicator) return <div className={cn("skeleton h-12 w-12 rounded-full", className)} />;
-
+export function ProductFilterSkeleton({ sheetMode = false, className }: Omit<ProductFilterProps, "data" | "filteredCount">) {
   // Show a product filter only when displaying a bunch of products
+  const pathname = usePathname();
   if (!PathFinder.isBunchOfProducts(pathname)) return null;
 
   return (

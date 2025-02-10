@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 // components
 import HeaderLogo from "./HeaderLogo";
-import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/ProductFilter";
+import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/ProductFilterIndicator";
 import CartIndicator, { CartIndicatorSkeleton } from "@/features/cart/components/CartIndicator";
 import SearchPanel, { SearchPanelSkeleton } from "@/features/storefront/components/search/SearchPanel";
 import ThemeSwitcher, { ThemeSwitcherSkeleton } from "./ThemeSwitcher";
@@ -33,7 +33,7 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
       <HeaderLogo className={styles["header__logo"]} />
       <NavBarSheetTrigger categoriesTreeViewData={categoriesTreeViewData} className={styles["header__navbar-sheet-trigger"]} />
       <SearchPanel searchedCount={searchedCount} className={styles["header__search-panel"]} />
-      <ProductFilter data={productFilterData} isIndicator={true} filteredCount={filteredCount} className={styles["header__product-filter-indicator"]} />
+      <ProductFilterIndicator productFilterData={productFilterData} className={styles["header__product-filter-indicator"]} />
       <CartIndicator cart={cart} className={styles["header__cart-indicator"]} />
       <SideBarSheetTrigger productFilterData={productFilterData} filteredCount={filteredCount} className={styles["header__sidebar-sheet-trigger"]} />
       <ThemeSwitcher className={styles["header__theme-switcher"]} />
@@ -47,7 +47,7 @@ export function HeaderSkeleton() {
       <HeaderLogo className={styles["header__logo"]} />
       <NavBarSheetTriggerSkeleton className={styles["header__navbar-sheet-trigger"]} />
       <SearchPanelSkeleton className={styles["header__search-panel"]} />
-      <ProductFilterSkeleton isIndicator={true} className={styles["header__product-filter-indicator"]} />
+      <ProductFilterIndicatorSkeleton className={styles["header__product-filter-indicator"]} />
       <CartIndicatorSkeleton className={styles["header__cart-indicator"]} />
       <SideBarSheetTriggerSkeleton className={styles["header__sidebar-sheet-trigger"]} />
       <ThemeSwitcherSkeleton className={styles["header__theme-switcher"]} />

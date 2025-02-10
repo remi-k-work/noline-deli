@@ -7,6 +7,9 @@ import { forwardRef, ReactNode } from "react";
 // other libraries
 import { cn } from "@/lib/utils";
 
+// components
+import { Button } from "@/components/ui/custom/button";
+
 // assets
 import { lusitana } from "@/assets/fonts";
 import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
@@ -19,34 +22,24 @@ interface ConfirmDialogProps {
 
 const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children, ...props }: ConfirmDialogProps, ref) => {
   return (
-    <dialog ref={ref} className={cn(styles["confirm-dialog"], "modal")} {...props}>
-      <div className="modal-box p-0">
-        <h2
-          className={cn(
-            lusitana.className,
-            styles["confirm-dialog__title-bar"],
-            "bg-gradient-to-r from-primary to-secondary text-xl font-bold text-primary-foreground",
-          )}
-          data-testid="titleBar"
-        >
+    <dialog ref={ref} className={styles["confirm-dialog"]} {...props}>
+      <form method="dialog">
+        <header className={cn(lusitana.className, "bg-gradient-to-r from-primary to-secondary text-xl text-primary-foreground")} data-testid="titleBar">
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
-        </h2>
-        <br />
-        <div>{children}</div>
-        <div className="modal-action">
-          <form method="dialog">
-            <button type="submit" className="btn btn-warning m-4" onClick={() => onConfirmed()} data-testid="confirmButton">
-              <HandThumbUpIcon width={24} height={24} />
-              Confirm
-            </button>
-            <button type="submit" className="btn btn-secondary m-4" data-testid="cancelButton">
-              <HandThumbDownIcon width={24} height={24} />
-              Cancel
-            </button>
-          </form>
-        </div>
-      </div>
+        </header>
+        <article>{children}</article>
+        <footer>
+          <Button type="submit" variant="destructive" onClick={() => onConfirmed()} data-testid="confirmButton">
+            <HandThumbUpIcon width={24} height={24} />
+            Confirm
+          </Button>
+          <Button type="submit" data-testid="cancelButton">
+            <HandThumbDownIcon width={24} height={24} />
+            Cancel
+          </Button>
+        </footer>
+      </form>
     </dialog>
   );
 });

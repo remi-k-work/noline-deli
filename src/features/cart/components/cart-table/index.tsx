@@ -1,5 +1,5 @@
 // prisma and db access
-import { DerivedCartWithItems } from "../../db/cart";
+import { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // other libraries
 import { formatCurrency } from "@/lib/formatters";

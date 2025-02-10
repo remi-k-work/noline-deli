@@ -1,0 +1,13 @@
+.indicator {
+  z-index: var(--layer-1);
+
+  white-space: nowrap;
+  position: absolute;
+
+  top: var(--inidicator-t, 0);
+  bottom: var(--inidicator-b, auto);
+  left: var(--inidicator-s, auto);
+  right: var(--inidicator-e, 0);
+
+  translate: var(--inidicator-x, 50%) var(--indicator-y, -50%);
+}
