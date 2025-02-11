@@ -10,11 +10,7 @@
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
-  padding-block: var(--size-2) var(--size-2);
-  box-shadow: var(--shadow-6);
-  font-weight: var(--font-weight-9);
-  border-start-start-radius: var(--size-3);
-  border-start-end-radius: var(--size-3);
+  padding-block: var(--size-1) var(--size-1);
   margin-block-end: var(--size-2);
 }
 
@@ -38,11 +34,7 @@
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
-  padding-block: var(--size-2) var(--size-2);
-  box-shadow: var(--shadow-6);
-  font-weight: var(--font-weight-9);
-  border-start-start-radius: var(--size-3);
-  border-start-end-radius: var(--size-3);
+  padding-block: var(--size-1) var(--size-1);
   margin-block-end: var(--size-2);
 }
 

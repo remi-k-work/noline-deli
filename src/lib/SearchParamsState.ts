@@ -1,4 +1,5 @@
 // next
+import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
@@ -47,11 +48,12 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   constructor(
     pathname: string,
     searchParams: ReadonlyURLSearchParams,
-    byPriceBelowMax?: number,
+    replace?: (href: string, options?: NavigateOptions) => void,
 
+    byPriceBelowMax?: number,
     private readonly byBrandList?: Brand[],
   ) {
-    super(searchParams, pathname);
+    super(searchParams, pathname, replace);
 
     this.keyword = searchParams.get(SearchParamName.keyword) ?? "";
 
@@ -115,6 +117,9 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
 
   // Set the filter and save its state in search params; also reset the pagination position
   productFilterChanged = (newByBrandId?: string, newByPriceBelow?: number, newFreeShipping?: boolean) => {
+    // When the filter is set to "All Brands", remove the filter
+    newByBrandId === "*" && (newByBrandId = "");
+
     const paramsToSet: [SearchParamName, string][] = [];
     if (newByBrandId !== undefined) {
       paramsToSet.push([SearchParamName.byBrandId, newByBrandId]);
@@ -128,7 +133,7 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
 
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   // Remove only the particular product filter; also reset the pagination position
@@ -136,7 +141,7 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.updateParams([paramName]);
     this.resetPagination();
 
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   // Remove all the filters; also reset the pagination position
@@ -144,7 +149,7 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.updateParams([SearchParamName.byBrandId, SearchParamName.byPriceBelow, SearchParamName.byFreeShipping]);
     this.resetPagination();
 
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   // Get the number indicator of all product filters that are being applied

@@ -14,7 +14,7 @@ import HeaderLogo from "./HeaderLogo";
 import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/ProductFilterIndicator";
 import CartIndicator, { CartIndicatorSkeleton } from "@/features/cart/components/CartIndicator";
 import SearchPanel, { SearchPanelSkeleton } from "@/features/storefront/components/search/SearchPanel";
-import ThemeSwitcher, { ThemeSwitcherSkeleton } from "./ThemeSwitcher";
+import ThemeSwitcher, { ThemeSwitcherSkeleton } from "@/components/ThemeSwitcher";
 import NavBarSheetTrigger, { NavBarSheetTriggerSkeleton } from "./NavBarSheetTrigger";
 import SideBarSheetTrigger, { SideBarSheetTriggerSkeleton } from "./SideBarSheetTrigger";
 

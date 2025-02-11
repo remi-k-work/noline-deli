@@ -9,10 +9,11 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // assets
@@ -90,8 +91,10 @@ function NavMenu() {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger className="btn btn-circle btn-ghost" title="Menu">
-        <Bars4Icon width={24} height={24} />
+      <DropdownMenuTrigger asChild>
+        <Button type="button" size="icon" variant="ghost" title="Menu">
+          <Bars4Icon width={36} height={36} />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>

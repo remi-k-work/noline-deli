@@ -29,7 +29,7 @@ export default function SideBar({ productFilterData, filteredCount, sheetMode = 
     (isLarge || sheetMode) && (
       <aside className={className}>
         <section className="sticky top-20">
-          <ProductFilter data={productFilterData} filteredCount={filteredCount} sheetMode={sheetMode} sheetSetOpen={sheetSetOpen} />
+          <ProductFilter productFilterData={productFilterData} filteredCount={filteredCount} sheetMode={sheetMode} sheetSetOpen={sheetSetOpen} />
         </section>
       </aside>
     )

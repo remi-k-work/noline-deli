@@ -1,8 +1,5 @@
 "use client";
 
-// component css styles
-import styles from "./Logout.module.css";
-
 // react
 import { useEffect, useState, useTransition } from "react";
 
@@ -11,6 +8,9 @@ import { useRouter } from "next/navigation";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
+
+// components
+import { Button } from "@/components/ui/custom/button";
 
 // assets
 import { PowerIcon } from "@heroicons/react/24/solid";
@@ -47,10 +47,8 @@ export default function Logout() {
   }
 
   return (
-    <section className={styles["logout"]}>
-      <button type="button" className="btn btn-circle btn-ghost" disabled={isPending || !isLoggedIn} title={"Logout"} onClick={handleLogoutClicked}>
-        <PowerIcon width={24} height={24} />
-      </button>
-    </section>
+    <Button type="button" size="icon" variant="ghost" title="Logout" disabled={isPending || !isLoggedIn} onClick={handleLogoutClicked}>
+      <PowerIcon width={36} height={36} />
+    </Button>
   );
 }

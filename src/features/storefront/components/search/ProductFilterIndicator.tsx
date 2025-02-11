@@ -3,15 +3,11 @@
 // react
 import { useState } from "react";
 
-// next
-import { useRouter } from "next/navigation";
-
 // prisma and db access
 import type { ProductFilterData } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useDebouncedCallback } from "use-debounce";
 import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // components
@@ -36,13 +32,8 @@ export default function ProductFilterIndicator({ className, productFilterData: {
     byCompanyList,
   );
 
-  const { replace } = useRouter();
-
   // The controlled open state of the popover
   const [open, setOpen] = useState(false);
-
-  // Remove all the filters; also reset the pagination position
-  const handleClearFiltersClicked = useDebouncedCallback(() => replace(productFilterCleared()), 600);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -63,7 +54,7 @@ export default function ProductFilterIndicator({ className, productFilterData: {
             <section className="flex flex-col gap-4">
               {appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
                 <div key={filterIndex} className="flex items-center gap-4 text-muted-foreground">
-                  <Button type="button" size="icon" variant="outline" className="flex-none" onClick={() => replace(productFilterRemoved(paramName))}>
+                  <Button type="button" size="icon" variant="outline" className="flex-none" onClick={() => productFilterRemoved(paramName)}>
                     <XMarkIcon width={24} height={24} />
                   </Button>
                   <span className="flex-1">
@@ -78,7 +69,7 @@ export default function ProductFilterIndicator({ className, productFilterData: {
               variant="destructive"
               onClick={() => {
                 setOpen(false);
-                handleClearFiltersClicked();
+                productFilterCleared();
               }}
             >
               <XMarkIcon width={24} height={24} />

@@ -45,18 +45,18 @@ export function CategoriesTreeViewSkeleton() {
       {new Array(6).fill(null).map((_, index) => (
         <ul key={index} className={styles["categories-list-skeleton"]}>
           <li className={styles["categories-item-skeleton"]}>
-            <div className="skeleton mb-2 h-5 rounded-lg" />
+            <div className="mb-2 h-5 animate-pulse rounded-lg bg-background" />
           </li>
           <li className={styles["categories-item-skeleton"]}>
             <ul className={styles["categories-list-skeleton"]}>
               <li className={styles["categories-item-skeleton"]}>
-                <div className="skeleton mb-2 h-5 rounded-lg" />
+                <div className="mb-2 h-5 animate-pulse rounded-lg bg-background" />
               </li>
               <li className={styles["categories-item-skeleton"]}>
-                <div className="skeleton mb-2 h-5 rounded-lg" />
+                <div className="mb-2 h-5 animate-pulse rounded-lg bg-background" />
               </li>
               <li className={styles["categories-item-skeleton"]}>
-                <div className="skeleton mb-2 h-5 rounded-lg" />
+                <div className="mb-2 h-5 animate-pulse rounded-lg bg-background" />
               </li>
             </ul>
           </li>
@@ -78,7 +78,7 @@ function CategoriesList({ data }: CategoriesListProps) {
 
 function CategoriesItem({ entry }: CategoriesItemProps) {
   // Make sure to carry over currently used search params (product filter, viewing settings)
-  const searchParamsState = useSearchParamsState();
+  const { movedToNewLocation } = useSearchParamsState();
   const pathname = usePathname();
 
   const { label, href, subCategories = [] } = entry;
@@ -89,7 +89,7 @@ function CategoriesItem({ entry }: CategoriesItemProps) {
         <>
           {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
           {/* Also auto-hide the drawer after the user makes the selection */}
-          <Link href={searchParamsState.movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
+          <Link href={movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
             {label}
           </Link>
           <CategoriesList data={subCategories} />
@@ -98,7 +98,7 @@ function CategoriesItem({ entry }: CategoriesItemProps) {
         <>
           {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
           {/* Also auto-hide the drawer after the user makes the selection */}
-          <Link href={searchParamsState.movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
+          <Link href={movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
             {label}
           </Link>
         </>

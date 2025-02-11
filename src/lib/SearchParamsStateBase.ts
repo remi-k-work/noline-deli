@@ -1,4 +1,5 @@
 // next
+import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 export default class SearchParamsStateBase<T extends string> {
@@ -8,9 +9,12 @@ export default class SearchParamsStateBase<T extends string> {
   constructor(
     searchParams: ReadonlyURLSearchParams,
     private readonly pathname: string,
+    private readonly replace?: (href: string, options?: NavigateOptions) => void,
   ) {
     this.params = new URLSearchParams(searchParams);
   }
+
+  protected replaceUrl = () => this.replace?.(this.hrefWithParams);
 
   // Carry over currently used search params alongside the provided pathname
   protected get hrefWithParams() {
