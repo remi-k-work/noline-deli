@@ -1,19 +1,19 @@
 "use client";
 
-// component css styles
-import styles from "./SearchPanel.module.css";
-
 // react
 import { useEffect, useRef } from "react";
-
-// next
-import { useRouter } from "next/navigation";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import PathFinder from "@/lib/PathFinder";
 import useSearchParamsState from "@/hooks/useSearchParamsState";
+
+// components
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator";
 
 // assets
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
@@ -25,10 +25,8 @@ interface SearchPanelProps {
 }
 
 export default function SearchPanel({ searchedCount = 0, className }: SearchPanelProps) {
-  const searchParamsState = useSearchParamsState(PathFinder.toSfProductsSearch());
-  const { keyword } = searchParamsState;
+  const { keyword, searchPanelChanged } = useSearchParamsState(PathFinder.toSfProductsSearch());
 
-  const { replace } = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -37,11 +35,11 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
     if (search) search.value = keyword;
   }, [keyword]);
 
-  const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
+  const handleSearch = useDebouncedCallback((keyword: string) => searchPanelChanged(keyword), 600);
 
   return (
-    <label className={cn(styles["search-panel"], "indicator", "input input-bordered", className)}>
-      <input
+    <Label className={cn("flex w-full max-w-[--size-content-1] items-center gap-1 bg-background pr-1", className)}>
+      <Input
         ref={searchRef}
         type="search"
         name="search"
@@ -49,16 +47,22 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
         maxLength={25}
         aria-label="Search"
         placeholder="Search"
-        className="grow"
         defaultValue={keyword}
+        className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
         onChange={(ev) => handleSearch(ev.target.value)}
       />
-      <MagnifyingGlassCircleIcon width={24} height={24} />
-      {keyword && <span className="badge indicator-item badge-sm font-bold">{searchedCount}</span>}
-    </label>
+      <WithIndicator>
+        {keyword && (
+          <Indicator>
+            <Badge variant="secondary">{searchedCount}</Badge>
+          </Indicator>
+        )}
+        <MagnifyingGlassCircleIcon width={36} height={36} />
+      </WithIndicator>
+    </Label>
   );
 }
 
 export function SearchPanelSkeleton({ className }: Omit<SearchPanelProps, "searchedCount">) {
-  return <div className={cn(styles["search-panel-skeleton"], "skeleton h-12 rounded-lg", className)} />;
+  return <div className={cn("h-12 w-full max-w-[--size-content-1] animate-pulse rounded-lg bg-background", className)} />;
 }

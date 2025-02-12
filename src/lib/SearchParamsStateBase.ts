@@ -14,15 +14,15 @@ export default class SearchParamsStateBase<T extends string> {
     this.params = new URLSearchParams(searchParams);
   }
 
+  // Replace the current url with a new one that includes the pathname and search parameters
   protected replaceUrl = () => this.replace?.(this.hrefWithParams);
 
-  // Carry over currently used search params alongside the provided pathname
+  // Get currently used search params alongside the current pathname
   protected get hrefWithParams() {
-    // When there are no search params present, do not include the unnecessary "?" in the final url
     return this.getHrefWithParams(this.pathname);
   }
 
-  // Carry over currently used search params alongside the provided pathname
+  // Get currently used search params alongside the provided pathname
   protected getHrefWithParams = (pathname: string) => {
     // When there are no search params present, do not include the unnecessary "?" in the final url
     return this.params.toString() ? `${pathname}?${this.params.toString()}` : `${pathname}`;
@@ -31,11 +31,7 @@ export default class SearchParamsStateBase<T extends string> {
   // Update search params that maintain the current state that is kept in the current url
   protected updateParams = (paramsToDel?: T[], paramsToSet?: [T, string][]) => {
     // Any search params to delete?
-    if (paramsToDel) {
-      for (const paramToDel of paramsToDel) {
-        this.params.delete(paramToDel);
-      }
-    }
+    if (paramsToDel) for (const paramToDel of paramsToDel) this.params.delete(paramToDel);
 
     // Any search params to set?
     if (paramsToSet) {

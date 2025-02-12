@@ -28,83 +28,73 @@ interface PaginateProps {
 }
 
 export default function Paginate({ itemsPerPage, totalItems, className }: PaginateProps) {
-  const searchParamsState = useSearchParamsState();
+  const { currentPage = 1, paginationChanged } = useSearchParamsState();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
-
-  const { currentPage = 1 } = searchParamsState;
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
   const nextPageNumber = currentPage !== totalPages ? currentPage + 1 : currentPage;
 
   const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  for (let i = 1; i <= totalPages; i++) pageNumbers.push(i);
 
-  // Create href urls that respect the current pathname and previously used search params
-  const prevPageHref = searchParamsState.paginationChanged(prevPageNumber);
-  const nextPageHref = searchParamsState.paginationChanged(nextPageNumber);
+  // Do not render anything if there are no items to display
+  if (totalItems === 0) return null;
 
   return (
-    // Do not render anything if there are no items to display
-    totalItems > 0 && (
-      <section className={cn(styles["paginate"], className)}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href={prevPageHref} className={styles["paginate__prev"]}>
-              <BackwardIcon width={24} height={24} />
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Previous page</p>
-          </TooltipContent>
-        </Tooltip>
-        <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger className={styles["paginate__curr"]}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <header>
-                  {currentPage}&nbsp;/&nbsp;{totalPages}
-                </header>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Change page</p>
-              </TooltipContent>
-            </Tooltip>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className={styles["paginate__pages"]}>
-            {pageNumbers.map((pageNumber) => {
-              const currPageHref = searchParamsState.paginationChanged(pageNumber);
-
-              return pageNumber === currentPage ? (
-                <DropdownMenuItem key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
+    <section className={cn(styles["paginate"], className)}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={paginationChanged(prevPageNumber)} className={styles["paginate__prev"]}>
+            <BackwardIcon width={24} height={24} />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Previous page</p>
+        </TooltipContent>
+      </Tooltip>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger className={styles["paginate__curr"]}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <header>
+                {currentPage}&nbsp;/&nbsp;{totalPages}
+              </header>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Change page</p>
+            </TooltipContent>
+          </Tooltip>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className={styles["paginate__pages"]}>
+          {pageNumbers.map((pageNumber) =>
+            pageNumber === currentPage ? (
+              <DropdownMenuItem key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
+                {pageNumber}
+                <CheckIcon width={24} height={24} />
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem key={pageNumber} className={styles["paginate__page-number"]}>
+                <Link href={paginationChanged(pageNumber)} className="block w-full" onClick={() => setOpen(false)}>
                   {pageNumber}
-                  <CheckIcon width={24} height={24} />
-                </DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem key={pageNumber} className={styles["paginate__page-number"]}>
-                  <Link href={currPageHref} className="block w-full" onClick={() => setOpen(false)}>
-                    {pageNumber}
-                  </Link>
-                </DropdownMenuItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href={nextPageHref} className={styles["paginate__next"]}>
-              <ForwardIcon width={24} height={24} />
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Next page</p>
-          </TooltipContent>
-        </Tooltip>
-      </section>
-    )
+                </Link>
+              </DropdownMenuItem>
+            ),
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href={paginationChanged(nextPageNumber)} className={styles["paginate__next"]}>
+            <ForwardIcon width={24} height={24} />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Next page</p>
+        </TooltipContent>
+      </Tooltip>
+    </section>
   );
 }

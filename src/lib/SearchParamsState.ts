@@ -79,6 +79,7 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     return this.getHrefWithParams(newLocationHref);
   };
 
+  // Actions for pagination
   paginationChanged = (newCurrentPage: number) => {
     const paramsToSet: [SearchParamName, string][] = [];
     paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
@@ -88,6 +89,11 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     return this.hrefWithParams;
   };
 
+  private resetPagination = () => {
+    this.updateParams([SearchParamName.currentPage]);
+  };
+
+  // Actions for search panel
   searchPanelChanged = (newKeyword: string) => {
     const paramsToSet: [SearchParamName, string][] = [];
     paramsToSet.push([SearchParamName.keyword, newKeyword]);
@@ -95,10 +101,14 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
 
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
-  // Set the viewing settings and save their state in search params
+  private removeSearchMode = () => {
+    this.updateParams([SearchParamName.keyword]);
+  };
+
+  // Actions for products list
   productsListChanged = (newSortByField?: "id" | "price" | "name", newSortByOrder?: "asc" | "desc", newIsListMode?: boolean) => {
     const paramsToSet: [SearchParamName, string][] = [];
     if (newSortByField !== undefined) {
@@ -112,10 +122,10 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     }
     this.updateParams(undefined, paramsToSet);
 
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
-  // Set the filter and save its state in search params; also reset the pagination position
+  // Actions for product filter
   productFilterChanged = (newByBrandId?: string, newByPriceBelow?: number, newFreeShipping?: boolean) => {
     // When the filter is set to "All Brands", remove the filter
     newByBrandId === "*" && (newByBrandId = "");
@@ -136,7 +146,6 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.replaceUrl();
   };
 
-  // Remove only the particular product filter; also reset the pagination position
   productFilterRemoved = (paramName: SearchParamName) => {
     this.updateParams([paramName]);
     this.resetPagination();
@@ -144,7 +153,6 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
     this.replaceUrl();
   };
 
-  // Remove all the filters; also reset the pagination position
   productFilterCleared = () => {
     this.updateParams([SearchParamName.byBrandId, SearchParamName.byPriceBelow, SearchParamName.byFreeShipping]);
     this.resetPagination();
@@ -180,14 +188,4 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
 
     return appliedFilters;
   }
-
-  // Reset the pagination position
-  private resetPagination = () => {
-    this.updateParams([SearchParamName.currentPage]);
-  };
-
-  // Remove all state from the search mode
-  private removeSearchMode = () => {
-    this.updateParams([SearchParamName.keyword]);
-  };
 }

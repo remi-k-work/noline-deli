@@ -20,64 +20,56 @@ interface PaginateProps {
 }
 
 export default function Paginate({ itemsPerPage, totalItems }: PaginateProps) {
-  const searchParamsState = useSearchParamsState();
-  const { currentPage } = searchParamsState;
+  const { currentPage = 1, paginationChanged } = useSearchParamsState();
 
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const prevPageNumber = currentPage !== 1 ? currentPage - 1 : currentPage;
-  const nextPageNumber = currentPage !== Math.ceil(totalItems / itemsPerPage) ? currentPage + 1 : currentPage;
+  const nextPageNumber = currentPage !== totalPages ? currentPage + 1 : currentPage;
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  for (let i = 1; i <= totalPages; i++) pageNumbers.push(i);
 
-  // Create href urls that respect the current pathname and previously used search params
-  const prevPageHref = searchParamsState.paginationChanged(prevPageNumber);
-  const nextPageHref = searchParamsState.paginationChanged(nextPageNumber);
+  // Do not render anything if there are no items to display
+  if (totalItems === 0) return null;
 
   return (
-    // Do not render anything if there are no items to display
-    totalItems > 0 && (
-      <section className={styles["paginate"]}>
-        <Link href={prevPageHref} className={styles["paginate__prev"]}>
-          <BackwardIcon width={24} height={24} />
-        </Link>
-        <div className={styles["paginate__pages"]}>
-          {pageNumbers.map((pageNumber) => {
-            const currPageHref = searchParamsState.paginationChanged(pageNumber);
-
-            return pageNumber === currentPage ? (
-              <span key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
-                {pageNumber}
-              </span>
-            ) : (
-              <Link key={pageNumber} href={currPageHref} className={styles["paginate__page-number"]}>
-                {pageNumber}
-              </Link>
-            );
-          })}
-        </div>
-        <Link href={nextPageHref} className={styles["paginate__next"]}>
-          <ForwardIcon width={24} height={24} />
-        </Link>
-      </section>
-    )
+    <section className={styles["paginate"]}>
+      <Link href={paginationChanged(prevPageNumber)} className={styles["paginate__prev"]}>
+        <BackwardIcon width={24} height={24} />
+      </Link>
+      <div className={styles["paginate__pages"]}>
+        {pageNumbers.map((pageNumber) =>
+          pageNumber === currentPage ? (
+            <span key={pageNumber} className={cn(styles["paginate__page-number"], styles["paginate__page-number--current"])}>
+              {pageNumber}
+            </span>
+          ) : (
+            <Link key={pageNumber} href={paginationChanged(pageNumber)} className={styles["paginate__page-number"]}>
+              {pageNumber}
+            </Link>
+          ),
+        )}
+      </div>
+      <Link href={paginationChanged(nextPageNumber)} className={styles["paginate__next"]}>
+        <ForwardIcon width={24} height={24} />
+      </Link>
+    </section>
   );
 }
 
 export function PaginateSkeleton() {
   return (
     <section className={styles["paginate"]}>
-      <div className={cn(styles["paginate__prev"], "skeleton")}>
+      <div className={cn(styles["paginate__prev"], "animate-pulse bg-background")}>
         <BackwardIcon width={24} height={24} />
       </div>
       <div className={styles["paginate__pages"]}>
-        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
-        <div className={cn(styles["paginate__page-number"], "skeleton")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "animate-pulse bg-background")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "animate-pulse bg-background")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "animate-pulse bg-background")}>&nbsp;</div>
+        <div className={cn(styles["paginate__page-number"], "animate-pulse bg-background")}>&nbsp;</div>
       </div>
-      <div className={cn(styles["paginate__next"], "skeleton")}>
+      <div className={cn(styles["paginate__next"], "animate-pulse bg-background")}>
         <ForwardIcon width={24} height={24} />
       </div>
     </section>
