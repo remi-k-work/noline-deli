@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import { OrderWithItems } from "../../db";
+import type { OrderWithItems } from "../../db";
 
 // other libraries
 import stripe from "@/services/stripe";

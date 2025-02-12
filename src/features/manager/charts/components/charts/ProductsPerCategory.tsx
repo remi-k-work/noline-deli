@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 
 // prisma and db access
-import { ProductsPerCategoryData } from "../../db/types";
+import type { ProductsPerCategoryData } from "../../db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";

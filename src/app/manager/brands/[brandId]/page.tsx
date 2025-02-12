@@ -31,10 +31,7 @@ export default async function Page({ params: { brandId } }: PageProps) {
   const brand = await getBrand(brandId);
 
   // Ensure the brand exists
-  if (!brand) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!brand) notFound();
 
   return (
     <article className={styles["page"]}>

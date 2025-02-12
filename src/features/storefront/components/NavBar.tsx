@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { CategoriesTreeViewData } from "@/features/storefront/db/types";
+import type { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";

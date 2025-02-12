@@ -4,8 +4,8 @@
 import { createContext, useContext, ReactNode } from "react";
 
 // prisma and db access
-import { ProductWithInfo } from "@/features/manager/products/db";
-import { CategoryWithSubCategory } from "@/features/manager/categories/db";
+import type { ProductWithInfo } from "@/features/manager/products/db";
+import type { CategoryWithSubCategory } from "@/features/manager/categories/db";
 
 // other libraries
 import { getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, Table, useReactTable } from "@tanstack/react-table";

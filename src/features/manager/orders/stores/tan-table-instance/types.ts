@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 
 // prisma and db access
-import { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db";
+import type { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import { Table } from "@tanstack/react-table";

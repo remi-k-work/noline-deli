@@ -1,5 +1,5 @@
 // prisma and db access
-import { OrderedItem } from "@prisma/client";
+import type { OrderedItem } from "@prisma/client";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { OrdersByDayData } from "../../db/types";
+import type { OrdersByDayData } from "../../db/types";
 
 // other libraries
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";

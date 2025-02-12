@@ -2,11 +2,11 @@
 import Link from "next/link";
 
 // prisma and db access
-import { SubCategoryWithInfo } from "../../../categories/db";
+import type { SubCategoryWithInfo } from "@/features/manager/categories/db";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
 
@@ -28,10 +28,7 @@ export default function Entry({ subCategory, createdByUser }: EntryProps) {
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
   // Ensure the subcategory exists
-  if (!subCategory) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!subCategory) return null;
 
   const {
     id,

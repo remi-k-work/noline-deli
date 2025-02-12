@@ -7,8 +7,8 @@ import styles from "./Controls.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import { BrandWithUser } from "../../../brands/db";
-import { CategoryWithSubCategory } from "../../../categories/db";
+import type { BrandWithUser } from "../../../brands/db";
+import type { CategoryWithSubCategory } from "../../../categories/db";
 
 // other libraries
 import { useProductFormStore } from "../../stores/productFormProvider";

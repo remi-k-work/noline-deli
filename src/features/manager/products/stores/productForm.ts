@@ -1,5 +1,5 @@
 // prisma and db access
-import { CategoryWithSubCategory } from "../../categories/db";
+import type { CategoryWithSubCategory } from "../../categories/db";
 
 // other libraries
 import { createStore } from "zustand/vanilla";

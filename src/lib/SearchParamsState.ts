@@ -1,9 +1,9 @@
 // next
-import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { Brand } from "@prisma/client";
+import type { Brand } from "@prisma/client";
 
 // other libraries
 import SearchParamsStateBase from "./SearchParamsStateBase";

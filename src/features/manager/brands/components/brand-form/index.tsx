@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import { BrandWithUser } from "../../db";
+import type { BrandWithUser } from "@/features/manager/brands/db";
 
 // server actions and mutations
 import { newBrand2, updBrand2 } from "@/features/manager/brands/actions";
@@ -18,13 +18,13 @@ import { useBrandFormStore } from "../../stores/brandFormProvider";
 import useFormActionWithVal from "../../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { brandFormSchema } from "../../schemas/brandForm";
-import { BrandFormActionResult } from "../../schemas/types";
-import PathFinder from "../../../../../lib/PathFinder";
+import type { BrandFormActionResult } from "../../schemas/types";
+import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
 
 // components
 import { BrandFormStoreProvider } from "../../stores/brandFormProvider";
-import { AllFieldErrorsProvider } from "../../../../../contexts/AllFieldErrors";
+import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
 import { FormInputField } from "../../../components/FormControls";
 import Logo from "./Logo";
 import FormSubmit from "../../../components/FormSubmit";

@@ -2,12 +2,12 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { ProductsPerBrandData } from "./types";
+import type { ProductsPerBrandData } from "./types";
 
 const productsPerBrand = cache(async () => {
   const brands = await prisma.brand.findMany({

@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 
 // prisma and db access
-import { BrowseBarData, ProductWithInfo } from "@/features/manager/products/db";
+import type { BrowseBarData, ProductWithInfo } from "@/features/manager/products/db";
 
 // other libraries
 import { Table } from "@tanstack/react-table";

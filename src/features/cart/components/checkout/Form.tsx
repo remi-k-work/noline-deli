@@ -4,7 +4,7 @@
 import { FormEvent, useState } from "react";
 
 // prisma and db access
-import { DerivedCartWithItems } from "@/features/cart/db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // server actions and mutations
 import { createPaymentIntent } from "../../actions/checkout";

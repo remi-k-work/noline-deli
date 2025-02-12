@@ -1,6 +1,6 @@
 // next
-import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
 export default class SearchParamsStateBase<T extends string> {
   // All search params that maintain the current state that is kept in the current url

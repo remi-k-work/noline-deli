@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { OrderWithItems } from "@/features/manager/orders/db";
+import type { OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";

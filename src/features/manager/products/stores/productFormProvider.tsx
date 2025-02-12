@@ -4,7 +4,7 @@
 import { ReactNode, createContext, useRef, useContext } from "react";
 
 // prisma and db access
-import { ProductWithAll } from "../db";
+import type { ProductWithAll } from "../db";
 
 // other libraries
 import { useStore } from "zustand";

@@ -1,5 +1,5 @@
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export const INCLUDE_PRODUCT_WITH_ALL = {
   categories: { include: { category: true } },

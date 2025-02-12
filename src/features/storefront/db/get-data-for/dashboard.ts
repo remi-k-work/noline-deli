@@ -2,13 +2,13 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
 import { INCLUDE_PRODUCT_WITH_ALL } from "../consts";
-import { DashboardData } from "../types";
+import type { DashboardData } from "../types";
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
 const dashboard = cache(async () => {

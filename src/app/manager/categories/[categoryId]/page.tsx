@@ -31,10 +31,7 @@ export default async function Page({ params: { categoryId } }: PageProps) {
   const category = await getCategory(categoryId);
 
   // Ensure the category exists
-  if (!category) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!category) notFound();
 
   return (
     <article className={styles["page"]}>

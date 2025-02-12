@@ -4,7 +4,7 @@
 import { ReactNode, createContext, useRef, useContext } from "react";
 
 // prisma and db access
-import { SubCategoryWithUser } from "../../categories/db";
+import type { SubCategoryWithUser } from "../../categories/db";
 
 // other libraries
 import { useStore } from "zustand";

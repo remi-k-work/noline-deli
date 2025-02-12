@@ -26,10 +26,7 @@ export default async function Page() {
   const brand = await getBrand("6687bdee97dd11f1d52b872b");
 
   // Ensure the brand exists
-  if (!brand) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!brand) notFound();
 
   return (
     <article className={styles["page"]}>

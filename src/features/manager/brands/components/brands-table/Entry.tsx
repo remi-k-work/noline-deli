@@ -3,11 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { BrandWithInfo } from "../../db";
+import type { BrandWithInfo } from "@/features/manager/brands/db";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
 
@@ -29,10 +29,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
   // Ensure the brand exists
-  if (!brand) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!brand) return null;
 
   const {
     id,

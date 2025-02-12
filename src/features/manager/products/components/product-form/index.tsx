@@ -7,9 +7,9 @@ import styles from "./index.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import { ProductWithAll } from "../../db";
-import { BrandWithUser } from "../../../brands/db";
-import { CategoryWithSubCategory } from "../../../categories/db";
+import type { ProductWithAll } from "../../db";
+import type { BrandWithUser } from "../../../brands/db";
+import type { CategoryWithSubCategory } from "../../../categories/db";
 
 // server actions and mutations
 import { newProduct2, updProduct2 } from "@/features/manager/products/actions";
@@ -20,8 +20,8 @@ import { useProductFormStore } from "../../stores/productFormProvider";
 import useFormActionWithVal from "../../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { productFormSchema } from "../../schemas/productForm";
-import { ProductFormActionResult } from "../../schemas/types";
-import PathFinder from "../../../../../lib/PathFinder";
+import type { ProductFormActionResult } from "../../schemas/types";
+import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
 
 // components

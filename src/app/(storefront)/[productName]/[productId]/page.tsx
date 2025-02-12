@@ -44,10 +44,7 @@ export async function generateMetadata({ params: { productName, productId } }: P
   const product = await getProduct(productId);
 
   // Ensure the product exists
-  if (!product) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!product) notFound();
 
   const { description, imageUrl } = product;
 
@@ -77,10 +74,7 @@ async function PageSuspense({ productName, productId }: PageSuspenseProps) {
   const product = await getProduct(productId);
 
   // Ensure the product exists
-  if (!product) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!product) notFound();
 
   return (
     <MainLayout>

@@ -31,10 +31,7 @@ export default async function Page({ params: { orderId } }: PageProps) {
   const order = await getOrder(orderId);
 
   // Ensure the order exists
-  if (!order) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!order) notFound();
 
   return (
     <article className={styles["page"]}>

@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { RevenueByItemData } from "../../db/types";
+import type { RevenueByItemData } from "../../db/types";
 
 // other libraries
 import { CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from "recharts";

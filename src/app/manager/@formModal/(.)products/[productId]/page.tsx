@@ -21,10 +21,7 @@ export default async function Page({ params: { productId } }: PageProps) {
   const product = await getProduct(productId);
 
   // Ensure the product exists
-  if (!product) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!product) notFound();
 
   return (
     <FormModal>

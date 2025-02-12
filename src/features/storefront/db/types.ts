@@ -1,5 +1,5 @@
 // prisma and db access
-import { Brand, Prisma } from "@prisma/client";
+import type { Brand, Prisma } from "@prisma/client";
 
 // other libraries
 import { INCLUDE_PRODUCT_WITH_ALL } from "./consts";

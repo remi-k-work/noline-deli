@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { ProductWithInfo } from "@/features/manager/products/db";
+import type { ProductWithInfo } from "@/features/manager/products/db";
 
 // other libraries
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";

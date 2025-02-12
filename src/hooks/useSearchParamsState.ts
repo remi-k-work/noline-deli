@@ -2,7 +2,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 // prisma and db access
-import { Brand } from "@prisma/client";
+import type { Brand } from "@prisma/client";
 
 // other libraries
 import SearchParamsState from "@/lib/SearchParamsState";

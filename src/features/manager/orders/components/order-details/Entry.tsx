@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import { OrderedItem } from "@prisma/client";
+import type { OrderedItem } from "@prisma/client";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";

@@ -2,12 +2,12 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { ProductFilterData } from "../types";
+import type { ProductFilterData } from "../types";
 
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
 const productFilter = cache(async () => {

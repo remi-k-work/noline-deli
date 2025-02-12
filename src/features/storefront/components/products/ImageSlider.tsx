@@ -16,7 +16,13 @@ import PathFinder from "@/lib/PathFinder";
 // assets
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 
-export default function ImageSlider({ productName, moreImages = [] }) {
+// types
+interface ImageSliderProps {
+  productName: string;
+  moreImages: { imageUrl: string }[];
+}
+
+export default function ImageSlider({ productName, moreImages = [] }: ImageSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   function handlePrevSlideClicked() {

@@ -4,7 +4,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import { CategoryWithInfo } from "../../db";
+import type { CategoryWithInfo } from "../../db";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";

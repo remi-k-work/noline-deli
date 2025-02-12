@@ -1,5 +1,5 @@
 // prisma and db access
-import { ProductWithAll } from "@/features/storefront/db/types";
+import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

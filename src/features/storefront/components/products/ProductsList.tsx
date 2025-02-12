@@ -4,13 +4,16 @@
 import styles from "./ProductsList.module.css";
 
 // prisma and db access
-import { Product } from "@prisma/client";
+import type { Product } from "@prisma/client";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // components
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ProductCard, { ProductCardSkeleton } from "./ProductCard";
 
 // assets
@@ -33,34 +36,32 @@ export default function ProductsList({ totalProducts, products }: ProductsListPr
   return (
     <section className={styles["products-list"]}>
       <header className="mb-4 flex w-full flex-wrap items-center justify-end gap-4">
-        <label className="flex flex-none cursor-pointer items-center gap-2">
+        <Label className="flex flex-none items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <input
-            type="checkbox"
-            name="viewMode"
-            className="toggle"
-            defaultChecked={isListMode}
-            onChange={(ev) => productsListChanged(undefined, undefined, ev.target.checked)}
-          />
+          <Switch name="viewMode" checked={isListMode} onCheckedChange={(isListMode) => productsListChanged(undefined, undefined, isListMode)} />
           <QueueListIcon width={24} height={24} />
-        </label>
-        <span className="flex-1 text-end lg:divider lg:divider-start">{totalProducts} Product(s) Found</span>
-        <span className="flex flex-none items-center">
+        </Label>
+        <span className="flex-1 text-end">{totalProducts} Product(s) Found</span>
+        <Label className="flex flex-initial basis-48 items-center gap-1">
           <ArrowsUpDownIcon width={24} height={24} />
-          <select
+          <Select
             name="sortBy"
-            className="select"
-            defaultValue={sortBy}
-            onChange={(ev) => productsListChanged(ev.target.value.split("|")[0] as "id" | "price" | "name", ev.target.value.split("|")[1] as "asc" | "desc")}
+            value={sortBy}
+            onValueChange={(sortBy) => productsListChanged(sortBy.split("|")[0] as "id" | "price" | "name", sortBy.split("|")[1] as "asc" | "desc")}
           >
-            <option value={"id|desc"}>Date (Newest)</option>
-            <option value={"id|asc"}>Date (Oldest)</option>
-            <option value={"price|asc"}>Price (Lowest)</option>
-            <option value={"price|desc"}>Price (Highest)</option>
-            <option value={"name|asc"}>Name (A to Z)</option>
-            <option value={"name|desc"}>Name (Z to A)</option>
-          </select>
-        </span>
+            <SelectTrigger>
+              <SelectValue placeholder="Sort By" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="id|desc">Date (Newest)</SelectItem>
+              <SelectItem value="id|asc">Date (Oldest)</SelectItem>
+              <SelectItem value="price|asc">Price (Lowest)</SelectItem>
+              <SelectItem value="price|desc">Price (Highest)</SelectItem>
+              <SelectItem value="name|asc">Name (A to Z)</SelectItem>
+              <SelectItem value="name|desc">Name (Z to A)</SelectItem>
+            </SelectContent>
+          </Select>
+        </Label>
       </header>
       <section className={cn(styles["products-list__items"], isListMode && styles["products-list__items--list-mode"])}>
         {products.map((product) => (
@@ -75,23 +76,28 @@ export function ProductsListSkeleton({ isListMode, sortBy }: ProductsListSkeleto
   return (
     <section className={styles["products-list-skeleton"]}>
       <header className="mb-4 flex w-full flex-wrap items-center justify-end gap-4">
-        <label className="flex flex-none cursor-pointer items-center gap-2">
+        <Label className="flex flex-none items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <input type="checkbox" name="viewMode" className="toggle" defaultChecked={isListMode} disabled={true} />
+          <Switch name="viewMode" defaultChecked={isListMode} disabled />
           <QueueListIcon width={24} height={24} />
-        </label>
-        <span className="flex-1 text-end lg:divider lg:divider-start">... Product(s) Found</span>
-        <span className="flex flex-none items-center">
+        </Label>
+        <span className="flex-1 text-end">... Product(s) Found</span>
+        <Label className="flex flex-initial basis-48 items-center gap-1">
           <ArrowsUpDownIcon width={24} height={24} />
-          <select name="sortBy" className="select" defaultValue={sortBy} disabled={true}>
-            <option value={"id|desc"}>Date (Newest)</option>
-            <option value={"id|asc"}>Date (Oldest)</option>
-            <option value={"price|asc"}>Price (Lowest)</option>
-            <option value={"price|desc"}>Price (Highest)</option>
-            <option value={"name|asc"}>Name (A to Z)</option>
-            <option value={"name|desc"}>Name (Z to A)</option>
-          </select>
-        </span>
+          <Select name="sortBy" defaultValue={sortBy} disabled>
+            <SelectTrigger>
+              <SelectValue placeholder="Sort By" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="id|desc">Date (Newest)</SelectItem>
+              <SelectItem value="id|asc">Date (Oldest)</SelectItem>
+              <SelectItem value="price|asc">Price (Lowest)</SelectItem>
+              <SelectItem value="price|desc">Price (Highest)</SelectItem>
+              <SelectItem value="name|asc">Name (A to Z)</SelectItem>
+              <SelectItem value="name|desc">Name (Z to A)</SelectItem>
+            </SelectContent>
+          </Select>
+        </Label>
       </header>
       <section className={cn(styles["products-list-skeleton__items"], isListMode && styles["products-list-skeleton__items--list-mode"])}>
         <ProductCardSkeleton listMode={isListMode} />

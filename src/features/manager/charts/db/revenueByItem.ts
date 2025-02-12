@@ -6,7 +6,7 @@ import prisma from "@/services/prisma";
 
 // other libraries
 import { RangeOption } from "@/lib/rangeOptions";
-import { RevenueByItemData } from "./types";
+import type { RevenueByItemData } from "./types";
 import { convertLocalDateToUTCIgnoringTimezone } from "@/lib/formatters";
 
 const revenueByItem = cache(async (rangeOption?: RangeOption) => {

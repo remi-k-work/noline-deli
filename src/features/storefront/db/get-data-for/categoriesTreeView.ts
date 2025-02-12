@@ -6,7 +6,7 @@ import { allCategories } from "@/features/storefront/db";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
-import { CategoriesTreeViewData } from "../types";
+import type { CategoriesTreeViewData } from "../types";
 
 // Create a product category tree in the format that is needed by the categories tree view component
 const categoriesTreeView = cache(async () => {

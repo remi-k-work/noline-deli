@@ -4,7 +4,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import { BrandWithInfo } from "../../db";
+import type { BrandWithInfo } from "@/features/manager/brands/db";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";

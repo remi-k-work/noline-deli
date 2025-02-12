@@ -7,7 +7,7 @@ import styles from "./SubCategoryForm.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import { CategoryWithSubCategory, SubCategoryWithUser } from "../../categories/db";
+import type { CategoryWithSubCategory, SubCategoryWithUser } from "../../categories/db";
 
 // server actions and mutations
 import { newSubCategory2, updSubCategory2 } from "@/features/manager/subcategories/actions";
@@ -18,8 +18,8 @@ import { useSubCategoryFormStore } from "../stores/subCategoryFormProvider";
 import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { subCategoryFormSchema } from "../schemas/subCategoryForm";
-import { SubCategoryFormActionResult } from "../schemas/types";
-import PathFinder from "../../../../lib/PathFinder";
+import type { SubCategoryFormActionResult } from "../schemas/types";
+import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 
 // components

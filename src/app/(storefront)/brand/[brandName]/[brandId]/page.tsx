@@ -78,10 +78,7 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
   ]);
 
   // Ensure the brand exists
-  if (!brand) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!brand) notFound();
 
   const { name, logoUrl } = brand;
 

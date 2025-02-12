@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 import { useEffect, useState } from "react";
 
 // prisma and db access
-import { DerivedCartWithItems } from "@/features/cart/db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // components
 import NotFound from "@/components/NotFound";

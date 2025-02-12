@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
-import { Product } from "@prisma/client";
+import type { Product } from "@prisma/client";
 import { default as allProductsByCategory } from "@/features/storefront/db/all-products/byCategory";
 import { default as allProductsByCategoryAndSubCategory } from "@/features/storefront/db/all-products/byCategoryAndSubCategory";
 import { default as allProductsWithPagination } from "@/features/storefront/db/all-products/withPagination";

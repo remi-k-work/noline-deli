@@ -4,12 +4,12 @@
 import { ReactNode, createContext, useRef, useContext } from "react";
 
 // prisma and db access
-import { BrandWithUser } from "../db";
+import type { BrandWithUser } from "@/features/manager/brands/db";
 
 // other libraries
 import { useStore } from "zustand";
 import { BrandFormState, BrandFormStore, BrandFormStoreApi, createBrandFormStore } from "./brandForm";
-import PathFinder from "../../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // types
 interface BrandFormProviderProps {

@@ -5,7 +5,7 @@ import styles from "./OrderedItemInfo.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import { OrderedItem } from "@prisma/client";
+import type { OrderedItem } from "@prisma/client";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
@@ -35,10 +35,7 @@ interface BrandProps {
 
 export default function OrderedItemInfo({ orderedItem }: OrderedItemInfoProps) {
   // Ensure the ordered item exists
-  if (!orderedItem) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!orderedItem) return null;
 
   const { name, description, imageUrl, price, brandName, brandLogo, categoryName, subCategoryName } = orderedItem;
 

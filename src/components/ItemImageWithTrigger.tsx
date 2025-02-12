@@ -6,8 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "@/features/storefront/db/types";
-import { OrderedItem } from "@prisma/client";
+import type { ProductWithAll } from "@/features/storefront/db/types";
+import type { OrderedItem } from "@prisma/client";
 
 // other libraries
 import { cn } from "@/lib/utils";

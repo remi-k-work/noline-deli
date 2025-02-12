@@ -5,6 +5,9 @@ import styles from "./ProductCard.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
+// prisma and db access
+import type { Product } from "@prisma/client";
+
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
@@ -16,12 +19,15 @@ import PriceTag from "./PriceTag";
 import { lusitana } from "@/assets/fonts";
 import { TruckIcon } from "@heroicons/react/24/solid";
 
-export default function ProductCard({ product, listMode = false }) {
+// types
+interface ProductCardProps {
+  product: Product;
+  listMode?: boolean;
+}
+
+export default function ProductCard({ product, listMode = false }: ProductCardProps) {
   // Ensure the product exists
-  if (!product) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!product) return null;
 
   const { id, name, description, imageUrl, price, freeShipping, createdAt } = product;
 
@@ -86,18 +92,18 @@ export function ProductCardSkeleton({ listMode = false }) {
     <article className={cn(styles["product-card-skeleton"], styles["product-card-skeleton--list-mode"])}>
       <div className="card image-full card-side w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
-          <div className="skeleton h-72 w-72 rounded-lg"></div>
+          <div className="h-72 w-72 animate-pulse rounded-lg bg-background"></div>
         </figure>
         <div className="card-body">
-          <div className="skeleton h-10 w-1/2"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-3/4"></div>
-          <div className="skeleton h-4 w-3/4"></div>
+          <div className="h-10 w-1/2 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-background"></div>
           <div className="card-actions justify-end">
-            <div className="skeleton h-4 w-1/6"></div>
+            <div className="h-4 w-1/6 animate-pulse bg-background"></div>
           </div>
         </div>
       </div>
@@ -106,12 +112,12 @@ export function ProductCardSkeleton({ listMode = false }) {
     <article className={cn(styles["product-card-skeleton"])}>
       <div className="card card-compact w-full bg-base-100 transition-shadow hover:shadow-xl">
         <figure className="flex-none">
-          <div className="skeleton h-36 w-36 rounded-lg"></div>
+          <div className="h-36 w-36 animate-pulse rounded-lg bg-background"></div>
         </figure>
         <div className="card-body">
-          <div className="skeleton h-10"></div>
+          <div className="h-10 animate-pulse bg-background"></div>
           <div className="card-actions justify-end">
-            <div className="skeleton h-4 w-1/6"></div>
+            <div className="h-4 w-1/6 animate-pulse bg-background"></div>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import prisma from "@/services/prisma";
 
 // other libraries
 import { createTimeAxis, RangeOption } from "@/lib/rangeOptions";
-import { CustomersByDay, CustomersByDayData } from "./types";
+import type { CustomersByDay, CustomersByDayData } from "./types";
 import { SELECT_CUSTOMERS_BY_DAY } from "./consts";
 import { convertLocalDateToUTCIgnoringTimezone } from "@/lib/formatters";
 

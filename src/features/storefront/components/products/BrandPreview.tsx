@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { Brand } from "@prisma/client";
+import type { Brand } from "@prisma/client";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
@@ -18,10 +18,7 @@ interface BrandPreviewProps {
 
 export default function BrandPreview({ brand }: BrandPreviewProps) {
   // Ensure the brand exists
-  if (!brand) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!brand) return null;
 
   const { id, name, logoUrl } = brand;
 

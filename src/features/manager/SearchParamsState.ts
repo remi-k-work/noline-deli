@@ -1,5 +1,5 @@
 // next
-import { ReadonlyURLSearchParams } from "next/navigation";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
 // other libraries
 import { RangeOption } from "@/lib/rangeOptions";

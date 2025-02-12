@@ -5,7 +5,7 @@ import styles from "./SingleProductView.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "@/features/storefront/db/types";
+import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -27,10 +27,7 @@ interface SingleProductViewProps {
 
 export default function SingleProductView({ product }: SingleProductViewProps) {
   // Ensure the product exists
-  if (!product) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!product) return null;
 
   const { id, name, description, imageUrl, price, moreImages, brand } = product;
 
@@ -67,14 +64,14 @@ export default function SingleProductView({ product }: SingleProductViewProps) {
 export function SingleProductViewSkeleton() {
   return (
     <article className={styles["single-product-view-skeleton"]}>
-      <div className="skeleton h-96 rounded-lg"></div>
-      <div className="skeleton h-10"></div>
-      <div className="skeleton h-16"></div>
-      <div className="skeleton h-4"></div>
-      <div className="skeleton h-4"></div>
-      <div className="skeleton h-4"></div>
-      <div className="skeleton h-4 w-1/6"></div>
-      <div className="skeleton h-12 w-1/4"></div>
+      <div className="h-96 animate-pulse rounded-lg bg-background"></div>
+      <div className="h-10 animate-pulse bg-background"></div>
+      <div className="h-16 animate-pulse bg-background"></div>
+      <div className="h-4 animate-pulse bg-background"></div>
+      <div className="h-4 animate-pulse bg-background"></div>
+      <div className="h-4 animate-pulse bg-background"></div>
+      <div className="h-4 w-1/6 animate-pulse bg-background"></div>
+      <div className="h-12 w-1/4 animate-pulse bg-background"></div>
     </article>
   );
 }

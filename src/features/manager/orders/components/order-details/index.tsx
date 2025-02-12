@@ -2,7 +2,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import { OrderWithItems } from "../../db";
+import type { OrderWithItems } from "../../db";
 
 // other libraries
 import { cn } from "@/lib/utils";

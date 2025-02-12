@@ -1,5 +1,5 @@
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 // Create and where clause generators and helpers
 export function whereFilter(byBrandId: string, byPriceBelow: number, byFreeShipping: boolean): Prisma.ProductWhereInput {

@@ -111,7 +111,7 @@ export default function ProductFilter({
         {sheetMode && (
           <Button type="button" size="block" variant="secondary" className="mb-4" onClick={() => sheetSetOpen?.(false)}>
             <MagnifyingGlassCircleIcon width={24} height={24} />
-            View {filteredCount} Products
+            View {filteredCount} Product(s)
           </Button>
         )}
       </form>

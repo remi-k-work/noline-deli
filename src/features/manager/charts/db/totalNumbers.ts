@@ -2,12 +2,12 @@
 import { cache } from "react";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/login/db";
 
 // other libraries
-import { TotalNumbersData } from "./types";
+import type { TotalNumbersData } from "./types";
 
 // Collect all relevant totals (such as the total number of products and brands)
 const totalNumbers = cache(async () => {

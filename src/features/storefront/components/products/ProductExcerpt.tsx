@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "@/features/storefront/db/types";
+import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -23,10 +23,7 @@ interface ProductExcerptProps {
 
 export default function ProductExcerpt({ product }: ProductExcerptProps) {
   // Ensure the product exists
-  if (!product) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!product) return null;
 
   const { id, name, imageUrl, price } = product;
 

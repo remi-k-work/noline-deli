@@ -7,7 +7,7 @@ import styles from "./CategoryForm.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import { CategoryWithUser } from "../db";
+import type { CategoryWithUser } from "../db";
 
 // server actions and mutations
 import { newCategory2, updCategory2 } from "@/features/manager/categories/actions";
@@ -18,7 +18,7 @@ import { useCategoryFormStore } from "../stores/categoryFormProvider";
 import useFormActionWithVal from "../../hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { categoryFormSchema } from "../schemas/categoryForm";
-import { CategoryFormActionResult } from "../schemas/types";
+import type { CategoryFormActionResult } from "../schemas/types";
 import PathFinder from "../../../../lib/PathFinder";
 import useFormActionFeedback from "../../hooks/useFormActionFeedback";
 

@@ -5,7 +5,7 @@ import styles from "./ProductInfo.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import { ProductWithAll } from "@/features/storefront/db/types";
+import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
@@ -44,10 +44,7 @@ interface OtherInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   // Ensure the product exists
-  if (!product) {
-    // To prevent receiving the "cannot destructure property of undefined" exception, do not attempt to render anything
-    return null;
-  }
+  if (!product) return null;
 
   const { name, description, imageUrl, price, freeShipping, categories, subCategories, moreImages, brand } = product;
 

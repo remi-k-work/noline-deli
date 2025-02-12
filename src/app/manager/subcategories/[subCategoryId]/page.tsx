@@ -34,10 +34,7 @@ export default async function Page({ params: { subCategoryId } }: PageProps) {
   const subCategory = await getSubCategory(subCategoryId);
 
   // Ensure the subcategory exists
-  if (!subCategory) {
-    // Missing resource: redirect users to the 404 page
-    notFound();
-  }
+  if (!subCategory) notFound();
 
   return (
     <article className={styles["page"]}>
