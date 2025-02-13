@@ -3,9 +3,6 @@
 // react
 import { useState } from "react";
 
-// next
-import { useRouter } from "next/navigation";
-
 // other libraries
 import useSearchParamsState from "../../../hooks/useSearchParamsState";
 import { RANGE_OPTIONS } from "@/lib/rangeOptions";
@@ -28,8 +25,15 @@ interface TimeRangeOptionsProps {
 }
 
 export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDate }: TimeRangeOptionsProps) {
-  const searchParamsState = useSearchParamsState();
-  const { replace } = useRouter();
+  const {
+    rangeOptionFromKey,
+    chartObdRangeChanged,
+    chartRbiRangeChanged,
+    chartCbdRangeChanged,
+    chartObdCustomRangeProvided,
+    chartRbiCustomRangeProvided,
+    chartCbdCustomRangeProvided,
+  } = useSearchParamsState();
 
   // The controlled open state of the select
   const [open, setOpen] = useState(false);
@@ -38,7 +42,7 @@ export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDa
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   // Use the predefined range key value to extract the relevant range option
-  const rangeOption = searchParamsState.rangeOptionFromKey(rangeKey);
+  const rangeOption = rangeOptionFromKey(rangeKey);
 
   return (
     <>
@@ -58,14 +62,7 @@ export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDa
         name={"rangeOptions"}
         value={rangeKey ?? "All Time"}
         onValueChange={(value) =>
-          replace(
-            chartType === "obd"
-              ? searchParamsState.chartObdRangeChanged(value)
-              : chartType === "rbi"
-                ? searchParamsState.chartRbiRangeChanged(value)
-                : searchParamsState.chartCbdRangeChanged(value),
-            { scroll: false },
-          )
+          chartType === "obd" ? chartObdRangeChanged(value) : chartType === "rbi" ? chartRbiRangeChanged(value) : chartCbdRangeChanged(value)
         }
       >
         <SelectTrigger>
@@ -85,14 +82,11 @@ export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDa
             setOpen={setOpen}
             onRangePicked={(dateRange) => {
               setDateRange(dateRange);
-              replace(
-                chartType === "obd"
-                  ? searchParamsState.chartObdCustomRangeProvided(dateRange)
-                  : chartType === "rbi"
-                    ? searchParamsState.chartRbiCustomRangeProvided(dateRange)
-                    : searchParamsState.chartCbdCustomRangeProvided(dateRange),
-                { scroll: false },
-              );
+              chartType === "obd"
+                ? chartObdCustomRangeProvided(dateRange)
+                : chartType === "rbi"
+                  ? chartRbiCustomRangeProvided(dateRange)
+                  : chartCbdCustomRangeProvided(dateRange);
             }}
           />
         </SelectContent>

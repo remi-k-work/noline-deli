@@ -25,7 +25,7 @@ export interface DashboardData {
 }
 
 export interface ProductFilterData {
-  byCompanyList: Brand[];
+  byBrandList: Brand[];
   byPriceBelowMin: number;
   byPriceBelowMax: number;
 }

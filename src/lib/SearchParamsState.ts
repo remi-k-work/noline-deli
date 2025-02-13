@@ -1,6 +1,6 @@
 // next
-import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { ReadonlyURLSearchParams } from "next/navigation";
+import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 // prisma and db access
 import type { Brand } from "@prisma/client";
@@ -16,10 +16,14 @@ enum SearchParamName {
   byPriceBelow = "price_below",
   byFreeShipping = "free_shipping",
   isListMode = "list_mode",
-  sortByField = "sort_by_field",
-  sortByOrder = "sort_by_order",
+  sortBy = "sort",
   currentPage = "page",
 }
+
+type ParamsToSet = [SearchParamName, string?][];
+
+export type SortByField = "id" | "price" | "name";
+export type SortByOrder = "asc" | "desc";
 
 interface AppliedFilter {
   paramName: SearchParamName;
@@ -29,46 +33,37 @@ interface AppliedFilter {
 
 export default class SearchParamsState extends SearchParamsStateBase<SearchParamName> {
   // Search panel
-  public readonly keyword: string;
+  public readonly keyword?: string;
 
   // Product filter
-  public readonly byBrandId: string;
-  public readonly byPriceBelow: number;
-  public readonly byFreeShipping: boolean;
+  public readonly byBrandId?: string;
+  public readonly byPriceBelow?: number;
+  public readonly byFreeShipping?: boolean;
 
   // Products list
-  public readonly isListMode: boolean;
-  public readonly sortByField: string;
-  public readonly sortByOrder: string;
+  public readonly isListMode?: boolean;
   public readonly sortBy: string;
+  public readonly sortByField: SortByField;
+  public readonly sortByOrder: SortByOrder;
 
   // Pagination
-  public readonly currentPage: number;
+  public readonly currentPage?: number;
 
-  constructor(
-    pathname: string,
-    searchParams: ReadonlyURLSearchParams,
-    replace?: (href: string, options?: NavigateOptions) => void,
-
-    byPriceBelowMax?: number,
-    private readonly byBrandList?: Brand[],
-  ) {
+  constructor(searchParams: ReadonlyURLSearchParams, pathname?: string, replace?: (href: string, options?: NavigateOptions) => void) {
     super(searchParams, pathname, replace);
 
-    this.keyword = searchParams.get(SearchParamName.keyword) ?? "";
+    this.keyword = searchParams.get(SearchParamName.keyword) ?? undefined;
 
-    this.byBrandId = searchParams.get(SearchParamName.byBrandId) ?? "";
-    this.byPriceBelow = searchParams.has(SearchParamName.byPriceBelow)
-      ? Number(searchParams.get(SearchParamName.byPriceBelow))
-      : (byPriceBelowMax ?? 900000000);
-    this.byFreeShipping = searchParams.get(SearchParamName.byFreeShipping) === "true";
+    this.byBrandId = searchParams.get(SearchParamName.byBrandId) ?? undefined;
+    this.byPriceBelow = searchParams.has(SearchParamName.byPriceBelow) ? Number(searchParams.get(SearchParamName.byPriceBelow)) : undefined;
+    this.byFreeShipping = searchParams.has(SearchParamName.byFreeShipping) ? Boolean(searchParams.get(SearchParamName.byFreeShipping)) : undefined;
 
-    this.isListMode = searchParams.get(SearchParamName.isListMode) === "true";
-    this.sortByField = searchParams.get(SearchParamName.sortByField) ?? "id";
-    this.sortByOrder = searchParams.get(SearchParamName.sortByOrder) ?? "desc";
-    this.sortBy = `${this.sortByField}|${this.sortByOrder}`;
+    this.isListMode = searchParams.has(SearchParamName.isListMode) ? Boolean(searchParams.get(SearchParamName.isListMode)) : undefined;
+    this.sortBy = searchParams.get(SearchParamName.sortBy) ?? "id,desc";
+    this.sortByField = this.sortBy.split(",")[0] as SortByField;
+    this.sortByOrder = this.sortBy.split(",")[1] as SortByOrder;
 
-    this.currentPage = searchParams.has(SearchParamName.currentPage) ? Number(searchParams.get(SearchParamName.currentPage)) : 1;
+    this.currentPage = searchParams.has(SearchParamName.currentPage) ? Number(searchParams.get(SearchParamName.currentPage)) : undefined;
   }
 
   // When moving to a new location, reset the pagination position and do not carry any state from the search mode
@@ -81,11 +76,10 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
 
   // Actions for pagination
   paginationChanged = (newCurrentPage: number) => {
-    const paramsToSet: [SearchParamName, string][] = [];
+    const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
 
     this.updateParams(undefined, paramsToSet);
-
     return this.hrefWithParams;
   };
 
@@ -95,12 +89,11 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
 
   // Actions for search panel
   searchPanelChanged = (newKeyword: string) => {
-    const paramsToSet: [SearchParamName, string][] = [];
+    const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.keyword, newKeyword]);
 
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
-
     this.replaceUrl();
   };
 
@@ -109,54 +102,62 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   };
 
   // Actions for products list
-  productsListChanged = (newSortByField?: "id" | "price" | "name", newSortByOrder?: "asc" | "desc", newIsListMode?: boolean) => {
-    const paramsToSet: [SearchParamName, string][] = [];
-    if (newSortByField !== undefined) {
-      paramsToSet.push([SearchParamName.sortByField, newSortByField]);
-    }
-    if (newSortByOrder !== undefined) {
-      paramsToSet.push([SearchParamName.sortByOrder, newSortByOrder]);
-    }
-    if (newIsListMode !== undefined) {
-      paramsToSet.push([SearchParamName.isListMode, String(newIsListMode)]);
-    }
-    this.updateParams(undefined, paramsToSet);
+  productsListViewModeChanged = (newIsListMode: boolean) => {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.isListMode, String(newIsListMode)]);
 
+    this.updateParams(undefined, paramsToSet);
+    this.replaceUrl();
+  };
+
+  productsListSortByChanged = (newSortBy: string) => {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.sortBy, newSortBy]);
+
+    this.updateParams(undefined, paramsToSet);
     this.replaceUrl();
   };
 
   // Actions for product filter
-  productFilterChanged = (newByBrandId?: string, newByPriceBelow?: number, newFreeShipping?: boolean) => {
+  productFilterByBrandChanged = (newByBrandId: string | undefined) => {
     // When the filter is set to "All Brands", remove the filter
-    newByBrandId === "*" && (newByBrandId = "");
+    newByBrandId === "*" && (newByBrandId = undefined);
 
-    const paramsToSet: [SearchParamName, string][] = [];
-    if (newByBrandId !== undefined) {
-      paramsToSet.push([SearchParamName.byBrandId, newByBrandId]);
-    }
-    if (newByPriceBelow !== undefined) {
-      paramsToSet.push([SearchParamName.byPriceBelow, String(newByPriceBelow)]);
-    }
-    if (newFreeShipping !== undefined) {
-      paramsToSet.push([SearchParamName.byFreeShipping, String(newFreeShipping)]);
-    }
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.byBrandId, newByBrandId]);
+
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
+    this.replaceUrl();
+  };
 
+  productFilterByPriceBelowChanged = (newByPriceBelow: number) => {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.byPriceBelow, String(newByPriceBelow)]);
+
+    this.updateParams(undefined, paramsToSet);
+    this.resetPagination();
+    this.replaceUrl();
+  };
+
+  productFilterByFreeShippingChanged = (newFreeShipping: boolean) => {
+    const paramsToSet: ParamsToSet = [];
+    paramsToSet.push([SearchParamName.byFreeShipping, String(newFreeShipping)]);
+
+    this.updateParams(undefined, paramsToSet);
+    this.resetPagination();
     this.replaceUrl();
   };
 
   productFilterRemoved = (paramName: SearchParamName) => {
     this.updateParams([paramName]);
     this.resetPagination();
-
     this.replaceUrl();
   };
 
   productFilterCleared = () => {
     this.updateParams([SearchParamName.byBrandId, SearchParamName.byPriceBelow, SearchParamName.byFreeShipping]);
     this.resetPagination();
-
     this.replaceUrl();
   };
 
@@ -172,20 +173,20 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   }
 
   // Get all product filters that are being applied
-  get appliedProductFilters() {
+  appliedProductFilters = (byBrandList: Brand[]) => {
     const appliedFilters: AppliedFilter[] = [];
 
     this.params.has(SearchParamName.byBrandId) &&
       appliedFilters.push({
         paramName: SearchParamName.byBrandId,
-        paramValue: this.byBrandList?.find((brand) => brand.id === this.byBrandId)?.name ?? "",
+        paramValue: byBrandList.find((brand) => brand.id === this.byBrandId)?.name ?? "",
         description: "Products by",
       });
     this.params.has(SearchParamName.byPriceBelow) &&
-      appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatCurrency(this.byPriceBelow), description: "Price is below" });
+      appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatCurrency(Number(this.byPriceBelow)), description: "Price is below" });
     this.params.has(SearchParamName.byFreeShipping) &&
       appliedFilters.push({ paramName: SearchParamName.byFreeShipping, paramValue: "Free Shipping", description: "with" });
 
     return appliedFilters;
-  }
+  };
 }

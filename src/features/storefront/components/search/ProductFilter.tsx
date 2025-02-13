@@ -39,17 +39,22 @@ interface ProductFilterProps {
 }
 
 export default function ProductFilter({
-  productFilterData: { byCompanyList, byPriceBelowMin, byPriceBelowMax },
+  productFilterData: { byBrandList, byPriceBelowMin, byPriceBelowMax },
   filteredCount = 0,
   sheetMode = false,
   sheetSetOpen,
   className,
 }: ProductFilterProps) {
-  const { byBrandId, byPriceBelow, byFreeShipping, numberOfProductFilters, productFilterChanged, productFilterCleared } = useSearchParamsState(
-    undefined,
-    byPriceBelowMax ?? undefined,
-    byCompanyList,
-  );
+  const {
+    byBrandId,
+    byPriceBelow,
+    byFreeShipping,
+    numberOfProductFilters,
+    productFilterByBrandChanged,
+    productFilterByPriceBelowChanged,
+    productFilterByFreeShippingChanged,
+    productFilterCleared,
+  } = useSearchParamsState();
 
   // Show a product filter only when displaying a bunch of products
   const pathname = usePathname();
@@ -60,13 +65,13 @@ export default function ProductFilter({
       <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
       <form className={styles["product-filter__form"]}>
         <Label htmlFor="byBrandId">Company Name</Label>
-        <Select name="byBrandId" value={byBrandId} onValueChange={(byBrandId: string) => productFilterChanged(byBrandId)}>
+        <Select name="byBrandId" value={byBrandId} onValueChange={(byBrandId: string) => productFilterByBrandChanged(byBrandId)}>
           <SelectTrigger id="byBrandId">
             <SelectValue placeholder="All Brands" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="*">All Brands</SelectItem>
-            {byCompanyList.map(({ id, name }) => (
+            {byBrandList.map(({ id, name }) => (
               <SelectItem key={id} value={id}>
                 {name}
               </SelectItem>
@@ -75,15 +80,15 @@ export default function ProductFilter({
         </Select>
         <Label htmlFor="byPriceBelow">Price Below</Label>
         <output id="byPriceBelow" name="byPriceBelowOutput">
-          {formatCurrency(byPriceBelow)}
+          {formatCurrency(byPriceBelow ?? byPriceBelowMax)}
         </output>
         <Slider
           name="byPriceBelow"
-          min={byPriceBelowMin ?? 0}
-          max={byPriceBelowMax ?? 900000000}
+          min={byPriceBelowMin}
+          max={byPriceBelowMax}
           step={10}
-          value={[byPriceBelow]}
-          onValueChange={(byPriceBelow: number[]) => productFilterChanged(undefined, byPriceBelow[0])}
+          value={[byPriceBelow ?? byPriceBelowMax]}
+          onValueChange={(byPriceBelow: number[]) => productFilterByPriceBelowChanged(byPriceBelow[0])}
         />
         <div className="mt-4 flex w-full items-center gap-4">
           <Label htmlFor="byFreeShipping" className="flex flex-1 items-center gap-2">
@@ -93,8 +98,8 @@ export default function ProductFilter({
           <Checkbox
             id="byFreeShipping"
             name="byFreeShipping"
-            checked={byFreeShipping}
-            onCheckedChange={(byFreeShipping: boolean) => productFilterChanged(undefined, undefined, byFreeShipping)}
+            checked={byFreeShipping ?? false}
+            onCheckedChange={(byFreeShipping: boolean) => productFilterByFreeShippingChanged(byFreeShipping)}
           />
         </div>
         <Button

@@ -1,8 +1,5 @@
 "use client";
 
-// next
-import { useRouter } from "next/navigation";
-
 // prisma and db access
 import type { ProductsPerCategoryData } from "../../db/types";
 
@@ -43,16 +40,10 @@ export default function ProductsPerCategory({ data: { productsPerCategory } }: P
 }
 
 export function ProductsPerCategoryOptions({ data: { categories } }: ProductsPerCategoryOptionsProps) {
-  const searchParamsState = useSearchParamsState();
-  const { chPpcCategoryId } = searchParamsState;
-  const { replace } = useRouter();
+  const { chPpcCategoryId, chartPpcCategoryChanged } = useSearchParamsState();
 
   return (
-    <Select
-      name={"categoryId"}
-      value={chPpcCategoryId ?? categories[0]?.id}
-      onValueChange={(value) => replace(searchParamsState.chartPpcCategoryChanged(value), { scroll: false })}
-    >
+    <Select name={"categoryId"} value={chPpcCategoryId ?? categories[0]?.id} onValueChange={(value) => chartPpcCategoryChanged(value)}>
       <SelectTrigger>
         <SelectValue placeholder="Choose Category" />
       </SelectTrigger>

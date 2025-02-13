@@ -25,12 +25,8 @@ interface ProductFilterIndicatorProps {
   className?: string;
 }
 
-export default function ProductFilterIndicator({ className, productFilterData: { byCompanyList } }: ProductFilterIndicatorProps) {
-  const { numberOfProductFilters, appliedProductFilters, productFilterCleared, productFilterRemoved } = useSearchParamsState(
-    undefined,
-    undefined,
-    byCompanyList,
-  );
+export default function ProductFilterIndicator({ className, productFilterData: { byBrandList } }: ProductFilterIndicatorProps) {
+  const { numberOfProductFilters, appliedProductFilters, productFilterCleared, productFilterRemoved } = useSearchParamsState();
 
   // The controlled open state of the popover
   const [open, setOpen] = useState(false);
@@ -52,7 +48,7 @@ export default function ProductFilterIndicator({ className, productFilterData: {
         {numberOfProductFilters > 0 && (
           <>
             <section className="flex flex-col gap-4">
-              {appliedProductFilters.map(({ paramName, paramValue, description }, filterIndex) => (
+              {appliedProductFilters(byBrandList).map(({ paramName, paramValue, description }, filterIndex) => (
                 <div key={filterIndex} className="flex items-center gap-4 text-muted-foreground">
                   <Button type="button" size="icon" variant="outline" className="flex-none" onClick={() => productFilterRemoved(paramName)}>
                     <XMarkIcon width={24} height={24} />

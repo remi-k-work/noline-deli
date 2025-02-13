@@ -1,14 +1,13 @@
 // next
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 // other libraries
 import SearchParamsState from "../SearchParamsState";
 
 export default function useSearchParamsState(customPathname?: string) {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-  const searchParamsState = new SearchParamsState(customPathname ? customPathname : pathname, searchParams);
-
-  return searchParamsState;
+  return new SearchParamsState(searchParams, customPathname ? customPathname : pathname, replace);
 }

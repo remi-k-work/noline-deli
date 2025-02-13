@@ -26,39 +26,35 @@ interface ProductsListProps {
 }
 
 interface ProductsListSkeletonProps {
-  isListMode: boolean;
+  isListMode?: boolean;
   sortBy: string;
 }
 
 export default function ProductsList({ totalProducts, products }: ProductsListProps) {
-  const { isListMode, sortBy, productsListChanged } = useSearchParamsState();
+  const { isListMode, sortBy, productsListViewModeChanged, productsListSortByChanged } = useSearchParamsState();
 
   return (
     <section className={styles["products-list"]}>
       <header className="mb-4 flex w-full flex-wrap items-center justify-end gap-4">
         <Label className="flex flex-none items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <Switch name="viewMode" checked={isListMode} onCheckedChange={(isListMode) => productsListChanged(undefined, undefined, isListMode)} />
+          <Switch name="viewMode" checked={isListMode ?? false} onCheckedChange={(isListMode) => productsListViewModeChanged(isListMode)} />
           <QueueListIcon width={24} height={24} />
         </Label>
         <span className="flex-1 text-end">{totalProducts} Product(s) Found</span>
         <Label className="flex flex-initial basis-48 items-center gap-1">
           <ArrowsUpDownIcon width={24} height={24} />
-          <Select
-            name="sortBy"
-            value={sortBy}
-            onValueChange={(sortBy) => productsListChanged(sortBy.split("|")[0] as "id" | "price" | "name", sortBy.split("|")[1] as "asc" | "desc")}
-          >
+          <Select name="sortBy" value={sortBy} onValueChange={(sortBy) => productsListSortByChanged(sortBy)}>
             <SelectTrigger>
               <SelectValue placeholder="Sort By" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="id|desc">Date (Newest)</SelectItem>
-              <SelectItem value="id|asc">Date (Oldest)</SelectItem>
-              <SelectItem value="price|asc">Price (Lowest)</SelectItem>
-              <SelectItem value="price|desc">Price (Highest)</SelectItem>
-              <SelectItem value="name|asc">Name (A to Z)</SelectItem>
-              <SelectItem value="name|desc">Name (Z to A)</SelectItem>
+              <SelectItem value="id,desc">Date (Newest)</SelectItem>
+              <SelectItem value="id,asc">Date (Oldest)</SelectItem>
+              <SelectItem value="price,asc">Price (Lowest)</SelectItem>
+              <SelectItem value="price,desc">Price (Highest)</SelectItem>
+              <SelectItem value="name,asc">Name (A to Z)</SelectItem>
+              <SelectItem value="name,desc">Name (Z to A)</SelectItem>
             </SelectContent>
           </Select>
         </Label>
@@ -78,7 +74,7 @@ export function ProductsListSkeleton({ isListMode, sortBy }: ProductsListSkeleto
       <header className="mb-4 flex w-full flex-wrap items-center justify-end gap-4">
         <Label className="flex flex-none items-center gap-2">
           <TableCellsIcon width={24} height={24} />
-          <Switch name="viewMode" defaultChecked={isListMode} disabled />
+          <Switch name="viewMode" defaultChecked={isListMode ?? false} disabled />
           <QueueListIcon width={24} height={24} />
         </Label>
         <span className="flex-1 text-end">... Product(s) Found</span>

@@ -40,7 +40,7 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
+  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
   const { chPpcCategoryId, chObdRangeKey, chRbiRangeKey, chCbdRangeKey, rangeOptionFromKey } = searchParamsState;
 
   // Collect all relevant totals (such as the total number of products and brands) plus other chart data

@@ -31,8 +31,8 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
 
   useEffect(() => {
     // Keep the keyword state in sync with search params
-    const search = searchRef.current;
-    if (search) search.value = keyword;
+    const search = searchRef.current!;
+    search.value = keyword ?? "";
   }, [keyword]);
 
   const handleSearch = useDebouncedCallback((keyword: string) => searchPanelChanged(keyword), 600);

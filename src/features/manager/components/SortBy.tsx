@@ -11,7 +11,7 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { SortByField, SortByOrder } from "../SearchParamsState";
+import type { SortByField, SortByOrder } from "../SearchParamsState";
 import useSearchParamsState from "../hooks/useSearchParamsState";
 
 // components
@@ -41,8 +41,7 @@ interface SortByLinkProps {
 }
 
 export default function SortBy({ sortByFields, totalItems, className }: SortByProps) {
-  const searchParamsState = useSearchParamsState();
-  const { sortByField, sortByOrder } = searchParamsState;
+  const { sortByField, sortByOrder } = useSearchParamsState();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
@@ -101,20 +100,16 @@ const SortByIcon = forwardRef<HTMLElement, SortByIconProps>(({ sortByField, sort
 SortByIcon.displayName = "SortByIcon";
 
 function SortByLink({ newSortByField, newSortByOrder, description, setOpen }: SortByLinkProps) {
-  const searchParamsState = useSearchParamsState();
+  const { isSortBySelected, sortByChanged } = useSearchParamsState();
 
-  return searchParamsState.isSortBySelected(newSortByField, newSortByOrder) ? (
+  return isSortBySelected(newSortByField, newSortByOrder) ? (
     <DropdownMenuItem className={cn(styles["sort-by__choice"], styles["sort-by__choice--current"])}>
       <SortByIcon sortByField={newSortByField} sortByOrder={newSortByOrder} />
       {description}
     </DropdownMenuItem>
   ) : (
     <DropdownMenuItem className={styles["sort-by__choice"]}>
-      <Link
-        href={searchParamsState.sortByChanged(newSortByField, newSortByOrder)}
-        className="flex w-full items-center justify-between"
-        onClick={() => setOpen(false)}
-      >
+      <Link href={sortByChanged(newSortByField, newSortByOrder)} className="flex w-full items-center justify-between" onClick={() => setOpen(false)}>
         <SortByIcon sortByField={newSortByField} sortByOrder={newSortByOrder} />
         {description}
       </Link>

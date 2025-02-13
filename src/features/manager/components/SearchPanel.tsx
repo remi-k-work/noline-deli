@@ -6,9 +6,6 @@ import styles from "./SearchPanel.module.css";
 // react
 import { useEffect, useRef } from "react";
 
-// next
-import { useRouter } from "next/navigation";
-
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
@@ -26,10 +23,8 @@ interface SearchPanelProps {
 }
 
 export default function SearchPanel({ className }: SearchPanelProps) {
-  const searchParamsState = useSearchParamsState();
-  const { keyword } = searchParamsState;
+  const { keyword, searchPanelChanged } = useSearchParamsState();
 
-  const { replace } = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -38,7 +33,7 @@ export default function SearchPanel({ className }: SearchPanelProps) {
     search.value = keyword ?? "";
   }, [keyword]);
 
-  const handleSearch = useDebouncedCallback((keyword: string) => replace(searchParamsState.searchPanelChanged(keyword)), 600);
+  const handleSearch = useDebouncedCallback((keyword: string) => searchPanelChanged(keyword), 600);
 
   return (
     <Tooltip>

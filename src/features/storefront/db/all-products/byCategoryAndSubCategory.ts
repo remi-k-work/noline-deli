@@ -10,15 +10,15 @@ import { whereFilter } from "../helpers";
 export default function byCategoryAndSubCategory(
   categoryId: string,
   subCategoryId: string,
-  currentPage: number,
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
-  byBrandId: string,
-  byPriceBelow: number,
-  byFreeShipping: boolean,
+  currentPage?: number,
+  byBrandId?: string,
+  byPriceBelow?: number,
+  byFreeShipping?: boolean,
 ) {
-  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfLastItem = (currentPage ?? 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return Promise.all([

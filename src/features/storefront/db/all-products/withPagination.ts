@@ -8,15 +8,15 @@ import { whereFilter } from "../helpers";
 
 // Retrieve all products from an external source (database) using offset pagination
 export default function withPagination(
-  currentPage: number,
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
-  byBrandId: string,
-  byPriceBelow: number,
-  byFreeShipping: boolean,
+  currentPage?: number,
+  byBrandId?: string,
+  byPriceBelow?: number,
+  byFreeShipping?: boolean,
 ) {
-  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfLastItem = (currentPage ?? 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return Promise.all([

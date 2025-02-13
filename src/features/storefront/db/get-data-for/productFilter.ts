@@ -12,7 +12,7 @@ import type { ProductFilterData } from "../types";
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
 const productFilter = cache(async () => {
   const [
-    byCompanyList,
+    byBrandList,
     {
       _min: { price: byPriceBelowMin },
       _max: { price: byPriceBelowMax },
@@ -29,7 +29,7 @@ const productFilter = cache(async () => {
     }),
   ]);
 
-  const data: ProductFilterData = { byCompanyList, byPriceBelowMin: byPriceBelowMin ?? 0, byPriceBelowMax: byPriceBelowMax ?? 900000000 };
+  const data: ProductFilterData = { byBrandList, byPriceBelowMin: byPriceBelowMin ?? 0, byPriceBelowMax: byPriceBelowMax ?? 900000000 };
 
   return data;
 });

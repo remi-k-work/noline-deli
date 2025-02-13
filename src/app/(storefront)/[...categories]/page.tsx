@@ -61,7 +61,7 @@ export async function generateMetadata({ params: { categories } }: PageProps) {
 }
 
 export default async function Page({ params: { categories }, searchParams }: PageProps) {
-  const searchParamsState = new SearchParamsState("", new ReadonlyURLSearchParams(new URLSearchParams(searchParams as any)));
+  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
 
   // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
   const suspenseTriggerKey = getSectionTitle(categories);
@@ -85,10 +85,10 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
     const categoryId = categories[2];
     [totalItems, products] = await allProductsByCategory(
       categoryId,
-      currentPage,
       itemsPerPage,
       sortByField,
       sortByOrder,
+      currentPage,
       byBrandId,
       byPriceBelow,
       byFreeShipping,
@@ -100,17 +100,17 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
     [totalItems, products] = await allProductsByCategoryAndSubCategory(
       categoryId,
       subCategoryId,
-      currentPage,
       itemsPerPage,
       sortByField,
       sortByOrder,
+      currentPage,
       byBrandId,
       byPriceBelow,
       byFreeShipping,
     );
   }
   // Retrieve all products from an external source (database) using offset pagination
-  else [totalItems, products] = await allProductsWithPagination(currentPage, itemsPerPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping);
+  else [totalItems, products] = await allProductsWithPagination(itemsPerPage, sortByField, sortByOrder, currentPage, byBrandId, byPriceBelow, byFreeShipping);
 
   return (
     <MainLayout searchedCount={totalItems} filteredCount={totalItems}>

@@ -1,6 +1,6 @@
 // next
-import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import type { ReadonlyURLSearchParams } from "next/navigation";
+import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export default class SearchParamsStateBase<T extends string> {
   // All search params that maintain the current state that is kept in the current url
@@ -8,14 +8,14 @@ export default class SearchParamsStateBase<T extends string> {
 
   constructor(
     searchParams: ReadonlyURLSearchParams,
-    private readonly pathname: string,
+    private readonly pathname?: string,
     private readonly replace?: (href: string, options?: NavigateOptions) => void,
   ) {
     this.params = new URLSearchParams(searchParams);
   }
 
   // Replace the current url with a new one that includes the pathname and search parameters
-  protected replaceUrl = () => this.replace?.(this.hrefWithParams);
+  protected replaceUrl = () => this.replace?.(this.hrefWithParams, { scroll: false });
 
   // Get currently used search params alongside the current pathname
   protected get hrefWithParams() {
@@ -23,13 +23,13 @@ export default class SearchParamsStateBase<T extends string> {
   }
 
   // Get currently used search params alongside the provided pathname
-  protected getHrefWithParams = (pathname: string) => {
+  protected getHrefWithParams = (pathname?: string) => {
     // When there are no search params present, do not include the unnecessary "?" in the final url
     return this.params.toString() ? `${pathname}?${this.params.toString()}` : `${pathname}`;
   };
 
   // Update search params that maintain the current state that is kept in the current url
-  protected updateParams = (paramsToDel?: T[], paramsToSet?: [T, string][]) => {
+  protected updateParams = (paramsToDel?: T[], paramsToSet?: [T, string?][]) => {
     // Any search params to delete?
     if (paramsToDel) for (const paramToDel of paramsToDel) this.params.delete(paramToDel);
 

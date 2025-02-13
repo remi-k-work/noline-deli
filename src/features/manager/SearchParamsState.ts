@@ -1,7 +1,9 @@
 // next
 import type { ReadonlyURLSearchParams } from "next/navigation";
+import type { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 // other libraries
+import SearchParamsStateBase from "@/lib/SearchParamsStateBase";
 import { RangeOption } from "@/lib/rangeOptions";
 import { RANGE_OPTIONS } from "@/lib/rangeOptions";
 import { DateRange } from "react-day-picker";
@@ -22,15 +24,11 @@ enum SearchParamName {
 }
 
 type ParamsToSet = [SearchParamName, string?][];
-type ParamsToDel = SearchParamName[];
 
 export type SortByField = "id" | "price" | "name";
 export type SortByOrder = "asc" | "desc";
 
-export default class SearchParamsState {
-  // All search params that maintain the current state that is kept in the current url
-  private readonly params: URLSearchParams;
-
+export default class SearchParamsState extends SearchParamsStateBase<SearchParamName> {
   // Pagination
   public readonly currentPage?: number;
 
@@ -52,27 +50,24 @@ export default class SearchParamsState {
   public readonly chRbiRangeKey?: string;
   public readonly chCbdRangeKey?: string;
 
-  constructor(
-    private readonly pathname: string,
-    private readonly searchParams: ReadonlyURLSearchParams,
-  ) {
-    this.params = new URLSearchParams(this.searchParams);
+  constructor(searchParams: ReadonlyURLSearchParams, pathname?: string, replace?: (href: string, options?: NavigateOptions) => void) {
+    super(searchParams, pathname, replace);
 
-    this.currentPage = this.searchParams.has(SearchParamName.currentPage) ? Number(this.searchParams.get(SearchParamName.currentPage)) : undefined;
+    this.currentPage = searchParams.has(SearchParamName.currentPage) ? Number(searchParams.get(SearchParamName.currentPage)) : undefined;
 
-    this.categoryId = this.searchParams.get(SearchParamName.categoryId) ?? undefined;
-    this.subCategoryId = this.searchParams.get(SearchParamName.subCategoryId) ?? undefined;
+    this.categoryId = searchParams.get(SearchParamName.categoryId) ?? undefined;
+    this.subCategoryId = searchParams.get(SearchParamName.subCategoryId) ?? undefined;
 
-    this.keyword = this.searchParams.get(SearchParamName.keyword) ?? undefined;
+    this.keyword = searchParams.get(SearchParamName.keyword) ?? undefined;
 
-    this.sortBy = this.searchParams.get(SearchParamName.sortBy) ?? "id,desc";
+    this.sortBy = searchParams.get(SearchParamName.sortBy) ?? "id,desc";
     this.sortByField = this.sortBy.split(",")[0] as SortByField;
     this.sortByOrder = this.sortBy.split(",")[1] as SortByOrder;
 
-    this.chPpcCategoryId = this.searchParams.get(SearchParamName.chPpcCategoryId) ?? undefined;
-    this.chObdRangeKey = this.searchParams.get(SearchParamName.chObdRangeKey) ?? undefined;
-    this.chRbiRangeKey = this.searchParams.get(SearchParamName.chRbiRangeKey) ?? undefined;
-    this.chCbdRangeKey = this.searchParams.get(SearchParamName.chCbdRangeKey) ?? undefined;
+    this.chPpcCategoryId = searchParams.get(SearchParamName.chPpcCategoryId) ?? undefined;
+    this.chObdRangeKey = searchParams.get(SearchParamName.chObdRangeKey) ?? undefined;
+    this.chRbiRangeKey = searchParams.get(SearchParamName.chRbiRangeKey) ?? undefined;
+    this.chCbdRangeKey = searchParams.get(SearchParamName.chCbdRangeKey) ?? undefined;
   }
 
   // Use the predefined range key value to extract the relevant range option
@@ -101,17 +96,17 @@ export default class SearchParamsState {
 
   // Are we in action feedback mode?
   get isActionFeedbackMode() {
-    return this.searchParams.has(SearchParamName.actionFeedback);
+    return this.params.has(SearchParamName.actionFeedback);
   }
 
   // Are we in search mode?
   get isSearchMode() {
-    return this.searchParams.has(SearchParamName.keyword);
+    return this.params.has(SearchParamName.keyword);
   }
 
   // Has no category been selected? Are we, in other words, browsing all the products?
   get isNoCategorySelected() {
-    return !this.searchParams.has(SearchParamName.categoryId) && !this.searchParams.has(SearchParamName.subCategoryId);
+    return !this.params.has(SearchParamName.categoryId) && !this.params.has(SearchParamName.subCategoryId);
   }
 
   // Has a product's category been selected?
@@ -130,65 +125,48 @@ export default class SearchParamsState {
     return this.sortBy === sortBy;
   };
 
-  // The pagination state has changed
+  // Actions for pagination
   paginationChanged = (newCurrentPage: number) => {
     const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.currentPage, String(newCurrentPage)]);
 
     this.updateParams(undefined, paramsToSet);
-
     return this.hrefWithParams;
   };
 
-  // The browse by category state has changed
-  browseByCategoryChanged = (newCategoryId?: string, newSubCategoryId?: string) => {
-    const paramsToSet: ParamsToSet = [];
-    paramsToSet.push([SearchParamName.categoryId, newCategoryId]);
-    paramsToSet.push([SearchParamName.subCategoryId, newSubCategoryId]);
-
-    this.updateParams(undefined, paramsToSet);
-    this.resetPagination();
-
-    // We either browse by category or search; do not combine the two
-    this.resetSearchPanel();
-
-    return this.hrefWithParams;
+  private resetPagination = () => {
+    this.updateParams([SearchParamName.currentPage]);
   };
 
-  // The search panel state has changed
+  // Actions for search panel
   searchPanelChanged = (newKeyword: string) => {
     const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.keyword, newKeyword]);
 
     this.updateParams(undefined, paramsToSet);
     this.resetPagination();
-
-    // We either browse by category or search; do not combine the two
-    this.resetBrowseByCategory();
-
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
-  // The sort by state has changed
+  // Actions for sort by
   sortByChanged = (newSortByField: SortByField, newSortByOrder: SortByOrder) => {
     const paramsToSet: ParamsToSet = [];
     const newSortBy = `${newSortByField},${newSortByOrder}`;
     paramsToSet.push([SearchParamName.sortBy, newSortBy]);
 
     this.updateParams(undefined, paramsToSet);
-
     return this.hrefWithParams;
   };
 
   // Actions for charts
   chartPpcCategoryChanged = (newCategoryId: string) => {
     this.updateParams(undefined, [[SearchParamName.chPpcCategoryId, newCategoryId]]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   chartObdRangeChanged = (newRangeKey: string) => {
     this.updateParams(undefined, [[SearchParamName.chObdRangeKey, newRangeKey]]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
   chartObdCustomRangeProvided = (dateRange: DateRange) => {
     this.updateParams(undefined, [
@@ -197,12 +175,12 @@ export default class SearchParamsState {
         `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
       ],
     ]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   chartRbiRangeChanged = (newRangeKey: string) => {
     this.updateParams(undefined, [[SearchParamName.chRbiRangeKey, newRangeKey]]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
   chartRbiCustomRangeProvided = (dateRange: DateRange) => {
     this.updateParams(undefined, [
@@ -211,12 +189,12 @@ export default class SearchParamsState {
         `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
       ],
     ]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
 
   chartCbdRangeChanged = (newRangeKey: string) => {
     this.updateParams(undefined, [[SearchParamName.chCbdRangeKey, newRangeKey]]);
-    return this.hrefWithParams;
+    this.replaceUrl();
   };
   chartCbdCustomRangeProvided = (dateRange: DateRange) => {
     this.updateParams(undefined, [
@@ -225,57 +203,6 @@ export default class SearchParamsState {
         `*${dateRange.from ? dateRange.from.toISOString() : new Date().toISOString()},${dateRange.to ? dateRange.to.toISOString() : new Date().toISOString()}`,
       ],
     ]);
-    return this.hrefWithParams;
-  };
-
-  // Reset the pagination
-  private resetPagination = () => {
-    this.updateParams([SearchParamName.currentPage]);
-  };
-
-  // Reset the browse by category
-  private resetBrowseByCategory = () => {
-    this.updateParams([SearchParamName.categoryId, SearchParamName.subCategoryId]);
-  };
-
-  // Reset the search panel
-  private resetSearchPanel = () => {
-    this.updateParams([SearchParamName.keyword]);
-  };
-
-  // Carry over currently used search params alongside the provided pathname
-  get hrefWithParams() {
-    // When there are no search params present, do not include the unnecessary "?" in the final url
-    return this.getHrefWithParams(this.pathname);
-  }
-
-  // Carry over currently used search params alongside the provided pathname
-  private getHrefWithParams = (pathname: string) => {
-    // When there are no search params present, do not include the unnecessary "?" in the final url
-    return this.params.toString() ? `${pathname}?${this.params.toString()}` : `${pathname}`;
-  };
-
-  // Update search params that maintain the current state that is kept in the current url
-  private updateParams = (paramsToDel?: ParamsToDel, paramsToSet?: ParamsToSet) => {
-    // Any search params to delete?
-    if (paramsToDel) {
-      for (const paramToDel of paramsToDel) {
-        this.params.delete(paramToDel);
-      }
-    }
-
-    // Any search params to set?
-    if (paramsToSet) {
-      for (const paramToSet of paramsToSet) {
-        // Was the param value provided? Also take (true/false) flags into account
-        if (paramToSet[1] && paramToSet[1] !== "false") {
-          // Yes, go ahead and set its value
-          this.params.set(paramToSet[0], paramToSet[1]);
-        } else {
-          // Otherwise, completely remove that unnecessary param
-          this.params.delete(paramToSet[0]);
-        }
-      }
-    }
+    this.replaceUrl();
   };
 }

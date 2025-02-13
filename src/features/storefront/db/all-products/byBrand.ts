@@ -9,14 +9,14 @@ import { whereFilter } from "../helpers";
 // Retrieve all products by brand
 export default function byBrand(
   brandId: string,
-  currentPage: number,
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
-  byPriceBelow: number,
-  byFreeShipping: boolean,
+  currentPage?: number,
+  byPriceBelow?: number,
+  byFreeShipping?: boolean,
 ) {
-  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfLastItem = (currentPage ?? 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return Promise.all([
