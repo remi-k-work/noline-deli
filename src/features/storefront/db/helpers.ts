@@ -3,7 +3,7 @@ import type { Prisma } from "@prisma/client";
 
 // Create and where clause generators and helpers
 export function whereFilter(byBrandId?: string, byPriceBelow?: number, byFreeShipping?: boolean): Prisma.ProductWhereInput {
-  return { brandId: byBrandId, price: byPriceBelow, freeShipping: byFreeShipping };
+  return { brandId: byBrandId, price: byPriceBelow ? { lte: byPriceBelow } : undefined, freeShipping: byFreeShipping };
 }
 
 export function whereKeyword(keyword?: string): Prisma.ProductWhereInput {

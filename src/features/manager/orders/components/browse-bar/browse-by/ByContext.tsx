@@ -4,7 +4,7 @@
 import { forwardRef } from "react";
 
 // other libraries
-import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/orders/stores/tan-table-instance";
 import { formatDate } from "@/lib/formatters";
 
 const ByContext = forwardRef<HTMLElement>(({ ...props }, ref) => {

@@ -10,7 +10,7 @@ import type { ProductFilterData } from "@/features/storefront/db/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
-import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/ProductFilter";
+import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/product-filter";
 
 // types
 interface SideBarProps {

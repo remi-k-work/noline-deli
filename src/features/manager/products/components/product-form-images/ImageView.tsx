@@ -11,11 +11,11 @@ import Image from "next/image";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { FormInputField, FormOutputField } from "../../../components/FormControls";
+import { FormInputField, FormOutputField } from "@/features/manager/components/FormControls";
 
 // assets
 import { TrashIcon } from "@heroicons/react/24/solid";

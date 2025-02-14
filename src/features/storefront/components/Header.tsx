@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 // components
 import HeaderLogo from "./HeaderLogo";
-import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/ProductFilterIndicator";
+import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/product-filter-indicator";
 import CartIndicator, { CartIndicatorSkeleton } from "@/features/cart/components/CartIndicator";
 import SearchPanel, { SearchPanelSkeleton } from "@/features/storefront/components/search/SearchPanel";
 import ThemeSwitcher, { ThemeSwitcherSkeleton } from "@/components/ThemeSwitcher";
