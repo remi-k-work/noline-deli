@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import PriceTag from "./PriceTag";
+import PriceTag from "../PriceTag";
 
 // assets
 import { lusitana } from "@/assets/fonts";

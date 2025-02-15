@@ -17,7 +17,7 @@ import SearchParamsState from "@/lib/SearchParamsState";
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/ProductsList";
+import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
 
 // assets
