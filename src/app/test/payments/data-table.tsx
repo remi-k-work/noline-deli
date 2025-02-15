@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {

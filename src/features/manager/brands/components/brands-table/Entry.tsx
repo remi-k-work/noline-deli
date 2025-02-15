@@ -12,7 +12,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
 
 // components
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/custom/table";
 import Actions from "./Actions";
 
 // assets

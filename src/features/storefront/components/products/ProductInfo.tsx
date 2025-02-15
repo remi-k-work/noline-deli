@@ -11,7 +11,7 @@ import type { ProductWithAll } from "@/features/storefront/db/types";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import PriceTag from "./PriceTag";
 import BrandTag from "./BrandTag";
 

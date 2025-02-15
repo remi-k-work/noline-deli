@@ -10,7 +10,7 @@ import type { BrandWithInfo } from "@/features/manager/brands/db";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
-import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
 
 // assets

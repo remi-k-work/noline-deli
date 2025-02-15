@@ -5,7 +5,7 @@ import type { CartItemWithProduct } from "../../db/cart";
 import { formatCurrency } from "@/lib/formatters";
 
 // components
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/custom/table";
 
 // types
 interface EntryProps {

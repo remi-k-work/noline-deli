@@ -1,5 +1,5 @@
 // components
-import { TableHead } from "@/components/ui/table";
+import { TableHead } from "@/components/ui/custom/table";
 
 // types
 interface ItemProps {

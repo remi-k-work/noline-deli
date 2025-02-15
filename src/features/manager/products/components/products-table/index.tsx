@@ -12,7 +12,7 @@ import { flexRender } from "@tanstack/react-table";
 import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
 // components
-import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/custom/table";
 import NotFound from "@/components/NotFound";
 
 // assets

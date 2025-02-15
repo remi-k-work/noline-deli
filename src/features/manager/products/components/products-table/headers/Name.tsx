@@ -3,7 +3,7 @@ import { Table } from "@tanstack/react-table";
 import { ProductRow } from "../Columns";
 
 // components
-import { TableHead } from "@/components/ui/table";
+import { TableHead } from "@/components/ui/custom/table";
 import ColumnHeader from "../../../../components/ColumnHeader";
 
 // types

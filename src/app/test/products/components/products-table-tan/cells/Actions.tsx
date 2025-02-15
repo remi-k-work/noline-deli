@@ -20,7 +20,7 @@ import { Row } from "@tanstack/react-table";
 import { ProductRow } from "../Columns";
 
 // components
-import { TableCell } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/custom/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";

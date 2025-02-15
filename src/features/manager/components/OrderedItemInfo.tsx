@@ -11,7 +11,7 @@ import type { OrderedItem } from "@prisma/client";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import PriceTag from "@/features/storefront/components/products/PriceTag";
 import BrandTag from "./BrandTag";
 

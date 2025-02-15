@@ -5,7 +5,7 @@ import type { DerivedCartWithItems } from "@/features/cart/db/cart";
 import { formatCurrency } from "@/lib/formatters";
 
 // components
-import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
 
 // assets

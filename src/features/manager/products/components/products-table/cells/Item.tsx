@@ -4,7 +4,7 @@ import PathFinder from "@/lib/PathFinder";
 import { ProductRow } from "../Columns";
 
 // components
-import { TableCell } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/custom/table";
 import ItemImageWithTrigger from "@/components/ItemImageWithTrigger";
 
 // types

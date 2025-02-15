@@ -4,7 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ProductRow } from "../Columns";
 
 // components
-import { TableCell } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/custom/table";
 
 // assets
 import { ClockIcon } from "@heroicons/react/24/solid";

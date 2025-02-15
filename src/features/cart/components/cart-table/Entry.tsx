@@ -6,7 +6,7 @@ import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/custom/table";
 import ItemImageWithTrigger from "@/components/ItemImageWithTrigger";
 import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./Forms";
 

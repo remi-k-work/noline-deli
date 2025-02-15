@@ -8,7 +8,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatCurrency } from "@/lib/formatters";
 
 // components
-import { TableCell, TableRow } from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/custom/table";
 import ItemImageWithTrigger from "@/components/ItemImageWithTrigger";
 import Status from "./Status";
 

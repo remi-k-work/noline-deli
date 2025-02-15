@@ -3,7 +3,7 @@ import { Row } from "@tanstack/react-table";
 import { OrderRow } from "../Columns";
 
 // components
-import { TableCell } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/custom/table";
 
 // types
 interface CustomerProps {

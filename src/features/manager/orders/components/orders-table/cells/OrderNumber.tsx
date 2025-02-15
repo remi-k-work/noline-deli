@@ -8,7 +8,7 @@ import { formatDateTime } from "@/lib/formatters";
 import { OrderRow } from "../Columns";
 
 // components
-import { TableCell } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/custom/table";
 import { StatusCell } from "./Status";
 
 // assets
