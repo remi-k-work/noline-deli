@@ -1,0 +1,16 @@
+.header {
+  grid-area: hdr;
+  place-self: center center;
+
+  margin-inline: var(--size-2);
+
+  font-size: var(--font-size-3);
+  text-align: center;
+}
+
+.header--list-mode {
+  place-self: center start;
+
+  font-size: var(--font-size-4);
+  text-align: start;
+}

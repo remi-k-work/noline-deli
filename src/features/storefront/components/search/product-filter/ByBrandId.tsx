@@ -54,3 +54,12 @@ export default function ByBrandId({ productFilterData: { byBrandList } }: ByBran
     </>
   );
 }
+
+export function ByBrandIdSkeleton() {
+  return (
+    <>
+      <div className="mb-1 mt-5 h-3 animate-pulse bg-background"></div>
+      <div className="h-10 animate-pulse bg-background"></div>
+    </>
+  );
+}

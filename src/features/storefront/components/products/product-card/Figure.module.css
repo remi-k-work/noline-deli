@@ -1,0 +1,79 @@
+.figure {
+  grid-area: fig;
+
+  background: var(--surface-3);
+
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+
+  & > img {
+    inline-size: 100%;
+    block-size: var(--size-12);
+
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+
+    object-fit: cover;
+  }
+}
+
+.figure--list-mode {
+  grid-area: stack;
+  place-self: center stretch;
+
+  background: inherit;
+
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
+
+  opacity: 0.15;
+  filter: blur(1px);
+
+  z-index: var(--layer-1);
+
+  & > img {
+    block-size: var(--size-14);
+
+    border-end-start-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+}
+
+.figure-skeleton {
+  grid-area: fig;
+
+  background: var(--surface-3);
+
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+
+  & > div {
+    inline-size: 100%;
+    block-size: var(--size-12);
+
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+  }
+}
+
+.figure-skeleton--list-mode {
+  grid-area: stack;
+  place-self: center stretch;
+
+  background: inherit;
+
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
+
+  opacity: 0.15;
+  filter: blur(1px);
+
+  z-index: var(--layer-1);
+
+  & > div {
+    block-size: var(--size-14);
+
+    border-end-start-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+}

@@ -3,31 +3,12 @@
 
   .products-list__items {
     display: grid;
-    gap: var(--size-8);
+    gap: var(--size-6);
 
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
   }
 
   .products-list__items--list-mode {
-    gap: var(--size-8);
-
-    grid-template-columns: none;
-  }
-}
-
-.products-list-skeleton {
-  display: block;
-
-  .products-list-skeleton__items {
-    display: grid;
-    gap: var(--size-8);
-
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--size-content-1)), 1fr));
-  }
-
-  .products-list-skeleton__items--list-mode {
-    gap: var(--size-8);
-
     grid-template-columns: none;
   }
 }

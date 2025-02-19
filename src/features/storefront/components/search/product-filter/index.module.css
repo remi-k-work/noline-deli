@@ -27,31 +27,3 @@
     }
   }
 }
-
-.product-filter-skeleton {
-  inline-size: 100%;
-
-  background: var(--surface-2);
-
-  & > h4 {
-    background: var(--heading-gradient-1);
-    color: var(--text-2);
-    padding-inline: var(--size-2) var(--size-2);
-    padding-block: var(--size-1) var(--size-1);
-    margin-block-end: var(--size-2);
-  }
-
-  & > form {
-    padding-inline: var(--size-3);
-
-    display: flex;
-    flex-direction: column;
-
-    & > span.label {
-      color: var(--text-2);
-      padding-block: var(--size-4) var(--size-1);
-      font-size: var(--font-size-0);
-      text-transform: uppercase;
-    }
-  }
-}

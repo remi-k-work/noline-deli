@@ -17,10 +17,10 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import ByBrandId from "./ByBrandId";
-import ByPriceBelow from "./ByPriceBelow";
-import ByFreeShipping from "./ByFreeShipping";
-import Footer from "./Footer";
+import ByBrandId, { ByBrandIdSkeleton } from "./ByBrandId";
+import ByPriceBelow, { ByPriceBelowSkeleton } from "./ByPriceBelow";
+import ByFreeShipping, { ByFreeShippingSkeleton } from "./ByFreeShipping";
+import Footer, { FooterSkeleton } from "./Footer";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -58,18 +58,14 @@ export function ProductFilterSkeleton({ sheetMode = false, className }: Omit<Pro
   if (!PathFinder.isBunchOfProducts(pathname)) return null;
 
   return (
-    <article className={cn(styles["product-filter-skeleton"], className)}>
+    <div className={cn(styles["product-filter"], className)}>
       <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
       <form>
-        <span className={styles["label"]}>Company Name</span>
-        <div className="h-10 animate-pulse rounded-lg bg-background" />
-        <span className={styles["label"]}>Price Below</span>
-        <div>&nbsp;</div>
-        <div className="h-6 animate-pulse rounded-lg bg-background" />
-        <div className="mt-4 h-6 animate-pulse rounded-lg bg-background" />
-        <div className="mb-4 mt-4 h-11 animate-pulse rounded-lg bg-background" />
-        {sheetMode && <div className="mb-4 h-11 animate-pulse rounded-lg bg-background" />}
+        <ByBrandIdSkeleton />
+        <ByPriceBelowSkeleton />
+        <ByFreeShippingSkeleton />
+        <FooterSkeleton sheetMode={sheetMode} />
       </form>
-    </article>
+    </div>
   );
 }

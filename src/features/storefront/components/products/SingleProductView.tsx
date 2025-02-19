@@ -14,7 +14,7 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import ImageSlider from "./ImageSlider";
 import BrandTag from "./BrandTag";
-import PriceTag from "./PriceTag";
+import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
 import AddToCartForm from "@/features/cart/components/AddToCartForm";
 
 // assets

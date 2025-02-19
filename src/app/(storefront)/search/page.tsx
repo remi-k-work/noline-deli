@@ -58,7 +58,7 @@ export default async function Page({ searchParams }: PageProps) {
 }
 
 async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
-  const { currentPage, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
+  const { currentPage, isListMode, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
   const itemsPerPage = 10;
@@ -74,7 +74,11 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
         </h1>
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
         <br />
-        {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
+        {products.length > 0 ? (
+          <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
+        ) : (
+          <NotFound message={"Products were not found!"} />
+        )}
         <br />
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       </article>
@@ -82,7 +86,7 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
   );
 }
 
-function PageSkeleton({ searchParamsState: { keyword, isListMode, sortBy } }: PageSkeletonProps) {
+function PageSkeleton({ searchParamsState: { keyword, isListMode } }: PageSkeletonProps) {
   return (
     <MainLayout>
       <article className={styles["page"]}>
@@ -91,7 +95,7 @@ function PageSkeleton({ searchParamsState: { keyword, isListMode, sortBy } }: Pa
         </h1>
         <PaginateSkeleton />
         <br />
-        <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+        <ProductsListSkeleton isListMode={isListMode} />
         <br />
         <PaginateSkeleton />
       </article>

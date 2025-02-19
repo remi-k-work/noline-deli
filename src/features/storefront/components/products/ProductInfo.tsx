@@ -12,7 +12,7 @@ import PathFinder from "@/lib/PathFinder";
 
 // components
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
-import PriceTag from "./PriceTag";
+import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
 import BrandTag from "./BrandTag";
 
 // assets

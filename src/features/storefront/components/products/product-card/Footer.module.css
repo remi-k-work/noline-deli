@@ -1,0 +1,20 @@
+.footer {
+  grid-area: ftr;
+  place-self: stretch center;
+
+  margin-inline: var(--size-2);
+  margin-block: 0 var(--size-2);
+
+  display: grid;
+  gap: var(--size-3);
+  place-items: center;
+}
+
+.footer--list-mode {
+  place-self: stretch stretch;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}

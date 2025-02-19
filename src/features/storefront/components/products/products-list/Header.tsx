@@ -1,3 +1,5 @@
+"use client";
+
 // component css styles
 import styles from "./Header.module.css";
 
@@ -20,11 +22,6 @@ import { QueueListIcon, TableCellsIcon, ArrowsUpDownIcon } from "@heroicons/reac
 // types
 interface HeaderProps {
   totalProducts: number;
-}
-
-interface HeaderSkeletonProps {
-  isListMode?: boolean;
-  sortBy: string;
 }
 
 export default function Header({ totalProducts }: HeaderProps) {
@@ -83,31 +80,19 @@ export default function Header({ totalProducts }: HeaderProps) {
   );
 }
 
-export function HeaderSkeleton({ isListMode, sortBy }: HeaderSkeletonProps) {
+export function HeaderSkeleton() {
   return (
-    <header className={cn(styles["header-skeleton"], "mb-4 flex w-full flex-wrap items-center justify-end gap-4")}>
-      <Label className="flex flex-none items-center gap-2">
+    <div className={cn(styles["header"], "mb-4 flex w-full flex-wrap items-center justify-end gap-4")}>
+      <div className="flex flex-none items-center gap-2">
         <TableCellsIcon width={24} height={24} />
-        <Switch name="viewMode" defaultChecked={isListMode ?? false} disabled />
+        <div className="h-6 w-11 animate-pulse bg-background"></div>
         <QueueListIcon width={24} height={24} />
-      </Label>
+      </div>
       <span className="flex-1 text-end">... Product(s) Found</span>
-      <Label className="flex flex-initial basis-48 items-center gap-1">
+      <div className="flex flex-initial basis-48 items-center gap-1">
         <ArrowsUpDownIcon width={24} height={24} />
-        <Select name="sortBy" defaultValue={sortBy} disabled>
-          <SelectTrigger>
-            <SelectValue placeholder="Sort By" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="id|desc">Date (Newest)</SelectItem>
-            <SelectItem value="id|asc">Date (Oldest)</SelectItem>
-            <SelectItem value="price|asc">Price (Lowest)</SelectItem>
-            <SelectItem value="price|desc">Price (Highest)</SelectItem>
-            <SelectItem value="name|asc">Name (A to Z)</SelectItem>
-            <SelectItem value="name|desc">Name (Z to A)</SelectItem>
-          </SelectContent>
-        </Select>
-      </Label>
-    </header>
+        <div className="h-10 w-44 animate-pulse bg-background"></div>
+      </div>
+    </div>
   );
 }

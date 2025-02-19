@@ -4,10 +4,40 @@
   white-space: nowrap;
   position: absolute;
 
-  top: var(--inidicator-t, 0);
-  bottom: var(--inidicator-b, auto);
-  left: var(--inidicator-s, auto);
-  right: var(--inidicator-e, 0);
+  left: var(--indicator-l, auto);
+  top: var(--indicator-t, auto);
+  right: var(--indicator-r, auto);
+  bottom: var(--indicator-b, auto);
 
-  translate: var(--inidicator-x, 50%) var(--indicator-y, -50%);
+  translate: var(--indicator-x, none) var(--indicator-y, none);
+}
+
+.indicator--start {
+  --indicator-l: 0;
+  --indicator-x: -50%;
+}
+
+.indicator--center {
+  --indicator-l: 50%;
+  --indicator-x: -50%;
+}
+
+.indicator--end {
+  --indicator-r: 0;
+  --indicator-x: 50%;
+}
+
+.indicator--bottom {
+  --indicator-b: 0;
+  --indicator-y: 50%;
+}
+
+.indicator--middle {
+  --indicator-t: 50%;
+  --indicator-y: -50%;
+}
+
+.indicator--top {
+  --indicator-t: 0;
+  --indicator-y: -50%;
 }

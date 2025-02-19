@@ -74,7 +74,7 @@ export default async function Page({ params: { categories }, searchParams }: Pag
 }
 
 async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps) {
-  const { currentPage, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
+  const { currentPage, isListMode, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
   const itemsPerPage = 10;
@@ -118,7 +118,11 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
         <br />
-        {products.length > 0 ? <ProductsList totalProducts={totalItems} products={products} /> : <NotFound message={"Products were not found!"} />}
+        {products.length > 0 ? (
+          <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
+        ) : (
+          <NotFound message={"Products were not found!"} />
+        )}
         <br />
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       </article>
@@ -126,14 +130,14 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
   );
 }
 
-function PageSkeleton({ categories, searchParamsState: { isListMode, sortBy } }: PageSkeletonProps) {
+function PageSkeleton({ categories, searchParamsState: { isListMode } }: PageSkeletonProps) {
   return (
     <MainLayout>
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
         <PaginateSkeleton />
         <br />
-        <ProductsListSkeleton isListMode={isListMode} sortBy={sortBy} />
+        <ProductsListSkeleton isListMode={isListMode} />
         <br />
         <PaginateSkeleton />
       </article>

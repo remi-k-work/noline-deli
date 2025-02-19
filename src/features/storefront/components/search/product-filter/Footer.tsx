@@ -43,3 +43,12 @@ export default function Footer({ filteredCount = 0, sheetMode = false, sheetSetO
     </>
   );
 }
+
+export function FooterSkeleton({ sheetMode = false }: Pick<FooterProps, "sheetMode">) {
+  return (
+    <>
+      <div className="mb-4 mt-4 h-11 animate-pulse bg-background"></div>
+      {sheetMode && <div className="mb-4 h-11 animate-pulse bg-background"></div>}
+    </>
+  );
+}
