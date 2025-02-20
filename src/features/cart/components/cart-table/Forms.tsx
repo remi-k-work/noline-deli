@@ -99,7 +99,7 @@ export function DelCartItemForm({ cartItemId, productName, productImageUrl, prod
       </form>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={() => delCartItemFormRef.current?.requestSubmit()}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-error">remove</b> this article?
+          Are you certain you want to <b className="text-destructive">remove</b> this article?
         </p>
         <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
       </ConfirmDialog>

@@ -4,4 +4,41 @@
   background: var(--surface-2);
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
+
+  display: grid;
+
+  grid-auto-flow: row;
+  place-items: center;
+  text-align: center;
+
+  gap: var(--size-8) var(--size-3);
+  line-height: var(--font-lineheight-1);
+
+  & > * {
+    display: grid;
+    place-items: center;
+    gap: var(--size-2);
+  }
+
+  & > aside {
+    color: var(--text-2);
+    font-size: var(--font-size-0);
+  }
+
+  & h6 {
+    text-transform: uppercase;
+    margin-block-end: var(--size-2);
+    color: var(--text-2);
+  }
+
+  /* Small screens */
+  @media screen and (min-width: 640px) {
+    grid-auto-flow: column dense;
+    place-items: start;
+    text-align: start;
+
+    & > * {
+      place-items: start;
+    }
+  }
 }

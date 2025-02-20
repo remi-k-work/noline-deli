@@ -67,7 +67,7 @@ export default function Header({
         <div>
           <h3 className={lusitana.className}>Receipt</h3>
           {receiptUrl ? (
-            <Link href={receiptUrl} target="_blank" className="link-hover link">
+            <Link href={receiptUrl} target="_blank" className="link">
               View Receipt
             </Link>
           ) : (

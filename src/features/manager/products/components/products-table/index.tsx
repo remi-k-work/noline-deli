@@ -7,7 +7,6 @@ import styles from "./index.module.css";
 import { Fragment } from "react";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { flexRender } from "@tanstack/react-table";
 import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
 
@@ -46,13 +45,7 @@ export default function ProductsTable() {
       </TableHeader>
       <TableBody>
         {table.getRowModel().rows.map((row) => (
-          <TableRow
-            key={row.id}
-            data-state={row.getIsSelected() && "selected"}
-            className={cn("odd:bg-[--surface-3] even:bg-[--surface-4]", {
-              "text-error": row.original.user.role === "ADMIN" || row.original.createdBy !== createdByUser,
-            })}
-          >
+          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="odd:bg-[--surface-3] even:bg-[--surface-4]">
             {row.getVisibleCells().map((cell) => (
               <Fragment key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Fragment>
             ))}

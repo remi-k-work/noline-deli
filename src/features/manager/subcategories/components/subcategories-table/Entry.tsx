@@ -5,7 +5,6 @@ import Link from "next/link";
 import type { SubCategoryWithInfo } from "@/features/manager/categories/db";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
@@ -42,13 +41,9 @@ export default function Entry({ subCategory, createdByUser }: EntryProps) {
   } = subCategory;
 
   return (
-    <TableRow
-      className={cn("odd:bg-[--surface-3] even:bg-[--surface-4]", {
-        "text-error": role === "ADMIN" || createdBy !== createdByUser,
-      })}
-    >
+    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
       <TableCell>
-        <Link href={PathFinder.toSubCategoryEdit(id)} className="link-hover link">
+        <Link href={PathFinder.toSubCategoryEdit(id)} className="link">
           {name}
         </Link>
       </TableCell>

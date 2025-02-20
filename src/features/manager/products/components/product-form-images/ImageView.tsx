@@ -94,9 +94,9 @@ const ImageView = forwardRef<HTMLElement, ImageViewProps>(
               setImageSrc(PathFinder.toProductImage(ev.target.value));
             }}
           />
-          <small className="text-info-content">
+          <small className="text-muted-foreground">
             * please use image addresses from&nbsp;
-            <a className="link-hover link" href="https://unsplash.com/" target="_blank">
+            <a href="https://unsplash.com/" target="_blank" className="link">
               unsplash.com
             </a>
           </small>

@@ -24,7 +24,7 @@ interface OrderNumberProps {
 export default function OrderNumber({ row, table, row: { getValue, original }, includeStatus = false }: OrderNumberProps) {
   return (
     <TableCell className="overflow-clip">
-      <Link href={PathFinder.toOrderView(original.id)} className="link-hover link">
+      <Link href={PathFinder.toOrderView(original.id)} className="link">
         <b>{getValue("orderNumber")}</b>
       </Link>
       <span className="flex w-fit items-center gap-2">

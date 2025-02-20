@@ -285,3 +285,27 @@
     @apply border-border;
   }
 }
+
+@layer utilities {
+  .link {
+    cursor: pointer;
+    text-decoration-line: none;
+
+    &:focus {
+      outline-style: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    &:hover {
+      @media (hover: hover) {
+        & {
+          text-decoration-line: underline;
+        }
+      }
+    }
+  }
+}

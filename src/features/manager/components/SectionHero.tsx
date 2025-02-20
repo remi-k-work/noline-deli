@@ -29,13 +29,13 @@ export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: S
         <Image src={heroBanner} alt={sectionTitle} className="h-24 w-full rounded-t-2xl object-cover sepia" priority />
       </div>
       <div className="hero-content justify-self-start">
-        <h1 className={cn(lusitana.className, "p-2 text-xl text-secondary backdrop-blur lg:text-3xl")}>
-          <Link href={PathFinder.toManagerHome()} className="link-hover link">
+        <h1 className={cn(lusitana.className, "bg-background/80 p-2 text-xl text-foreground lg:text-2xl")}>
+          <Link href={PathFinder.toManagerHome()} className="link">
             Manager
           </Link>
           &nbsp;►&nbsp;
           {sectionLink ? (
-            <Link href={sectionLink} className="link-hover link">
+            <Link href={sectionLink} className="link">
               {sectionTitle}
             </Link>
           ) : (
@@ -54,9 +54,7 @@ export function SectionLink({ linkBanner, sectionTitle, sectionLink }: SectionLi
         <Image src={linkBanner} alt={sectionTitle} className="h-48 w-full object-cover" />
       </div>
       <div className="hero-content">
-        <span className={cn(lusitana.className, "p-2 text-2xl text-neutral-content backdrop-brightness-50 backdrop-grayscale lg:text-3xl")}>
-          {sectionTitle}
-        </span>
+        <span className={cn(lusitana.className, "bg-background/80 p-2 text-2xl text-foreground lg:text-3xl")}>{sectionTitle}</span>
       </div>
     </Link>
   );

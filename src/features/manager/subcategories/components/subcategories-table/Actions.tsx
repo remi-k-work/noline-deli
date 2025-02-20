@@ -87,13 +87,13 @@ export default function Actions({ subCategoryId, subCategoryName, parentCategory
       </DropdownMenu>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-error">remove</b> this subcategory?
+          Are you certain you want to <b className="text-destructive">remove</b> this subcategory?
         </p>
-        <p className="text-center text-2xl">
+        <p className="m-auto text-center text-2xl">
           {parentCategoryName} ► <b>{subCategoryName}</b>
         </p>
-        <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
-          This operation will also <b className="text-error-content">delete</b> the following:
+        <div className="m-auto mt-8 w-fit bg-destructive p-2 text-start">
+          This operation will also <b className="text-destructive-foreground">delete</b> the following:
           <ul className="list-outside list-disc pl-4">
             <li>All products associated with this subcategory!</li>
           </ul>

@@ -85,7 +85,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
       </DropdownMenu>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-error">remove</b> this product?
+          Are you certain you want to <b className="text-destructive">remove</b> this product?
         </p>
         <ProductExcerpt name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />
       </ConfirmDialog>

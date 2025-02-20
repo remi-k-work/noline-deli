@@ -47,7 +47,7 @@ export default function ProductsTable() {
             key={row.id}
             data-state={row.getIsSelected() && "selected"}
             className={cn("odd:bg-[--surface-3] even:bg-[--surface-4]", {
-              "text-error": row.original.user.role === "ADMIN" || row.original.createdBy !== createdByUser,
+              "text-muted": row.original.user.role === "ADMIN" || row.original.createdBy !== createdByUser,
             })}
           >
             {row.getVisibleCells().map((cell) => (

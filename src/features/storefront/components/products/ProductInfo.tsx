@@ -179,7 +179,7 @@ function OtherInfo({ freeShipping }: OtherInfoProps) {
         </TableRow>
         <TableRow className="bg-[--surface-3]">
           <TableCell colSpan={2}>
-            <span className="flex items-center justify-center gap-2 p-3 text-info">
+            <span className="flex items-center justify-center gap-2 p-3 text-muted-foreground">
               <TruckIcon width={24} height={24} />
               Free Shipping
             </span>

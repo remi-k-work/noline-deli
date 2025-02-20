@@ -84,11 +84,11 @@ export default function Actions({ brandId, brandName, brandLogoUrl }: ActionsPro
       </DropdownMenu>
       <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
         <p className="mb-2 p-4">
-          Are you certain you want to <b className="text-error">remove</b> this brand?
+          Are you certain you want to <b className="text-destructive">remove</b> this brand?
         </p>
         <BrandExcerpt name={brandName} logoUrl={brandLogoUrl} />
-        <div className="m-auto mt-8 w-fit bg-error p-2 text-start">
-          This operation will also <b className="text-error-content">delete</b> the following:
+        <div className="m-auto mt-8 w-fit bg-destructive p-2 text-start">
+          This operation will also <b className="text-destructive-foreground">delete</b> the following:
           <ul className="list-outside list-disc pl-4">
             <li>All products associated with this brand!</li>
           </ul>

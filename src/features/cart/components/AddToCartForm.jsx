@@ -42,7 +42,7 @@ export default function AddToCartForm({ productId }) {
           </header>
           <footer>
             <p className="text-sm">
-              Your cart now has <span className="text-info">{formState.totalQty}</span> item(s).
+              Your cart now has <span className="text-muted-foreground">{formState.totalQty}</span> item(s).
             </p>
           </footer>
         </section>

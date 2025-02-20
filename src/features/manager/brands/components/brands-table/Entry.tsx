@@ -43,11 +43,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
   } = brand;
 
   return (
-    <TableRow
-      className={cn("odd:bg-[--surface-3] even:bg-[--surface-4]", {
-        "text-error": role === "ADMIN" || createdBy !== createdByUser,
-      })}
-    >
+    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
       <TableCell>
         <Link href={PathFinder.toBrandEdit(id)}>
           <Image
@@ -62,7 +58,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
         </Link>
       </TableCell>
       <TableCell>
-        <Link href={PathFinder.toBrandEdit(id)} className="link-hover link">
+        <Link href={PathFinder.toBrandEdit(id)} className="link">
           {name}
         </Link>
       </TableCell>
