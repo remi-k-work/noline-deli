@@ -31,7 +31,7 @@ import { FormTextArea, FormInputField, FormCheckField } from "../../../component
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./Controls";
 import ProductFormImages from "../product-form-images";
 import FormSubmit from "../../../components/FormSubmit";
-import ProductExcerpt from "../ProductExcerpt";
+import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -69,7 +69,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
 
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
-    excerpt: product ? <ProductExcerpt name={product.name} imageUrl={product.imageUrl} price={product.price} /> : undefined,
+    excerpt: product ? <ProductExcerpt kind="simple" name={product.name} imageUrl={product.imageUrl} price={product.price} /> : undefined,
     pathToAllItems: PathFinder.toAllProducts(),
   });
 

@@ -10,7 +10,7 @@ import { incArticleByOne, decArticleByOne, deleteCartArticle } from "@/features/
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import ProductExcerpt from "@/features/manager/products/components/ProductExcerpt";
+import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 
 // assets
 import { PlusCircleIcon, MinusCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
@@ -101,7 +101,7 @@ export function DelCartItemForm({ cartItemId, productName, productImageUrl, prod
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this article?
         </p>
-        <ProductExcerpt name={productName} imageUrl={productImageUrl} price={productPrice} />
+        <ProductExcerpt kind="simple" name={productName} imageUrl={productImageUrl} price={productPrice} />
       </ConfirmDialog>
     </>
   );

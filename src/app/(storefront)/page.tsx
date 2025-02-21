@@ -65,7 +65,7 @@ export default async function Page() {
           <h4 className={cn(lusitana.className, "text-xl")}>Featured Products</h4>
           <section className={styles["dashboard__featured-products"]}>
             {featuredProducts.map((featuredProduct) => (
-              <ProductExcerpt key={featuredProduct.id} product={featuredProduct} />
+              <ProductExcerpt key={featuredProduct.id} kind="regular" product={featuredProduct} />
             ))}
           </section>
 

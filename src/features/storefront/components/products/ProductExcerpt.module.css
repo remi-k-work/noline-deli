@@ -9,6 +9,11 @@
   grid-template-rows: [bck-start prc-start img-start inf-start] auto [prc-end inf-end] var(--size-9) [nam-start] auto [img-end nam-end bck-end];
 }
 
+.product-excerpt--simple {
+  grid-template-columns: [bck-start img-start nam-start] auto [img-end prc-start] auto [prc-end nam-end bck-end];
+  grid-template-rows: [bck-start prc-start img-start] auto [prc-end] var(--size-9) [nam-start] auto [img-end nam-end bck-end];
+}
+
 .product-excerpt__image {
   grid-area: img;
 }

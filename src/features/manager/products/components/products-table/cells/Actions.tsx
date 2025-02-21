@@ -24,7 +24,7 @@ import { TableCell } from "@/components/ui/custom/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import ProductExcerpt from "../../ProductExcerpt";
+import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 
 // assets
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
@@ -37,7 +37,7 @@ interface ActionsProps {
 export default function Actions({ row: { getValue, original } }: ActionsProps) {
   const { execute, isExecuting, feedback } = useTableActionWithVal<z.ZodObject<{ productId: z.ZodString }>, readonly [], ProductFormActionResult>({
     safeActionFunc: delProduct2,
-    excerpt: <ProductExcerpt name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />,
+    excerpt: <ProductExcerpt kind="simple" name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />,
   });
 
   const { refresh } = useRouter();
@@ -87,7 +87,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this product?
         </p>
-        <ProductExcerpt name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />
+        <ProductExcerpt kind="simple" name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />
       </ConfirmDialog>
       {feedback}
     </TableCell>
