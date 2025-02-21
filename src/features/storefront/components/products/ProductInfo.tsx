@@ -13,40 +13,22 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
-import BrandTag from "./BrandTag";
+import { default as BrandTag } from "@/features/storefront/components/products/tags/Brand";
+import { default as FreeShippingTag } from "@/features/storefront/components/products/tags/FreeShipping";
 
 // assets
 import { lusitana } from "@/assets/fonts";
-import { TruckIcon } from "@heroicons/react/24/solid";
 
 // types
 interface ProductInfoProps {
   product: ProductWithAll;
 }
 
-interface CategoryAndSubCategoryProps {
-  categories: ProductWithAll["categories"];
-  subCategories: ProductWithAll["subCategories"];
-}
-
-interface BrandProps {
-  brand: ProductWithAll["brand"];
-}
-
-interface MoreImagesProps {
-  name: ProductWithAll["name"];
-  moreImages: ProductWithAll["moreImages"];
-}
-
-interface OtherInfoProps {
-  freeShipping: ProductWithAll["freeShipping"];
-}
-
 export default function ProductInfo({ product }: ProductInfoProps) {
   // Ensure the product exists
   if (!product) return null;
 
-  const { name, description, imageUrl, price, freeShipping, categories, subCategories, moreImages, brand } = product;
+  const { name, description, imageUrl, price } = product;
 
   return (
     <Table className={styles["product-info"]}>
@@ -78,9 +60,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             />
           </TableCell>
         </TableRow>
-        <CategoryAndSubCategory categories={categories} subCategories={subCategories} />
-        <Brand brand={brand} />
-        <MoreImages name={name} moreImages={moreImages} />
+        <CategoryAndSubCategory product={product} />
+        <Brand product={product} />
+        <MoreImages product={product} />
         <TableRow className={lusitana.className}>
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
@@ -89,13 +71,13 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             <p className="m-auto">{description}</p>
           </TableCell>
         </TableRow>
-        <OtherInfo freeShipping={freeShipping} />
+        <OtherInfo product={product} />
       </TableBody>
     </Table>
   );
 }
 
-function CategoryAndSubCategory({ categories, subCategories }: CategoryAndSubCategoryProps) {
+function CategoryAndSubCategory({ product: { categories, subCategories } }: ProductInfoProps) {
   return (
     (categories.length > 0 || subCategories.length > 0) && (
       <>
@@ -124,7 +106,7 @@ function CategoryAndSubCategory({ categories, subCategories }: CategoryAndSubCat
   );
 }
 
-function Brand({ brand }: BrandProps) {
+function Brand({ product: { brand } }: ProductInfoProps) {
   return (
     brand && (
       <>
@@ -133,7 +115,7 @@ function Brand({ brand }: BrandProps) {
         </TableRow>
         <TableRow className="bg-[--surface-3]">
           <TableCell colSpan={2}>
-            <BrandTag brand={brand} isCompact={true} />
+            <BrandTag kind="product" brand={brand} isCompact={true} />
           </TableCell>
         </TableRow>
       </>
@@ -141,7 +123,7 @@ function Brand({ brand }: BrandProps) {
   );
 }
 
-function MoreImages({ name, moreImages }: MoreImagesProps) {
+function MoreImages({ product: { name, moreImages } }: ProductInfoProps) {
   return (
     moreImages.length > 0 && (
       <>
@@ -170,7 +152,7 @@ function MoreImages({ name, moreImages }: MoreImagesProps) {
   );
 }
 
-function OtherInfo({ freeShipping }: OtherInfoProps) {
+function OtherInfo({ product: { freeShipping } }: ProductInfoProps) {
   return (
     freeShipping && (
       <>
@@ -179,10 +161,7 @@ function OtherInfo({ freeShipping }: OtherInfoProps) {
         </TableRow>
         <TableRow className="bg-[--surface-3]">
           <TableCell colSpan={2}>
-            <span className="flex items-center justify-center gap-2 p-3 text-muted-foreground">
-              <TruckIcon width={24} height={24} />
-              Free Shipping
-            </span>
+            <FreeShippingTag />
           </TableCell>
         </TableRow>
       </>

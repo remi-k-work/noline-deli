@@ -13,8 +13,8 @@ import PathFinder from "@/lib/PathFinder";
 
 // components
 import ImageSlider from "./ImageSlider";
-import BrandTag from "./BrandTag";
 import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
+import { default as BrandTag } from "@/features/storefront/components/products/tags/Brand";
 import AddToCartForm from "@/features/cart/components/AddToCartForm";
 
 // assets
@@ -53,7 +53,7 @@ export default function SingleProductView({ product }: SingleProductViewProps) {
         </>
       )}
       <h2 className={cn(lusitana.className, "text-4xl")}>{name}</h2>
-      <BrandTag brand={brand} />
+      <BrandTag kind="product" brand={brand} />
       <p>{description}</p>
       <PriceTag priceInCents={price} />
       <AddToCartForm productId={id} />

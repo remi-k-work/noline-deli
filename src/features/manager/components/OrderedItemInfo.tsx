@@ -13,7 +13,7 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
-import BrandTag from "./BrandTag";
+import { default as BrandTag } from "@/features/storefront/components/products/tags/Brand";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -23,21 +23,11 @@ interface OrderedItemInfoProps {
   orderedItem: OrderedItem;
 }
 
-interface CategoryAndSubCategoryProps {
-  categoryName: string;
-  subCategoryName: string | null;
-}
-
-interface BrandProps {
-  brandName: string;
-  brandLogo: string | null;
-}
-
 export default function OrderedItemInfo({ orderedItem }: OrderedItemInfoProps) {
   // Ensure the ordered item exists
   if (!orderedItem) return null;
 
-  const { name, description, imageUrl, price, brandName, brandLogo, categoryName, subCategoryName } = orderedItem;
+  const { name, description, imageUrl, price } = orderedItem;
 
   return (
     <Table className={styles["ordered-item-info"]}>
@@ -69,8 +59,8 @@ export default function OrderedItemInfo({ orderedItem }: OrderedItemInfoProps) {
             />
           </TableCell>
         </TableRow>
-        <CategoryAndSubCategory categoryName={categoryName} subCategoryName={subCategoryName} />
-        <Brand brandName={brandName} brandLogo={brandLogo} />
+        <CategoryAndSubCategory orderedItem={orderedItem} />
+        <Brand orderedItem={orderedItem} />
         <TableRow className={lusitana.className}>
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
@@ -84,7 +74,7 @@ export default function OrderedItemInfo({ orderedItem }: OrderedItemInfoProps) {
   );
 }
 
-function CategoryAndSubCategory({ categoryName, subCategoryName }: CategoryAndSubCategoryProps) {
+function CategoryAndSubCategory({ orderedItem: { categoryName, subCategoryName } }: OrderedItemInfoProps) {
   return (
     <>
       <TableRow className={lusitana.className}>
@@ -99,7 +89,7 @@ function CategoryAndSubCategory({ categoryName, subCategoryName }: CategoryAndSu
   );
 }
 
-function Brand({ brandName, brandLogo }: BrandProps) {
+function Brand({ orderedItem: { brandName, brandLogo } }: OrderedItemInfoProps) {
   return (
     <>
       <TableRow className={lusitana.className}>
@@ -107,7 +97,7 @@ function Brand({ brandName, brandLogo }: BrandProps) {
       </TableRow>
       <TableRow className="bg-[--surface-3]">
         <TableCell colSpan={2}>
-          <BrandTag brandName={brandName} brandLogo={brandLogo} />
+          <BrandTag kind="orditem" name={brandName} logoUrl={brandLogo} />
         </TableCell>
       </TableRow>
     </>

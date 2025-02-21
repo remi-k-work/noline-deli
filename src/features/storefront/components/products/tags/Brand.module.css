@@ -1,4 +1,4 @@
-.brand-tag {
+.brand {
   padding-inline: var(--size-3);
   padding-block: var(--size-1);
 
@@ -11,6 +11,6 @@
   box-shadow: var(--inner-shadow-2);
 }
 
-.brand-tag__name {
+.brand__name {
   color: var(--text-2);
 }
