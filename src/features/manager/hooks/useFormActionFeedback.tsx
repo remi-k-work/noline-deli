@@ -9,7 +9,7 @@ import { FormActionResult } from "../formActionTypes";
 import useSearchParamsState from "./useSearchParamsState";
 
 // components
-import Toastify from "@/components/Toastify";
+import Toastify from "@/components/ui/custom/Toastify";
 
 // assets
 import { CheckBadgeIcon, CircleStackIcon, ClipboardDocumentCheckIcon, LockClosedIcon } from "@heroicons/react/24/solid";
@@ -38,50 +38,50 @@ export default function useFormActionFeedback({ excerpt, pathToAllItems }: UseFo
             <p className="mb-8 text-center font-bold">Success!</p>
             {excerpt ? (
               <>
-                <p className="mb-4">Successfully updated the following item.</p>
+                <p className="mb-4 text-center">Successfully updated the following item.</p>
                 {excerpt}
               </>
             ) : (
-              <p className="mb-4">A new item has been created!</p>
+              <p className="mb-4 text-center">A new item has been created!</p>
             )}
           </Toastify>,
         );
       } else if (actionStatus === "invalid") {
         setFeedback(
-          <Toastify type={"alert-warning"} onTimedOut={() => setFeedback(undefined)}>
+          <Toastify type="warning" onTimedOut={() => setFeedback(undefined)}>
             <ClipboardDocumentCheckIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Missing fields!</p>
             {excerpt ? (
               <>
-                <p className="mb-4">Failed to update the following item.</p>
+                <p className="mb-4 text-center">Failed to update the following item.</p>
                 {excerpt}
               </>
             ) : (
-              <p className="mt-4">Failed to create a new item.</p>
+              <p className="mt-4 text-center">Failed to create a new item.</p>
             )}
           </Toastify>,
         );
       } else if (actionStatus === "failed") {
         setFeedback(
-          <Toastify type={"alert-warning"} onTimedOut={() => setFeedback(undefined)}>
+          <Toastify type="warning" onTimedOut={() => setFeedback(undefined)}>
             <CircleStackIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Database error!</p>
             {excerpt ? (
               <>
-                <p className="mb-4">Failed to update the following item.</p>
+                <p className="mb-4 text-center">Failed to update the following item.</p>
                 {excerpt}
               </>
             ) : (
-              <p className="mt-4">Failed to create a new item.</p>
+              <p className="mt-4 text-center">Failed to create a new item.</p>
             )}
           </Toastify>,
         );
       } else if (actionStatus === "denied") {
         setFeedback(
-          <Toastify type={"alert-warning"} onTimedOut={() => setFeedback(undefined)}>
+          <Toastify type="warning" onTimedOut={() => setFeedback(undefined)}>
             <LockClosedIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Access was denied!</p>
-            <p className="mb-4">You can only change the items you create.</p>
+            <p className="mb-4 text-center">You can only change the items you create.</p>
             {excerpt}
           </Toastify>,
         );

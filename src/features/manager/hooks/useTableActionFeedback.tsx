@@ -5,7 +5,7 @@ import { ReactNode, useCallback, useState } from "react";
 import { FormActionResult } from "../formActionTypes";
 
 // components
-import Toastify from "@/components/Toastify";
+import Toastify from "@/components/ui/custom/Toastify";
 
 // assets
 import { CheckBadgeIcon, CircleStackIcon, LockClosedIcon } from "@heroicons/react/24/solid";
@@ -26,25 +26,25 @@ export default function useTableActionFeedback({ excerpt }: UseTableActionFeedba
           <Toastify onTimedOut={() => setFeedback(undefined)}>
             <CheckBadgeIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Success!</p>
-            <p className="mb-4">The following item has been removed.</p>
+            <p className="mb-4 text-center">The following item has been removed.</p>
             {excerpt}
           </Toastify>,
         );
       } else if (actionStatus === "failed") {
         setFeedback(
-          <Toastify type={"alert-warning"} onTimedOut={() => setFeedback(undefined)}>
+          <Toastify type="warning" onTimedOut={() => setFeedback(undefined)}>
             <CircleStackIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Database error!</p>
-            <p className="mb-4">Failed to delete the following item.</p>
+            <p className="mb-4 text-center">Failed to delete the following item.</p>
             {excerpt}
           </Toastify>,
         );
       } else if (actionStatus === "denied") {
         setFeedback(
-          <Toastify type={"alert-warning"} onTimedOut={() => setFeedback(undefined)}>
+          <Toastify type="warning" onTimedOut={() => setFeedback(undefined)}>
             <LockClosedIcon width={64} height={64} className="m-auto" />
             <p className="mb-8 text-center font-bold">Access was denied!</p>
-            <p className="mb-4">You can only delete the items you create.</p>
+            <p className="mb-4 text-center">You can only delete the items you create.</p>
             {excerpt}
           </Toastify>,
         );
