@@ -15,9 +15,9 @@ import { z } from "zod";
 import { waait } from "@/lib/helpers";
 import PathFinder from "@/lib/PathFinder";
 import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
-import { ProductFormActionResult } from "@/features/manager/products/schemas/types";
+import type { ProductFormActionResult } from "@/features/manager/products/schemas/types";
 import { Row } from "@tanstack/react-table";
-import { ProductRow } from "../Columns";
+import { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";

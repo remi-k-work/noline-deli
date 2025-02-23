@@ -6,15 +6,15 @@ import { redirect } from "next/navigation";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
-import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../login/db";
+import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "@/features/manager/login/db";
 import { createCategory, deleteCategory, updateCategory } from "./db";
 
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import PathFinder from "../../../lib/PathFinder";
-import { CategoryFormActionResult } from "./schemas/types";
-import { objectIdSchema } from "../formActionTypes";
+import PathFinder from "@/lib/PathFinder";
+import type { CategoryFormActionResult } from "./schemas/types";
+import { objectIdSchema } from "@/features/manager/formActionTypes";
 import { categoryFormSchema } from "./schemas/categoryForm";
 import { handleValidationErrorsShape } from "./schemas/consts";
 import { returnValidationErrors } from "next-safe-action";

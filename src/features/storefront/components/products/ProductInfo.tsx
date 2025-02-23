@@ -24,12 +24,7 @@ interface ProductInfoProps {
   product: ProductWithAll;
 }
 
-export default function ProductInfo({ product }: ProductInfoProps) {
-  // Ensure the product exists
-  if (!product) return null;
-
-  const { name, description, imageUrl, price } = product;
-
+export default function ProductInfo({ product, product: { name, description, imageUrl, price } }: ProductInfoProps) {
   return (
     <Table className={styles["product-info"]}>
       <TableHeader className={lusitana.className}>

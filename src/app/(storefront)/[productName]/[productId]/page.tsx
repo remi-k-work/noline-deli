@@ -16,7 +16,7 @@ import PathFinder from "@/lib/PathFinder";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
-import SingleProductView, { SingleProductViewSkeleton } from "@/features/storefront/components/products/SingleProductView";
+import ProductView, { ProductViewSkeleton } from "@/features/storefront/components/products/product-view";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -80,7 +80,7 @@ async function PageSuspense({ productName, productId }: PageSuspenseProps) {
     <MainLayout>
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
-        <SingleProductView product={product} />
+        <ProductView product={product} />
       </article>
     </MainLayout>
   );
@@ -91,7 +91,7 @@ function PageSkeleton({ productName }: PageSkeletonProps) {
     <MainLayout>
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
-        <SingleProductViewSkeleton />
+        <ProductViewSkeleton />
       </article>
     </MainLayout>
   );

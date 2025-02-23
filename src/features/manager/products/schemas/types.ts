@@ -1,7 +1,7 @@
 // other libraries
 import { z } from "zod";
 import { productFormSchema } from "./productForm";
-import { FormActionResult } from "../../formActionTypes";
+import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
 export interface ProductFormActionResult extends FormActionResult {}

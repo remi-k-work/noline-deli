@@ -5,15 +5,15 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 // prisma and db access
-import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "../login/db";
+import { getCreatedByUser, isAccessDeniedTo, setCreatedByUser } from "@/features/manager/login/db";
 import { createProduct, deleteProduct, updateProduct } from "./db";
 
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import PathFinder from "../../../lib/PathFinder";
-import { ProductFormActionResult } from "./schemas/types";
-import { dateSchema, objectIdSchema } from "../formActionTypes";
+import PathFinder from "@/lib/PathFinder";
+import type { ProductFormActionResult } from "./schemas/types";
+import { dateSchema, objectIdSchema } from "@/features/manager/formActionTypes";
 import { productFormSchema } from "./schemas/productForm";
 import { handleValidationErrorsShape } from "./schemas/consts";
 

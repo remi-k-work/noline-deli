@@ -1,7 +1,7 @@
 // other libraries
 import { z } from "zod";
 import { categoryFormSchema } from "./categoryForm";
-import { FormActionResult } from "../../formActionTypes";
+import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
 export interface CategoryFormActionResult extends FormActionResult {}

@@ -8,14 +8,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delCategory2 } from "../../actions";
+import { delCategory2 } from "@/features/manager/categories/actions";
 
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import PathFinder from "../../../../../lib/PathFinder";
-import useTableActionWithVal from "../../../hooks/useTableActionWithVal";
-import { CategoryFormActionResult } from "../../schemas/types";
+import PathFinder from "@/lib/PathFinder";
+import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
+import type { CategoryFormActionResult } from "@/features/manager/categories/schemas/types";
 
 // components
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";

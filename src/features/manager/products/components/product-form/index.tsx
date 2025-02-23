@@ -7,30 +7,30 @@ import styles from "./index.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import type { ProductWithAll } from "../../db";
-import type { BrandWithUser } from "../../../brands/db";
-import type { CategoryWithSubCategory } from "../../../categories/db";
+import type { ProductWithAll } from "@/features/manager/products/db";
+import type { BrandWithUser } from "@/features/manager/brands/db";
+import type { CategoryWithSubCategory } from "@/features/manager/categories/db";
 
 // server actions and mutations
 import { newProduct2, updProduct2 } from "@/features/manager/products/actions";
 
 // other libraries
 import { z } from "zod";
-import { useProductFormStore } from "../../stores/productFormProvider";
-import useFormActionWithVal from "../../../hooks/useFormActionWithVal";
+import { useProductFormStore } from "@/features/manager/products/stores/productFormProvider";
+import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
-import { productFormSchema } from "../../schemas/productForm";
-import type { ProductFormActionResult } from "../../schemas/types";
+import { productFormSchema } from "@/features/manager/products/schemas/productForm";
+import type { ProductFormActionResult } from "@/features/manager/products/schemas/types";
 import PathFinder from "@/lib/PathFinder";
-import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
+import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
 // components
-import { ProductFormStoreProvider } from "../../stores/productFormProvider";
-import { AllFieldErrorsProvider } from "../../../../../contexts/AllFieldErrors";
-import { FormTextArea, FormInputField, FormCheckField } from "../../../components/FormControls";
+import { ProductFormStoreProvider } from "@/features/manager/products/stores/productFormProvider";
+import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { FormTextArea, FormInputField, FormCheckField } from "@/features/manager/components/FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./Controls";
-import ProductFormImages from "../product-form-images";
-import FormSubmit from "../../../components/FormSubmit";
+import ProductFormImages from "@/features/manager/products/components/product-form-images";
+import FormSubmit from "@/features/manager/components/FormSubmit";
 import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 
 // assets

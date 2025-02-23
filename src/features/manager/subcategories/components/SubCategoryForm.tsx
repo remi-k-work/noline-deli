@@ -7,26 +7,26 @@ import styles from "./SubCategoryForm.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import type { CategoryWithSubCategory, SubCategoryWithUser } from "../../categories/db";
+import type { CategoryWithSubCategory, SubCategoryWithUser } from "@/features/manager/categories/db";
 
 // server actions and mutations
 import { newSubCategory2, updSubCategory2 } from "@/features/manager/subcategories/actions";
 
 // other libraries
 import { z } from "zod";
-import { useSubCategoryFormStore } from "../stores/subCategoryFormProvider";
-import useFormActionWithVal from "../../hooks/useFormActionWithVal";
+import { useSubCategoryFormStore } from "@/features/manager/subcategories/stores/subCategoryFormProvider";
+import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
-import { subCategoryFormSchema } from "../schemas/subCategoryForm";
-import type { SubCategoryFormActionResult } from "../schemas/types";
+import { subCategoryFormSchema } from "@/features/manager/subcategories/schemas/subCategoryForm";
+import type { SubCategoryFormActionResult } from "@/features/manager/subcategories/schemas/types";
 import PathFinder from "@/lib/PathFinder";
-import useFormActionFeedback from "../../hooks/useFormActionFeedback";
+import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
 // components
-import { SubCategoryFormStoreProvider } from "../stores/subCategoryFormProvider";
-import { AllFieldErrorsProvider } from "../../../../contexts/AllFieldErrors";
-import { FormInputField, FormSelectField } from "../../components/FormControls";
-import FormSubmit from "../../components/FormSubmit";
+import { SubCategoryFormStoreProvider } from "@/features/manager/subcategories/stores/subCategoryFormProvider";
+import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { FormInputField, FormSelectField } from "@/features/manager/components/FormControls";
+import FormSubmit from "@/features/manager/components/FormSubmit";
 
 // assets
 import { lusitana } from "@/assets/fonts";

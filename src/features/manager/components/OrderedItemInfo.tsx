@@ -23,12 +23,7 @@ interface OrderedItemInfoProps {
   orderedItem: OrderedItem;
 }
 
-export default function OrderedItemInfo({ orderedItem }: OrderedItemInfoProps) {
-  // Ensure the ordered item exists
-  if (!orderedItem) return null;
-
-  const { name, description, imageUrl, price } = orderedItem;
-
+export default function OrderedItemInfo({ orderedItem, orderedItem: { name, description, imageUrl, price } }: OrderedItemInfoProps) {
   return (
     <Table className={styles["ordered-item-info"]}>
       <TableHeader className={lusitana.className}>

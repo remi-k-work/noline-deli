@@ -8,20 +8,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // server actions and mutations
-import { delBrand2 } from "../../actions";
+import { delBrand2 } from "@/features/manager/brands/actions";
 
 // other libraries
 import { z } from "zod";
 import { waait } from "@/lib/helpers";
-import PathFinder from "../../../../../lib/PathFinder";
-import useTableActionWithVal from "../../../hooks/useTableActionWithVal";
-import { BrandFormActionResult } from "../../schemas/types";
+import PathFinder from "@/lib/PathFinder";
+import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
+import type { BrandFormActionResult } from "@/features/manager/brands/schemas/types";
 
 // components
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import BrandExcerpt from "../BrandExcerpt";
+import BrandExcerpt from "@/features/manager/brands/components/BrandExcerpt";
 
 // assets
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";

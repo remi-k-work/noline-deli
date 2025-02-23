@@ -14,21 +14,21 @@ import { newBrand2, updBrand2 } from "@/features/manager/brands/actions";
 
 // other libraries
 import { z } from "zod";
-import { useBrandFormStore } from "../../stores/brandFormProvider";
-import useFormActionWithVal from "../../../hooks/useFormActionWithVal";
+import { useBrandFormStore } from "@/features/manager/brands/stores/brandFormProvider";
+import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
-import { brandFormSchema } from "../../schemas/brandForm";
-import type { BrandFormActionResult } from "../../schemas/types";
+import { brandFormSchema } from "@/features/manager/brands/schemas/brandForm";
+import type { BrandFormActionResult } from "@/features/manager/brands/schemas/types";
 import PathFinder from "@/lib/PathFinder";
-import useFormActionFeedback from "../../../hooks/useFormActionFeedback";
+import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
 // components
-import { BrandFormStoreProvider } from "../../stores/brandFormProvider";
+import { BrandFormStoreProvider } from "@/features/manager/brands/stores/brandFormProvider";
 import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
-import { FormInputField } from "../../../components/FormControls";
+import { FormInputField } from "@/features/manager/components/FormControls";
 import Logo from "./Logo";
-import FormSubmit from "../../../components/FormSubmit";
-import BrandExcerpt from "../BrandExcerpt";
+import FormSubmit from "@/features/manager/components/FormSubmit";
+import BrandExcerpt from "@/features/manager/brands/components/BrandExcerpt";
 
 // assets
 import { lusitana } from "@/assets/fonts";

@@ -10,8 +10,8 @@ import { OrderedItemStatus, OrderStatus } from "@prisma/client";
 // other libraries
 import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
-import PathFinder from "../../../lib/PathFinder";
-import { objectIdSchema } from "../formActionTypes";
+import PathFinder from "@/lib/PathFinder";
+import { objectIdSchema } from "@/features/manager/formActionTypes";
 
 export const chgOrderStatus = actionClient
   .schema(z.object({ orderId: objectIdSchema, newStatus: z.nativeEnum(OrderStatus) }))

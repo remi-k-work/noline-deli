@@ -5,7 +5,7 @@ import { ReactNode, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // other libraries
-import { FormActionResult } from "../formActionTypes";
+import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // components
 import Toastify from "@/components/ui/custom/Toastify";

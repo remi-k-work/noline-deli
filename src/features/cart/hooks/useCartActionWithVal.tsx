@@ -6,20 +6,20 @@ import { Schema } from "zod";
 import { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
 import { HookSafeActionFn, useAction } from "next-safe-action/hooks";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
-import useTableActionFeedback from "./useTableActionFeedback";
+import useCartActionFeedback from "./useCartActionFeedback";
 
 // types
-interface UseTableActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {
+interface UseCartActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {
   safeActionFunc: HookSafeActionFn<string, S, BAS, ValidationErrors<S>, BindArgsValidationErrors<BAS>, Data>;
   excerpt?: ReactNode;
 }
 
-export default function useTableActionWithVal<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult>({
+export default function useCartActionWithVal<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult>({
   safeActionFunc,
   excerpt,
-}: UseTableActionWithValProps<S, BAS, Data>) {
+}: UseCartActionWithValProps<S, BAS, Data>) {
   // To provide feedback to the user
-  const { feedback, showFeedback } = useTableActionFeedback({ excerpt });
+  const { feedback, showFeedback } = useCartActionFeedback({ excerpt });
 
   const { execute, isExecuting } = useAction(safeActionFunc, {
     onSuccess: ({ data }) => {

@@ -7,26 +7,26 @@ import styles from "./CategoryForm.module.css";
 import { useState } from "react";
 
 // prisma and db access
-import type { CategoryWithUser } from "../db";
+import type { CategoryWithUser } from "@/features/manager/categories/db";
 
 // server actions and mutations
 import { newCategory2, updCategory2 } from "@/features/manager/categories/actions";
 
 // other libraries
 import { z } from "zod";
-import { useCategoryFormStore } from "../stores/categoryFormProvider";
-import useFormActionWithVal from "../../hooks/useFormActionWithVal";
+import { useCategoryFormStore } from "@/features/manager/categories/stores/categoryFormProvider";
+import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
-import { categoryFormSchema } from "../schemas/categoryForm";
-import type { CategoryFormActionResult } from "../schemas/types";
-import PathFinder from "../../../../lib/PathFinder";
-import useFormActionFeedback from "../../hooks/useFormActionFeedback";
+import { categoryFormSchema } from "@/features/manager/categories/schemas/categoryForm";
+import type { CategoryFormActionResult } from "@/features/manager/categories/schemas/types";
+import PathFinder from "@/lib/PathFinder";
+import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
 // components
-import { CategoryFormStoreProvider } from "../stores/categoryFormProvider";
-import { AllFieldErrorsProvider } from "../../../../contexts/AllFieldErrors";
-import { FormInputField } from "../../components/FormControls";
-import FormSubmit from "../../components/FormSubmit";
+import { CategoryFormStoreProvider } from "@/features/manager/categories/stores/categoryFormProvider";
+import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { FormInputField } from "@/features/manager/components/FormControls";
+import FormSubmit from "@/features/manager/components/FormSubmit";
 
 // assets
 import { lusitana } from "@/assets/fonts";

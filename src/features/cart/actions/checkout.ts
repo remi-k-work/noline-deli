@@ -5,7 +5,7 @@ import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
 import stripe from "@/services/stripe";
 import { nanoid } from "nanoid";
-import { emailSchema, objectIdSchema, priceSchema } from "../../manager/formActionTypes";
+import { emailSchema, objectIdSchema, priceSchema } from "@/features/manager/formActionTypes";
 
 // types
 interface PaymentIntentActionResult {

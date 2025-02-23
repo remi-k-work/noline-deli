@@ -1,0 +1,35 @@
+.figure {
+  grid-area: fig;
+
+  background: var(--surface-3);
+
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+
+  & img {
+    inline-size: 100%;
+    block-size: var(--size-15);
+
+    border-start-start-radius: var(--radius-3);
+    border-start-end-radius: var(--radius-3);
+
+    object-fit: cover;
+  }
+}
+
+.figure-skeleton {
+  grid-area: fig;
+
+  background: var(--surface-3);
+
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+
+  & > div {
+    inline-size: 100%;
+    block-size: var(--size-15);
+
+    border-start-start-radius: inherit;
+    border-start-end-radius: inherit;
+  }
+}
