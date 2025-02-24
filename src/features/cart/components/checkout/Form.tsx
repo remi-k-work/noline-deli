@@ -15,11 +15,13 @@ import { formatCurrency } from "@/lib/formatters";
 import { AddressElement, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { ErrorMessage } from "@/features/manager/components/FormControls";
 
 // assets
 import { lusitana } from "@/assets/fonts";
 import { BanknotesIcon, CreditCardIcon } from "@heroicons/react/24/solid";
+import { Loader2 } from "lucide-react";
 
 // types
 interface FormProps {
@@ -97,10 +99,10 @@ export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount },
       </section>
       <form onSubmit={handleSubmit} className={cn("text-center", placeOrderCn)}>
         {errorMessage && <ErrorMessage fieldErrors={[errorMessage]} />}
-        <button type="submit" className="btn btn-primary" disabled={isLoading || !stripe || !elements}>
+        <Button type="submit" size="lg" disabled={isLoading || !stripe || !elements}>
           {isLoading ? (
             <>
-              <span className="loading loading-spinner"></span>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Processing your Order...
             </>
           ) : (
@@ -109,7 +111,7 @@ export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount },
               Place Order for {formatCurrency(subTotal + taxAmount + shippingCost)}
             </>
           )}
-        </button>
+        </Button>
       </form>
     </>
   );

@@ -6,13 +6,14 @@ import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import PathFinder from "../../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import SearchPanel from "../../components/SearchPanel";
-import SortBy from "../../components/SortBy";
-import Paginate from "../../components/Paginate";
+import SearchPanel from "@/features/manager/components/SearchPanel";
+import SortBy from "@/features/manager/components/SortBy";
+import Paginate from "@/features/manager/components/Paginate";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -36,9 +37,11 @@ export default async function BrowseBar({ itemsPerPage, totalItems }: BrowseBarP
       <footer className={styles["browse-bar__new-brand"]}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Link href={PathFinder.toBrandNew()} className="btn btn-circle">
-              <PlusCircleIcon width={24} height={24} />
-            </Link>
+            <Button size="icon" variant="outline" asChild>
+              <Link href={PathFinder.toBrandNew()}>
+                <PlusCircleIcon width={24} height={24} />
+              </Link>
+            </Button>
           </TooltipTrigger>
           <TooltipContent>
             <p>Create a new brand</p>

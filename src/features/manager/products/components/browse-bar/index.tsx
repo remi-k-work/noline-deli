@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import BrowseBy from "./browse-by";
 import SearchPanel from "./SearchPanel";
@@ -29,9 +30,11 @@ export default function BrowseBar() {
       <footer className={styles["browse-bar__new-product"]}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Link href={PathFinder.toProductNew()} className="btn btn-circle">
-              <PlusCircleIcon width={24} height={24} />
-            </Link>
+            <Button size="icon" variant="outline" asChild>
+              <Link href={PathFinder.toProductNew()}>
+                <PlusCircleIcon width={24} height={24} />
+              </Link>
+            </Button>
           </TooltipTrigger>
           <TooltipContent>
             <p>Create a new product</p>

@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { FormInputField, FormOutputField } from "@/features/manager/components/FormControls";
 
@@ -65,13 +66,17 @@ const ImageView = forwardRef<HTMLElement, ImageViewProps>(
           </FormOutputField>
         </header>
         <Tooltip>
-          <TooltipTrigger
-            type="button"
-            className={cn(styles["image-view__toolbar"], "btn btn-circle")}
-            disabled={!onRemoveImageClicked}
-            onClick={() => onRemoveImageClicked?.()}
-          >
-            <TrashIcon width={24} height={24} />
+          <TooltipTrigger asChild>
+            <Button
+              type="button"
+              size="icon"
+              variant="outline"
+              className={styles["image-view__toolbar"]}
+              disabled={!onRemoveImageClicked}
+              onClick={() => onRemoveImageClicked?.()}
+            >
+              <TrashIcon width={24} height={24} />
+            </Button>
           </TooltipTrigger>
           <TooltipContent side="left">
             <p>Remove this image</p>

@@ -237,71 +237,71 @@ export default function Page() {
   return (
     <>
       <br />
-      <button className="btn btn-primary" type="button" disabled={isExecuting} onClick={async () => execute(formDataPr)}>
+      <button type="button" disabled={isExecuting} onClick={async () => execute(formDataPr)}>
         Test Action
       </button>
       <br />
       <br />
-      <button className="btn btn-warning" type="button" disabled={isExDelPr} onClick={() => exDelPr({ productId: "66a3e02439fda3e836572095" })}>
+      <button type="button" disabled={isExDelPr} onClick={() => exDelPr({ productId: "66a3e02439fda3e836572095" })}>
         Delete Product
       </button>
       <br />
       <br />
-      <button className="btn btn-warning" type="button" disabled={isExDelBr} onClick={() => exDelBr({ brandId: "66a4c2aa0bfee2230613c978" })}>
+      <button type="button" disabled={isExDelBr} onClick={() => exDelBr({ brandId: "66a4c2aa0bfee2230613c978" })}>
         Delete Brand
       </button>
       <br />
       <br />
-      <button className="btn btn-warning" type="button" disabled={isExDelCa} onClick={() => exDelCa({ categoryId: "6687c5ae97dd11f1d52b8732" })}>
+      <button type="button" disabled={isExDelCa} onClick={() => exDelCa({ categoryId: "6687c5ae97dd11f1d52b8732" })}>
         Delete Category
       </button>
       <br />
       <br />
-      <button className="btn btn-warning" type="button" disabled={isExDelSu} onClick={() => exDelSu({ subCategoryId: "6687c50297dd11f1d52b8730" })}>
+      <button type="button" disabled={isExDelSu} onClick={() => exDelSu({ subCategoryId: "6687c50297dd11f1d52b8730" })}>
         Delete SubCategory
       </button>
       <br />
       <br />
       <br />
       <br />
-      <button className="btn btn-primary" type="button" disabled={isExUpdPr} onClick={() => exUpdPr(formDataPr)}>
+      <button type="button" disabled={isExUpdPr} onClick={() => exUpdPr(formDataPr)}>
         Update Product
       </button>
       <br />
       <br />
-      <button className="btn btn-primary" type="button" disabled={isExUpdBr} onClick={() => exUpdBr(formDataBr)}>
+      <button type="button" disabled={isExUpdBr} onClick={() => exUpdBr(formDataBr)}>
         Update Brand
       </button>
       <br />
       <br />
-      <button className="btn btn-primary" type="button" disabled={isExUpdCa} onClick={() => exUpdCa(formDataCa)}>
+      <button type="button" disabled={isExUpdCa} onClick={() => exUpdCa(formDataCa)}>
         Update Category
       </button>
       <br />
       <br />
-      <button className="btn btn-primary" type="button" disabled={isExUpdSu} onClick={() => exUpdSu(formDataSu)}>
+      <button type="button" disabled={isExUpdSu} onClick={() => exUpdSu(formDataSu)}>
         Update SubCategory
       </button>
       <br />
       <br />
       <br />
       <br />
-      <button className="btn btn-secondary" type="button" disabled={isExNewPr} onClick={() => exNewPr(formDataPr)}>
+      <button type="button" disabled={isExNewPr} onClick={() => exNewPr(formDataPr)}>
         New Product
       </button>
       <br />
       <br />
-      <button className="btn btn-secondary" type="button" disabled={isExNewBr} onClick={() => exNewBr(formDataBr)}>
+      <button type="button" disabled={isExNewBr} onClick={() => exNewBr(formDataBr)}>
         New Brand
       </button>
       <br />
       <br />
-      <button className="btn btn-secondary" type="button" disabled={isExNewCa} onClick={() => exNewCa(formDataCa)}>
+      <button type="button" disabled={isExNewCa} onClick={() => exNewCa(formDataCa)}>
         New Category
       </button>
       <br />
       <br />
-      <button className="btn btn-secondary" type="button" disabled={isExNewSu} onClick={() => exNewSu(formDataSu)}>
+      <button type="button" disabled={isExNewSu} onClick={() => exNewSu(formDataSu)}>
         New SubCategory
       </button>
     </>

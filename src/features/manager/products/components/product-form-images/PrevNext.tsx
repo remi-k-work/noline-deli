@@ -4,10 +4,10 @@
 import styles from "./PrevNext.module.css";
 
 // other libraries
-import { cn } from "@/lib/utils";
-import { useProductFormStore } from "../../stores/productFormProvider";
+import { useProductFormStore } from "@/features/manager/products/stores/productFormProvider";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 // assets
@@ -20,16 +20,20 @@ export default function PrevNext() {
   return (
     <>
       <Tooltip>
-        <TooltipTrigger type="button" className={cn(styles["prev-next__prev"], "btn btn-circle")} onClick={prevImageViewed}>
-          <ArrowLeftCircleIcon width={24} height={24} />
+        <TooltipTrigger asChild>
+          <Button type="button" size="icon" variant="outline" className={styles["prev-next__prev"]} onClick={prevImageViewed}>
+            <ArrowLeftCircleIcon width={24} height={24} />
+          </Button>
         </TooltipTrigger>
         <TooltipContent side="right">
           <p>View the previous image</p>
         </TooltipContent>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger type="button" className={cn(styles["prev-next__next"], "btn btn-circle")} onClick={nextImageViewed}>
-          <ArrowRightCircleIcon width={24} height={24} />
+        <TooltipTrigger asChild>
+          <Button type="button" size="icon" variant="outline" className={styles["prev-next__next"]} onClick={nextImageViewed}>
+            <ArrowRightCircleIcon width={24} height={24} />
+          </Button>
         </TooltipTrigger>
         <TooltipContent side="left">
           <p>View the next image</p>

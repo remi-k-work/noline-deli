@@ -18,6 +18,7 @@ import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVa
 import type { BrandFormActionResult } from "@/features/manager/brands/schemas/types";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ConfirmDialog from "@/components/ConfirmDialog";
@@ -25,6 +26,7 @@ import BrandExcerpt from "@/features/manager/brands/components/BrandExcerpt";
 
 // assets
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { Loader2 } from "lucide-react";
 
 // types
 interface ActionsProps {
@@ -57,9 +59,9 @@ export default function Actions({ brandId, brandName, brandLogoUrl }: ActionsPro
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="btn btn-circle btn-ghost">
-                {isExecuting ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
-              </div>
+              <Button size="icon" variant="ghost" asChild>
+                {isExecuting ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="left">
               <p>Perform actions with this brand</p>
@@ -69,16 +71,18 @@ export default function Actions({ brandId, brandName, brandLogoUrl }: ActionsPro
         <DropdownMenuContent side="left">
           <DropdownMenuLabel>Choose an Action</DropdownMenuLabel>
           <DropdownMenuItem>
-            <Link href={PathFinder.toBrandEdit(brandId)} className="btn btn-block">
-              <PencilIcon width={24} height={24} />
-              Edit
-            </Link>
+            <Button size="block" asChild>
+              <Link href={PathFinder.toBrandEdit(brandId)}>
+                <PencilIcon width={24} height={24} />
+                Edit
+              </Link>
+            </Button>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <button type="button" className="btn btn-warning btn-block" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
+            <Button type="button" size="block" variant="destructive" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
               <TrashIcon width={24} height={24} />
               Delete
-            </button>
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

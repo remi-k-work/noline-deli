@@ -6,8 +6,12 @@ import styles from "./FormSubmit.module.css";
 // next
 import { useRouter } from "next/navigation";
 
+// components
+import { Button } from "@/components/ui/custom/button";
+
 // assets
 import { HandThumbDownIcon, HandThumbUpIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { Loader2 } from "lucide-react";
 
 // types
 interface FormSubmitProps {
@@ -21,10 +25,10 @@ export default function FormSubmit({ isExecuting, onResetClicked }: FormSubmitPr
 
   return (
     <section className={styles["form-submit"]}>
-      <button type="submit" className="btn btn-primary" disabled={isExecuting}>
+      <Button type="submit" disabled={isExecuting}>
         {isExecuting ? (
           <>
-            <span className="loading loading-spinner"></span>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Saving...
           </>
         ) : (
@@ -33,15 +37,15 @@ export default function FormSubmit({ isExecuting, onResetClicked }: FormSubmitPr
             Save
           </>
         )}
-      </button>
-      <button type="reset" className="btn btn-warning" onClick={() => onResetClicked()}>
+      </Button>
+      <Button type="reset" variant="destructive" onClick={() => onResetClicked()}>
         <XCircleIcon width={24} height={24} />
         Reset
-      </button>
-      <button type="button" className="btn btn-secondary" onClick={() => back()}>
+      </Button>
+      <Button type="button" variant="secondary" onClick={() => back()}>
         <HandThumbDownIcon width={24} height={24} />
         Cancel
-      </button>
+      </Button>
     </section>
   );
 }

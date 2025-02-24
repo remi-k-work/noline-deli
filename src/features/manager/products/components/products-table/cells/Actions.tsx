@@ -20,6 +20,7 @@ import { Row } from "@tanstack/react-table";
 import { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { TableCell } from "@/components/ui/custom/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -28,6 +29,7 @@ import ProductExcerpt from "@/features/storefront/components/products/ProductExc
 
 // assets
 import { EllipsisVerticalIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { Loader2 } from "lucide-react";
 
 // types
 interface ActionsProps {
@@ -58,9 +60,9 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="btn btn-circle btn-ghost">
-                {isExecuting ? <span className="loading loading-spinner"></span> : <EllipsisVerticalIcon width={24} height={24} />}
-              </div>
+              <Button size="icon" variant="ghost" asChild>
+                {isExecuting ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="left">
               <p>Perform actions with this product</p>
@@ -70,16 +72,18 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
         <DropdownMenuContent side="left">
           <DropdownMenuLabel>Choose an Action</DropdownMenuLabel>
           <DropdownMenuItem>
-            <Link href={PathFinder.toProductEdit(original.id)} className="btn btn-block">
-              <PencilIcon width={24} height={24} />
-              Edit
-            </Link>
+            <Button size="block" asChild>
+              <Link href={PathFinder.toProductEdit(original.id)}>
+                <PencilIcon width={24} height={24} />
+                Edit
+              </Link>
+            </Button>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <button type="button" className="btn btn-warning btn-block" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
+            <Button type="button" size="block" variant="destructive" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
               <TrashIcon width={24} height={24} />
               Delete
-            </button>
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

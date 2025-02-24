@@ -13,6 +13,9 @@ import Image from "next/image";
 import PathFinder from "@/lib/PathFinder";
 import { CAPTCHA_HEIGHT, CAPTCHA_WIDTH } from "@/features/auth/components/CaptchaBackground";
 
+// components
+import { Button } from "@/components/ui/custom/button";
+
 // assets
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
@@ -32,9 +35,9 @@ export default function Captcha({ captchaName }: CaptchaProps) {
   return (
     <article className={styles["captcha"]}>
       <Image src={captchaSrc} overrideSrc={captchaSrc} width={CAPTCHA_WIDTH} height={CAPTCHA_HEIGHT} alt={captchaName} unoptimized />
-      <button type="button" className="btn btn-secondary" onClick={() => setCaptchaSrc(PathFinder.toCaptcha(captchaName, true))}>
-        <ArrowPathIcon width={24} height={24} />
-      </button>
+      <Button type="button" size="icon" variant="secondary" onClick={() => setCaptchaSrc(PathFinder.toCaptcha(captchaName, true))}>
+        <ArrowPathIcon width={36} height={36} />
+      </Button>
     </article>
   );
 }

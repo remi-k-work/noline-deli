@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 
@@ -40,10 +41,10 @@ export default function ResponsiveDialogTrigger({ asChild, trigger, title, descr
         <div className="h-auto overflow-y-auto">{content}</div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <button type="button" className="btn btn-block">
+            <Button type="button" size="block" variant="outline">
               <XCircleIcon width={24} height={24} />
               Close
-            </button>
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

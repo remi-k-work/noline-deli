@@ -2,6 +2,7 @@
 import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import ResponsiveDialogTrigger from "@/components/ResponsiveDialogTrigger";
 import ProductInfo from "@/features/storefront/components/products/ProductInfo";
@@ -21,9 +22,9 @@ export default function ProductInfoTrigger({ product, className }: ProductInfoTr
       trigger={
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="btn btn-circle glass btn-primary">
-              <InformationCircleIcon width={24} height={24} />
-            </div>
+            <Button size="icon" variant="secondary" asChild>
+              <InformationCircleIcon width={36} height={36} />
+            </Button>
           </TooltipTrigger>
           <TooltipContent side="right">
             <p>Detailed information about this product</p>

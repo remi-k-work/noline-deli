@@ -5,9 +5,10 @@ import styles from "./index.module.css";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useProductFormStore } from "../../stores/productFormProvider";
+import { useProductFormStore } from "@/features/manager/products/stores/productFormProvider";
 
 // components
+import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import View from "./View";
 import PrevNext from "./PrevNext";
@@ -24,8 +25,10 @@ export default function ProductFormImages() {
     <section className={styles["product-form-images"]}>
       <header className={cn(lusitana.className, styles["product-form-images__label"])}>Product Images</header>
       <Tooltip>
-        <TooltipTrigger type="button" className={cn(styles["product-form-images__toolbar"], "btn btn-circle")} onClick={imageAdded}>
-          <PlusCircleIcon width={24} height={24} />
+        <TooltipTrigger asChild>
+          <Button type="button" size="icon" variant="outline" className={styles["product-form-images__toolbar"]} onClick={imageAdded}>
+            <PlusCircleIcon width={24} height={24} />
+          </Button>
         </TooltipTrigger>
         <TooltipContent side="left">
           <p>Add a new image</p>
