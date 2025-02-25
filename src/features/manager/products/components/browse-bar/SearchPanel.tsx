@@ -1,18 +1,17 @@
 "use client";
 
-// component css styles
-import styles from "./SearchPanel.module.css";
-
 // react
 import { useEffect, useRef } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
-import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 // assets
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
@@ -42,21 +41,21 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <label className={cn(styles["search-panel"], "input input-bordered", className)}>
-          <input
+        <Label className={cn("flex w-full max-w-[--size-content-2] items-center gap-1 bg-background pr-1", className)}>
+          <Input
             ref={searchRef}
             type="search"
             name="search"
-            size={15}
+            size={5}
             maxLength={50}
             aria-label="Search"
             placeholder="Search"
-            className="grow"
             defaultValue={keyword}
+            className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
             onChange={(ev) => handleSearch(ev.target.value)}
           />
-          <MagnifyingGlassCircleIcon width={24} height={24} />
-        </label>
+          <MagnifyingGlassCircleIcon width={36} height={36} />
+        </Label>
       </TooltipTrigger>
       <TooltipContent>
         <p>Search by keyword</p>
