@@ -8,9 +8,10 @@ import { useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
+import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import ByContext from "./ByContext";
@@ -35,7 +36,7 @@ export default function BrowseBy({ className }: BrowseByProps) {
   return (
     <section className={cn(styles["browse-by"], className)}>
       <header className={styles["browse-by__total"]}>
-        <span className="badge badge-info">{totalItems}</span>
+        <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>
       <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
         <DropdownMenuTrigger className={styles["browse-by__context"]}>

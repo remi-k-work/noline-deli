@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SearchPanel from "@/features/manager/components/SearchPanel";
@@ -29,7 +30,7 @@ export default async function BrowseBar({ itemsPerPage, totalItems }: BrowseBarP
   return (
     <section className={cn(lusitana.className, styles["browse-bar"], "bg-base-100")}>
       <header className={styles["browse-bar__total-items"]}>
-        <span className="badge badge-info">{totalItems}</span>
+        <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>
       <SearchPanel className={styles["browse-bar__search-panel"]} />
       <SortBy sortByFields={["id", "name"]} totalItems={totalItems} className={styles["browse-bar__sort-by"]} />

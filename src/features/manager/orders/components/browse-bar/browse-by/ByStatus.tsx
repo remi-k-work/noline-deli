@@ -3,9 +3,10 @@ import { Dispatch, SetStateAction } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/orders/stores/tan-table-instance";
 
 // components
+import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
 
 // types
@@ -37,7 +38,7 @@ export default function ByStatus({ setOpen }: ByStatusProps) {
               }}
             >
               <p className="flex-1">{status}</p>
-              <span className="badge badge-info flex-none">{orders}</span>
+              <Badge className="w-fit flex-none text-base">{orders}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>
