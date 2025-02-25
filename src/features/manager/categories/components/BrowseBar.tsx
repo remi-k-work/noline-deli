@@ -39,7 +39,7 @@ export default async function BrowseBar({ itemsPerPage, totalItems }: BrowseBarP
         <Tooltip>
           <TooltipTrigger asChild>
             <Button size="icon" variant="outline" asChild>
-              <Link href={PathFinder.toCategoryNew()}>
+              <Link href={PathFinder.toCategoryNew()} scroll={false}>
                 <PlusCircleIcon width={24} height={24} />
               </Link>
             </Button>

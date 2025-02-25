@@ -28,7 +28,9 @@ export default function FormModal({ children }: FormModalProps) {
 
   return (
     <dialog ref={dialogRef} className={styles["form-modal"]} onClose={() => back()}>
-      {children}
+      <article>
+        <section>{children}</section>
+      </article>
     </dialog>
   );
 }

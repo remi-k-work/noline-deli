@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { useRef, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 
 // next
 import Link from "next/link";
@@ -46,6 +46,9 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
   const [, startTransition] = useTransition();
 
+  // The controlled open state of the drop-down menu
+  const [open, setOpen] = useState(false);
+
   function handleDeleteConfirmed() {
     execute({ productId: original.id });
     startTransition(async () => {
@@ -56,7 +59,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
 
   return (
     <TableCell>
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -73,7 +76,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
           <DropdownMenuLabel>Choose an Action</DropdownMenuLabel>
           <DropdownMenuItem>
             <Button size="block" asChild>
-              <Link href={PathFinder.toProductEdit(original.id)}>
+              <Link href={PathFinder.toProductEdit(original.id)} scroll={false} onClick={() => setOpen(false)}>
                 <PencilIcon width={24} height={24} />
                 Edit
               </Link>

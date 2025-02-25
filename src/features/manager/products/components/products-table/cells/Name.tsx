@@ -17,7 +17,7 @@ interface NameProps {
 export default function Name({ row: { getValue, original } }: NameProps) {
   return (
     <TableCell>
-      <Link href={PathFinder.toProductEdit(original.id)} className="link">
+      <Link href={PathFinder.toProductEdit(original.id)} className="link" scroll={false}>
         <b>{getValue("name")}</b>
       </Link>
       <br />

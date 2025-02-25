@@ -45,7 +45,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
   return (
     <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
       <TableCell>
-        <Link href={PathFinder.toBrandEdit(id)}>
+        <Link href={PathFinder.toBrandEdit(id)} scroll={false}>
           <Image
             src={PathFinder.toResolvedBrandLogo(logoUrl)}
             width={320}
@@ -58,7 +58,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
         </Link>
       </TableCell>
       <TableCell>
-        <Link href={PathFinder.toBrandEdit(id)} className="link">
+        <Link href={PathFinder.toBrandEdit(id)} className="link" scroll={false}>
           {name}
         </Link>
       </TableCell>

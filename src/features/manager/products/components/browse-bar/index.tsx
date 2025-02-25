@@ -31,7 +31,7 @@ export default function BrowseBar() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button size="icon" variant="outline" asChild>
-              <Link href={PathFinder.toProductNew()}>
+              <Link href={PathFinder.toProductNew()} scroll={false}>
                 <PlusCircleIcon width={24} height={24} />
               </Link>
             </Button>
