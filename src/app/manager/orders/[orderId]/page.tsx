@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // next
 import { notFound } from "next/navigation";
 
@@ -34,11 +31,9 @@ export default async function Page({ params: { orderId } }: PageProps) {
   if (!order) notFound();
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerOrders} sectionTitle={"Orders"} sectionLink={PathFinder.toAllOrders()} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <OrderView order={order} />
-      </section>
-    </article>
+      <OrderView order={order} />
+    </>
   );
 }

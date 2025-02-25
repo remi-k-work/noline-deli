@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
 import LoginForm from "@/features/manager/login/components/LoginForm";
@@ -14,11 +11,9 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerLogin} sectionTitle={"Login"} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <LoginForm />
-      </section>
-    </article>
+      <LoginForm />
+    </>
   );
 }

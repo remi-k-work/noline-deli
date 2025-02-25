@@ -1,13 +1,7 @@
-.page {
-  padding-inline: var(--size-fluid-3) var(--size-fluid-3);
-  padding-block: var(--size-3) var(--size-3);
-}
-
 .dashboard {
   background: var(--dashboard-gradient);
 
   padding-inline: var(--size-fluid-3) var(--size-fluid-3);
-  padding-block: var(--size-2) var(--size-2);
 
   box-shadow: var(--shadow-6);
 }
@@ -25,7 +19,6 @@
   font-weight: var(--font-weight-9);
   border-start-start-radius: var(--size-3);
   border-start-end-radius: var(--size-3);
-  margin-block-start: var(--size-4);
 }
 
 .dashboard__main-menu {

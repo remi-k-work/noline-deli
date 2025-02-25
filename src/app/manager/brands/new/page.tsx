@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // other libraries
 import PathFinder from "@/lib/PathFinder";
 
@@ -17,11 +14,9 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerBrands} sectionTitle={"Brands"} sectionLink={PathFinder.toAllBrands()} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <BrandForm />
-      </section>
-    </article>
+      <BrandForm />
+    </>
   );
 }

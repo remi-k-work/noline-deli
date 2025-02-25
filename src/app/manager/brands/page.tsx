@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // next
 import { ReadonlyURLSearchParams } from "next/navigation";
 
@@ -27,9 +24,9 @@ export default async function Page({ searchParams }: PageProps) {
   const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerBrands} sectionTitle={"Brands"} />
       <BrandsTableView searchParamsState={searchParamsState} />
-    </article>
+    </>
   );
 }

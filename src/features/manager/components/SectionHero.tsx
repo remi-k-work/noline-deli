@@ -24,9 +24,9 @@ interface SectionLinkProps {
 
 export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: SectionHeroProps) {
   return (
-    <header className="hero">
+    <header className="hero mb-4">
       <div className="hero-overlay">
-        <Image src={heroBanner} alt={sectionTitle} className="h-24 w-full rounded-t-2xl object-cover sepia" priority />
+        <Image src={heroBanner} alt={sectionTitle} className="h-24 w-full object-cover sepia" priority />
       </div>
       <div className="hero-content justify-self-start">
         <h1 className={cn(lusitana.className, "bg-background/80 p-2 text-xl text-foreground lg:text-2xl")}>

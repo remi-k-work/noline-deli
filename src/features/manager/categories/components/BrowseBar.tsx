@@ -28,7 +28,7 @@ interface BrowseBarProps {
 
 export default async function BrowseBar({ itemsPerPage, totalItems }: BrowseBarProps) {
   return (
-    <section className={cn(lusitana.className, styles["browse-bar"], "bg-base-100")}>
+    <section className={cn(lusitana.className, styles["browse-bar"])}>
       <header className={styles["browse-bar__total-items"]}>
         <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>

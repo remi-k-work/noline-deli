@@ -54,9 +54,9 @@ export default async function Page({ searchParams }: PageProps) {
   ]);
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerCharts} sectionTitle={"Charts"} />
-      <section className={styles["page__charts-view"]}>
+      <article className={styles["charts"]}>
         <ChartCard title={"Total Numbers"} subTitle={"Products, Brands, Categories, SubCategories, Product Images"}>
           <TotalNumbers data={totData} />
         </ChartCard>
@@ -87,7 +87,7 @@ export default async function Page({ searchParams }: PageProps) {
         >
           <CustomersByDay data={cbdData} />
         </ChartCard>
-      </section>
-    </article>
+      </article>
+    </>
   );
 }

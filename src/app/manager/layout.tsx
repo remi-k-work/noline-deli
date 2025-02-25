@@ -4,8 +4,9 @@ import styles from "./layout.module.css";
 // react
 import { ReactNode } from "react";
 
-// other libraries
-import { cn } from "@/lib/utils";
+// components
+import Header from "@/features/manager/components/Header";
+import Footer from "@/features/manager/components/Footer";
 
 // types
 interface LayoutProps {
@@ -15,9 +16,13 @@ interface LayoutProps {
 
 export default async function Layout({ formModal, children }: LayoutProps) {
   return (
-    <article className={cn(styles["layout"], "bg-base-100")}>
-      {formModal}
-      {children}
+    <article className={styles["layout"]}>
+      <Header />
+      <main>
+        {formModal}
+        {children}
+      </main>
+      <Footer />
     </article>
   );
 }

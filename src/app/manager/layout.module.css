@@ -14,5 +14,7 @@
 
   & > main {
     grid-area: main;
+
+    margin-block-end: var(--size-3);
   }
 }

@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // prisma and db access
 import { getProductFormData } from "@/features/manager/products/db";
 
@@ -23,11 +20,9 @@ export default async function Page() {
   const [brands, categories] = await getProductFormData();
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerProducts} sectionTitle={"Products"} sectionLink={PathFinder.toAllProducts()} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <ProductForm brands={brands} categories={categories} />
-      </section>
-    </article>
+      <ProductForm brands={brands} categories={categories} />
+    </>
   );
 }

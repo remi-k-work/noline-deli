@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // components
 import SectionHero from "@/features/manager/components/SectionHero";
 import { default as OrdersTableView } from "@/features/manager/orders/components/orders-table/View";
@@ -14,9 +11,9 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerOrders} sectionTitle={"Orders"} />
       <OrdersTableView />
-    </article>
+    </>
   );
 }

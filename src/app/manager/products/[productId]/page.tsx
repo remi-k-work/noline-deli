@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // next
 import { notFound } from "next/navigation";
 
@@ -37,11 +34,9 @@ export default async function Page({ params: { productId } }: PageProps) {
   if (!product) notFound();
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerProducts} sectionTitle={"Products"} sectionLink={PathFinder.toAllProducts()} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <ProductForm product={product} brands={brands} categories={categories} />
-      </section>
-    </article>
+      <ProductForm product={product} brands={brands} categories={categories} />
+    </>
   );
 }

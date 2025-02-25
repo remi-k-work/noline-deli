@@ -24,7 +24,7 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerManager} sectionTitle={"Home"} />
       <article className={styles["dashboard"]}>
         <h4 className={cn(lusitana.className, "text-xl")}>Choose the Section to Manage</h4>
@@ -49,6 +49,6 @@ export default async function Page() {
           </li>
         </ul>
       </article>
-    </article>
+    </>
   );
 }

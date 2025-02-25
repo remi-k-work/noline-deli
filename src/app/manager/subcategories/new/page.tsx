@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // prisma and db access
 import { allCategories } from "@/features/manager/categories/db";
 
@@ -23,11 +20,9 @@ export default async function Page() {
   const categories = await allCategories();
 
   return (
-    <article className={styles["page"]}>
+    <>
       <SectionHero heroBanner={bannerSubCategories} sectionTitle={"SubCategories"} sectionLink={PathFinder.toAllSubCategories()} />
-      <section className="bg-base-300 pb-4 pt-4">
-        <SubCategoryForm categories={categories} />
-      </section>
-    </article>
+      <SubCategoryForm categories={categories} />
+    </>
   );
 }

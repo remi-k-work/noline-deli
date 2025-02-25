@@ -23,7 +23,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 export default function BrowseBar() {
   return (
-    <section className={cn(lusitana.className, styles["browse-bar"], "bg-base-100")}>
+    <section className={cn(lusitana.className, styles["browse-bar"])}>
       <BrowseBy className={styles["browse-bar__browse-by"]} />
       <SearchPanel className={styles["browse-bar__search-panel"]} />
       <Paginate className={styles["browse-bar__paginate"]} />
