@@ -16,6 +16,7 @@ import PathFinder from "@/lib/PathFinder";
 import MainLayout from "@/features/storefront/components/MainLayout";
 import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 import BrandPreview from "@/features/storefront/components/products/BrandPreview";
+import Hero, { HeroContent, HeroOverlay } from "@/components/ui/custom/hero";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -32,21 +33,21 @@ export default async function Page() {
         <article className={styles["dashboard"]}>
           <h4 className={cn(lusitana.className, "text-xl")}>Try our Manager Feature!</h4>
           <section className={styles["dashboard__manager"]}>
-            <Link href={PathFinder.toManagerHome()} target="_blank" className="hero sepia hover:sepia-0">
-              <div className="hero-overlay">
-                <Image src={bannerManager} alt={"Try our Manager Feature!"} className="h-48 w-full object-cover" priority />
-              </div>
-              <div className="hero-content">
-                <p className={cn(lusitana.className, "p-2 text-center text-xl text-neutral-content backdrop-brightness-50 backdrop-grayscale lg:text-2xl")}>
-                  Add, edit, and manage products, categories, brands, and images with ease
-                </p>
-              </div>
+            <Link href={PathFinder.toManagerHome()} target="_blank">
+              <Hero>
+                <HeroContent className={lusitana.className}>
+                  <p className="text-center text-xl lg:text-2xl">Add, edit, and manage products, categories, brands, and images with ease</p>
+                </HeroContent>
+                <HeroOverlay>
+                  <Image src={bannerManager} alt="Try our Manager Feature!" className="h-48" priority />
+                </HeroOverlay>
+              </Hero>
             </Link>
           </section>
         </article>
         <br />
         <br />
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Taste of Home, Delivered since 1992</h1>
+        <h1 className={cn(lusitana.className, "mb-8 text-3xl lg:text-4xl")}>Taste of Home, Delivered</h1>
         <header className={styles["hero"]}>
           <Image src={hero} alt={"Hero"} />
           <p>

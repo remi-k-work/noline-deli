@@ -1,0 +1,13 @@
+.overlay {
+  place-self: stretch;
+  pointer-events: none;
+
+  & > * {
+    opacity: 0.33;
+  }
+
+  & > img {
+    inline-size: 100%;
+    object-fit: cover;
+  }
+}

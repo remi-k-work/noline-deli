@@ -1,10 +1,13 @@
 // next
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
+
+// components
+import Hero, { HeroContent, HeroOverlay } from "@/components/ui/custom/hero";
 
 // assets
 import { lusitana } from "@/assets/fonts";
@@ -24,12 +27,9 @@ interface SectionLinkProps {
 
 export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: SectionHeroProps) {
   return (
-    <header className="hero mb-4">
-      <div className="hero-overlay">
-        <Image src={heroBanner} alt={sectionTitle} className="h-24 w-full object-cover sepia" priority />
-      </div>
-      <div className="hero-content justify-self-start">
-        <h1 className={cn(lusitana.className, "bg-background/80 p-2 text-xl text-foreground lg:text-2xl")}>
+    <Hero className="mb-4">
+      <HeroContent className={cn(lusitana.className, "justify-self-start")}>
+        <h1 className={cn(lusitana.className, "text-xl lg:text-2xl")}>
           <Link href={PathFinder.toManagerHome()} className="link">
             Manager
           </Link>
@@ -42,20 +42,25 @@ export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: S
             <>{sectionTitle}</>
           )}
         </h1>
-      </div>
-    </header>
+      </HeroContent>
+      <HeroOverlay>
+        <Image src={heroBanner} alt={sectionTitle} className="h-24" priority />
+      </HeroOverlay>
+    </Hero>
   );
 }
 
 export function SectionLink({ linkBanner, sectionTitle, sectionLink }: SectionLinkProps) {
   return (
-    <Link href={sectionLink} className="hero sepia hover:sepia-0">
-      <div className="hero-overlay">
-        <Image src={linkBanner} alt={sectionTitle} className="h-48 w-full object-cover" />
-      </div>
-      <div className="hero-content">
-        <span className={cn(lusitana.className, "bg-background/80 p-2 text-2xl text-foreground lg:text-3xl")}>{sectionTitle}</span>
-      </div>
+    <Link href={sectionLink} className="sepia hover:sepia-0">
+      <Hero>
+        <HeroContent className={lusitana.className}>
+          <p className="text-center text-2xl lg:text-3xl">{sectionTitle}</p>
+        </HeroContent>
+        <HeroOverlay>
+          <Image src={linkBanner} alt={sectionTitle} className="h-48" />
+        </HeroOverlay>
+      </Hero>
     </Link>
   );
 }
