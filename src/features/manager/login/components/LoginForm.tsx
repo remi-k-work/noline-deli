@@ -4,7 +4,7 @@
 import styles from "./LoginForm.module.css";
 
 // react
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 // server actions and mutations
 import { getCaptchas, newLogin2 } from "@/features/manager/login/actions";
@@ -15,7 +15,7 @@ import { CAPTCHA_PASSWORD, CAPTCHA_USERNAME } from "@/features/auth/consts";
 import { useLoginFormStore } from "@/features/manager/login/stores/loginFormProvider";
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { loginFormSchema } from "@/features/manager/login/schemas/loginForm";
-import { LoginFormActionResult } from "@/features/manager/login/schemas/types";
+import type { LoginFormSchemaType, LoginFormActionResult } from "@/features/manager/login/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useLoginActionFeedback from "@/features/manager/hooks/useLoginActionFeedback";
 import { waait } from "@/lib/helpers";
@@ -31,23 +31,15 @@ import Captcha from "@/features/auth/components/Captcha";
 import { lusitana } from "@/assets/fonts";
 import { KeyIcon } from "@heroicons/react/24/solid";
 
-// types
-interface TheFormWrappedProps {
-  onResetClicked: () => void;
-}
-
 export default function LoginForm() {
-  // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
-  const [formResetKey, setFormResetKey] = useState("LoginForm");
-
   return (
-    <LoginFormStoreProvider key={formResetKey}>
-      <TheFormWrapped onResetClicked={() => setFormResetKey(`LoginForm${Date.now()}`)} />
+    <LoginFormStoreProvider>
+      <TheFormWrapped />
     </LoginFormStoreProvider>
   );
 }
 
-function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
+function TheFormWrapped() {
   const username = useLoginFormStore((state) => state.username);
   const password = useLoginFormStore((state) => state.password);
 
@@ -60,10 +52,16 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
     pathToAllItems: PathFinder.toManagerHome(),
   });
 
-  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<typeof loginFormSchema, readonly [], LoginFormActionResult>({
+  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    LoginFormSchemaType,
+    typeof loginFormSchema,
+    readonly [],
+    LoginFormActionResult
+  >({
     safeActionFunc: newLogin2,
     formSchema: loginFormSchema,
     showFeedback,
+    defaultValues: { username, password },
   });
 
   useEffect(() => {
@@ -80,9 +78,9 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
 
         // Pre-fill the form with the auto-generated credentials
         usernameChanged(captchaUsername);
-        useFormMethods.setValue("username" as keyof typeof loginFormSchema, captchaUsername);
+        useFormMethods.setValue("username", captchaUsername);
         passwordChanged(captchaPassword);
-        useFormMethods.setValue("password" as keyof typeof loginFormSchema, captchaPassword);
+        useFormMethods.setValue("password", captchaPassword);
       }
     };
 
@@ -113,7 +111,7 @@ function TheFormWrapped({ onResetClicked }: TheFormWrappedProps) {
               <Captcha captchaName={CAPTCHA_USERNAME} />
             </FormInputField>
             <FormInputField
-              fieldType={"password"}
+              type="password"
               fieldName={"password"}
               fieldLabel={"password"}
               size={40}

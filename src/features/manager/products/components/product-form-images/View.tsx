@@ -15,8 +15,8 @@ import useIsMounted from "@/hooks/useIsMounted";
 import ImageView from "./ImageView";
 
 export default function View() {
-  const theMainImageUrl = useProductFormStore((state) => state.theMainImageUrl);
-  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const theMainImage = useProductFormStore((state) => state.theMainImage);
+  const extraImages = useProductFormStore((state) => state.extraImages);
   const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
   const imageRemoved = useProductFormStore((state) => state.imageRemoved);
 
@@ -55,9 +55,9 @@ export default function View() {
         ref={(productImageNode) => addThisProductImageNodeRef(0, productImageNode)}
         fieldName={"theMainImage"}
         fieldLabel={"the main image"}
-        imageUrl={theMainImageUrl}
+        imageUrl={theMainImage}
       />
-      {moreImagesUrls.map((extraImageUrl, extraImageIndex) => (
+      {extraImages.map((extraImageUrl, extraImageIndex) => (
         <ImageView
           key={`${extraImageUrl}.${extraImageIndex}`}
           ref={(productImageNode) => addThisProductImageNodeRef(extraImageIndex + 1, productImageNode)}

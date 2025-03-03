@@ -7,12 +7,9 @@ import { errorMap } from "zod-validation-error";
 z.setErrorMap(errorMap);
 
 export const categoryFormSchema = zfd.formData({
-  name: zfd.text(
-    z
-      .string()
-      .trim()
-      .min(1, { message: "Please specify the name of this category" })
-      .max(25, { message: "Please keep the name to a maximum of 25 characters" })
-      .default(""),
-  ),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "Please specify the name of this category" })
+    .max(25, { message: "Please keep the name to a maximum of 25 characters" }),
 });

@@ -20,7 +20,7 @@ import { useProductFormStore } from "@/features/manager/products/stores/productF
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { productFormSchema } from "@/features/manager/products/schemas/productForm";
-import type { ProductFormActionResult } from "@/features/manager/products/schemas/types";
+import type { ProductFormSchemaType, ProductFormActionResult } from "@/features/manager/products/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
@@ -42,30 +42,45 @@ interface ProductFormProps {
   product?: ProductWithAll;
   brands: BrandWithUser[];
   categories: CategoryWithSubCategory[];
+  isModal?: boolean;
 }
 
 interface TheFormWrappedProps {
   product?: ProductWithAll;
   brands: BrandWithUser[];
   categories: CategoryWithSubCategory[];
+  isModal?: boolean;
   onResetClicked: () => void;
 }
 
-export default function ProductForm({ product, brands, categories }: ProductFormProps) {
+export default function ProductForm({ product, brands, categories, isModal = false }: ProductFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("ProductForm");
 
   return (
     <ProductFormStoreProvider key={formResetKey} product={product}>
-      <TheFormWrapped product={product} brands={brands} categories={categories} onResetClicked={() => setFormResetKey(`ProductForm${Date.now()}`)} />
+      <TheFormWrapped
+        product={product}
+        brands={brands}
+        categories={categories}
+        isModal={isModal}
+        onResetClicked={() => setFormResetKey(`ProductForm${Date.now()}`)}
+      />
     </ProductFormStoreProvider>
   );
 }
 
-function TheFormWrapped({ product, brands, categories, onResetClicked }: TheFormWrappedProps) {
+function TheFormWrapped({ product, brands, categories, isModal = false, onResetClicked }: TheFormWrappedProps) {
   const name = useProductFormStore((state) => state.name);
   const description = useProductFormStore((state) => state.description);
+  const theMainImage = useProductFormStore((state) => state.theMainImage);
+  const extraImages = useProductFormStore((state) => state.extraImages);
+  const price = useProductFormStore((state) => state.price);
+  const categoryId = useProductFormStore((state) => state.categoryId);
+  const subCategoryId = useProductFormStore((state) => state.subCategoryId);
+  const brandId = useProductFormStore((state) => state.brandId);
   const freeShipping = useProductFormStore((state) => state.freeShipping);
+  const hasSubCategories = useProductFormStore((state) => state.hasSubCategories);
 
   // To provide feedback to the user
   const { feedback, showFeedback } = useFormActionFeedback({
@@ -74,6 +89,7 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
   });
 
   const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    ProductFormSchemaType,
     typeof productFormSchema,
     readonly [productId: z.ZodString, orgCreatedAt: z.ZodDate] | readonly [],
     ProductFormActionResult
@@ -81,23 +97,26 @@ function TheFormWrapped({ product, brands, categories, onResetClicked }: TheForm
     safeActionFunc: product ? updProduct2.bind(null, product.id, product.createdAt) : newProduct2,
     formSchema: productFormSchema,
     showFeedback,
+    defaultValues: { name, description, theMainImage, extraImages, price, categoryId, subCategoryId, brandId, freeShipping, hasSubCategories },
   });
 
   return (
     <article className={styles["product-form"]}>
-      <h2 className={lusitana.className}>
-        {product ? (
-          <>
-            <PencilSquareIcon width={64} height={64} />
-            Edit Product
-          </>
-        ) : (
-          <>
-            <PlusCircleIcon width={64} height={64} />
-            New Product
-          </>
-        )}
-      </h2>
+      {!isModal && (
+        <h2 className={lusitana.className}>
+          {product ? (
+            <>
+              <PencilSquareIcon width={64} height={64} />
+              Edit Product
+            </>
+          ) : (
+            <>
+              <PlusCircleIcon width={64} height={64} />
+              New Product
+            </>
+          )}
+        </h2>
+      )}
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
           <form noValidate={true} onSubmit={onSubmit}>

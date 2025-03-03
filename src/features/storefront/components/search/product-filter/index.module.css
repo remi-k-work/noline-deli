@@ -14,7 +14,7 @@
   }
 
   & > form {
-    padding-inline: var(--size-3);
+    margin-inline: var(--size-3);
 
     display: flex;
     flex-direction: column;

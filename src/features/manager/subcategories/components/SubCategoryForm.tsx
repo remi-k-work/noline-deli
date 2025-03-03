@@ -18,11 +18,12 @@ import { useSubCategoryFormStore } from "@/features/manager/subcategories/stores
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { subCategoryFormSchema } from "@/features/manager/subcategories/schemas/subCategoryForm";
-import type { SubCategoryFormActionResult } from "@/features/manager/subcategories/schemas/types";
+import type { SubCategoryFormSchemaType, SubCategoryFormActionResult } from "@/features/manager/subcategories/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
 // components
+import { SelectItem } from "@/components/ui/select";
 import { SubCategoryFormStoreProvider } from "@/features/manager/subcategories/stores/subCategoryFormProvider";
 import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
 import { FormInputField, FormSelectField } from "@/features/manager/components/FormControls";
@@ -36,26 +37,33 @@ import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 interface SubCategoryFormProps {
   subCategory?: SubCategoryWithUser;
   categories: CategoryWithSubCategory[];
+  isModal?: boolean;
 }
 
 interface TheFormWrappedProps {
   subCategory?: SubCategoryWithUser;
   categories: CategoryWithSubCategory[];
+  isModal?: boolean;
   onResetClicked: () => void;
 }
 
-export default function SubCategoryForm({ subCategory, categories }: SubCategoryFormProps) {
+export default function SubCategoryForm({ subCategory, categories, isModal = false }: SubCategoryFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("SubCategoryForm");
 
   return (
     <SubCategoryFormStoreProvider key={formResetKey} subCategory={subCategory}>
-      <TheFormWrapped subCategory={subCategory} categories={categories} onResetClicked={() => setFormResetKey(`SubCategoryForm${Date.now()}`)} />
+      <TheFormWrapped
+        subCategory={subCategory}
+        categories={categories}
+        isModal={isModal}
+        onResetClicked={() => setFormResetKey(`SubCategoryForm${Date.now()}`)}
+      />
     </SubCategoryFormStoreProvider>
   );
 }
 
-function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrappedProps) {
+function TheFormWrapped({ subCategory, categories, isModal = false, onResetClicked }: TheFormWrappedProps) {
   const categoryId = useSubCategoryFormStore((state) => state.categoryId);
   const name = useSubCategoryFormStore((state) => state.name);
 
@@ -70,6 +78,7 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
   });
 
   const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    SubCategoryFormSchemaType,
     typeof subCategoryFormSchema,
     readonly [subCategoryId: z.ZodString] | readonly [],
     SubCategoryFormActionResult
@@ -77,32 +86,40 @@ function TheFormWrapped({ subCategory, categories, onResetClicked }: TheFormWrap
     safeActionFunc: subCategory ? updSubCategory2.bind(null, subCategory.id) : newSubCategory2,
     formSchema: subCategoryFormSchema,
     showFeedback,
+    defaultValues: { categoryId, name },
   });
 
   return (
     <article className={styles["subcategory-form"]}>
-      <h2 className={lusitana.className}>
-        {subCategory ? (
-          <>
-            <PencilSquareIcon width={64} height={64} />
-            Edit SubCategory
-          </>
-        ) : (
-          <>
-            <PlusCircleIcon width={64} height={64} />
-            New SubCategory
-          </>
-        )}
-      </h2>
+      {!isModal && (
+        <h2 className={lusitana.className}>
+          {subCategory ? (
+            <>
+              <PencilSquareIcon width={64} height={64} />
+              Edit SubCategory
+            </>
+          ) : (
+            <>
+              <PlusCircleIcon width={64} height={64} />
+              New SubCategory
+            </>
+          )}
+        </h2>
+      )}
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
           <form noValidate={true} onSubmit={onSubmit}>
-            <FormSelectField fieldName={"categoryId"} fieldLabel={"parent category"} required={true} defaultValue={categoryId}>
-              <option value="">Choose Parent Category</option>
+            <FormSelectField
+              fieldName={"categoryId"}
+              fieldLabel={"parent category"}
+              placeholder="Choose Parent Category"
+              required={true}
+              defaultValue={categoryId}
+            >
               {categories.map(({ id, name }) => (
-                <option key={id} value={id}>
+                <SelectItem key={id} value={id}>
                   {name}
-                </option>
+                </SelectItem>
               ))}
             </FormSelectField>
             <FormInputField

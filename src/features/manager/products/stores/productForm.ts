@@ -1,5 +1,5 @@
 // prisma and db access
-import type { CategoryWithSubCategory } from "../../categories/db";
+import type { CategoryWithSubCategory } from "@/features/manager/categories/db";
 
 // other libraries
 import { createStore } from "zustand/vanilla";
@@ -8,13 +8,14 @@ import { createStore } from "zustand/vanilla";
 export interface ProductFormState {
   name: string;
   description: string;
-  theMainImageUrl: string;
-  moreImagesUrls: string[];
-  priceInCents: number;
-  selectedCategoryId: string;
-  selectedSubCategoryId: string;
-  selectedBrandId: string;
+  theMainImage: string;
+  extraImages: string[];
+  price: number;
+  categoryId: string;
+  subCategoryId: string;
+  brandId: string;
   freeShipping: boolean;
+  hasSubCategories: boolean;
   viewedImageIndex: number;
 }
 
@@ -36,13 +37,14 @@ export type ProductFormStoreApi = ReturnType<typeof createProductFormStore>;
 const defaultInitState: ProductFormState = {
   name: "",
   description: "",
-  theMainImageUrl: "",
-  moreImagesUrls: [],
-  priceInCents: 0,
-  selectedCategoryId: "",
-  selectedSubCategoryId: "",
-  selectedBrandId: "",
+  theMainImage: "",
+  extraImages: [],
+  price: 0,
+  categoryId: "*",
+  subCategoryId: "*",
+  brandId: "*",
   freeShipping: false,
+  hasSubCategories: false,
   viewedImageIndex: 0,
 };
 
@@ -51,15 +53,15 @@ export const createProductFormStore = (initState: ProductFormState = defaultInit
     ...initState,
     imageAdded: () =>
       set((state) => {
-        const totalProductImages = state.moreImagesUrls.length + 1;
+        const totalProductImages = state.extraImages.length + 1;
         const lastProductImageIndex = totalProductImages - 1;
 
-        return { moreImagesUrls: [...state.moreImagesUrls, ""], viewedImageIndex: lastProductImageIndex + 1 };
+        return { extraImages: [...state.extraImages, ""], viewedImageIndex: lastProductImageIndex + 1 };
       }),
 
     imageRemoved: (extraImageIndex) =>
       set((state) => {
-        const totalProductImages = state.moreImagesUrls.length + 1;
+        const totalProductImages = state.extraImages.length + 1;
         const lastProductImageIndex = totalProductImages - 1;
 
         const viewedIndex = state.viewedImageIndex;
@@ -73,40 +75,43 @@ export const createProductFormStore = (initState: ProductFormState = defaultInit
         }
 
         return {
-          moreImagesUrls: [...state.moreImagesUrls.slice(0, extraImageIndex), ...state.moreImagesUrls.slice(extraImageIndex + 1)],
+          extraImages: [...state.extraImages.slice(0, extraImageIndex), ...state.extraImages.slice(extraImageIndex + 1)],
           viewedImageIndex,
         };
       }),
 
     prevImageViewed: () =>
       set((state) => {
-        const totalProductImages = state.moreImagesUrls.length + 1;
+        const totalProductImages = state.extraImages.length + 1;
         return { viewedImageIndex: Math.min(Math.max(state.viewedImageIndex - 1, 0), totalProductImages - 1) };
       }),
 
     nextImageViewed: () =>
       set((state) => {
-        const totalProductImages = state.moreImagesUrls.length + 1;
+        const totalProductImages = state.extraImages.length + 1;
         return { viewedImageIndex: Math.min(Math.max(state.viewedImageIndex + 1, 0), totalProductImages - 1) };
       }),
 
     jumpedToImage: (viewedImageIndex) => set(() => ({ viewedImageIndex })),
-    priceChanged: (priceInCents) => set(() => ({ priceInCents })),
-    brandSelected: (selectedBrandId) => set(() => ({ selectedBrandId })),
+    priceChanged: (price) => set(() => ({ price })),
+    brandSelected: (brandId) => set(() => ({ brandId })),
 
-    categorySelected: (selectedCategoryId, categories) =>
+    categorySelected: (categoryId, categories) =>
       set(() => {
-        const currentCategory = categories.find(({ id }) => id === selectedCategoryId);
+        const currentCategory = categories.find(({ id }) => id === categoryId);
         const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
 
         return {
-          selectedCategoryId,
+          categoryId,
 
           // Reset the dependent subcategory field as well
-          selectedSubCategoryId: hasSubCategories ? "+" : "",
+          subCategoryId: "*",
+
+          // When a category contains subcategories, the subcategory must be selected
+          hasSubCategories,
         };
       }),
 
-    subCategorySelected: (selectedSubCategoryId) => set(() => ({ selectedSubCategoryId })),
+    subCategorySelected: (subCategoryId) => set(() => ({ subCategoryId })),
   }));
 };

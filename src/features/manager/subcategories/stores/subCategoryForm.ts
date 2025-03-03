@@ -13,7 +13,7 @@ export type SubCategoryFormStore = SubCategoryFormState & SubCategoryFormActions
 export type SubCategoryFormStoreApi = ReturnType<typeof createSubCategoryFormStore>;
 
 const defaultInitState: SubCategoryFormState = {
-  categoryId: "",
+  categoryId: "*",
   name: "",
 };
 

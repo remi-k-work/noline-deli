@@ -1,0 +1,6 @@
+.close {
+  position: absolute;
+
+  inset-inline-end: var(--size-3);
+  inset-block-start: var(--size-3);
+}

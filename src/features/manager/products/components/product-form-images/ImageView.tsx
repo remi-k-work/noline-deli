@@ -84,7 +84,7 @@ const ImageView = forwardRef<HTMLElement, ImageViewProps>(
         </Tooltip>
         <footer className={styles["image-view__url"]}>
           <FormInputField
-            fieldType={"url"}
+            type="url"
             fieldName={fieldName}
             fieldLabel={`${fieldLabel} url`}
             size={40}

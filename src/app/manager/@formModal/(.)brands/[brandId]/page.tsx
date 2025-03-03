@@ -8,6 +8,9 @@ import { getBrand } from "@/features/manager/brands/db";
 import FormModal from "@/features/manager/components/FormModal";
 import BrandForm from "@/features/manager/brands/components/brand-form";
 
+// assets
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+
 // types
 interface PageProps {
   params: { brandId: string };
@@ -21,8 +24,16 @@ export default async function Page({ params: { brandId } }: PageProps) {
   if (!brand) notFound();
 
   return (
-    <FormModal>
-      <BrandForm brand={brand} />
+    <FormModal
+      title={
+        <>
+          <PencilSquareIcon width={32} height={32} />
+          Edit Brand
+        </>
+      }
+      description="Modify the details of this brand"
+    >
+      <BrandForm brand={brand} isModal />
     </FormModal>
   );
 }

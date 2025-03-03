@@ -1,6 +1,5 @@
 // other libraries
 import { z } from "zod";
-import { zfd } from "zod-form-data";
 
 // types
 export interface AllFieldErrors {
@@ -21,16 +20,10 @@ export const objectIdSchema = z
 
 export const dateSchema = z.coerce.date();
 
-export const priceSchema = zfd.numeric(
-  z
-    .number()
-    .int({ message: "The price must be in cents" })
-    .min(1, { message: "A price is required" })
-    .max(900000000, { message: "The pricing is excessive" })
-    .default(0),
-);
+export const priceSchema = z.coerce
+  .number()
+  .int({ message: "The price must be in cents" })
+  .min(1, { message: "A price is required" })
+  .max(900000000, { message: "The pricing is excessive" });
 
-export const selectObjectIdSchema = z.union([zfd.text(objectIdSchema), z.literal("")]);
-
-// A field required conditionally
-export const conditionalObjectIdSchema = z.union([zfd.text(objectIdSchema.optional()), z.literal("+")]);
+export const selectObjectIdSchema = z.union([objectIdSchema, z.literal("*")]).transform((val) => (val === "*" ? undefined : val));

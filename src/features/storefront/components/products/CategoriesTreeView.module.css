@@ -14,14 +14,17 @@
   margin-block-end: var(--size-2);
 }
 
+.categories-tree-view > .categories-list,
+.categories-tree-view-skeleton > .categories-list-skeleton {
+  margin-inline-end: var(--size-3);
+}
+
 .categories-list {
-  list-style: none;
-  padding-inline: 0;
-  font-size: var(--font-size-1);
+  line-height: var(--font-lineheight-5);
 }
 
 .categories-item {
-  padding-inline-start: 0;
+  margin-inline-start: var(--size-3);
 }
 
 .categories-tree-view-skeleton {
@@ -39,11 +42,9 @@
 }
 
 .categories-list-skeleton {
-  list-style: none;
-  padding-inline: 0;
-  font-size: var(--font-size-1);
+  line-height: var(--font-lineheight-5);
 }
 
 .categories-item-skeleton {
-  padding-inline-start: 0;
+  margin-inline-start: var(--size-3);
 }

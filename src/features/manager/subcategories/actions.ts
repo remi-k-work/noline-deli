@@ -27,7 +27,7 @@ export const newSubCategory2 = actionClient
 
     try {
       // Generate an entirely new subcategory with all the associated data
-      await createSubCategory(getCreatedByUser() ?? (await setCreatedByUser()), categoryId, name);
+      await createSubCategory(getCreatedByUser() ?? (await setCreatedByUser()), categoryId!, name);
     } catch (error) {
       // Use the database's unique constraint violation to assure a distinct subcategory name
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")
@@ -58,7 +58,7 @@ export const updSubCategory2 = actionClient
       if (await isAccessDeniedTo("subCategory", subCategoryId)) return { actionStatus: "denied" };
 
       // To update an existing subcategory, we cannot delete it and recreate it with new data
-      const subCategory = await updateSubCategory(subCategoryId, categoryId, name);
+      const subCategory = await updateSubCategory(subCategoryId, categoryId!, name);
       newSubCategoryId = subCategory.id;
     } catch (error) {
       // Use the database's unique constraint violation to assure a distinct subcategory name

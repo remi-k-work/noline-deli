@@ -8,6 +8,9 @@ import { getSubCategory, allCategories } from "@/features/manager/categories/db"
 import FormModal from "@/features/manager/components/FormModal";
 import SubCategoryForm from "@/features/manager/subcategories/components/SubCategoryForm";
 
+// assets
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+
 // types
 interface PageProps {
   params: { subCategoryId: string };
@@ -24,8 +27,16 @@ export default async function Page({ params: { subCategoryId } }: PageProps) {
   if (!subCategory) notFound();
 
   return (
-    <FormModal>
-      <SubCategoryForm subCategory={subCategory} categories={categories} />
+    <FormModal
+      title={
+        <>
+          <PencilSquareIcon width={32} height={32} />
+          Edit SubCategory
+        </>
+      }
+      description="Modify the details of this subcategory"
+    >
+      <SubCategoryForm subCategory={subCategory} categories={categories} isModal />
     </FormModal>
   );
 }

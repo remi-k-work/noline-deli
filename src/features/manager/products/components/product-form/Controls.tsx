@@ -7,18 +7,18 @@ import styles from "./Controls.module.css";
 import Image from "next/image";
 
 // prisma and db access
-import type { BrandWithUser } from "../../../brands/db";
-import type { CategoryWithSubCategory } from "../../../categories/db";
+import type { BrandWithUser } from "@/features/manager/brands/db";
+import type { CategoryWithSubCategory } from "@/features/manager/categories/db";
 
 // other libraries
-import { useProductFormStore } from "../../stores/productFormProvider";
+import { useProductFormStore } from "@/features/manager/products/stores/productFormProvider";
 import { useAllFieldErrorsContext } from "@/contexts/AllFieldErrors";
-import { useFormContext } from "react-hook-form";
 import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import { ErrorMessage, FormInputField, FormOutputField, FormSelectField } from "../../../components/FormControls";
+import { SelectItem } from "@/components/ui/select";
+import { ErrorMessage, FormHiddenField, FormInputField, FormOutputField, FormSelectField } from "@/features/manager/components/FormControls";
 
 interface BrandAndLogoProps {
   brands: BrandWithUser[];
@@ -29,7 +29,7 @@ interface CategoryAndSubCategoryProps {
 }
 
 export function PriceInCents() {
-  const priceInCents = useProductFormStore((state) => state.priceInCents);
+  const price = useProductFormStore((state) => state.price);
   const priceChanged = useProductFormStore((state) => state.priceChanged);
   const { allFieldErrors } = useAllFieldErrorsContext();
 
@@ -37,7 +37,7 @@ export function PriceInCents() {
     <>
       <section className={styles["price-in-cents"]}>
         <FormInputField
-          fieldType={"number"}
+          type="number"
           fieldName={"price"}
           fieldLabel={"price in cents"}
           renderErrors={false}
@@ -46,15 +46,11 @@ export function PriceInCents() {
           step={"1"}
           required={true}
           placeholder={"e.g., 9995"}
-          value={priceInCents}
+          value={price}
           onChange={(ev) => priceChanged(Number(ev.target.value))}
         />
         <FormOutputField outputFor={"price"} fieldName={"priceInDollars"} fieldLabel={"price in dollars"}>
-          <div className="stats min-w-full">
-            <div className="stat">
-              <div className="stat-value text-base font-normal">{formatCurrency(priceInCents)}</div>
-            </div>
-          </div>
+          {formatCurrency(price)}
         </FormOutputField>
       </section>
       {allFieldErrors["price"] && <ErrorMessage fieldErrors={allFieldErrors["price"]} />}
@@ -63,11 +59,11 @@ export function PriceInCents() {
 }
 
 export function BrandAndLogo({ brands }: BrandAndLogoProps) {
-  const selectedBrandId = useProductFormStore((state) => state.selectedBrandId);
+  const brandId = useProductFormStore((state) => state.brandId);
   const brandSelected = useProductFormStore((state) => state.brandSelected);
   const { allFieldErrors } = useAllFieldErrorsContext();
 
-  const currentBrand = brands.find(({ id }) => id === selectedBrandId);
+  const currentBrand = brands.find(({ id }) => id === brandId);
   const currentLogoSrc = PathFinder.toBrandLogo(currentBrand?.logoUrl);
 
   return (
@@ -76,15 +72,15 @@ export function BrandAndLogo({ brands }: BrandAndLogoProps) {
         <FormSelectField
           fieldName={"brandId"}
           fieldLabel={"brand"}
+          placeholder="Choose Brand"
           renderErrors={false}
-          value={selectedBrandId}
-          onChange={(ev) => brandSelected(ev.target.value)}
+          value={brandId}
+          onValueChange={(value) => brandSelected(value)}
         >
-          <option value="">Choose Brand</option>
           {brands.map(({ id, name }) => (
-            <option key={id} value={id}>
+            <SelectItem key={id} value={id}>
               {name}
-            </option>
+            </SelectItem>
           ))}
         </FormSelectField>
         <FormOutputField outputFor={"brandId"} fieldName={"brandLogo"} fieldLabel={"logo"}>
@@ -101,18 +97,14 @@ export function BrandAndLogo({ brands }: BrandAndLogoProps) {
 }
 
 export function CategoryAndSubCategory({ categories }: CategoryAndSubCategoryProps) {
-  const selectedCategoryId = useProductFormStore((state) => state.selectedCategoryId);
-  const selectedSubCategoryId = useProductFormStore((state) => state.selectedSubCategoryId);
+  const categoryId = useProductFormStore((state) => state.categoryId);
+  const subCategoryId = useProductFormStore((state) => state.subCategoryId);
+  const hasSubCategories = useProductFormStore((state) => state.hasSubCategories);
   const categorySelected = useProductFormStore((state) => state.categorySelected);
   const subCategorySelected = useProductFormStore((state) => state.subCategorySelected);
 
   const { allFieldErrors } = useAllFieldErrorsContext();
-
-  const currentCategory = categories.find(({ id }) => id === selectedCategoryId);
-  const hasSubCategories = currentCategory ? currentCategory.subCategories.length > 0 : false;
-
-  // Retrieve all needed useform hook methods and props
-  const { setValue } = useFormContext();
+  const currentCategory = categories.find(({ id }) => id === categoryId);
 
   return (
     <>
@@ -120,48 +112,38 @@ export function CategoryAndSubCategory({ categories }: CategoryAndSubCategoryPro
         <FormSelectField
           fieldName={"categoryId"}
           fieldLabel={"category"}
+          placeholder="Choose Category"
           renderErrors={false}
           required={true}
-          value={selectedCategoryId}
-          onChange={(ev) => {
-            categorySelected(ev.target.value, categories);
-
-            // Keep the react hook form state in sync (we must manually update any dependent fields)
-            setValue("subCategoryId", hasSubCategories ? "+" : "");
-          }}
+          value={categoryId}
+          onValueChange={(value) => categorySelected(value, categories)}
         >
-          <option value="">Choose Category</option>
           {categories.map(({ id, name }) => (
-            <option key={id} value={id}>
+            <SelectItem key={id} value={id}>
               {name}
-            </option>
+            </SelectItem>
           ))}
         </FormSelectField>
         <FormSelectField
           fieldName={"subCategoryId"}
           fieldLabel={"subcategory"}
+          placeholder="Choose SubCategory"
           renderErrors={false}
           required={true}
-          value={selectedSubCategoryId}
           disabled={!hasSubCategories}
-          onChange={(ev) => subCategorySelected(ev.target.value)}
+          value={subCategoryId}
+          onValueChange={(value) => subCategorySelected(value)}
         >
-          {hasSubCategories ? (
-            // Inform the validation schema that a subcategory must be picked now (field required conditionally)
-            <option value="+">Choose SubCategory</option>
-          ) : (
-            // There is no need to select a subcategory when there are none available (default behavior)
-            <option value="">Choose SubCategory</option>
-          )}
           {currentCategory?.subCategories.map(({ id, name }) => (
-            <option key={id} value={id}>
+            <SelectItem key={id} value={id}>
               {name}
-            </option>
+            </SelectItem>
           ))}
         </FormSelectField>
       </section>
       {allFieldErrors["categoryId"] && <ErrorMessage fieldErrors={allFieldErrors["categoryId"]} />}
       {allFieldErrors["subCategoryId"] && <ErrorMessage fieldErrors={allFieldErrors["subCategoryId"]} />}
+      <FormHiddenField fieldName="hasSubCategories" value={hasSubCategories ? String(hasSubCategories) : ""} />
     </>
   );
 }

@@ -27,13 +27,13 @@ export const newProduct2 = actionClient
       // Generate an entirely new product with all the associated data
       await createProduct(
         getCreatedByUser() ?? (await setCreatedByUser()),
-        brandId,
+        brandId!,
         name,
         description,
         theMainImage,
         price,
         freeShipping,
-        categoryId,
+        categoryId!,
         subCategoryId,
         extraImages,
       );
@@ -67,13 +67,13 @@ export const updProduct2 = actionClient
         productId,
         orgCreatedAt,
         getCreatedByUser() ?? (await setCreatedByUser()),
-        brandId,
+        brandId!,
         name,
         description,
         theMainImage,
         price,
         freeShipping,
-        categoryId,
+        categoryId!,
         subCategoryId,
         extraImages,
       );

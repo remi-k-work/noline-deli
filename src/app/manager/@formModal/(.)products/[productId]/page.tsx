@@ -8,6 +8,9 @@ import { getProduct, getProductFormData } from "@/features/manager/products/db";
 import FormModal from "@/features/manager/components/FormModal";
 import ProductForm from "@/features/manager/products/components/product-form";
 
+// assets
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+
 // types
 interface PageProps {
   params: { productId: string };
@@ -24,8 +27,16 @@ export default async function Page({ params: { productId } }: PageProps) {
   if (!product) notFound();
 
   return (
-    <FormModal>
-      <ProductForm product={product} brands={brands} categories={categories} />
+    <FormModal
+      title={
+        <>
+          <PencilSquareIcon width={32} height={32} />
+          Edit Product
+        </>
+      }
+      description="Modify the details of this product"
+    >
+      <ProductForm product={product} brands={brands} categories={categories} isModal />
     </FormModal>
   );
 }

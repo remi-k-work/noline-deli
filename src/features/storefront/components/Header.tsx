@@ -29,7 +29,7 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
   const [cart, productFilterData, categoriesTreeViewData] = await Promise.all([getCart(), productFilter(), categoriesTreeView()]);
 
   return (
-    <header className={cn(styles["header"], "z-30")}>
+    <header className={cn(styles["header"], "z-[2]")}>
       <HeaderLogo className={styles["header__logo"]} />
       <NavBarSheetTrigger categoriesTreeViewData={categoriesTreeViewData} className={styles["header__navbar-sheet-trigger"]} />
       <SearchPanel searchedCount={searchedCount} className={styles["header__search-panel"]} />
@@ -43,7 +43,7 @@ export default async function Header({ searchedCount, filteredCount }: HeaderPro
 
 export function HeaderSkeleton() {
   return (
-    <header className={cn(styles["header"], "z-30")}>
+    <header className={cn(styles["header"], "z-[2]")}>
       <HeaderLogo className={styles["header__logo"]} />
       <NavBarSheetTriggerSkeleton className={styles["header__navbar-sheet-trigger"]} />
       <SearchPanelSkeleton className={styles["header__search-panel"]} />

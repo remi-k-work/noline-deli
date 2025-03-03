@@ -9,16 +9,19 @@ import { delSubCategory2, updSubCategory2, newSubCategory2 } from "@/features/ma
 
 export default function Page() {
   const formDataPr = new FormData();
-  formDataPr.append("name", "Test Name");
+  formDataPr.append("name", "Test");
   formDataPr.append("description", "A liquid shaving experience that delivers a comfortable shave for visibly healthier-looking skin. | 6.8 FL. OZ. | 200ml.");
   formDataPr.append("theMainImage", "/165d55532d154e418836d5809bc6b093-screen.webp");
-  formDataPr.append("extraImages.0", "");
+  formDataPr.append("extraImages.0", "/zzz");
   formDataPr.append("extraImages.1", "/zzz");
   formDataPr.append("price", "8888");
   formDataPr.append("categoryId", "65f5ea087090e0e6b65e6ff4");
-  formDataPr.append("subCategoryId", "");
+  // formDataPr.append("categoryId", "*");
+  formDataPr.append("subCategoryId", "*");
   formDataPr.append("brandId", "65f5e95f7090e0e6b65e6fec");
-  formDataPr.append("freeShipping", "on");
+  // formDataPr.append("brandId", "*");
+  formDataPr.append("freeShipping", "");
+  formDataPr.append("hasSubCategories", "");
 
   const formDataBr = new FormData();
   formDataBr.append("name", "Test Name2");
@@ -237,7 +240,7 @@ export default function Page() {
   return (
     <>
       <br />
-      <button type="button" disabled={isExecuting} onClick={async () => execute(formDataPr)}>
+      <button type="button" disabled={isExecuting} onClick={() => execute(formDataPr)}>
         Test Action
       </button>
       <br />

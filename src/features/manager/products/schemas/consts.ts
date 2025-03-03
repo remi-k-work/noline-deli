@@ -1,7 +1,7 @@
 // other libraries
 import { flattenValidationErrors, ValidationErrors } from "next-safe-action";
 import { productFormSchema } from "./productForm";
-import { AllFieldErrors } from "../../formActionTypes";
+import { AllFieldErrors } from "@/features/manager/formActionTypes";
 
 // Export any constants that are related to the schemas and the form
 export const EXTRA_IMAGE_FNAME = "extraImages";

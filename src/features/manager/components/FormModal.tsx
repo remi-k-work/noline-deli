@@ -1,36 +1,32 @@
 "use client";
 
-// component css styles
-import styles from "./FormModal.module.css";
-
 // react
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode } from "react";
 
 // next
 import { useRouter } from "next/navigation";
 
+// components
+import Dialog, { DialogContent, DialogTitle, DialogDescription } from "@/components/ui/custom/dialog";
+
 // types
 interface FormModalProps {
+  title: ReactNode;
+  description: string;
   children: ReactNode;
 }
 
-export default function FormModal({ children }: FormModalProps) {
-  // To be able to call showModal() method on the dialog
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
+export default function FormModal({ title, description, children }: FormModalProps) {
   // To be able to close the modal
   const { back } = useRouter();
 
-  useEffect(() => {
-    // Show the dialog as a modal
-    dialogRef.current?.showModal();
-  }, []);
-
   return (
-    <dialog ref={dialogRef} className={styles["form-modal"]} onClose={() => back()}>
-      <article>
-        <section>{children}</section>
-      </article>
-    </dialog>
+    <Dialog defaultOpen onOpenChange={() => back()}>
+      <DialogContent>
+        <DialogTitle className="flex items-center gap-2">{title}</DialogTitle>
+        <DialogDescription>{description}</DialogDescription>
+        {children}
+      </DialogContent>
+    </Dialog>
   );
 }

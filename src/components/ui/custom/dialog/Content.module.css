@@ -1,0 +1,40 @@
+.content {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+
+  inline-size: 90vw;
+  max-inline-size: var(--size-content-3);
+  max-block-size: 95vh;
+  max-block-size: 95dvb;
+
+  padding-inline: var(--size-3);
+  padding-block: var(--size-3);
+
+  position: fixed;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: var(--radius-3);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  z-index: var(--layer-5);
+
+  animation: contentShow 250ms ease;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

@@ -4,24 +4,26 @@ import { FormEventHandler, useCallback } from "react";
 // other libraries
 import { Schema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
-import { HookSafeActionFn, useAction } from "next-safe-action/hooks";
-import { AllFieldErrors, FormActionResult } from "../formActionTypes";
+import { useForm, type SubmitHandler, type DefaultValues, type FieldValues } from "react-hook-form";
+import type { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
+import { type HookSafeActionFn, useAction } from "next-safe-action/hooks";
+import type { AllFieldErrors, FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
-interface UseFormActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {
+interface UseFormActionWithValProps<TFV extends FieldValues, S extends Schema | undefined, BAS extends readonly Schema[], Data extends FormActionResult> {
   safeActionFunc: HookSafeActionFn<string, S, BAS, ValidationErrors<S>, BindArgsValidationErrors<BAS>, Data>;
   formSchema: Schema;
   showFeedback: (actionStatus: FormActionResult["actionStatus"]) => void;
+  defaultValues: DefaultValues<TFV>;
 }
 
-export default function useFormActionWithVal<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult>({
-  safeActionFunc,
-  formSchema,
-  showFeedback,
-}: UseFormActionWithValProps<S, BAS, Data>) {
-  const useFormMethods = useForm<S>({ shouldUnregister: true, resolver: zodResolver(formSchema) });
+export default function useFormActionWithVal<
+  TFV extends FieldValues,
+  S extends Schema | undefined,
+  BAS extends readonly Schema[],
+  Data extends FormActionResult,
+>({ safeActionFunc, formSchema, showFeedback, defaultValues }: UseFormActionWithValProps<TFV, S, BAS, Data>) {
+  const useFormMethods = useForm<TFV>({ shouldUnregister: true, resolver: zodResolver(formSchema), defaultValues });
 
   // Transform react hook form errors to conform to our own all field errors format
   const allFieldErrorsClient: AllFieldErrors = {};
@@ -58,7 +60,7 @@ export default function useFormActionWithVal<S extends Schema, BAS extends reado
     },
   });
 
-  const onSubmitRHF: SubmitHandler<S> = useCallback(
+  const onSubmitRHF: SubmitHandler<TFV> = useCallback(
     (data, ev) => {
       // We are submitting our server action independently
       execute(new FormData(ev?.target) as any);
@@ -80,10 +82,5 @@ export default function useFormActionWithVal<S extends Schema, BAS extends reado
     [onSubmitRHF, showFeedback, useFormMethods],
   );
 
-  return {
-    useFormMethods,
-    onSubmit,
-    allFieldErrors: { ...allFieldErrorsServer, ...allFieldErrorsClient },
-    isExecuting,
-  };
+  return { useFormMethods, onSubmit, allFieldErrors: { ...allFieldErrorsServer, ...allFieldErrorsClient }, isExecuting };
 }

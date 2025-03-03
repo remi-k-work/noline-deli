@@ -48,7 +48,7 @@
 }
 
 .error-message {
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-1);
 
   padding-inline: var(--size-2);
   padding-block: var(--size-1);

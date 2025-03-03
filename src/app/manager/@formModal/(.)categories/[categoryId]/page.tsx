@@ -8,6 +8,9 @@ import { getCategory } from "@/features/manager/categories/db";
 import FormModal from "@/features/manager/components/FormModal";
 import CategoryForm from "@/features/manager/categories/components/CategoryForm";
 
+// assets
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+
 // types
 interface PageProps {
   params: { categoryId: string };
@@ -21,8 +24,16 @@ export default async function Page({ params: { categoryId } }: PageProps) {
   if (!category) notFound();
 
   return (
-    <FormModal>
-      <CategoryForm category={category} />
+    <FormModal
+      title={
+        <>
+          <PencilSquareIcon width={32} height={32} />
+          Edit Category
+        </>
+      }
+      description="Modify the details of this category"
+    >
+      <CategoryForm category={category} isModal />
     </FormModal>
   );
 }

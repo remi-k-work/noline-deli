@@ -8,7 +8,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
 import { Button } from "@/components/ui/custom/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import Dialog, { DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/custom/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 
 // assets
@@ -54,12 +54,10 @@ export default function ResponsiveDialogTrigger({ asChild, trigger, title, descr
       <DialogTrigger asChild={asChild} className={className}>
         {trigger}
       </DialogTrigger>
-      <DialogContent className="max-w-[--size-content-3]">
-        <DialogHeader className="m-auto">
-          <DialogTitle className="m-auto flex items-center gap-2">{title}</DialogTitle>
-          <DialogDescription className="sr-only">{description}</DialogDescription>
-        </DialogHeader>
-        <div className="max-h-[80vh] overflow-y-auto">{content}</div>
+      <DialogContent>
+        <DialogTitle className="flex items-center gap-2">{title}</DialogTitle>
+        <DialogDescription>{description}</DialogDescription>
+        {content}
       </DialogContent>
     </Dialog>
   );

@@ -31,7 +31,7 @@ interface CategoriesItemProps {
 
 export default function CategoriesTreeView({ data }: CategoriesTreeViewProps) {
   return (
-    <article className={cn(styles["categories-tree-view"], "menu p-0")}>
+    <article className={styles["categories-tree-view"]}>
       <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
       <CategoriesList data={data.categoriesTreeView} />
     </article>
@@ -40,7 +40,7 @@ export default function CategoriesTreeView({ data }: CategoriesTreeViewProps) {
 
 export function CategoriesTreeViewSkeleton() {
   return (
-    <article className={cn(styles["categories-tree-view-skeleton"], "menu p-0")}>
+    <article className={styles["categories-tree-view-skeleton"]}>
       <h4 className={cn(lusitana.className, "text-xl")}>Browse by Category</h4>
       {new Array(6).fill(null).map((_, index) => (
         <ul key={index} className={styles["categories-list-skeleton"]}>
@@ -87,21 +87,15 @@ function CategoriesItem({ entry }: CategoriesItemProps) {
     <li className={styles["categories-item"]}>
       {subCategories.length > 0 ? (
         <>
-          {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
-          {/* Also auto-hide the drawer after the user makes the selection */}
-          <Link href={movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
+          <Link href={movedToNewLocation(href)} className={cn("link", { "font-bold": pathname === href })}>
             {label}
           </Link>
           <CategoriesList data={subCategories} />
         </>
       ) : (
-        <>
-          {/* When moving to a new location, reset the pagination position and do not carry any state from the search mode */}
-          {/* Also auto-hide the drawer after the user makes the selection */}
-          <Link href={movedToNewLocation(href)} className={cn({ "font-bold": pathname === href })}>
-            {label}
-          </Link>
-        </>
+        <Link href={movedToNewLocation(href)} className={cn("link", { "font-bold": pathname === href })}>
+          {label}
+        </Link>
       )}
     </li>
   );

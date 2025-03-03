@@ -119,7 +119,7 @@ function PageSkeleton({ brandName, searchParamsState: { isListMode } }: PageSkel
       <article className={styles["page"]}>
         <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
         <header className="mb-4">
-          <div className="skeleton m-auto h-48 w-72 rounded-lg"></div>
+          <div className="m-auto h-48 w-72 animate-pulse rounded-lg bg-background"></div>
         </header>
         <PaginateSkeleton />
         <br />

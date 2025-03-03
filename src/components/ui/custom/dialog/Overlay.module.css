@@ -1,0 +1,24 @@
+.overlay {
+  background: hsl(var(--background) / 0.5);
+
+  position: fixed;
+  inset-inline: 0;
+  inset-block: 0;
+
+  backdrop-filter: blur(25px);
+  transition: backdrop-filter 1s ease;
+
+  overscroll-behavior: contain;
+  z-index: var(--layer-5);
+
+  animation: overlayShow 250ms ease;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

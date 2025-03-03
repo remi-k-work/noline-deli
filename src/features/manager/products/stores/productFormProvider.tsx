@@ -4,7 +4,7 @@
 import { ReactNode, createContext, useRef, useContext } from "react";
 
 // prisma and db access
-import type { ProductWithAll } from "../db";
+import type { ProductWithAll } from "@/features/manager/products/db";
 
 // other libraries
 import { useStore } from "zustand";
@@ -29,13 +29,14 @@ export const ProductFormStoreProvider = ({ product, children }: ProductFormProvi
     const initState: ProductFormState = {
       name,
       description,
-      theMainImageUrl: imageUrl,
-      moreImagesUrls: moreImages.map(({ imageUrl }) => imageUrl),
-      priceInCents: price,
-      selectedCategoryId: categories.length > 0 ? categories[0].categoryId : "",
-      selectedSubCategoryId: subCategories.length > 0 ? subCategories[0].subCategoryId : "",
-      selectedBrandId: brandId ?? "",
+      theMainImage: imageUrl,
+      extraImages: moreImages.map(({ imageUrl }) => imageUrl),
+      price,
+      categoryId: categories.length > 0 ? categories[0].categoryId : "*",
+      subCategoryId: subCategories.length > 0 ? subCategories[0].subCategoryId : "*",
+      brandId: brandId ?? "*",
       freeShipping,
+      hasSubCategories: subCategories.length > 0,
       viewedImageIndex: 0,
     };
 

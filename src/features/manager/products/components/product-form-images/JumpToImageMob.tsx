@@ -15,7 +15,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageMob() {
-  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const extraImages = useProductFormStore((state) => state.extraImages);
   const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
   const jumpedToImage = useProductFormStore((state) => state.jumpedToImage);
 
@@ -26,7 +26,7 @@ export default function JumpToImageMob() {
           <TooltipTrigger asChild>
             <Button size="icon" variant="outline" asChild>
               <div>
-                {viewedImageIndex + 1}&nbsp;/&nbsp;{moreImagesUrls.length + 1}
+                {viewedImageIndex + 1}&nbsp;/&nbsp;{extraImages.length + 1}
               </div>
             </Button>
           </TooltipTrigger>
@@ -48,7 +48,7 @@ export default function JumpToImageMob() {
             </TooltipContent>
           </Tooltip>
         </DropdownMenuItem>
-        {moreImagesUrls.map((_, extraImageIndex) => (
+        {extraImages.map((_, extraImageIndex) => (
           <DropdownMenuItem key={extraImageIndex}>
             <Tooltip>
               <TooltipTrigger asChild>

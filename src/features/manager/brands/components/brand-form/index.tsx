@@ -18,7 +18,7 @@ import { useBrandFormStore } from "@/features/manager/brands/stores/brandFormPro
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { brandFormSchema } from "@/features/manager/brands/schemas/brandForm";
-import type { BrandFormActionResult } from "@/features/manager/brands/schemas/types";
+import type { BrandFormSchemaType, BrandFormActionResult } from "@/features/manager/brands/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
@@ -37,25 +37,27 @@ import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 // types
 interface BrandFormProps {
   brand?: BrandWithUser;
+  isModal?: boolean;
 }
 
 interface TheFormWrappedProps {
   brand?: BrandWithUser;
+  isModal?: boolean;
   onResetClicked: () => void;
 }
 
-export default function BrandForm({ brand }: BrandFormProps) {
+export default function BrandForm({ brand, isModal = false }: BrandFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("BrandForm");
 
   return (
     <BrandFormStoreProvider key={formResetKey} brand={brand}>
-      <TheFormWrapped brand={brand} onResetClicked={() => setFormResetKey(`BrandForm${Date.now()}`)} />
+      <TheFormWrapped brand={brand} isModal={isModal} onResetClicked={() => setFormResetKey(`BrandForm${Date.now()}`)} />
     </BrandFormStoreProvider>
   );
 }
 
-function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
+function TheFormWrapped({ brand, isModal = false, onResetClicked }: TheFormWrappedProps) {
   const name = useBrandFormStore((state) => state.name);
 
   // To provide feedback to the user
@@ -65,6 +67,7 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
   });
 
   const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    BrandFormSchemaType,
     typeof brandFormSchema,
     readonly [brandId: z.ZodString] | readonly [],
     BrandFormActionResult
@@ -72,23 +75,26 @@ function TheFormWrapped({ brand, onResetClicked }: TheFormWrappedProps) {
     safeActionFunc: brand ? updBrand2.bind(null, brand.id) : newBrand2,
     formSchema: brandFormSchema,
     showFeedback,
+    defaultValues: { name },
   });
 
   return (
     <article className={styles["brand-form"]}>
-      <h2 className={lusitana.className}>
-        {brand ? (
-          <>
-            <PencilSquareIcon width={64} height={64} />
-            Edit Brand
-          </>
-        ) : (
-          <>
-            <PlusCircleIcon width={64} height={64} />
-            New Brand
-          </>
-        )}
-      </h2>
+      {!isModal && (
+        <h2 className={lusitana.className}>
+          {brand ? (
+            <>
+              <PencilSquareIcon width={64} height={64} />
+              Edit Brand
+            </>
+          ) : (
+            <>
+              <PlusCircleIcon width={64} height={64} />
+              New Brand
+            </>
+          )}
+        </h2>
+      )}
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
           <form noValidate={true} onSubmit={onSubmit}>

@@ -7,20 +7,6 @@ import { errorMap } from "zod-validation-error";
 z.setErrorMap(errorMap);
 
 export const loginFormSchema = zfd.formData({
-  username: zfd.text(
-    z
-      .string()
-      .trim()
-      .min(1, { message: "Please specify the username" })
-      .max(25, { message: "Please keep the username to a maximum of 25 characters" })
-      .default(""),
-  ),
-  password: zfd.text(
-    z
-      .string()
-      .trim()
-      .min(1, { message: "Please specify the password" })
-      .max(25, { message: "Please keep the password to a maximum of 25 characters" })
-      .default(""),
-  ),
+  username: z.string().trim().min(1, { message: "Please specify the username" }).max(25, { message: "Please keep the username to a maximum of 25 characters" }),
+  password: z.string().trim().min(1, { message: "Please specify the password" }).max(25, { message: "Please keep the password to a maximum of 25 characters" }),
 });

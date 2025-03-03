@@ -10,10 +10,10 @@ import { useDeferredValue } from "react";
 import Image from "next/image";
 
 // other libraries
-import { useBrandFormStore } from "../../stores/brandFormProvider";
+import { useBrandFormStore } from "@/features/manager/brands/stores/brandFormProvider";
 
 // components
-import { FormInputField, FormOutputField } from "../../../components/FormControls";
+import { FormInputField, FormOutputField } from "@/features/manager/components/FormControls";
 
 export default function Logo() {
   const logoUrl = useBrandFormStore((state) => state.logoUrl);
@@ -46,7 +46,7 @@ export default function Logo() {
       </header>
       <footer className={styles["logo__url"]}>
         <FormInputField
-          fieldType={"url"}
+          type="url"
           fieldName={"logoUrl"}
           fieldLabel={"logo url"}
           size={40}

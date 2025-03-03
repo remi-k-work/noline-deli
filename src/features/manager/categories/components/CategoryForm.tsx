@@ -18,7 +18,7 @@ import { useCategoryFormStore } from "@/features/manager/categories/stores/categ
 import useFormActionWithVal from "@/features/manager/hooks/useFormActionWithVal";
 import { FormProvider } from "react-hook-form";
 import { categoryFormSchema } from "@/features/manager/categories/schemas/categoryForm";
-import type { CategoryFormActionResult } from "@/features/manager/categories/schemas/types";
+import type { CategoryFormSchemaType, CategoryFormActionResult } from "@/features/manager/categories/schemas/types";
 import PathFinder from "@/lib/PathFinder";
 import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedback";
 
@@ -35,25 +35,27 @@ import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 // types
 interface CategoryFormProps {
   category?: CategoryWithUser;
+  isModal?: boolean;
 }
 
 interface TheFormWrappedProps {
   category?: CategoryWithUser;
+  isModal?: boolean;
   onResetClicked: () => void;
 }
 
-export default function CategoryForm({ category }: CategoryFormProps) {
+export default function CategoryForm({ category, isModal = false }: CategoryFormProps) {
   // Resetting a form with a key: you can force a subtree to reset its state by giving it a different key
   const [formResetKey, setFormResetKey] = useState("CategoryForm");
 
   return (
     <CategoryFormStoreProvider key={formResetKey} category={category}>
-      <TheFormWrapped category={category} onResetClicked={() => setFormResetKey(`CategoryForm${Date.now()}`)} />
+      <TheFormWrapped category={category} isModal={isModal} onResetClicked={() => setFormResetKey(`CategoryForm${Date.now()}`)} />
     </CategoryFormStoreProvider>
   );
 }
 
-function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
+function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWrappedProps) {
   const name = useCategoryFormStore((state) => state.name);
 
   // To provide feedback to the user
@@ -63,6 +65,7 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
   });
 
   const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+    CategoryFormSchemaType,
     typeof categoryFormSchema,
     readonly [categoryId: z.ZodString] | readonly [],
     CategoryFormActionResult
@@ -70,23 +73,26 @@ function TheFormWrapped({ category, onResetClicked }: TheFormWrappedProps) {
     safeActionFunc: category ? updCategory2.bind(null, category.id) : newCategory2,
     formSchema: categoryFormSchema,
     showFeedback,
+    defaultValues: { name },
   });
 
   return (
     <article className={styles["category-form"]}>
-      <h2 className={lusitana.className}>
-        {category ? (
-          <>
-            <PencilSquareIcon width={64} height={64} />
-            Edit Category
-          </>
-        ) : (
-          <>
-            <PlusCircleIcon width={64} height={64} />
-            New Category
-          </>
-        )}
-      </h2>
+      {!isModal && (
+        <h2 className={lusitana.className}>
+          {category ? (
+            <>
+              <PencilSquareIcon width={64} height={64} />
+              Edit Category
+            </>
+          ) : (
+            <>
+              <PlusCircleIcon width={64} height={64} />
+              New Category
+            </>
+          )}
+        </h2>
+      )}
       <FormProvider {...useFormMethods}>
         <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
           <form noValidate={true} onSubmit={onSubmit}>

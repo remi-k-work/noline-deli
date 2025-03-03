@@ -15,7 +15,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { CubeIcon, CubeTransparentIcon } from "@heroicons/react/24/solid";
 
 export default function JumpToImageReg() {
-  const moreImagesUrls = useProductFormStore((state) => state.moreImagesUrls);
+  const extraImages = useProductFormStore((state) => state.extraImages);
   const viewedImageIndex = useProductFormStore((state) => state.viewedImageIndex);
   const jumpedToImage = useProductFormStore((state) => state.jumpedToImage);
 
@@ -31,7 +31,7 @@ export default function JumpToImageReg() {
           <p>Jump to the main image</p>
         </TooltipContent>
       </Tooltip>
-      {moreImagesUrls.map((_, extraImageIndex) => (
+      {extraImages.map((_, extraImageIndex) => (
         <Tooltip key={extraImageIndex}>
           <TooltipTrigger asChild>
             <Button type="button" size="icon" variant="outline" onClick={() => jumpedToImage(extraImageIndex + 1)}>

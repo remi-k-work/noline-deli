@@ -1,0 +1,8 @@
+.description {
+  font-size: var(--font-size-0);
+  line-height: var(--font-lineheight-1);
+
+  color: hsl(var(--muted-foreground));
+
+  margin-block: var(--size-1) var(--size-3);
+}

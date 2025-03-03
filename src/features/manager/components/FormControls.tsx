@@ -2,13 +2,21 @@
 import styles from "./FormControls.module.css";
 
 // react
-import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
+import { ChangeEventHandler, ComponentPropsWithoutRef, FocusEventHandler } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import { RefCallBack } from "react-hook-form";
-import useRegisterWithRHF from "../../../hooks/useRegisterWithRHF";
-import { useAllFieldErrorsContext } from "../../../contexts/AllFieldErrors";
+import useRegisterWithRHF from "@/hooks/useRegisterWithRHF";
+import { useAllFieldErrorsContext } from "@/contexts/AllFieldErrors";
+import { useFormContext, Controller } from "react-hook-form";
+
+// components
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // assets
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
@@ -18,17 +26,17 @@ interface FormFieldProps {
   fieldName: string;
   fieldLabel: string;
   renderErrors?: boolean;
-  className?: string;
 }
 
-interface FormInputFieldProps extends FormFieldProps, ComponentProps<"input"> {
-  fieldType?: "text" | "number" | "url" | "password";
-}
-interface FormTextAreaProps extends FormFieldProps, ComponentProps<"textarea"> {}
-interface FormSelectFieldProps extends FormFieldProps, ComponentProps<"select"> {}
-interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentProps<"input"> {}
+interface FormInputFieldProps extends FormFieldProps, ComponentPropsWithoutRef<typeof Input> {}
+interface FormTextAreaProps extends FormFieldProps, ComponentPropsWithoutRef<typeof Textarea> {}
+interface FormCheckFieldProps extends Omit<FormFieldProps, "fieldLabel">, ComponentPropsWithoutRef<typeof Checkbox> {}
 
-interface FormOutputFieldProps extends FormFieldProps, ComponentProps<"output"> {
+interface FormSelectFieldProps extends FormFieldProps, ComponentPropsWithoutRef<typeof Select> {
+  placeholder: string;
+}
+
+interface FormOutputFieldProps extends FormFieldProps, ComponentPropsWithoutRef<"output"> {
   outputFor: string;
 }
 
@@ -36,22 +44,23 @@ interface ErrorMessageProps {
   fieldErrors: string[] | undefined;
 }
 
-export function FormInputField({ fieldType = "text", fieldName, fieldLabel, renderErrors = true, className, children, ...props }: FormInputFieldProps) {
+export function FormHiddenField({ fieldName, ...props }: Omit<FormInputFieldProps, "fieldLabel">) {
+  return <input type="hidden" name={fieldName} {...props} />;
+}
+
+export function FormInputField({ fieldName, fieldLabel, renderErrors = true, children, ...props }: FormInputFieldProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
   const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <div className={styles["form-field"]}>
-      <label htmlFor={fieldName}>{fieldLabel}</label>
+      <Label htmlFor={fieldName}>{fieldLabel}</Label>
       {/* Render any {children} between the field and its label if specified (e.g., captcha) */}
       {children}
-      {/* We can omit the default type="text" and, by that, allow to define additional input types */}
-      <input
-        type={fieldType}
+      <Input
         id={fieldName}
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={cn("input", className)}
         // Hook up with the react hook form
         onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
         onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
@@ -63,25 +72,30 @@ export function FormInputField({ fieldType = "text", fieldName, fieldLabel, rend
   );
 }
 
-export function FormCheckField({ fieldName, renderErrors = true, className, children, ...props }: FormCheckFieldProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"input", HTMLInputElement>({ fieldName, props });
+export function FormCheckField({ fieldName, renderErrors = true, children, ...props }: FormCheckFieldProps) {
+  // Retrieve all needed useform hook methods and props
+  const { control } = useFormContext();
   const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <>
       <div className={styles["form-field-h"]}>
-        <label htmlFor={fieldName}>{children}</label>
-        <input
-          type="checkbox"
-          id={fieldName}
+        <Label htmlFor={fieldName}>{children}</Label>
+        <Controller
           name={fieldName}
-          aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-          className={cn("checkbox", className)}
-          // Hook up with the react hook form
-          onChange={handleChange as ChangeEventHandler<HTMLInputElement>}
-          onBlur={handleBlur as FocusEventHandler<HTMLInputElement>}
-          ref={ref as RefCallBack}
-          {...rest}
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <Checkbox
+              id={fieldName}
+              name={fieldName}
+              aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
+              // Hook up with the react hook form
+              checked={value}
+              onCheckedChange={onChange}
+              onBlur={onBlur}
+              {...props}
+            />
+          )}
         />
       </div>
       {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
@@ -89,18 +103,55 @@ export function FormCheckField({ fieldName, renderErrors = true, className, chil
   );
 }
 
-export function FormTextArea({ fieldName, fieldLabel, renderErrors = true, className, ...props }: FormTextAreaProps) {
+export function FormSelectField({ fieldName, fieldLabel, renderErrors = true, placeholder, children, onValueChange, ...props }: FormSelectFieldProps) {
+  // Retrieve all needed useform hook methods and props
+  const { control } = useFormContext();
+  const { allFieldErrors } = useAllFieldErrorsContext();
+
+  return (
+    <div className={styles["form-field"]}>
+      <Label htmlFor={fieldName}>{fieldLabel}</Label>
+      <Controller
+        name={fieldName}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <Select
+            name={fieldName}
+            aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
+            // Hook up with the react hook form
+            value={value}
+            onValueChange={(value) => {
+              onValueChange?.(value);
+              onChange(value);
+            }}
+            {...props}
+          >
+            <SelectTrigger id={fieldName}>
+              <SelectValue placeholder={placeholder} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="*">{placeholder}</SelectItem>
+              {children}
+            </SelectContent>
+          </Select>
+        )}
+      />
+      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
+    </div>
+  );
+}
+
+export function FormTextArea({ fieldName, fieldLabel, renderErrors = true, ...props }: FormTextAreaProps) {
   const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"textarea", HTMLTextAreaElement>({ fieldName, props });
   const { allFieldErrors } = useAllFieldErrorsContext();
 
   return (
     <div className={styles["form-field"]}>
-      <label htmlFor={fieldName}>{fieldLabel}</label>
-      <textarea
+      <Label htmlFor={fieldName}>{fieldLabel}</Label>
+      <Textarea
         id={fieldName}
         name={fieldName}
         aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={cn("textarea", className)}
         // Hook up with the react hook form
         onChange={handleChange as ChangeEventHandler<HTMLTextAreaElement>}
         onBlur={handleBlur as FocusEventHandler<HTMLTextAreaElement>}
@@ -112,36 +163,11 @@ export function FormTextArea({ fieldName, fieldLabel, renderErrors = true, class
   );
 }
 
-export function FormSelectField({ fieldName, fieldLabel, renderErrors = true, className, children, ...props }: FormSelectFieldProps) {
-  const [handleChange, handleBlur, ref, rest] = useRegisterWithRHF<"select", HTMLSelectElement>({ fieldName, props });
-  const { allFieldErrors } = useAllFieldErrorsContext();
-
+export function FormOutputField({ fieldName, fieldLabel, outputFor, children, ...props }: FormOutputFieldProps) {
   return (
     <div className={styles["form-field"]}>
-      <label htmlFor={fieldName}>{fieldLabel}</label>
-      <select
-        id={fieldName}
-        name={fieldName}
-        aria-invalid={allFieldErrors && allFieldErrors[fieldName] ? "true" : "false"}
-        className={cn("select", className)}
-        // Hook up with the react hook form
-        onChange={handleChange as ChangeEventHandler<HTMLSelectElement>}
-        onBlur={handleBlur as FocusEventHandler<HTMLSelectElement>}
-        ref={ref as RefCallBack}
-        {...rest}
-      >
-        {children}
-      </select>
-      {renderErrors && allFieldErrors[fieldName] && <ErrorMessage fieldErrors={allFieldErrors[fieldName]} />}
-    </div>
-  );
-}
-
-export function FormOutputField({ outputFor, fieldName, fieldLabel, className, children, ...props }: FormOutputFieldProps) {
-  return (
-    <div className={styles["form-field"]}>
-      <label htmlFor={fieldName}>{fieldLabel}</label>
-      <output htmlFor={outputFor} id={fieldName} name={fieldName} className={className} {...props}>
+      <Label htmlFor={fieldName}>{fieldLabel}</Label>
+      <output htmlFor={outputFor} id={fieldName} name={fieldName} {...props}>
         {children}
       </output>
     </div>
