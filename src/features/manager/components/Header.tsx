@@ -14,11 +14,11 @@ export default function Header() {
   return (
     <header className={cn(styles["header"], "z-[2]")}>
       <HeaderLogo />
-      <div className="flex items-end gap-2">
-        <NavBar />
+      <NavBar />
+      <section className="flex flex-none items-center gap-1">
         <ThemeSwitcher />
         <Logout />
-      </div>
+      </section>
     </header>
   );
 }

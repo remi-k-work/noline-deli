@@ -2,11 +2,11 @@
 import Link from "next/link";
 
 // other libraries
-import PathFinder from "../../../lib/PathFinder";
+import PathFinder from "@/lib/PathFinder";
 
 export default function HeaderLogo() {
   return (
-    <Link href={PathFinder.toManagerHome()}>
+    <Link href={PathFinder.toManagerHome()} className="flex-none">
       <svg xmlns="http://www.w3.org/2000/svg" width="60" height="32" viewBox="0 0 31.013 17.044">
         <path
           fill="currentColor"

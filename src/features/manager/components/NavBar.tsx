@@ -1,138 +1,113 @@
 "use client";
 
-// react
-import { ComponentProps, Dispatch, SetStateAction, useState } from "react";
-
 // next
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import Image, { type StaticImageData } from "next/image";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // components
-import { Button } from "@/components/ui/custom/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import NavigationMenu, {
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/custom/navigation-menu";
+import Hero, { HeroContent, HeroOverlay } from "@/components/ui/custom/hero";
 
 // assets
-import { Bars4Icon } from "@heroicons/react/24/solid";
+import { BanknotesIcon, HomeIcon, SwatchIcon } from "@heroicons/react/24/solid";
+import bannerBrands from "@/assets/manager/banner-brands.webp";
+import bannerCategories from "@/assets/manager/banner-categories.webp";
+import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
+import bannerProducts from "@/assets/manager/banner-products.webp";
+import bannerCharts from "@/assets/manager/banner-charts.webp";
+import bannerOrders from "@/assets/manager/banner-orders.webp";
 
 // types
-interface NavLinkProps extends ComponentProps<typeof Link> {
-  isActive: boolean;
-  activeClass: string;
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+interface SectionLinkProps {
+  linkBanner: StaticImageData;
+  sectionTitle: string;
+  sectionLink: string;
 }
 
 export default function NavBar() {
   // Large screens
   const isLarge = useMediaQuery("(min-width: 1024px)");
 
-  return <nav>{isLarge ? <NavTabs /> : <NavMenu />}</nav>;
-}
-
-function NavLink({ isActive = false, activeClass, setOpen, className, ...props }: NavLinkProps) {
-  return <Link {...props} className={cn(className, isActive && activeClass, setOpen && "block w-full")} onClick={() => setOpen?.(false)} />;
-}
-
-function NavTabs() {
-  const pathname = usePathname();
-
-  const isHomeActive = pathname === PathFinder.toManagerHome();
-  const isBrandsActive = pathname.includes(PathFinder.toAllBrands());
-  const isCategoriesActive = pathname.includes(PathFinder.toAllCategories());
-  const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
-  const isProductsActive = pathname.includes(PathFinder.toAllProducts());
-  const isChartsActive = pathname.includes(PathFinder.toAllCharts());
-  const isOrdersActive = pathname.includes(PathFinder.toAllOrders());
-
   return (
-    <div role="tablist" className="tabs tabs-lifted">
-      <NavLink href={PathFinder.toManagerHome()} role="tab" className="tab" isActive={isHomeActive} activeClass={"tab-active"}>
-        Home
-      </NavLink>
-      <NavLink href={PathFinder.toAllBrands()} role="tab" className="tab" isActive={isBrandsActive} activeClass={"tab-active"}>
-        Brands
-      </NavLink>
-      <NavLink href={PathFinder.toAllCategories()} role="tab" className="tab" isActive={isCategoriesActive} activeClass={"tab-active"}>
-        Categories
-      </NavLink>
-      <NavLink href={PathFinder.toAllSubCategories()} role="tab" className="tab" isActive={isSubCategoriesActive} activeClass={"tab-active"}>
-        SubCategories
-      </NavLink>
-      <NavLink href={PathFinder.toAllProducts()} role="tab" className="tab" isActive={isProductsActive} activeClass={"tab-active"}>
-        Products
-      </NavLink>
-      <NavLink href={PathFinder.toAllCharts()} role="tab" className="tab" isActive={isChartsActive} activeClass={"tab-active"}>
-        Charts
-      </NavLink>
-      <NavLink href={PathFinder.toAllOrders()} role="tab" className="tab" isActive={isOrdersActive} activeClass={"tab-active"}>
-        Orders
-      </NavLink>
-    </div>
+    <NavigationMenu className="flex-1">
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          {isLarge ? (
+            <NavigationMenuLink href={PathFinder.toManagerHome()} className="flex items-center gap-1 uppercase">
+              <HomeIcon width={36} height={36} className="flex-none" />
+              <span className="flex-1">Home</span>
+            </NavigationMenuLink>
+          ) : (
+            <NavigationMenuLink href={PathFinder.toManagerHome()}>
+              <HomeIcon width={36} height={36} title="Home" />
+            </NavigationMenuLink>
+          )}
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          {isLarge ? (
+            <NavigationMenuTrigger type="button" className="flex items-center gap-1 uppercase">
+              <SwatchIcon width={36} height={36} className="flex-none" />
+              <span className="flex-1">Merchandise</span>
+            </NavigationMenuTrigger>
+          ) : (
+            <NavigationMenuTrigger type="button">
+              <SwatchIcon width={36} height={36} title="Merchandise" />
+            </NavigationMenuTrigger>
+          )}
+          <NavigationMenuContent>
+            <div className="grid gap-2 p-4 md:w-96">
+              <SectionLink linkBanner={bannerBrands} sectionTitle={"Brands"} sectionLink={PathFinder.toAllBrands()} />
+              <SectionLink linkBanner={bannerCategories} sectionTitle={"Categories"} sectionLink={PathFinder.toAllCategories()} />
+              <SectionLink linkBanner={bannerSubCategories} sectionTitle={"SubCategories"} sectionLink={PathFinder.toAllSubCategories()} />
+              <SectionLink linkBanner={bannerProducts} sectionTitle={"Products"} sectionLink={PathFinder.toAllProducts()} />
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          {isLarge ? (
+            <NavigationMenuTrigger type="button" className="flex items-center gap-1 uppercase">
+              <BanknotesIcon width={36} height={36} className="flex-none" />
+              <span className="flex-1">Business</span>
+            </NavigationMenuTrigger>
+          ) : (
+            <NavigationMenuTrigger type="button">
+              <BanknotesIcon width={36} height={36} title="Business" />
+            </NavigationMenuTrigger>
+          )}
+          <NavigationMenuContent>
+            <div className="grid gap-2 p-4 md:w-96">
+              <SectionLink linkBanner={bannerCharts} sectionTitle={"Charts"} sectionLink={PathFinder.toAllCharts()} />
+              <SectionLink linkBanner={bannerOrders} sectionTitle={"Orders"} sectionLink={PathFinder.toAllOrders()} />
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuIndicator />
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
 
-function NavMenu() {
-  const pathname = usePathname();
-
-  const isHomeActive = pathname === PathFinder.toManagerHome();
-  const isBrandsActive = pathname.includes(PathFinder.toAllBrands());
-  const isCategoriesActive = pathname.includes(PathFinder.toAllCategories());
-  const isSubCategoriesActive = pathname.includes(PathFinder.toAllSubCategories());
-  const isProductsActive = pathname.includes(PathFinder.toAllProducts());
-  const isChartsActive = pathname.includes(PathFinder.toAllCharts());
-  const isOrdersActive = pathname.includes(PathFinder.toAllOrders());
-
-  // The controlled open state of the drop-down menu
-  const [open, setOpen] = useState(false);
-
+function SectionLink({ linkBanner, sectionTitle, sectionLink }: SectionLinkProps) {
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button type="button" size="icon" variant="ghost" title="Menu">
-          <Bars4Icon width={36} height={36} />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toManagerHome()} isActive={isHomeActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Home
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllBrands()} isActive={isBrandsActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Brands
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllCategories()} isActive={isCategoriesActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Categories
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllSubCategories()} isActive={isSubCategoriesActive} activeClass={"font-bold"} setOpen={setOpen}>
-            SubCategories
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllProducts()} isActive={isProductsActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Products
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllCharts()} isActive={isChartsActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Charts
-          </NavLink>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <NavLink href={PathFinder.toAllOrders()} isActive={isOrdersActive} activeClass={"font-bold"} setOpen={setOpen}>
-            Orders
-          </NavLink>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <NavigationMenuLink href={sectionLink} className="sepia hover:sepia-0">
+      <Hero>
+        <HeroContent>
+          <p className="text-center">{sectionTitle}</p>
+        </HeroContent>
+        <HeroOverlay>
+          <Image src={linkBanner} alt={sectionTitle} className="h-16" />
+        </HeroOverlay>
+      </Hero>
+    </NavigationMenuLink>
   );
 }
