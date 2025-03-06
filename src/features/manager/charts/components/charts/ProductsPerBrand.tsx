@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import type { ProductsPerBrandData } from "../../db/types";
+import type { ProductsPerBrandData } from "@/features/manager/charts/db/types";
 
 // other libraries
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
@@ -22,7 +22,14 @@ export default function ProductsPerBrand({ data: { productsPerBrand } }: Product
           itemStyle={{ color: "var(--text-2)" }}
         />
         <Legend />
-        <Pie data={productsPerBrand} label={(item) => item.value} dataKey="products" nameKey="brand" stroke="hsl(var(--muted))" fill="var(--brand)" />
+        <Pie
+          data={productsPerBrand}
+          label={(item) => item.value}
+          dataKey="products"
+          nameKey="brand"
+          stroke="hsl(var(--primary-foreground))"
+          fill="hsl(var(--primary))"
+        />
       </PieChart>
     </ResponsiveContainer>
   );

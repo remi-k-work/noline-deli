@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import type { CustomersByDayData } from "../../db/types";
+import type { CustomersByDayData } from "@/features/manager/charts/db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -24,7 +24,7 @@ export default function CustomersByDay({ data: { customersByDay } }: CustomersBy
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
-        <Bar dataKey="customers" name="New Customers" stroke="hsl(var(--muted))" fill="var(--brand)" />
+        <Bar dataKey="customers" name="New Customers" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
       </BarChart>
     </ResponsiveContainer>
   );

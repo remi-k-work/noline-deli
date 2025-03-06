@@ -15,8 +15,8 @@ interface ThemeSwitcherProps {
   className?: string;
 }
 
-const DARK_THEME_ALIAS = "coffee";
-const LIGHT_THEME_ALIAS = "retro";
+const DARK_THEME_ALIAS = "dark";
+const LIGHT_THEME_ALIAS = "light";
 
 export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   const { isDarkMode, toggle } = useDarkMode(DARK_THEME_ALIAS, LIGHT_THEME_ALIAS);

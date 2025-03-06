@@ -1,11 +1,11 @@
 "use client";
 
 // prisma and db access
-import type { ProductsPerCategoryData } from "../../db/types";
+import type { ProductsPerCategoryData } from "@/features/manager/charts/db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import useSearchParamsState from "../../../hooks/useSearchParamsState";
+import useSearchParamsState from "@/features/manager/hooks/useSearchParamsState";
 
 // components
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -32,8 +32,8 @@ export default function ProductsPerCategory({ data: { productsPerCategory } }: P
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
-        <Bar dataKey="mCatProd" stackId="products" name="Products" stroke="hsl(var(--muted))" fill="var(--brand)" />
-        <Bar dataKey="sCatProd" stackId="products" name="Products" stroke="hsl(var(--muted))" fill="hsl(var(--primary))" />
+        <Bar dataKey="mCatProd" stackId="products" name="Products" stroke="hsl(var(--secondary-foreground))" fill="hsl(var(--secondary))" />
+        <Bar dataKey="sCatProd" stackId="products" name="Products" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import type { OrdersByDayData } from "../../db/types";
+import type { OrdersByDayData } from "@/features/manager/charts/db/types";
 
 // other libraries
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -26,8 +26,8 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
         <XAxis dataKey="dayName" stroke="hsl(var(--primary))" />
         <YAxis stroke="hsl(var(--primary))" tickFormatter={(tick) => formatCurrency(tick)} />
         <Tooltip cursor={{ fill: "hsl(var(--muted))", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
-        <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary))" />
-        <Line dataKey="sales" type="monotone" name="Sales" stroke="var(--brand)" />
+        <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary-foreground))" />
+        <Line dataKey="sales" type="monotone" name="Sales" stroke="hsl(var(--secondary-foreground))" />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -36,13 +36,13 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <p className="border border-[hsl(var(--muted))] bg-[hsl(var(--background))] p-2 text-[var(--text-1)]">
-        <span className="text-[var(--brand)]">{label}</span>
+      <p className="border border-muted bg-background p-2 text-[--text-1]">
+        <span className="text-accent">{label}</span>
         <br />
-        <span className="text-[var(--text-2)]">Orders : </span>
+        <span className="text-[--text-2]">Orders : </span>
         {payload[0].value}
         <br />
-        <span className="text-[var(--text-2)]">Sales : </span>
+        <span className="text-[--text-2]">Sales : </span>
         {formatCurrency(payload[1].value)}
       </p>
     );

@@ -20,7 +20,6 @@ export default function ShippingMethod({ onShippingMethodChanged, className }: S
       <select
         id="shippingMethod"
         name="shippingMethod"
-        className="select"
         defaultValue={SHIPPING_COSTS[0]}
         onChange={(ev) => onShippingMethodChanged(Number(ev.target.value), ev.target.options[ev.target.selectedIndex].text)}
       >

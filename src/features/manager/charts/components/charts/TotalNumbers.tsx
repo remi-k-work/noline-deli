@@ -1,7 +1,7 @@
 "use client";
 
 // prisma and db access
-import type { TotalNumbersData } from "../../db/types";
+import type { TotalNumbersData } from "@/features/manager/charts/db/types";
 
 // other libraries
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -25,8 +25,8 @@ export default function TotalNumbers({ data: { totalNumbers } }: TotalNumbersPro
           itemStyle={{ color: "var(--text-2)" }}
         />
         <Legend />
-        <Bar dataKey="itemsAdmin" stackId="items" name="Admin Approved" stroke="hsl(var(--muted))" fill="var(--brand)" />
-        <Bar dataKey="itemsUser" stackId="items" name="Created by You" stroke="hsl(var(--muted))" fill="hsl(var(--primary))" />
+        <Bar dataKey="itemsAdmin" stackId="items" name="Admin Approved" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
+        <Bar dataKey="itemsUser" stackId="items" name="Created by You" stroke="hsl(var(--secondary-foreground))" fill="hsl(var(--secondary))" />
       </BarChart>
     </ResponsiveContainer>
   );
