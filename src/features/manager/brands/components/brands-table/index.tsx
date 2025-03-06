@@ -32,13 +32,13 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
         <TableRow>
           {isSmall ? (
             <>
-              <TableHead className="w-[--size-11]">&nbsp;</TableHead>
+              <TableHead className="w-(--size-11)">&nbsp;</TableHead>
               <TableHead className="w-1/2">Name</TableHead>
               <TableHead className="w-1/2 text-center">Products#</TableHead>
             </>
           ) : (
             <>
-              <TableHead className="w-[--size-13]">&nbsp;</TableHead>
+              <TableHead className="w-(--size-13)">&nbsp;</TableHead>
               <TableHead className="w-1/4">Name</TableHead>
               <TableHead className="w-1/4">Logo Url</TableHead>
               <TableHead className="w-1/4 text-center">Products#</TableHead>
@@ -49,7 +49,7 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
               </TableHead>
             </>
           )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
+          <TableHead className="w-(--size-9)">&nbsp;</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -61,13 +61,13 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
         <TableRow>
           {isSmall ? (
             <>
-              <TableHead className="w-[--size-11]">&nbsp;</TableHead>
+              <TableHead className="w-(--size-11)">&nbsp;</TableHead>
               <TableHead className="w-1/2">Name</TableHead>
               <TableHead className="w-1/2 text-center">Products#</TableHead>
             </>
           ) : (
             <>
-              <TableHead className="w-[--size-13]">&nbsp;</TableHead>
+              <TableHead className="w-(--size-13)">&nbsp;</TableHead>
               <TableHead className="w-1/4">Name</TableHead>
               <TableHead className="w-1/4">Logo Url</TableHead>
               <TableHead className="w-1/4 text-center">Products#</TableHead>
@@ -78,7 +78,7 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
               </TableHead>
             </>
           )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
+          <TableHead className="w-(--size-9)">&nbsp;</TableHead>
         </TableRow>
       </TableFooter>
     </Table>

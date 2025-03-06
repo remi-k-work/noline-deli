@@ -12,7 +12,7 @@ import Logout from "@/features/manager/login/components/Logout";
 
 export default function Header() {
   return (
-    <header className={cn(styles["header"], "z-[3]")}>
+    <header className={cn(styles["header"], "z-3")}>
       <HeaderLogo />
       <NavBar />
       <section className="flex flex-none items-center gap-1">

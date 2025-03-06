@@ -43,7 +43,7 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
   } = brand;
 
   return (
-    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
+    <TableRow className="odd:bg-(--surface-3) even:bg-(--surface-4)">
       <TableCell>
         <Link href={PathFinder.toBrandEdit(id)} scroll={false}>
           <Image

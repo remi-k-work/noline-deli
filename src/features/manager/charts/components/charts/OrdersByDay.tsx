@@ -36,13 +36,13 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <p className="border border-muted bg-background p-2 text-[--text-1]">
+      <p className="border border-muted bg-background p-2 text-(--text-1)">
         <span className="text-accent">{label}</span>
         <br />
-        <span className="text-[--text-2]">Orders : </span>
+        <span className="text-(--text-2)">Orders : </span>
         {payload[0].value}
         <br />
-        <span className="text-[--text-2]">Sales : </span>
+        <span className="text-(--text-2)">Sales : </span>
         {formatCurrency(payload[1].value)}
       </p>
     );

@@ -36,13 +36,13 @@ export default function RevenueByItem({ data: { revenueByItem } }: RevenueByItem
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <p className="border border-muted bg-background p-2 text-[--text-1]">
+      <p className="border border-muted bg-background p-2 text-(--text-1)">
         <span className="text-accent">{payload[2].value}</span>
         <br />
-        <span className="text-[--text-2]">Quantity : </span>
+        <span className="text-(--text-2)">Quantity : </span>
         {payload[0].value}
         <br />
-        <span className="text-[--text-2]">Total : </span>
+        <span className="text-(--text-2)">Total : </span>
         {formatCurrency(payload[1].value)}
       </p>
     );

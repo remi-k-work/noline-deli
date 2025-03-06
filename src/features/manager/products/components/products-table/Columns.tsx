@@ -40,7 +40,7 @@ export const columnsLarge: ColumnDef<ProductRow>[] = [
   columnHelper.accessor("_count.carts", { id: "popularity" }),
   columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
 
-  columnHelper.display({ id: "item", header: () => <ItemHeader className="w-[--size-13]" />, cell: ({ row }) => <ItemCell row={row} /> }),
+  columnHelper.display({ id: "item", header: () => <ItemHeader className="w-(--size-13)" />, cell: ({ row }) => <ItemCell row={row} /> }),
   columnHelper.display({ id: "nameAndCat", header: ({ table }) => <NameHeader table={table} className="w-2/4" />, cell: ({ row }) => <NameCell row={row} /> }),
   columnHelper.display({
     id: "imagesAndPrice",
@@ -52,7 +52,7 @@ export const columnsLarge: ColumnDef<ProductRow>[] = [
     header: ({ table }) => <CreatedHeader table={table} className="w-1/4" />,
     cell: ({ row }) => <CreatedCell row={row} />,
   }),
-  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-[--size-9]" />, cell: ({ row }) => <ActionsCell row={row} /> }),
+  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-(--size-9)" />, cell: ({ row }) => <ActionsCell row={row} /> }),
 ] as ColumnDef<ProductRow, unknown>[];
 
 export const columnsSmall: ColumnDef<ProductRow>[] = [
@@ -72,7 +72,7 @@ export const columnsSmall: ColumnDef<ProductRow>[] = [
   columnHelper.accessor("_count.carts", { id: "popularity" }),
   columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
 
-  columnHelper.display({ id: "item", header: () => <ItemHeader className="w-[--size-11]" />, cell: ({ row }) => <ItemCell row={row} /> }),
+  columnHelper.display({ id: "item", header: () => <ItemHeader className="w-(--size-11)" />, cell: ({ row }) => <ItemCell row={row} /> }),
   columnHelper.display({ id: "nameAndCat", header: ({ table }) => <NameHeader table={table} className="w-full" />, cell: ({ row }) => <NameCell row={row} /> }),
-  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-[--size-9]" />, cell: ({ row }) => <ActionsCell row={row} /> }),
+  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-(--size-9)" />, cell: ({ row }) => <ActionsCell row={row} /> }),
 ] as ColumnDef<ProductRow, unknown>[];

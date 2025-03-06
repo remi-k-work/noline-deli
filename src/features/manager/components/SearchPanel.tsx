@@ -37,7 +37,7 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Label className={cn("flex w-full max-w-[--size-content-2] items-center gap-1 bg-background pr-1", className)}>
+        <Label className={cn("flex w-full max-w-(--size-content-2) items-center gap-1 bg-background pr-1", className)}>
           <Input
             ref={searchRef}
             type="search"

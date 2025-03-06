@@ -25,7 +25,7 @@ export default function Entry({ cartItem }: EntryProps) {
   } = cartItem;
 
   return (
-    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
+    <TableRow className="odd:bg-(--surface-3) even:bg-(--surface-4)">
       <TableCell>
         <section className="flex items-center gap-1">
           <ItemImageWithTrigger product={product} href={PathFinder.toSfProductDetails(name, productId)} />

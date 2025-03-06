@@ -52,7 +52,7 @@ export default function ItemImageWithTrigger({ product, orderedItem, href, class
             className={cn(styles["item-image-with-trigger__image"], "h-auto w-36 rounded-lg object-cover")}
           />
         )}
-        <ProductInfoTrigger product={product} className={cn(styles["item-image-with-trigger__trigger"], "z-[1]")} />
+        <ProductInfoTrigger product={product} className={cn(styles["item-image-with-trigger__trigger"], "z-1")} />
       </div>
     );
 
@@ -82,7 +82,7 @@ export default function ItemImageWithTrigger({ product, orderedItem, href, class
             className={cn(styles["item-image-with-trigger__image"], "h-auto w-36 rounded-lg object-cover")}
           />
         )}
-        <OrderedItemInfoTrigger orderedItem={orderedItem} className={cn(styles["item-image-with-trigger__trigger"], "z-[1]")} />
+        <OrderedItemInfoTrigger orderedItem={orderedItem} className={cn(styles["item-image-with-trigger__trigger"], "z-1")} />
       </div>
     );
 }

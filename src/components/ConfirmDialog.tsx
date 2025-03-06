@@ -24,7 +24,7 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
   return (
     <dialog ref={ref} className={styles["confirm-dialog"]} {...props}>
       <form method="dialog">
-        <header className={cn(lusitana.className, "bg-gradient-to-r from-primary to-secondary text-xl text-primary-foreground")} data-testid="titleBar">
+        <header className={cn(lusitana.className, "bg-linear-to-r from-primary to-secondary text-xl text-primary-foreground")} data-testid="titleBar">
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
         </header>

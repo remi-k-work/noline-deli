@@ -40,7 +40,7 @@ export default function Entry({ category, createdByUser }: EntryProps) {
   } = category;
 
   return (
-    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
+    <TableRow className="odd:bg-(--surface-3) even:bg-(--surface-4)">
       <TableCell>
         <Link href={PathFinder.toCategoryEdit(id)} className="link" scroll={false}>
           {name}

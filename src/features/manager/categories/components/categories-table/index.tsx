@@ -48,7 +48,7 @@ export default function CategoriesTable({ categories, createdByUser }: Categorie
               </TableHead>
             </>
           )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
+          <TableHead className="w-(--size-9)">&nbsp;</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -76,7 +76,7 @@ export default function CategoriesTable({ categories, createdByUser }: Categorie
               </TableHead>
             </>
           )}
-          <TableHead className="w-[--size-9]">&nbsp;</TableHead>
+          <TableHead className="w-(--size-9)">&nbsp;</TableHead>
         </TableRow>
       </TableFooter>
     </Table>

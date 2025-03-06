@@ -50,8 +50,8 @@ export default function ProductExcerpt(props: ProductExcerptProps) {
           <Image src={PathFinder.toResolvedProductImage(imageUrl)} width={640} height={400} alt={name} sizes="50vw" className="h-36 w-auto object-cover" />
         </Link>
         <div className={cn(styles["product-excerpt__price"])}>{formatCurrency(price)}</div>
-        <h2 className={cn(styles["product-excerpt__name"], "z-[1]")}>{name}</h2>
-        <ProductInfoTrigger product={product} className={cn(styles["product-excerpt__more-info"], "z-[1]")} />
+        <h2 className={cn(styles["product-excerpt__name"], "z-1")}>{name}</h2>
+        <ProductInfoTrigger product={product} className={cn(styles["product-excerpt__more-info"], "z-1")} />
       </article>
     );
   } else {

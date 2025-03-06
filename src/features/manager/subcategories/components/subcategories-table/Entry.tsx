@@ -41,7 +41,7 @@ export default function Entry({ subCategory, createdByUser }: EntryProps) {
   } = subCategory;
 
   return (
-    <TableRow className="odd:bg-[--surface-3] even:bg-[--surface-4]">
+    <TableRow className="odd:bg-(--surface-3) even:bg-(--surface-4)">
       <TableCell>
         <Link href={PathFinder.toSubCategoryEdit(id)} className="link" scroll={false}>
           {name}
