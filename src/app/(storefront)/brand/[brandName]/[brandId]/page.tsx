@@ -29,8 +29,8 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
-  params: { brandName: string; brandId: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ brandName: string; brandId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 interface PageSuspenseProps {
@@ -48,11 +48,25 @@ function getSectionTitle(brandName: string) {
   return decodeURIComponent(brandName);
 }
 
-export async function generateMetadata({ params: { brandName } }: PageProps) {
+export async function generateMetadata(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    brandName
+  } = params;
+
   return { title: `NoLine-Deli ► ${getSectionTitle(brandName)}` };
 }
 
-export default async function Page({ params: { brandName, brandId }, searchParams }: PageProps) {
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    brandName,
+    brandId
+  } = params;
+
   const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
 
   // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change

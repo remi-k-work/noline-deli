@@ -16,14 +16,20 @@ import bannerOrders from "@/assets/manager/banner-orders.webp";
 
 // types
 interface PageProps {
-  params: { orderId: string };
+  params: Promise<{ orderId: string }>;
 }
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► View Order",
 };
 
-export default async function Page({ params: { orderId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    orderId
+  } = params;
+
   // Get all the information you need about this particular order
   const order = await getOrder(orderId);
 

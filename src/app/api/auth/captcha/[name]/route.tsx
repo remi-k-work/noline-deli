@@ -21,14 +21,20 @@ export interface CaptchaSession {
 }
 
 interface RouteProps {
-  params: { name: string };
+  params: Promise<{ name: string }>;
 }
 
 const FONTS_DIR = "public/fonts";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest, { params: { name } }: RouteProps) {
+export async function GET(req: NextRequest, props: RouteProps) {
+  const params = await props.params;
+
+  const {
+    name
+  } = params;
+
   // Load the pool of fonts used by our captcha
   const fontsDir = path.resolve(process.cwd(), FONTS_DIR);
   const [fontAcme, fontMerr, fontPlay, fontUbun] = await Promise.all([
@@ -50,7 +56,7 @@ export async function GET(req: NextRequest, { params: { name } }: RouteProps) {
   }
 
   // We will be using sessions to store the captcha solution
-  const session = await getIronSession<CaptchaSession>(cookies(), {
+  const session = await getIronSession<CaptchaSession>(await cookies(), {
     password: process.env.SESSION_SECRET as string,
     cookieName: name,
     cookieOptions: { secure: process.env.NODE_ENV === "production", maxAge: undefined },

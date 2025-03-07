@@ -16,14 +16,20 @@ import bannerSubCategories from "@/assets/manager/banner-subcategories.webp";
 
 // types
 interface PageProps {
-  params: { subCategoryId: string };
+  params: Promise<{ subCategoryId: string }>;
 }
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► Edit SubCategory",
 };
 
-export default async function Page({ params: { subCategoryId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    subCategoryId
+  } = params;
+
   // Retrieve all of the categories from an external source (database)
   const categories = await allCategories();
 

@@ -67,7 +67,7 @@ export async function getOrderedCart(orderedCartId: string): Promise<DerivedCart
 // Get an existing or brand-new empty cart from our database
 export async function getCart(): Promise<DerivedCartWithItems | undefined> {
   // Try obtaining the current cart's id from a session cookie
-  const localCartId = cookies().get("localCartId")?.value;
+  const localCartId = (await cookies()).get("localCartId")?.value;
 
   // If the cart exists, obtain its contents, which should include cart items and product information
   const cart = localCartId ? await prisma.cart.findUnique({ where: { id: localCartId }, include: INCLUDE_CART_WITH_ITEMS }) : undefined;
@@ -76,7 +76,7 @@ export async function getCart(): Promise<DerivedCartWithItems | undefined> {
     // Will we be able to set a new cart's id in a session cookie?
     try {
       // Remember that cookies can only be modified in a server action or route handler
-      cookies().set("localCartId", "************************");
+      (await cookies()).set("localCartId", "************************");
     } catch (error) {
       // Calling this from a server component will result in an error; exit with null immediately
       return undefined;
@@ -86,7 +86,7 @@ export async function getCart(): Promise<DerivedCartWithItems | undefined> {
     const newCart = await prisma.cart.create({ data: {} });
 
     // Save the new cart's id in a session cookie
-    cookies().set("localCartId", newCart.id);
+    (await cookies()).set("localCartId", newCart.id);
 
     // Finally, return the new cart
     return { ...newCart, cartItems: [], totalQty: 0, subTotal: 0, taxAmount: 0 };

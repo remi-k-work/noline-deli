@@ -13,10 +13,16 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 // types
 interface PageProps {
-  params: { subCategoryId: string };
+  params: Promise<{ subCategoryId: string }>;
 }
 
-export default async function Page({ params: { subCategoryId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    subCategoryId
+  } = params;
+
   // Retrieve all of the categories from an external source (database)
   const categories = await allCategories();
 

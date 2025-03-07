@@ -19,7 +19,7 @@ interface CategoryFormProviderProps {
 const CategoryFormStoreContext = createContext<CategoryFormStoreApi | undefined>(undefined);
 
 export const CategoryFormStoreProvider = ({ category, children }: CategoryFormProviderProps) => {
-  const storeRef = useRef<CategoryFormStoreApi>();
+  const storeRef = useRef<CategoryFormStoreApi>(undefined);
 
   // Are we in editing mode?
   if (category) {

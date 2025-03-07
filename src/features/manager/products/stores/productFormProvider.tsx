@@ -19,7 +19,7 @@ interface ProductFormProviderProps {
 const ProductFormStoreContext = createContext<ProductFormStoreApi | undefined>(undefined);
 
 export const ProductFormStoreProvider = ({ product, children }: ProductFormProviderProps) => {
-  const storeRef = useRef<ProductFormStoreApi>();
+  const storeRef = useRef<ProductFormStoreApi>(undefined);
 
   // Are we in editing mode?
   if (product) {

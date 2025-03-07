@@ -1,6 +1,6 @@
 // next
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
 
 // other libraries
 import AuthBase, { AuthError } from "./AuthBase";
@@ -72,11 +72,11 @@ export default class Auth extends AuthBase {
     // if (!match) return res.status(401).json({ message: "Unauthorized" });
 
     // Verify the user's credentials against the captcha-generated credentials
-    const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+    const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>((cookies() as unknown as UnsafeUnwrappedCookies), {
       password: process.env.SESSION_SECRET as string,
       cookieName: CAPTCHA_USERNAME,
     });
-    const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+    const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>((cookies() as unknown as UnsafeUnwrappedCookies), {
       password: process.env.SESSION_SECRET as string,
       cookieName: CAPTCHA_PASSWORD,
     });

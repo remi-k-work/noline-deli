@@ -16,14 +16,20 @@ import bannerBrands from "@/assets/manager/banner-brands.webp";
 
 // types
 interface PageProps {
-  params: { brandId: string };
+  params: Promise<{ brandId: string }>;
 }
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► Edit Brand",
 };
 
-export default async function Page({ params: { brandId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    brandId
+  } = params;
+
   // Get all the information you need about this particular brand
   const brand = await getBrand(brandId);
 

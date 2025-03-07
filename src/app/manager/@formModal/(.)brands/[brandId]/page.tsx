@@ -13,10 +13,16 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 // types
 interface PageProps {
-  params: { brandId: string };
+  params: Promise<{ brandId: string }>;
 }
 
-export default async function Page({ params: { brandId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    brandId
+  } = params;
+
   // Get all the information you need about this particular brand
   const brand = await getBrand(brandId);
 

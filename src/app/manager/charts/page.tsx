@@ -32,14 +32,15 @@ import bannerCharts from "@/assets/manager/banner-charts.webp";
 
 // types
 interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export const metadata = {
   title: "NoLine-Deli ► Manager ► Charts",
 };
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
   const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
   const { chPpcCategoryId, chObdRangeKey, chRbiRangeKey, chCbdRangeKey, rangeOptionFromKey } = searchParamsState;
 

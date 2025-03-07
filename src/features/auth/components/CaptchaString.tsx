@@ -21,7 +21,7 @@ export default function CaptchaString({ string }: CaptchaStringProps) {
   const fonts = ["acme", "merr", "play", "ubun"];
 
   // Rendering the text string above the background
-  let letters: ReactElement[] = [];
+  let letters: ReactElement<any>[] = [];
 
   for (let i = 0; i < string.length; i++) {
     // The characters will be unique; however, they should be slightly rotated and in black and white

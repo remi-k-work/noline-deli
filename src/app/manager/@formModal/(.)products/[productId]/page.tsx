@@ -13,10 +13,16 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 // types
 interface PageProps {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }
 
-export default async function Page({ params: { productId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    productId
+  } = params;
+
   // Gather the necessary data for the product form, such as a list of all available brands and categories
   const [brands, categories] = await getProductFormData();
 

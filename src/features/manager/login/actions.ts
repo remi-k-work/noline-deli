@@ -24,11 +24,11 @@ interface GetCaptchasActionResult {
 
 // Get the auto-generated captcha credentials
 export const getCaptchas = actionClient.action(async (): Promise<GetCaptchasActionResult> => {
-  const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+  const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(await cookies(), {
     password: process.env.SESSION_SECRET as string,
     cookieName: CAPTCHA_USERNAME,
   });
-  const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+  const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(await cookies(), {
     password: process.env.SESSION_SECRET as string,
     cookieName: CAPTCHA_PASSWORD,
   });
@@ -50,11 +50,11 @@ export const newLogin2 = actionClient
       // If an auth error occurs, return a more specific error
       if (error instanceof AuthError) {
         // Determine which section of the captcha-generated credentials does not match, if any, and offer a hint
-        const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(cookies(), {
+        const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(await cookies(), {
           password: process.env.SESSION_SECRET as string,
           cookieName: CAPTCHA_USERNAME,
         });
-        const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(cookies(), {
+        const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(await cookies(), {
           password: process.env.SESSION_SECRET as string,
           cookieName: CAPTCHA_PASSWORD,
         });

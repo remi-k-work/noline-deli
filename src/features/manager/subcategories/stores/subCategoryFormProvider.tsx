@@ -19,7 +19,7 @@ interface SubCategoryFormProviderProps {
 const SubCategoryFormStoreContext = createContext<SubCategoryFormStoreApi | undefined>(undefined);
 
 export const SubCategoryFormStoreProvider = ({ subCategory, children }: SubCategoryFormProviderProps) => {
-  const storeRef = useRef<SubCategoryFormStoreApi>();
+  const storeRef = useRef<SubCategoryFormStoreApi>(undefined);
 
   // Are we in editing mode?
   if (subCategory) {

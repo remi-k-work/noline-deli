@@ -17,14 +17,20 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined; payment_intent: string | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined; payment_intent: string | undefined }>;
 }
 
 export const metadata = {
   title: "NoLine-Deli ► Order Complete",
 };
 
-export default async function Page({ searchParams: { payment_intent } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const searchParams = await props.searchParams;
+
+  const {
+    payment_intent
+  } = searchParams;
+
   // When stripe redirects the customer to the return_url, the payment_intent query parameter is appended by stripe.js
   if (!payment_intent) notFound();
 

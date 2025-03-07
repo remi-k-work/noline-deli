@@ -52,7 +52,9 @@ export default function View() {
   return (
     <div className={styles["view"]}>
       <ImageView
-        ref={(productImageNode) => addThisProductImageNodeRef(0, productImageNode)}
+        ref={productImageNode => {
+          addThisProductImageNodeRef(0, productImageNode);
+        }}
         fieldName={"theMainImage"}
         fieldLabel={"the main image"}
         imageUrl={theMainImage}
@@ -60,7 +62,9 @@ export default function View() {
       {extraImages.map((extraImageUrl, extraImageIndex) => (
         <ImageView
           key={`${extraImageUrl}.${extraImageIndex}`}
-          ref={(productImageNode) => addThisProductImageNodeRef(extraImageIndex + 1, productImageNode)}
+          ref={productImageNode => {
+            addThisProductImageNodeRef(extraImageIndex + 1, productImageNode);
+          }}
           fieldName={`extraImages.${extraImageIndex}`}
           fieldLabel={`extra image nr ${extraImageIndex + 1}`}
           imageUrl={extraImageUrl}

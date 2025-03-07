@@ -23,7 +23,7 @@ import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
-  params: { productName: string; productId: string };
+  params: Promise<{ productName: string; productId: string }>;
 }
 
 interface PageSuspenseProps {
@@ -39,7 +39,14 @@ function getSectionTitle(productName: string) {
   return decodeURIComponent(productName);
 }
 
-export async function generateMetadata({ params: { productName, productId } }: PageProps) {
+export async function generateMetadata(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    productName,
+    productId
+  } = params;
+
   // Get all the information you need about this particular product
   const product = await getProduct(productId);
 
@@ -58,7 +65,14 @@ export async function generateMetadata({ params: { productName, productId } }: P
   };
 }
 
-export default async function Page({ params: { productName, productId } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    productName,
+    productId
+  } = params;
+
   // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
   const suspenseTriggerKey = productId;
 

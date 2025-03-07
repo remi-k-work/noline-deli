@@ -15,7 +15,7 @@ interface LoginFormProviderProps {
 const LoginFormStoreContext = createContext<LoginFormStoreApi | undefined>(undefined);
 
 export const LoginFormStoreProvider = ({ children }: LoginFormProviderProps) => {
-  const storeRef = useRef<LoginFormStoreApi>();
+  const storeRef = useRef<LoginFormStoreApi>(undefined);
   if (!storeRef.current) storeRef.current = createLoginFormStore();
 
   return <LoginFormStoreContext.Provider value={storeRef.current}>{children}</LoginFormStoreContext.Provider>;

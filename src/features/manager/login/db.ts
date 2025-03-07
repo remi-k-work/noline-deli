@@ -1,5 +1,5 @@
 // next
-import { cookies } from "next/headers";
+import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
@@ -12,7 +12,7 @@ const CREATED_BY_USER_COOKIE = "createdByUser";
 
 export function getCreatedByUser() {
   // Try obtaining the created-by-user value from a local cookie
-  const createdByUser = cookies().get(CREATED_BY_USER_COOKIE)?.value;
+  const createdByUser = (cookies() as unknown as UnsafeUnwrappedCookies).get(CREATED_BY_USER_COOKIE)?.value;
 
   // We obtained the created-by-user value; ensure that it is a valid objectid recognized by mongodb
   if (createdByUser && createdByUser.match(/^[0-9a-fA-F]{24}$/)) return createdByUser;
@@ -27,7 +27,7 @@ export async function setCreatedByUser() {
     const user = await tx.user.create({ data: { name: "user", email: `${crypto.randomUUID()}@user.com`, role: "USER" } });
 
     // If the cookie setting fails, the transaction will be rolled back rather than creating a new user
-    cookies().set(CREATED_BY_USER_COOKIE, user.id, { maxAge: 2592000, httpOnly: true, sameSite: "strict" });
+    (await cookies()).set(CREATED_BY_USER_COOKIE, user.id, { maxAge: 2592000, httpOnly: true, sameSite: "strict" });
 
     // Finally, return the new created-by-user value
     return user.id;

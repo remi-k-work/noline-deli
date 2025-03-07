@@ -20,7 +20,7 @@ interface BrandFormProviderProps {
 const BrandFormStoreContext = createContext<BrandFormStoreApi | undefined>(undefined);
 
 export const BrandFormStoreProvider = ({ brand, children }: BrandFormProviderProps) => {
-  const storeRef = useRef<BrandFormStoreApi>();
+  const storeRef = useRef<BrandFormStoreApi>(undefined);
 
   // Are we in editing mode?
   if (brand) {
