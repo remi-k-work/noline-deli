@@ -13,8 +13,8 @@
   inline-size: 100%;
   block-size: var(--radix-navigation-menu-viewport-height);
 
-  background-color: hsl(var(--popover) / 0.95);
-  color: hsl(var(--popover-foreground));
+  background-color: var(--popover);
+  color: var(--popover-foreground);
 
   position: relative;
 

@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 import { DateRange } from "react-day-picker";
 
 // components
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom/button";
 import ResponsiveDialogTrigger from "@/components/ResponsiveDialogTrigger";
 import CustomDate from "./CustomDate";
 

@@ -16,20 +16,13 @@ export default function ProductsPerBrand({ data: { productsPerBrand } }: Product
     <ResponsiveContainer width="100%" minHeight={300}>
       <PieChart>
         <Tooltip
-          cursor={{ fill: "hsl(var(--muted))" }}
-          contentStyle={{ backgroundColor: "hsl(var(--background))" }}
+          cursor={{ fill: "var(--muted)" }}
+          contentStyle={{ backgroundColor: "var(--background)" }}
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
         <Legend />
-        <Pie
-          data={productsPerBrand}
-          label={(item) => item.value}
-          dataKey="products"
-          nameKey="brand"
-          stroke="hsl(var(--primary-foreground))"
-          fill="hsl(var(--primary))"
-        />
+        <Pie data={productsPerBrand} label={(item) => item.value} dataKey="products" nameKey="brand" stroke="var(--primary-foreground)" fill="var(--primary)" />
       </PieChart>
     </ResponsiveContainer>
   );

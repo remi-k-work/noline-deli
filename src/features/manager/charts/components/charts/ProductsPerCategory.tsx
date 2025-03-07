@@ -23,17 +23,17 @@ export default function ProductsPerCategory({ data: { productsPerCategory } }: P
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <BarChart data={productsPerCategory} layout="vertical">
-        <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis type="number" stroke="hsl(var(--primary))" />
-        <YAxis dataKey="category" type="category" stroke="hsl(var(--primary))" hide={true} />
+        <CartesianGrid stroke="var(--muted)" />
+        <XAxis type="number" stroke="var(--primary)" />
+        <YAxis dataKey="category" type="category" stroke="var(--primary)" hide={true} />
         <Tooltip
-          cursor={{ fill: "hsl(var(--muted))" }}
-          contentStyle={{ backgroundColor: "hsl(var(--background))" }}
+          cursor={{ fill: "var(--muted)" }}
+          contentStyle={{ backgroundColor: "var(--background)" }}
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
-        <Bar dataKey="mCatProd" stackId="products" name="Products" stroke="hsl(var(--secondary-foreground))" fill="hsl(var(--secondary))" />
-        <Bar dataKey="sCatProd" stackId="products" name="Products" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
+        <Bar dataKey="mCatProd" stackId="products" name="Products" stroke="var(--secondary-foreground)" fill="var(--secondary)" />
+        <Bar dataKey="sCatProd" stackId="products" name="Products" stroke="var(--primary-foreground)" fill="var(--primary)" />
       </BarChart>
     </ResponsiveContainer>
   );

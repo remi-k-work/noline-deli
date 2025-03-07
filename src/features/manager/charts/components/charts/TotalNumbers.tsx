@@ -15,18 +15,18 @@ export default function TotalNumbers({ data: { totalNumbers } }: TotalNumbersPro
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <BarChart data={totalNumbers}>
-        <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis dataKey="totCategory" stroke="hsl(var(--primary))" />
-        <YAxis stroke="hsl(var(--primary))" hide={true} />
+        <CartesianGrid stroke="var(--muted)" />
+        <XAxis dataKey="totCategory" stroke="var(--primary)" />
+        <YAxis stroke="var(--primary)" hide={true} />
         <Tooltip
-          cursor={{ fill: "hsl(var(--muted))" }}
-          contentStyle={{ backgroundColor: "hsl(var(--background))" }}
+          cursor={{ fill: "var(--muted)" }}
+          contentStyle={{ backgroundColor: "var(--background)" }}
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
         <Legend />
-        <Bar dataKey="itemsAdmin" stackId="items" name="Admin Approved" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
-        <Bar dataKey="itemsUser" stackId="items" name="Created by You" stroke="hsl(var(--secondary-foreground))" fill="hsl(var(--secondary))" />
+        <Bar dataKey="itemsAdmin" stackId="items" name="Admin Approved" stroke="var(--primary-foreground)" fill="var(--primary)" />
+        <Bar dataKey="itemsUser" stackId="items" name="Created by You" stroke="var(--secondary-foreground)" fill="var(--secondary)" />
       </BarChart>
     </ResponsiveContainer>
   );

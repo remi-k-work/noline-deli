@@ -1,6 +1,6 @@
 .indicator {
-  background: hsl(var(--popover));
-  color: hsl(var(--popover-foreground));
+  background: var(--popover);
+  color: var(--popover-foreground);
 
   display: flex;
   justify-content: center;

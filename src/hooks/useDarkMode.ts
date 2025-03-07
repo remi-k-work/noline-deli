@@ -13,7 +13,6 @@ interface DarkModeReturn {
 
 const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 const LOCAL_STORAGE_KEY = "theme";
-const THEME_ATTRIBUTE = "data-theme";
 
 export default function useDarkMode(darkThemeAlias: string, lightThemeAlias: string): DarkModeReturn {
   // We will try to figure out whether or not the user prefers the dark mode
@@ -30,11 +29,9 @@ export default function useDarkMode(darkThemeAlias: string, lightThemeAlias: str
   const isDarkMode = theme !== undefined ? theme === darkThemeAlias : undefined;
 
   useEffect(() => {
-    if (theme) {
-      // Set the theme attribute at the document's global level
-      document.documentElement.setAttribute(THEME_ATTRIBUTE, theme);
-    }
-  }, [theme]);
+    // Set the theme attribute at the document's global level
+    document.documentElement.classList.toggle(darkThemeAlias, isDarkMode);
+  }, [darkThemeAlias, isDarkMode]);
 
   return { isDarkMode, toggle: () => setTheme(isDarkMode ? lightThemeAlias : darkThemeAlias) };
 }

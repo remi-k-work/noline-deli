@@ -9,24 +9,24 @@
   padding-inline: var(--size-1);
   padding-block: var(--size-1);
 
-  color: hsl(var(--foreground));
+  color: var(--foreground);
 
   transition:
     background-color 250ms ease,
     color 250ms ease;
 
   &:focus-visible {
-    background-color: hsl(var(--accent));
-    color: hsl(var(--accent-foreground));
+    background-color: var(--accent);
+    color: var(--accent-foreground);
   }
 
   &:hover {
-    background-color: hsl(var(--accent));
-    color: hsl(var(--accent-foreground));
+    background-color: var(--accent);
+    color: var(--accent-foreground);
   }
 
   &[data-active] {
-    background-color: hsl(var(--accent));
-    color: hsl(var(--accent-foreground));
+    background-color: var(--accent);
+    color: var(--accent-foreground);
   }
 }

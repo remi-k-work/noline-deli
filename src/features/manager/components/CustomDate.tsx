@@ -8,7 +8,7 @@ import { convertLocalDateToUTCIgnoringTimezone, formatDate } from "@/lib/formatt
 
 // components
 import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // assets

@@ -2,7 +2,7 @@
 import { Column } from "@tanstack/react-table";
 
 // components
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/custom/button";
 
 // assets
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";

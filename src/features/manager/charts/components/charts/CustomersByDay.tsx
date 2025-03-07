@@ -15,16 +15,16 @@ export default function CustomersByDay({ data: { customersByDay } }: CustomersBy
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <BarChart data={customersByDay}>
-        <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis dataKey="dayName" stroke="hsl(var(--primary))" />
-        <YAxis stroke="hsl(var(--primary))" />
+        <CartesianGrid stroke="var(--muted)" />
+        <XAxis dataKey="dayName" stroke="var(--primary)" />
+        <YAxis stroke="var(--primary)" />
         <Tooltip
-          cursor={{ fill: "hsl(var(--muted))" }}
-          contentStyle={{ backgroundColor: "hsl(var(--background))" }}
+          cursor={{ fill: "var(--muted)" }}
+          contentStyle={{ backgroundColor: "var(--background)" }}
           labelStyle={{ color: "var(--text-1)" }}
           itemStyle={{ color: "var(--text-2)" }}
         />
-        <Bar dataKey="customers" name="New Customers" stroke="hsl(var(--primary-foreground))" fill="hsl(var(--primary))" />
+        <Bar dataKey="customers" name="New Customers" stroke="var(--primary-foreground)" fill="var(--primary)" />
       </BarChart>
     </ResponsiveContainer>
   );

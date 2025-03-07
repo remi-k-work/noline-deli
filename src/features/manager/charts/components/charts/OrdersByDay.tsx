@@ -22,12 +22,12 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <LineChart data={ordersByDay}>
-        <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis dataKey="dayName" stroke="hsl(var(--primary))" />
-        <YAxis stroke="hsl(var(--primary))" tickFormatter={(tick) => formatCurrency(tick)} />
-        <Tooltip cursor={{ fill: "hsl(var(--muted))", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
-        <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="hsl(var(--primary-foreground))" />
-        <Line dataKey="sales" type="monotone" name="Sales" stroke="hsl(var(--secondary-foreground))" />
+        <CartesianGrid stroke="var(--muted)" />
+        <XAxis dataKey="dayName" stroke="var(--primary)" />
+        <YAxis stroke="var(--primary)" tickFormatter={(tick) => formatCurrency(tick)} />
+        <Tooltip cursor={{ fill: "var(--muted)", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
+        <Line dot={false} dataKey="orders" type="monotone" name="Orders" stroke="var(--primary-foreground)" />
+        <Line dataKey="sales" type="monotone" name="Sales" stroke="var(--secondary-foreground)" />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -36,7 +36,7 @@ export default function OrdersByDay({ data: { ordersByDay } }: OrdersByDayProps)
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <p className="border border-muted bg-background p-2 text-(--text-1)">
+      <p className="border-muted bg-background border p-2 text-(--text-1)">
         <span className="text-accent">{label}</span>
         <br />
         <span className="text-(--text-2)">Orders : </span>

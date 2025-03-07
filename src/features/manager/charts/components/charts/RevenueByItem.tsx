@@ -22,12 +22,12 @@ export default function RevenueByItem({ data: { revenueByItem } }: RevenueByItem
   return (
     <ResponsiveContainer width="100%" minHeight={300}>
       <ScatterChart data={revenueByItem}>
-        <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis type="number" dataKey="quantity" name="Quantity" stroke="hsl(var(--primary))" />
-        <YAxis type="number" dataKey="total" name="Total" stroke="hsl(var(--primary))" tickFormatter={(tick) => formatCurrency(tick)} />
+        <CartesianGrid stroke="var(--muted)" />
+        <XAxis type="number" dataKey="quantity" name="Quantity" stroke="var(--primary)" />
+        <YAxis type="number" dataKey="total" name="Total" stroke="var(--primary)" tickFormatter={(tick) => formatCurrency(tick)} />
         <ZAxis type="category" dataKey="itemName" name="Item" />
-        <Tooltip cursor={{ fill: "hsl(var(--muted))", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
-        <Scatter fill="hsl(var(--primary))" />
+        <Tooltip cursor={{ fill: "var(--muted)", strokeDasharray: "3 3" }} content={<CustomTooltip />} />
+        <Scatter fill="var(--primary)" />
       </ScatterChart>
     </ResponsiveContainer>
   );
@@ -36,7 +36,7 @@ export default function RevenueByItem({ data: { revenueByItem } }: RevenueByItem
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <p className="border border-muted bg-background p-2 text-(--text-1)">
+      <p className="border-muted bg-background border p-2 text-(--text-1)">
         <span className="text-accent">{payload[2].value}</span>
         <br />
         <span className="text-(--text-2)">Quantity : </span>
