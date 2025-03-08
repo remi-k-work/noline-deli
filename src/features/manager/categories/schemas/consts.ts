@@ -4,4 +4,5 @@ import { categoryFormSchema } from "./categoryForm";
 import { AllFieldErrors } from "@/features/manager/formActionTypes";
 
 // Customize validation errors format
-export const handleValidationErrorsShape = (ve: ValidationErrors<typeof categoryFormSchema>): AllFieldErrors => flattenValidationErrors(ve).fieldErrors;
+export const handleValidationErrorsShape = async (ve: ValidationErrors<typeof categoryFormSchema>): Promise<AllFieldErrors> =>
+  flattenValidationErrors(ve).fieldErrors;

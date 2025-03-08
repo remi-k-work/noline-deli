@@ -27,7 +27,7 @@ export const newCategory2 = actionClient
 
     try {
       // Generate an entirely new category with all the associated data
-      await createCategory(getCreatedByUser() ?? (await setCreatedByUser()), name);
+      await createCategory((await getCreatedByUser()) ?? (await setCreatedByUser()), name);
     } catch (error) {
       // Use the database's unique constraint violation to assure a distinct category name
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")

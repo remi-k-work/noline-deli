@@ -1,6 +1,6 @@
 // next
 import { NextResponse } from "next/server";
-import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
+import { cookies } from "next/headers";
 
 // other libraries
 import AuthBase, { AuthError } from "./AuthBase";
@@ -23,24 +23,24 @@ export default class Auth extends AuthBase {
   }
 
   // Log the user out
-  logOut() {
-    this.clearTokenCookies();
+  async logOut() {
+    await this.clearTokenCookies();
   }
 
   // Obtain either the current or refreshed access token
-  async getAccessToken() {
+  async obtainAccessToken() {
     try {
       // Is the access token still valid?
       await this.verifyAccessToken();
 
       // Yes, simply return it
-      return this.accessToken;
+      return await this.getAccessToken();
     } catch (error) {
       // The access token appears to be invalid or missing; renew it
       await this.renewAccessToken();
 
       // Return the renewed access token
-      return this.accessToken;
+      return await this.getAccessToken();
     }
   }
 
@@ -72,11 +72,11 @@ export default class Auth extends AuthBase {
     // if (!match) return res.status(401).json({ message: "Unauthorized" });
 
     // Verify the user's credentials against the captcha-generated credentials
-    const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>((cookies() as unknown as UnsafeUnwrappedCookies), {
+    const { captchaString: captchaUsername } = await getIronSession<CaptchaSession>(await cookies(), {
       password: process.env.SESSION_SECRET as string,
       cookieName: CAPTCHA_USERNAME,
     });
-    const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>((cookies() as unknown as UnsafeUnwrappedCookies), {
+    const { captchaString: captchaPassword } = await getIronSession<CaptchaSession>(await cookies(), {
       password: process.env.SESSION_SECRET as string,
       cookieName: CAPTCHA_PASSWORD,
     });

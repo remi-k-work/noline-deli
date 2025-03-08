@@ -4,10 +4,10 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { whereFilter } from "../helpers";
+import { whereFilter } from "@/features/storefront/db/helpers";
 
 // Retrieve all products by brand
-export default function byBrand(
+export default async function byBrand(
   brandId: string,
   itemsPerPage: number,
   sortByField: string,
@@ -22,13 +22,13 @@ export default function byBrand(
   return Promise.all([
     prisma.product.count({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereFilter(brandId, byPriceBelow, byFreeShipping),
       },
     }),
     prisma.product.findMany({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereFilter(brandId, byPriceBelow, byFreeShipping),
       },
       orderBy: { [sortByField]: sortByOrder },

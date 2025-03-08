@@ -26,7 +26,7 @@ export async function middleware(req: NextRequest) {
 
     // Validate that the user is authenticated
     const auth = new Auth(res);
-    await auth.getAccessToken();
+    await auth.obtainAccessToken();
 
     // If necessary, a renewed access token cookie will be included in the outgoing response
     return res;

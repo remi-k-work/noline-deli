@@ -26,7 +26,7 @@ export const newProduct2 = actionClient
     try {
       // Generate an entirely new product with all the associated data
       await createProduct(
-        getCreatedByUser() ?? (await setCreatedByUser()),
+        (await getCreatedByUser()) ?? (await setCreatedByUser()),
         brandId!,
         name,
         description,
@@ -66,7 +66,7 @@ export const updProduct2 = actionClient
       const [, product] = await updateProduct(
         productId,
         orgCreatedAt,
-        getCreatedByUser() ?? (await setCreatedByUser()),
+        (await getCreatedByUser()) ?? (await setCreatedByUser()),
         brandId!,
         name,
         description,
@@ -77,7 +77,7 @@ export const updProduct2 = actionClient
         subCategoryId,
         extraImages,
       );
-      newProductId = product.id;
+      newProductId = (await product).id;
     } catch (error) {
       // If a database error occurs, rethrow, which means action simply "failed"
       throw error;

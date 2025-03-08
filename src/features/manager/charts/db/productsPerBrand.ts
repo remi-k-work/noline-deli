@@ -11,8 +11,8 @@ import type { ProductsPerBrandData } from "./types";
 
 const productsPerBrand = cache(async () => {
   const brands = await prisma.brand.findMany({
-    where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, ...countAdminApprovedProducts<Prisma.BrandSelect>("OtM") },
+    where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) },
+    select: { name: true, ...(await countAdminApprovedProducts<Prisma.BrandSelect>("OtM")) },
   });
 
   const data: ProductsPerBrandData = { productsPerBrand: brands.map(({ name, _count: { products } }) => ({ brand: name, products: products })) };

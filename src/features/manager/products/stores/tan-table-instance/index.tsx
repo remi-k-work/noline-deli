@@ -11,7 +11,7 @@ import useTableActions from "./useTableActions";
 import { TanTableInstanceContextType, TanTableInstanceProviderProps } from "./types";
 
 // components
-import { columnsLarge, columnsSmall, ProductRow } from "../../components/products-table/Columns";
+import { columnsLarge, columnsSmall, ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 const TanTableInstanceContext = createContext<TanTableInstanceContextType | undefined>(undefined);
 

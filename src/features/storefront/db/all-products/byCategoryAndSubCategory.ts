@@ -4,10 +4,10 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { whereFilter } from "../helpers";
+import { whereFilter } from "@/features/storefront/db/helpers";
 
 // Retrieve all products by category and subcategory
-export default function byCategoryAndSubCategory(
+export default async function byCategoryAndSubCategory(
   categoryId: string,
   subCategoryId: string,
   itemsPerPage: number,
@@ -24,16 +24,16 @@ export default function byCategoryAndSubCategory(
   return Promise.all([
     prisma.product.count({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         categories: {
           some: {
-            category: { is: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), id: categoryId } },
+            category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } },
           },
         },
         subCategories: {
           some: {
             subCategory: {
-              is: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>(), id: subCategoryId },
+              is: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()), id: subCategoryId },
             },
           },
         },
@@ -42,16 +42,16 @@ export default function byCategoryAndSubCategory(
     }),
     prisma.product.findMany({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         categories: {
           some: {
-            category: { is: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), id: categoryId } },
+            category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } },
           },
         },
         subCategories: {
           some: {
             subCategory: {
-              is: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>(), id: subCategoryId },
+              is: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()), id: subCategoryId },
             },
           },
         },

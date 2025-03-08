@@ -12,19 +12,19 @@ import type { TotalNumbersData } from "./types";
 // Collect all relevant totals (such as the total number of products and brands)
 const totalNumbers = cache(async () => {
   // We will also collect just the content created by you, the user
-  const createdByUser = getCreatedByUser();
+  const createdByUser = await getCreatedByUser();
 
   const [totPrAdmin, totPrYou, totBrAdmin, totBrYou, totCaAdmin, totCaYou, totSuAdmin, totSuYou, totImAdmin, totImYou] = await Promise.all([
-    prisma.product.count({ where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } }),
-    createdByUser ? prisma.product.count({ where: { ...whereCreatedByYou<Prisma.ProductWhereInput>() } }) : 0,
-    prisma.brand.count({ where: { ...whereAdminApproved<Prisma.BrandWhereInput>() } }),
-    createdByUser ? prisma.brand.count({ where: { ...whereCreatedByYou<Prisma.BrandWhereInput>() } }) : 0,
-    prisma.category.count({ where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() } }),
-    createdByUser ? prisma.category.count({ where: { ...whereCreatedByYou<Prisma.CategoryWhereInput>() } }) : 0,
-    prisma.subCategory.count({ where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() } }),
-    createdByUser ? prisma.subCategory.count({ where: { ...whereCreatedByYou<Prisma.SubCategoryWhereInput>() } }) : 0,
-    prisma.productImage.count({ where: { ...whereAdminApproved<Prisma.ProductImageWhereInput>() } }),
-    createdByUser ? prisma.productImage.count({ where: { ...whereCreatedByYou<Prisma.ProductImageWhereInput>() } }) : 0,
+    prisma.product.count({ where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } }),
+    createdByUser ? prisma.product.count({ where: { ...(await whereCreatedByYou<Prisma.ProductWhereInput>()) } }) : 0,
+    prisma.brand.count({ where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) } }),
+    createdByUser ? prisma.brand.count({ where: { ...(await whereCreatedByYou<Prisma.BrandWhereInput>()) } }) : 0,
+    prisma.category.count({ where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) } }),
+    createdByUser ? prisma.category.count({ where: { ...(await whereCreatedByYou<Prisma.CategoryWhereInput>()) } }) : 0,
+    prisma.subCategory.count({ where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) } }),
+    createdByUser ? prisma.subCategory.count({ where: { ...(await whereCreatedByYou<Prisma.SubCategoryWhereInput>()) } }) : 0,
+    prisma.productImage.count({ where: { ...(await whereAdminApproved<Prisma.ProductImageWhereInput>()) } }),
+    createdByUser ? prisma.productImage.count({ where: { ...(await whereCreatedByYou<Prisma.ProductImageWhereInput>()) } }) : 0,
   ]);
 
   const data: TotalNumbersData = {

@@ -1,5 +1,5 @@
 // next
-import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 // other libraries
@@ -20,18 +20,28 @@ export class AuthError extends Error {
 }
 
 export default class AuthBase {
-  protected accessToken?: string = (cookies() as unknown as UnsafeUnwrappedCookies).get(consts.ACCESS_TOKEN_COOKIE)?.value;
-  protected refreshToken?: string = (cookies() as unknown as UnsafeUnwrappedCookies).get(consts.REFRESH_TOKEN_COOKIE)?.value;
+  private accessToken?: string;
+  private refreshToken?: string;
 
   constructor(private res?: NextResponse) {}
+
+  protected async getAccessToken(): Promise<string | undefined> {
+    if (!this.accessToken) this.accessToken = (await cookies()).get(consts.ACCESS_TOKEN_COOKIE)?.value;
+    return this.accessToken;
+  }
+
+  private async getRefreshToken(): Promise<string | undefined> {
+    if (!this.refreshToken) this.refreshToken = (await cookies()).get(consts.REFRESH_TOKEN_COOKIE)?.value;
+    return this.refreshToken;
+  }
 
   // Verifies the current access token and returns its payload if it is valid
   protected async verifyAccessToken() {
     // We anticipate the access token cookie to be included with the request
-    if (!this.accessToken) throw new AuthError("Unauthorized", 401);
+    if (!(await this.getAccessToken())) throw new AuthError("Unauthorized", 401);
 
     try {
-      const verifiedAccessToken = await jwtVerify(this.accessToken, new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET));
+      const verifiedAccessToken = await jwtVerify((await this.getAccessToken())!, new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET));
       return verifiedAccessToken.payload as AccessTokenPayload;
     } catch (error) {
       // Invalid access token
@@ -42,10 +52,10 @@ export default class AuthBase {
   // Verifies the current refresh token and returns its payload if it is valid
   protected async verifyRefreshToken() {
     // We anticipate the refresh token cookie to be included with the request
-    if (!this.refreshToken) throw new AuthError("Unauthorized", 401);
+    if (!(await this.getRefreshToken())) throw new AuthError("Unauthorized", 401);
 
     try {
-      const verifiedRefreshToken = await jwtVerify(this.refreshToken, new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET));
+      const verifiedRefreshToken = await jwtVerify((await this.getRefreshToken())!, new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET));
       return verifiedRefreshToken.payload as RefreshTokenPayload;
     } catch (error) {
       // Invalid refresh token
@@ -68,7 +78,7 @@ export default class AuthBase {
       this.res.cookies.set(consts.ACCESS_TOKEN_COOKIE, this.accessToken, consts.ACCESS_TOKEN_COOKIE_OPTIONS);
     } else {
       // Cookies can only be modified in a server action or route handler (this will not work in middleware)
-      (cookies() as unknown as UnsafeUnwrappedCookies).set(consts.ACCESS_TOKEN_COOKIE, this.accessToken, consts.ACCESS_TOKEN_COOKIE_OPTIONS);
+      (await cookies()).set(consts.ACCESS_TOKEN_COOKIE, this.accessToken, consts.ACCESS_TOKEN_COOKIE_OPTIONS);
     }
   }
 
@@ -87,14 +97,14 @@ export default class AuthBase {
       this.res.cookies.set(consts.REFRESH_TOKEN_COOKIE, this.refreshToken, consts.REFRESH_TOKEN_COOKIE_OPTIONS);
     } else {
       // Cookies can only be modified in a server action or route handler (this will not work in middleware)
-      (cookies() as unknown as UnsafeUnwrappedCookies).set(consts.REFRESH_TOKEN_COOKIE, this.refreshToken, consts.REFRESH_TOKEN_COOKIE_OPTIONS);
+      (await cookies()).set(consts.REFRESH_TOKEN_COOKIE, this.refreshToken, consts.REFRESH_TOKEN_COOKIE_OPTIONS);
     }
   }
 
   // Clear both access and refresh token cookies (log the user out)
-  protected clearTokenCookies() {
-    if ((cookies() as unknown as UnsafeUnwrappedCookies).has(consts.ACCESS_TOKEN_COOKIE)) (cookies() as unknown as UnsafeUnwrappedCookies).delete(consts.ACCESS_TOKEN_COOKIE);
-    if ((cookies() as unknown as UnsafeUnwrappedCookies).has(consts.REFRESH_TOKEN_COOKIE)) (cookies() as unknown as UnsafeUnwrappedCookies).delete(consts.REFRESH_TOKEN_COOKIE);
+  protected async clearTokenCookies() {
+    if ((await cookies()).has(consts.ACCESS_TOKEN_COOKIE)) (await cookies()).delete(consts.ACCESS_TOKEN_COOKIE);
+    if ((await cookies()).has(consts.REFRESH_TOKEN_COOKIE)) (await cookies()).delete(consts.REFRESH_TOKEN_COOKIE);
 
     this.accessToken = this.refreshToken = undefined;
   }

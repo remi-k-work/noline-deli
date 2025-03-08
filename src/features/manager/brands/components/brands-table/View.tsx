@@ -1,12 +1,12 @@
 // prisma and db access
-import { allBrandsWithPagination } from "../../db";
-import { getCreatedByUser } from "../../../login/db";
+import { allBrandsWithPagination } from "@/features/manager/brands/db";
+import { getCreatedByUser } from "@/features/manager/login/db";
 
 // other libraries
-import SearchParamsState from "../../../SearchParamsState";
+import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
-import BrowseBar from "../BrowseBar";
+import BrowseBar from "@/features/manager/brands/components/BrowseBar";
 import NotFound from "@/components/NotFound";
 import BrandsTable from ".";
 
@@ -31,7 +31,7 @@ export default async function View({ searchParamsState: { sortByField, sortByOrd
   return (
     <>
       <BrowseBar itemsPerPage={10} totalItems={totalItems} />
-      <BrandsTable brands={brands} createdByUser={getCreatedByUser()} />
+      <BrandsTable brands={brands} createdByUser={await getCreatedByUser()} />
     </>
   );
 }

@@ -4,10 +4,10 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { whereFilter, whereKeyword } from "../helpers";
+import { whereFilter, whereKeyword } from "@/features/storefront/db/helpers";
 
 // Search our products for a certain keyword in either the name or description sections
-export default function search(
+export default async function search(
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
@@ -23,14 +23,14 @@ export default function search(
   return Promise.all([
     prisma.product.count({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
     }),
     prisma.product.findMany({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },

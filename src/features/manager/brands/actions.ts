@@ -27,7 +27,7 @@ export const newBrand2 = actionClient
 
     try {
       // Generate an entirely new brand with all the associated data
-      await createBrand(getCreatedByUser() ?? (await setCreatedByUser()), name, logoUrl);
+      await createBrand((await getCreatedByUser()) ?? (await setCreatedByUser()), name, logoUrl);
     } catch (error) {
       // Use the database's unique constraint violation to assure a distinct brand name
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002")

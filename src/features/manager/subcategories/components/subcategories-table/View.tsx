@@ -1,12 +1,12 @@
 // prisma and db access
-import { allSubCategoriesWithPagination } from "../../../categories/db";
-import { getCreatedByUser } from "../../../login/db";
+import { allSubCategoriesWithPagination } from "@/features/manager/categories/db";
+import { getCreatedByUser } from "@/features/manager/login/db";
 
 // other libraries
-import SearchParamsState from "../../../SearchParamsState";
+import SearchParamsState from "@/features/manager/SearchParamsState";
 
 // components
-import BrowseBar from "../BrowseBar";
+import BrowseBar from "@/features/manager/subcategories/components/BrowseBar";
 import NotFound from "@/components/NotFound";
 import SubCategoriesTable from ".";
 
@@ -31,7 +31,7 @@ export default async function View({ searchParamsState: { sortByField, sortByOrd
   return (
     <>
       <BrowseBar itemsPerPage={10} totalItems={totalItems} />
-      <SubCategoriesTable subCategories={subCategories} createdByUser={getCreatedByUser()} />
+      <SubCategoriesTable subCategories={subCategories} createdByUser={await getCreatedByUser()} />
     </>
   );
 }

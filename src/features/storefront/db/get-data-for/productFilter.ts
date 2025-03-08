@@ -7,7 +7,7 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import type { ProductFilterData } from "../types";
+import type { ProductFilterData } from "@/features/storefront/db/types";
 
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges
 const productFilter = cache(async () => {
@@ -19,13 +19,13 @@ const productFilter = cache(async () => {
     },
   ] = await Promise.all([
     prisma.brand.findMany({
-      where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
+      where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) },
       orderBy: { name: "asc" },
     }),
     prisma.product.aggregate({
       _min: { price: true },
       _max: { price: true },
-      where: { ...whereAdminApproved<Prisma.ProductWhereInput>() },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) },
     }),
   ]);
 

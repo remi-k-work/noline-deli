@@ -4,10 +4,10 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { whereFilter } from "../helpers";
+import { whereFilter } from "@/features/storefront/db/helpers";
 
 // Retrieve all products from an external source (database) using offset pagination
-export default function withPagination(
+export default async function withPagination(
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
@@ -22,13 +22,13 @@ export default function withPagination(
   return Promise.all([
     prisma.product.count({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
     }),
     prisma.product.findMany({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
       orderBy: { [sortByField]: sortByOrder },

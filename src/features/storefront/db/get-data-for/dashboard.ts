@@ -7,18 +7,18 @@ import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
 // other libraries
-import { INCLUDE_PRODUCT_WITH_ALL } from "../consts";
-import type { DashboardData } from "../types";
+import { INCLUDE_PRODUCT_WITH_ALL } from "@/features/storefront/db/consts";
+import type { DashboardData } from "@/features/storefront/db/types";
 
 // Collect all of the necessary data for our dashboard (like featured products and brands)
 const dashboard = cache(async () => {
   // Fetch all of the products first, then scramble them, and then select three random ones (same idea for brands)
   const [allProducts, allBrands] = await Promise.all([
     prisma.product.findMany({
-      where: { ...whereAdminApproved<Prisma.ProductWhereInput>() },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) },
       include: INCLUDE_PRODUCT_WITH_ALL,
     }),
-    prisma.brand.findMany({ where: { ...whereAdminApproved<Prisma.BrandWhereInput>() } }),
+    prisma.brand.findMany({ where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) } }),
   ]);
 
   const data: DashboardData = {

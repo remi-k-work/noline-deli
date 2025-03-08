@@ -4,4 +4,5 @@ import { brandFormSchema } from "./brandForm";
 import { AllFieldErrors } from "@/features/manager/formActionTypes";
 
 // Customize validation errors format
-export const handleValidationErrorsShape = (ve: ValidationErrors<typeof brandFormSchema>): AllFieldErrors => flattenValidationErrors(ve).fieldErrors;
+export const handleValidationErrorsShape = async (ve: ValidationErrors<typeof brandFormSchema>): Promise<AllFieldErrors> =>
+  flattenValidationErrors(ve).fieldErrors;

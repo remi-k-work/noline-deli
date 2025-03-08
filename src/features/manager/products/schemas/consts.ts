@@ -7,13 +7,13 @@ import { AllFieldErrors } from "@/features/manager/formActionTypes";
 export const EXTRA_IMAGE_FNAME = "extraImages";
 
 // Customize validation errors format
-export const handleValidationErrorsShape = (ve: ValidationErrors<typeof productFormSchema>): AllFieldErrors => {
+export const handleValidationErrorsShape = async (ve: ValidationErrors<typeof productFormSchema>): Promise<AllFieldErrors> => {
   // Any validation issues with our extra images?
   const { extraImages } = ve;
   const extraImagesErrors: Record<string, string[]> = {};
   for (const key in extraImages) {
     if (key === "_errors") continue;
-    const _errors = extraImages[key as keyof typeof ve.extraImages]?._errors;
+    const _errors = (extraImages[key as keyof typeof ve.extraImages] as ValidationErrors<typeof productFormSchema>)?._errors;
     if (_errors) extraImagesErrors[`${EXTRA_IMAGE_FNAME}.${key}`] = _errors;
   }
 

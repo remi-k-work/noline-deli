@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const auth = new Auth();
-    const accessToken = await auth.getAccessToken();
+    const accessToken = await auth.obtainAccessToken();
 
     // Return the access token as a success response
     return new NextResponse(accessToken);
@@ -27,10 +27,10 @@ export async function GET() {
 }
 
 // Log the user out
-export function DELETE() {
+export async function DELETE() {
   try {
     const auth = new Auth();
-    auth.logOut();
+    await auth.logOut();
 
     // Return a success response
     return new NextResponse(null, { status: 200 });

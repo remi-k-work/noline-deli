@@ -29,11 +29,11 @@ function whereKeywordSubCategory(keyword?: string): Prisma.SubCategoryWhereInput
 }
 
 // Retrieve all of the categories from an external source (database)
-export const allCategories = cache(() => {
+export const allCategories = cache(async () => {
   return prisma.category.findMany({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) },
     include: {
-      subCategories: { where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() }, orderBy: { name: "asc" }, include: { user: true } },
+      subCategories: { where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) }, orderBy: { name: "asc" }, include: { user: true } },
       user: true,
     },
     orderBy: { name: "asc" },
@@ -41,41 +41,44 @@ export const allCategories = cache(() => {
 });
 
 // Get all the information you need about this particular category
-export const getCategory = cache((categoryId: string) => {
+export const getCategory = cache(async (categoryId: string) => {
   return prisma.category.findUnique({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereUniqueInput>()), id: categoryId },
     include: INCLUDE_CATEGORY_WITH_USER,
   });
 });
 
 // Get all the information you need about this particular subcategory
-export const getSubCategory = cache((subCategoryId: string) => {
+export const getSubCategory = cache(async (subCategoryId: string) => {
   return prisma.subCategory.findUnique({
-    where: { ...whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>(), id: subCategoryId },
+    where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>()), id: subCategoryId },
     include: INCLUDE_SUBCATEGORY_WITH_USER,
   });
 });
 
 // Delete the given category and its associated data
-export function deleteCategory(categoryId: string) {
-  return prisma.category.delete({ where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId } });
+export async function deleteCategory(categoryId: string) {
+  return prisma.category.delete({ where: { ...(await whereAdminApproved<Prisma.CategoryWhereUniqueInput>()), id: categoryId } });
 }
 
 // Delete the given subcategory and its associated data
-export function deleteSubCategory(subCategoryId: string) {
-  return prisma.subCategory.delete({ where: { ...whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>(), id: subCategoryId } });
+export async function deleteSubCategory(subCategoryId: string) {
+  return prisma.subCategory.delete({ where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>()), id: subCategoryId } });
 }
 
 // To update an existing category, we cannot delete it and recreate it with new data
 // It would cascade and delete all related products that belong to this category!
-export function updateCategory(categoryId: string, name: string) {
-  return prisma.category.update({ where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId }, data: { name } });
+export async function updateCategory(categoryId: string, name: string) {
+  return prisma.category.update({ where: { ...(await whereAdminApproved<Prisma.CategoryWhereUniqueInput>()), id: categoryId }, data: { name } });
 }
 
 // To update an existing subcategory, we cannot delete it and recreate it with new data
 // It would cascade and delete all related products that belong to this subcategory!
-export function updateSubCategory(subCategoryId: string, categoryId: string, name: string) {
-  return prisma.subCategory.update({ where: { ...whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>(), id: subCategoryId }, data: { categoryId, name } });
+export async function updateSubCategory(subCategoryId: string, categoryId: string, name: string) {
+  return prisma.subCategory.update({
+    where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereUniqueInput>()), id: subCategoryId },
+    data: { categoryId, name },
+  });
 }
 
 // Generate an entirely new category with all the associated data
@@ -89,16 +92,16 @@ export function createSubCategory(createdBy: string, categoryId: string, name: s
 }
 
 // Retrieve all categories from an external source (database) using offset pagination
-export function allCategoriesWithPagination(itemsPerPage: number, sortByField: string, sortByOrder: string, currentPage?: number, keyword?: string) {
+export async function allCategoriesWithPagination(itemsPerPage: number, sortByField: string, sortByOrder: string, currentPage?: number, keyword?: string) {
   const indexOfLastItem = (currentPage ?? 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return Promise.all([
     prisma.category.count({
-      where: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), ...whereKeywordCategory(keyword) },
+      where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), ...whereKeywordCategory(keyword) },
     }),
     prisma.category.findMany({
-      where: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), ...whereKeywordCategory(keyword) },
+      where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), ...whereKeywordCategory(keyword) },
       include: INCLUDE_CATEGORY_WITH_INFO,
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,

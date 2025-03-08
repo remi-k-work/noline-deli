@@ -10,11 +10,11 @@ import { whereAdminApproved } from "@/features/manager/login/db";
 import { INCLUDE_PRODUCT_WITH_ALL } from "./consts";
 
 // Get all the information you need about this particular product
-export const getProduct = cache((productId: string) => {
+export const getProduct = cache(async (productId: string) => {
   // A user can create many brands, categories, subcategories, products, and product images
   // Therefore, live content should only come from trusted admins
   const product = prisma.product.findUnique({
-    where: { ...whereAdminApproved<Prisma.ProductWhereUniqueInput>(), id: productId },
+    where: { ...(await whereAdminApproved<Prisma.ProductWhereUniqueInput>()), id: productId },
     include: INCLUDE_PRODUCT_WITH_ALL,
   });
 
@@ -26,19 +26,19 @@ export const getProduct = cache((productId: string) => {
 });
 
 // Get all the information you need about this particular brand
-export const getBrand = cache((brandId: string) => {
+export const getBrand = cache(async (brandId: string) => {
   return prisma.brand.findUnique({
-    where: { ...whereAdminApproved<Prisma.BrandWhereUniqueInput>(), id: brandId },
+    where: { ...(await whereAdminApproved<Prisma.BrandWhereUniqueInput>()), id: brandId },
   });
 });
 
 // Retrieve all of the categories from an external source (database)
-export const allCategories = cache(() => {
+export const allCategories = cache(async () => {
   return prisma.category.findMany({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) },
     include: {
       subCategories: {
-        where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
+        where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) },
         orderBy: { name: "asc" },
       },
     },

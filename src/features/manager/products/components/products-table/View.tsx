@@ -3,8 +3,8 @@ import { allProductsForTableView, getBrowseBarData } from "@/features/manager/pr
 import { getCreatedByUser } from "@/features/manager/login/db";
 
 // components
-import { TanTableInstanceProvider } from "../../stores/tan-table-instance";
-import BrowseBar from "../browse-bar";
+import { TanTableInstanceProvider } from "@/features/manager/products/stores/tan-table-instance";
+import BrowseBar from "@/features/manager/products/components/browse-bar";
 import NotFound from "@/components/NotFound";
 import ProductsTable from ".";
 
@@ -14,7 +14,7 @@ export default async function View() {
 
   if (products.length === 0)
     return (
-      <TanTableInstanceProvider products={products} browseBarData={browseBarData} createdByUser={getCreatedByUser()}>
+      <TanTableInstanceProvider products={products} browseBarData={browseBarData} createdByUser={await getCreatedByUser()}>
         <BrowseBar />
         <br />
         <NotFound message={"Products were not found!"} />
@@ -22,7 +22,7 @@ export default async function View() {
     );
 
   return (
-    <TanTableInstanceProvider products={products} browseBarData={browseBarData} createdByUser={getCreatedByUser()}>
+    <TanTableInstanceProvider products={products} browseBarData={browseBarData} createdByUser={await getCreatedByUser()}>
       <BrowseBar />
       <ProductsTable />
     </TanTableInstanceProvider>

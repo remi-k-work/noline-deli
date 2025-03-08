@@ -1,7 +1,8 @@
 // other libraries
 import { flattenValidationErrors, ValidationErrors } from "next-safe-action";
 import { loginFormSchema } from "./loginForm";
-import { AllFieldErrors } from "../../formActionTypes";
+import { AllFieldErrors } from "@/features/manager/formActionTypes";
 
 // Customize validation errors format
-export const handleValidationErrorsShape = (ve: ValidationErrors<typeof loginFormSchema>): AllFieldErrors => flattenValidationErrors(ve).fieldErrors;
+export const handleValidationErrorsShape = async (ve: ValidationErrors<typeof loginFormSchema>): Promise<AllFieldErrors> =>
+  flattenValidationErrors(ve).fieldErrors;

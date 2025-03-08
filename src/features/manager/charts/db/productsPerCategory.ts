@@ -9,23 +9,23 @@ import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manag
 // other libraries
 import type { ProductsPerCategoryData } from "./types";
 
-const allCategories = cache(() => {
+const allCategories = cache(async () => {
   return prisma.category.findMany({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) },
     select: { id: true, name: true },
     orderBy: { name: "asc" },
   });
 });
 
-const getCategory = cache((categoryId: string) => {
+const getCategory = cache(async (categoryId: string) => {
   return prisma.category.findUnique({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereUniqueInput>(), id: categoryId },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereUniqueInput>()), id: categoryId },
     select: {
       name: true,
-      ...countAdminApprovedProducts<Prisma.CategorySelect>("MtM"),
+      ...(await countAdminApprovedProducts<Prisma.CategorySelect>("MtM")),
       subCategories: {
-        where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
-        select: { name: true, ...countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM") },
+        where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) },
+        select: { name: true, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM")) },
         orderBy: { name: "asc" },
       },
     },

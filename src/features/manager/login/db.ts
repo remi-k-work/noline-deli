@@ -1,18 +1,18 @@
 // next
-import { cookies, type UnsafeUnwrappedCookies } from "next/headers";
+import { cookies } from "next/headers";
 
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
-import { getBrand } from "../brands/db";
-import { getCategory, getSubCategory } from "../categories/db";
-import { getProduct } from "../products/db";
+import { getBrand } from "@/features/manager/brands/db";
+import { getCategory, getSubCategory } from "@/features/manager/categories/db";
+import { getProduct } from "@/features/manager/products/db";
 
 const CREATED_BY_USER_COOKIE = "createdByUser";
 
-export function getCreatedByUser() {
+export async function getCreatedByUser() {
   // Try obtaining the created-by-user value from a local cookie
-  const createdByUser = (cookies() as unknown as UnsafeUnwrappedCookies).get(CREATED_BY_USER_COOKIE)?.value;
+  const createdByUser = (await cookies()).get(CREATED_BY_USER_COOKIE)?.value;
 
   // We obtained the created-by-user value; ensure that it is a valid objectid recognized by mongodb
   if (createdByUser && createdByUser.match(/^[0-9a-fA-F]{24}$/)) return createdByUser;
@@ -37,20 +37,20 @@ export async function setCreatedByUser() {
 // 1) View live content that is only created by admins
 // 2) If an administrator is impersonated, still check for the "isApproved" flag, which can only be changed at the database level
 // 3) Combine the above with the specific (local cookie) user's content
-export function whereAdminApproved<WhereT>(): WhereT {
-  return { AND: { OR: [{ user: { role: "ADMIN" }, isApproved: true }, { createdBy: getCreatedByUser() }] } } as WhereT;
+export async function whereAdminApproved<WhereT>(): Promise<WhereT> {
+  return { AND: { OR: [{ user: { role: "ADMIN" }, isApproved: true }, { createdBy: await getCreatedByUser() }] } } as WhereT;
 }
 
 // Gather only the stuff created by you, the user
-export function whereCreatedByYou<WhereT>(): WhereT {
-  return { createdBy: getCreatedByUser() } as WhereT;
+export async function whereCreatedByYou<WhereT>(): Promise<WhereT> {
+  return { createdBy: await getCreatedByUser() } as WhereT;
 }
 
 // Make sure to count only admin-approved + current user-created products (consider the relationship type)
-export function countAdminApprovedProducts<SelectT>(rel: "MtM" | "OtM"): SelectT {
+export async function countAdminApprovedProducts<SelectT>(rel: "MtM" | "OtM"): Promise<SelectT> {
   return rel === "MtM"
-    ? ({ _count: { select: { products: { where: { product: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } } as SelectT)
-    : ({ _count: { select: { products: { where: { ...whereAdminApproved<Prisma.ProductWhereInput>() } } } } } as SelectT);
+    ? ({ _count: { select: { products: { where: { product: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } } } } } } as SelectT)
+    : ({ _count: { select: { products: { where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } } } } } as SelectT);
 }
 
 export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {
@@ -67,7 +67,7 @@ export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCate
         if (role === "ADMIN") return true;
 
         // Cannot alter someone else's content
-        if (createdBy !== getCreatedByUser()) return true;
+        if (createdBy !== (await getCreatedByUser())) return true;
       }
       // Access is granted
       return false;
@@ -84,7 +84,7 @@ export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCate
         if (role === "ADMIN") return true;
 
         // Cannot alter someone else's content
-        if (createdBy !== getCreatedByUser()) return true;
+        if (createdBy !== (await getCreatedByUser())) return true;
       }
       // Access is granted
       return false;
@@ -101,7 +101,7 @@ export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCate
         if (role === "ADMIN") return true;
 
         // Cannot alter someone else's content
-        if (createdBy !== getCreatedByUser()) return true;
+        if (createdBy !== (await getCreatedByUser())) return true;
       }
       // Access is granted
       return false;
@@ -118,7 +118,7 @@ export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCate
         if (role === "ADMIN") return true;
 
         // Cannot alter someone else's content
-        if (createdBy !== getCreatedByUser()) return true;
+        if (createdBy !== (await getCreatedByUser())) return true;
       }
       // Access is granted
       return false;

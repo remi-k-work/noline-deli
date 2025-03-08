@@ -4,8 +4,8 @@ import { cache } from "react";
 // prisma and db access
 import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
-import { allBrands } from "../brands/db";
-import { allCategories } from "../categories/db";
+import { allBrands } from "@/features/manager/brands/db";
+import { allCategories } from "@/features/manager/categories/db";
 import { countAdminApprovedProducts, whereAdminApproved } from "@/features/manager/login/db";
 
 // types
@@ -60,8 +60,8 @@ export const getBrowseBarData = cache(async () => {
     name: brandName,
     _count: { products },
   } of await prisma.brand.findMany({
-    where: { ...whereAdminApproved<Prisma.BrandWhereInput>() },
-    select: { name: true, ...countAdminApprovedProducts<Prisma.BrandSelect>("OtM") },
+    where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) },
+    select: { name: true, ...(await countAdminApprovedProducts<Prisma.BrandSelect>("OtM")) },
     orderBy: { name: "asc" },
   })) {
     data.productsByBrand.push({ brandName, products });
@@ -72,8 +72,8 @@ export const getBrowseBarData = cache(async () => {
     name: categoryName,
     _count: { products },
   } of await prisma.category.findMany({
-    where: { ...whereAdminApproved<Prisma.CategoryWhereInput>() },
-    select: { name: true, ...countAdminApprovedProducts<Prisma.CategorySelect>("MtM") },
+    where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) },
+    select: { name: true, ...(await countAdminApprovedProducts<Prisma.CategorySelect>("MtM")) },
     orderBy: { name: "asc" },
   })) {
     data.productsByCategory.push({ categoryName, products });
@@ -85,8 +85,8 @@ export const getBrowseBarData = cache(async () => {
     category: { name: categoryName },
     _count: { products },
   } of await prisma.subCategory.findMany({
-    where: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>() },
-    select: { name: true, category: { select: { name: true } }, ...countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM") },
+    where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) },
+    select: { name: true, category: { select: { name: true } }, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM")) },
     orderBy: { name: "asc" },
   })) {
     data.productsBySubCategory.push({ categoryName, subCategoryName, products });
@@ -104,16 +104,16 @@ function createMoreImages(createdBy: string, moreImagesUrls?: string[]): Prisma.
   return moreImagesUrls ? { create: moreImagesUrls.map((extraImageUrl) => ({ createdBy, imageUrl: extraImageUrl })) } : undefined;
 }
 
-function whereCategory(categoryId?: string): Prisma.ProductWhereInput {
+async function whereCategory(categoryId?: string): Promise<Prisma.ProductWhereInput> {
   return categoryId === undefined
     ? { categories: undefined }
-    : { categories: { some: { category: { is: { ...whereAdminApproved<Prisma.CategoryWhereInput>(), id: categoryId } } } } };
+    : { categories: { some: { category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } } } } };
 }
 
-function whereSubCategory(subCategoryId?: string): Prisma.ProductWhereInput {
+async function whereSubCategory(subCategoryId?: string): Promise<Prisma.ProductWhereInput> {
   return subCategoryId === undefined
     ? { subCategories: undefined }
-    : { subCategories: { some: { subCategory: { is: { ...whereAdminApproved<Prisma.SubCategoryWhereInput>(), id: subCategoryId } } } } };
+    : { subCategories: { some: { subCategory: { is: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()), id: subCategoryId } } } } };
 }
 
 function whereFilter(byBrandId?: string, byPriceBelow?: number, byFreeShipping?: boolean): Prisma.ProductWhereInput {
@@ -132,13 +132,16 @@ export const getProductFormData = cache(() => {
 });
 
 // Get all the information you need about this particular product
-export const getProduct = cache((productId: string) => {
-  return prisma.product.findUnique({ where: { ...whereAdminApproved<Prisma.ProductWhereUniqueInput>(), id: productId }, include: INCLUDE_PRODUCT_WITH_ALL });
+export const getProduct = cache(async (productId: string) => {
+  return prisma.product.findUnique({
+    where: { ...(await whereAdminApproved<Prisma.ProductWhereUniqueInput>()), id: productId },
+    include: INCLUDE_PRODUCT_WITH_ALL,
+  });
 });
 
 // Delete the given product and its associated data
-export function deleteProduct(productId: string) {
-  return prisma.product.delete({ where: { ...whereAdminApproved<Prisma.ProductWhereUniqueInput>(), id: productId } });
+export async function deleteProduct(productId: string) {
+  return prisma.product.delete({ where: { ...(await whereAdminApproved<Prisma.ProductWhereUniqueInput>()), id: productId } });
 }
 
 // To update an existing product, delete it and recreate it with new data
@@ -159,14 +162,14 @@ export function updateProduct(
   // Use the approach of deleting and recreating the product with a transaction
   // "onDelete: Cascade" ensures related data is removed
   // Potential data loss: even with transactions, there is a small window of vulnerability during the deletion phase if the recreation fails
-  return prisma.$transaction([
+  return prisma.$transaction(async () => [
     deleteProduct(productId),
     createProduct(createdBy, brandId, name, description, imageUrl, price, freeShipping, categoryId, subCategoryId, moreImagesUrls, orgCreatedAt),
   ]);
 }
 
 // Generate an entirely new product with all the associated data
-export function createProduct(
+export async function createProduct(
   createdBy: string,
   brandId: string,
   name: string,
@@ -197,12 +200,12 @@ export function createProduct(
 }
 
 // Retrieve all products for the local in-memory representation used by the tanstack table
-export function allProductsForTableView() {
-  return prisma.product.findMany({ where: { ...whereAdminApproved<Prisma.ProductWhereInput>() }, include: INCLUDE_PRODUCT_WITH_INFO });
+export async function allProductsForTableView() {
+  return prisma.product.findMany({ where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) }, include: INCLUDE_PRODUCT_WITH_INFO });
 }
 
 // Retrieve all products from an external source (database) using offset pagination
-export function allProductsWithPagination(
+export async function allProductsWithPagination(
   itemsPerPage: number,
   sortByField: string,
   sortByOrder: string,
@@ -220,18 +223,18 @@ export function allProductsWithPagination(
   return Promise.all([
     prisma.product.count({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
-        ...whereCategory(categoryId),
-        ...whereSubCategory(subCategoryId),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
+        ...(await whereCategory(categoryId)),
+        ...(await whereSubCategory(subCategoryId)),
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
     }),
     prisma.product.findMany({
       where: {
-        ...whereAdminApproved<Prisma.ProductWhereInput>(),
-        ...whereCategory(categoryId),
-        ...whereSubCategory(subCategoryId),
+        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
+        ...(await whereCategory(categoryId)),
+        ...(await whereSubCategory(subCategoryId)),
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
