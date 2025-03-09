@@ -18,7 +18,7 @@
   border-radius: var(--radius-3);
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  z-index: var(--layer-5);
+  z-index: calc(var(--layer-5) * 10);
 
   animation: contentShow 250ms ease;
 

@@ -2,15 +2,12 @@
 import styles from "./Content.module.css";
 
 // react
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { ComponentProps } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
 import { Content as RdxContent } from "@radix-ui/react-navigation-menu";
 
-const Content = forwardRef<ElementRef<typeof RdxContent>, ComponentPropsWithoutRef<typeof RdxContent>>(({ className, ...props }, ref) => (
-  <RdxContent ref={ref} className={cn(styles["content"], className)} {...props} />
-));
-Content.displayName = RdxContent.displayName;
-
-export default Content;
+export default function Content({ className, ...props }: ComponentProps<typeof RdxContent>) {
+  return <RdxContent className={cn(styles["content"], className)} {...props} />;
+}

@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/orders/stores/tan-table-instance";
 import { DateRange } from "react-day-picker";
 
 // components

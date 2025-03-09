@@ -9,7 +9,7 @@
   transition: backdrop-filter 1s ease;
 
   overscroll-behavior: contain;
-  z-index: var(--layer-5);
+  z-index: calc(var(--layer-5) * 10);
 
   animation: overlayShow 250ms ease;
 }

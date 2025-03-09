@@ -4,15 +4,15 @@
 import styles from "./SortBy.module.css";
 
 // react
-import { Dispatch, forwardRef, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 // next
 import Link from "next/link";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import type { SortByField, SortByOrder } from "../SearchParamsState";
-import useSearchParamsState from "../hooks/useSearchParamsState";
+import type { SortByField, SortByOrder } from "@/features/manager/SearchParamsState";
+import useSearchParamsState from "@/features/manager/hooks/useSearchParamsState";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -87,17 +87,16 @@ export default function SortBy({ sortByFields, totalItems, className }: SortByPr
   );
 }
 
-const SortByIcon = forwardRef<HTMLElement, SortByIconProps>(({ sortByField, sortByOrder, ...props }: SortByIconProps, ref) => {
+function SortByIcon({ sortByField, sortByOrder, ...props }: SortByIconProps) {
   return (
-    <header ref={ref} className="flex items-center" {...props}>
+    <header className="flex items-center" {...props}>
       {sortByField === "id" && <TagIcon width={24} height={24} />}
       {sortByField === "price" && <CurrencyDollarIcon width={24} height={24} />}
       {sortByField === "name" && <LanguageIcon width={24} height={24} />}
       {sortByOrder === "asc" ? <ChevronUpIcon width={24} height={24} /> : <ChevronDownIcon width={24} height={24} />}
     </header>
   );
-});
-SortByIcon.displayName = "SortByIcon";
+}
 
 function SortByLink({ newSortByField, newSortByOrder, description, setOpen }: SortByLinkProps) {
   const { isSortBySelected, sortByChanged } = useSearchParamsState();

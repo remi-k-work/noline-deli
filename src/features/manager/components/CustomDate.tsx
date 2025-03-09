@@ -55,61 +55,65 @@ function CalendarFooter({ dateRange, setOpen, onRangePicked }: CalendarFooterPro
   if (!dateRange) {
     return (
       <Alert>
-        <InformationCircleIcon className="h-4 w-4" />
-        <AlertTitle className="max-w-none">Please select one or more days to specify a range</AlertTitle>
+        <InformationCircleIcon width={24} height={24} />
+        <AlertTitle>Please select one or more days to specify a range</AlertTitle>
       </Alert>
     );
   }
 
   return (
     <Alert>
-      <InformationCircleIcon className="h-4 w-4" />
-      <AlertTitle className="max-w-none">You selected</AlertTitle>
-      <AlertDescription className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-5">
-        {dateRange.from && (
-          <span className="flex items-center gap-2">
-            <CalendarDateRangeIcon className="h-5 w-5" />
-            {formatDate(dateRange.from)}
-          </span>
-        )}
-        {dateRange.to ? (
-          <span className="flex items-center gap-2">
-            <CalendarDateRangeIcon className="h-5 w-5" />
-            {formatDate(dateRange.to)}
-          </span>
-        ) : (
-          <span className="flex items-center gap-2">
-            <CalendarDateRangeIcon className="h-5 w-5" />
-            Today
-          </span>
-        )}
+      <InformationCircleIcon width={24} height={24} />
+      <AlertTitle>You selected</AlertTitle>
+      <AlertDescription className="flex items-center justify-between gap-4">
+        <header className="flex-3/4">
+          {dateRange.from && (
+            <span className="flex items-center gap-2">
+              <CalendarDateRangeIcon width={24} height={24} />
+              {formatDate(dateRange.from)}
+            </span>
+          )}
+          {dateRange.to ? (
+            <span className="flex items-center gap-2">
+              <CalendarDateRangeIcon width={24} height={24} />
+              {formatDate(dateRange.to)}
+            </span>
+          ) : (
+            <span className="flex items-center gap-2">
+              <CalendarDateRangeIcon width={24} height={24} />
+              Today
+            </span>
+          )}
+        </header>
+        <footer className="grid flex-1/4 gap-2">
+          <Button
+            type="button"
+            size="block"
+            onClick={() => {
+              // Convert the local calendar date to utc to ensure consistency with our database and calculations
+              onRangePicked({
+                from: dateRange.from && convertLocalDateToUTCIgnoringTimezone(dateRange.from),
+                to: dateRange.to && convertLocalDateToUTCIgnoringTimezone(dateRange.to),
+              });
+              setOpen(false);
+            }}
+          >
+            <HandThumbUpIcon width={24} height={24} />
+            Apply
+          </Button>
+          <Button
+            type="button"
+            size="block"
+            variant="secondary"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <HandThumbDownIcon width={24} height={24} />
+            Cancel
+          </Button>
+        </footer>
       </AlertDescription>
-      <footer className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-5">
-        <Button
-          type="button"
-          onClick={() => {
-            // Convert the local calendar date to utc to ensure consistency with our database and calculations
-            onRangePicked({
-              from: dateRange.from && convertLocalDateToUTCIgnoringTimezone(dateRange.from),
-              to: dateRange.to && convertLocalDateToUTCIgnoringTimezone(dateRange.to),
-            });
-            setOpen(false);
-          }}
-        >
-          <HandThumbUpIcon className="mr-2 h-5 w-5" />
-          Apply
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={() => {
-            setOpen(false);
-          }}
-        >
-          <HandThumbDownIcon className="mr-2 h-5 w-5" />
-          Cancel
-        </Button>
-      </footer>
     </Alert>
   );
 }

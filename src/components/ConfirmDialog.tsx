@@ -2,7 +2,7 @@
 import styles from "./ConfirmDialog.module.css";
 
 // react
-import { forwardRef, ReactNode } from "react";
+import { ComponentProps } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -15,16 +15,15 @@ import { lusitana } from "@/assets/fonts";
 import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 // types
-interface ConfirmDialogProps {
+interface ConfirmDialogProps extends ComponentProps<"dialog"> {
   onConfirmed: () => void;
-  children: ReactNode;
 }
 
-const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onConfirmed, children, ...props }: ConfirmDialogProps, ref) => {
+export default function ConfirmDialog({ onConfirmed, children, ...props }: ConfirmDialogProps) {
   return (
-    <dialog ref={ref} className={styles["confirm-dialog"]} {...props}>
+    <dialog className={styles["confirm-dialog"]} {...props}>
       <form method="dialog">
-        <header className={cn(lusitana.className, "bg-linear-to-r from-primary to-secondary text-xl text-primary-foreground")} data-testid="titleBar">
+        <header className={cn(lusitana.className, "from-primary to-secondary text-primary-foreground bg-linear-to-r text-xl")} data-testid="titleBar">
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
         </header>
@@ -42,7 +41,4 @@ const ConfirmDialog = forwardRef<HTMLDialogElement, ConfirmDialogProps>(({ onCon
       </form>
     </dialog>
   );
-});
-ConfirmDialog.displayName = "ConfirmDialog";
-
-export default ConfirmDialog;
+}

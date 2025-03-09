@@ -2,7 +2,7 @@
 import styles from "./Link.module.css";
 
 // react
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { ComponentProps } from "react";
 
 // next
 import { usePathname } from "next/navigation";
@@ -11,18 +11,15 @@ import { default as NextLink } from "next/link";
 // other libraries
 import { Link as RdxLink } from "@radix-ui/react-navigation-menu";
 
-const Link = forwardRef<ElementRef<typeof RdxLink>, ComponentPropsWithoutRef<typeof RdxLink>>(({ href, className, children, ...props }, ref) => {
+export default function Link({ href, className, children, ...props }: ComponentProps<typeof RdxLink>) {
   const pathname = usePathname();
   const isActive = href === pathname;
 
   return (
-    <RdxLink ref={ref} asChild active={isActive} {...props}>
+    <RdxLink active={isActive} asChild {...props}>
       <NextLink href={href!} className={styles["link"]}>
         <div className={className}>{children}</div>
       </NextLink>
     </RdxLink>
   );
-});
-Link.displayName = RdxLink.displayName;
-
-export default Link;
+}

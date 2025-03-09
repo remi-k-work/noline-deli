@@ -31,9 +31,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, props: RouteProps) {
   const params = await props.params;
 
-  const {
-    name
-  } = params;
+  const { name } = params;
 
   // Load the pool of fonts used by our captcha
   const fontsDir = path.resolve(process.cwd(), FONTS_DIR);

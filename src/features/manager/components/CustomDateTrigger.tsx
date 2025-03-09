@@ -25,7 +25,7 @@ export default function CustomDateTrigger({ dateRange, setOpen, onRangePicked }:
       asChild
       trigger={
         <Button type="button" variant="outline">
-          <CalendarDateRangeIcon className="mr-2 h-5 w-5" />
+          <CalendarDateRangeIcon width={24} height={24} />
           Custom Date...
         </Button>
       }
