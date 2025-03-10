@@ -17,7 +17,6 @@ import ShippingMethod, { SHIPPING_COSTS, SHIPPING_METHODS } from "./ShippingMeth
 import CartTable from "@/features/cart/components/cart-table";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { CalculatorIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -55,7 +54,7 @@ export default function Checkout({ cart }: CheckoutProps) {
         />
       </ElementsProvider>
       <section className={styles["checkout__order-summary"]}>
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           <CalculatorIcon width={64} height={64} />
           Order Summary
         </h2>

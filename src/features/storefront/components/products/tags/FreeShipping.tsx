@@ -1,5 +1,5 @@
 // components
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 
 // assets
 import { TruckIcon } from "@heroicons/react/24/solid";

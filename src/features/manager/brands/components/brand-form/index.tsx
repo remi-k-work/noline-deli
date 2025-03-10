@@ -31,7 +31,6 @@ import FormSubmit from "@/features/manager/components/FormSubmit";
 import BrandExcerpt from "@/features/manager/brands/components/BrandExcerpt";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -81,7 +80,7 @@ function TheFormWrapped({ brand, isModal = false, onResetClicked }: TheFormWrapp
   return (
     <article className={styles["brand-form"]}>
       {!isModal && (
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           {brand ? (
             <>
               <PencilSquareIcon width={64} height={64} />
@@ -110,7 +109,7 @@ function TheFormWrapped({ brand, isModal = false, onResetClicked }: TheFormWrapp
               defaultValue={name}
             />
             <section className={styles["brand-form__logo"]}>
-              <header className={lusitana.className}>Brand Logo</header>
+              <header className="font-lusitana">Brand Logo</header>
               <Logo />
             </section>
             <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />

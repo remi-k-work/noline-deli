@@ -16,7 +16,6 @@
   padding-block: var(--size-2) var(--size-2);
   text-align: center;
   box-shadow: var(--inner-shadow-4);
-  font-weight: var(--font-weight-9);
   border-start-start-radius: var(--size-3);
   border-start-end-radius: var(--size-3);
 }

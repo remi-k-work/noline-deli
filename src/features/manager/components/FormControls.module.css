@@ -10,7 +10,6 @@
   color: var(--text-2);
   padding-block: var(--size-4) var(--size-1);
   font-size: var(--font-size-0);
-  font-weight: var(--font-weight-9);
   text-transform: uppercase;
   flex: none;
 }

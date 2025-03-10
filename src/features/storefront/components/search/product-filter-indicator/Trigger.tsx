@@ -4,7 +4,7 @@ import useSearchParamsState from "@/hooks/useSearchParamsState";
 // components
 import { PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/custom/button";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator";
 
 // assets

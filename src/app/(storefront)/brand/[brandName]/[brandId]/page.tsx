@@ -14,7 +14,6 @@ import { default as allProductsByBrand } from "@/features/storefront/db/all-prod
 import { getBrand } from "@/features/storefront/db";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 import SearchParamsState from "@/lib/SearchParamsState";
 
@@ -23,9 +22,6 @@ import MainLayout from "@/features/storefront/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
 import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
@@ -51,9 +47,7 @@ function getSectionTitle(brandName: string) {
 export async function generateMetadata(props: PageProps) {
   const params = await props.params;
 
-  const {
-    brandName
-  } = params;
+  const { brandName } = params;
 
   return { title: `NoLine-Deli ► ${getSectionTitle(brandName)}` };
 }
@@ -62,10 +56,7 @@ export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const {
-    brandName,
-    brandId
-  } = params;
+  const { brandName, brandId } = params;
 
   const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
 
@@ -99,7 +90,7 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
   return (
     <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
         {logoUrl && (
           <header className="mb-4">
             <Image
@@ -131,9 +122,9 @@ function PageSkeleton({ brandName, searchParamsState: { isListMode } }: PageSkel
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(brandName)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
         <header className="mb-4">
-          <div className="m-auto h-48 w-72 animate-pulse rounded-lg bg-background"></div>
+          <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
         </header>
         <PaginateSkeleton />
         <br />

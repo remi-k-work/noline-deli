@@ -15,7 +15,6 @@ import PrevNext from "./PrevNext";
 import JumpToImage from "./JumpToImage";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 export default function ProductFormImages() {
@@ -23,7 +22,7 @@ export default function ProductFormImages() {
 
   return (
     <section className={styles["product-form-images"]}>
-      <header className={cn(lusitana.className, styles["product-form-images__label"])}>Product Images</header>
+      <header className={cn("font-lusitana", styles["product-form-images__label"])}>Product Images</header>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button type="button" size="icon" variant="outline" className={styles["product-form-images__toolbar"]} onClick={imageAdded}>

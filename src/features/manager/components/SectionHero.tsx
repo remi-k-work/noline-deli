@@ -9,9 +9,6 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import Hero, { HeroContent, HeroOverlay } from "@/components/ui/custom/hero";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface SectionHeroProps {
   heroBanner: StaticImageData;
@@ -28,8 +25,8 @@ interface SectionLinkProps {
 export default function SectionHero({ heroBanner, sectionTitle, sectionLink }: SectionHeroProps) {
   return (
     <Hero className="mb-4">
-      <HeroContent className={cn(lusitana.className, "justify-self-start")}>
-        <h1 className={cn(lusitana.className, "text-xl lg:text-2xl")}>
+      <HeroContent className="font-lusitana justify-self-start">
+        <h1 className="text-xl lg:text-2xl">
           <Link href={PathFinder.toManagerHome()} className="link">
             Manager
           </Link>
@@ -54,7 +51,7 @@ export function SectionLink({ linkBanner, sectionTitle, sectionLink }: SectionLi
   return (
     <Link href={sectionLink} className="sepia hover:sepia-0">
       <Hero>
-        <HeroContent className={lusitana.className}>
+        <HeroContent className="font-lusitana">
           <p className="text-center text-2xl lg:text-3xl">{sectionTitle}</p>
         </HeroContent>
         <HeroOverlay>

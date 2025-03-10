@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import ByContext from "./ByContext";

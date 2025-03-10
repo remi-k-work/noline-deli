@@ -7,7 +7,7 @@ import { FormEvent, useState } from "react";
 import type { DerivedCartWithItems } from "@/features/cart/db/cart";
 
 // server actions and mutations
-import { createPaymentIntent } from "../../actions/checkout";
+import { createPaymentIntent } from "@/features/cart/actions/checkout";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -19,7 +19,6 @@ import { Button } from "@/components/ui/custom/button";
 import { ErrorMessage } from "@/features/manager/components/FormControls";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { BanknotesIcon, CreditCardIcon } from "@heroicons/react/24/solid";
 import { Loader2 } from "lucide-react";
 
@@ -89,7 +88,7 @@ export default function Form({ cart: { id: orderedCartId, subTotal, taxAmount },
   return (
     <>
       <section className={billAndShipCn}>
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           <CreditCardIcon width={64} height={64} />
           Billing & Shipping
         </h2>

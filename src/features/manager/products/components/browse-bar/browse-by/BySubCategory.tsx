@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/components/ui/dropdown-menu";
 
 // types

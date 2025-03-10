@@ -28,7 +28,6 @@ import FormSubmit from "./FormSubmit";
 import Captcha from "@/features/auth/components/Captcha";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { KeyIcon } from "@heroicons/react/24/solid";
 
 export default function LoginForm() {
@@ -90,7 +89,7 @@ function TheFormWrapped() {
 
   return (
     <article className={styles["login-form"]}>
-      <h2 className={lusitana.className}>
+      <h2 className="font-lusitana">
         <KeyIcon width={64} height={64} />
         Login
       </h2>

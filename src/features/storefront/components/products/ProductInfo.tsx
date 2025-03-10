@@ -16,9 +16,6 @@ import { default as PriceTag } from "@/features/storefront/components/products/t
 import { default as BrandTag } from "@/features/storefront/components/products/tags/Brand";
 import { default as FreeShippingTag } from "@/features/storefront/components/products/tags/FreeShipping";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface ProductInfoProps {
   product: ProductWithAll;
@@ -27,7 +24,7 @@ interface ProductInfoProps {
 export default function ProductInfo({ product, product: { name, description, imageUrl, price } }: ProductInfoProps) {
   return (
     <Table className={styles["product-info"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           <TableHead className="w-[50%]">Name</TableHead>
           <TableHead className="w-[50%] text-end">Price</TableHead>
@@ -40,7 +37,7 @@ export default function ProductInfo({ product, product: { name, description, ima
             <PriceTag priceInCents={price} />
           </TableCell>
         </TableRow>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Image</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -58,7 +55,7 @@ export default function ProductInfo({ product, product: { name, description, ima
         <CategoryAndSubCategory product={product} />
         <Brand product={product} />
         <MoreImages product={product} />
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -76,7 +73,7 @@ function CategoryAndSubCategory({ product: { categories, subCategories } }: Prod
   return (
     (categories.length > 0 || subCategories.length > 0) && (
       <>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead>Category</TableHead>
           <TableHead className="text-end">SubCategory</TableHead>
         </TableRow>
@@ -105,7 +102,7 @@ function Brand({ product: { brand } }: ProductInfoProps) {
   return (
     brand && (
       <>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Brand</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -122,7 +119,7 @@ function MoreImages({ product: { name, moreImages } }: ProductInfoProps) {
   return (
     moreImages.length > 0 && (
       <>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>More Images</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -151,7 +148,7 @@ function OtherInfo({ product: { freeShipping } }: ProductInfoProps) {
   return (
     freeShipping && (
       <>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Other Info</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">

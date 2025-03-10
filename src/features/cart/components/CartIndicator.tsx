@@ -17,7 +17,7 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/custom/button";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator";
 
 // assets
@@ -94,5 +94,5 @@ export default function CartIndicator({ cart, className }: CartIndicatorProps) {
 }
 
 export function CartIndicatorSkeleton({ className }: Pick<CartIndicatorProps, "className">) {
-  return <div className={cn("h-12 w-12 animate-pulse rounded-full bg-background", className)} />;
+  return <div className={cn("bg-background h-12 w-12 animate-pulse rounded-full", className)} />;
 }

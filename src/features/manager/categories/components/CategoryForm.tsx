@@ -29,7 +29,6 @@ import { FormInputField } from "@/features/manager/components/FormControls";
 import FormSubmit from "@/features/manager/components/FormSubmit";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -79,7 +78,7 @@ function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWr
   return (
     <article className={styles["category-form"]}>
       {!isModal && (
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           {category ? (
             <>
               <PencilSquareIcon width={64} height={64} />

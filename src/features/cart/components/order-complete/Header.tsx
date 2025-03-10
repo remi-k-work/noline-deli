@@ -14,7 +14,6 @@ import UserDateTime from "@/components/UserDateTime";
 import ShipTo from "./ShipTo";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { CalculatorIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -43,33 +42,33 @@ export default function Header({
 
   return (
     <article className={cn(styles["header"], className)}>
-      <h2 className={lusitana.className}>
+      <h2 className="font-lusitana">
         <CalculatorIcon width={64} height={64} />
         Order Summary
       </h2>
       <section className={styles["header__summary"]}>
         <div>
-          <h3 className={lusitana.className}>Order Number</h3>
+          <h3 className="font-lusitana">Order Number</h3>
           <p>{orderNumber}</p>
         </div>
         <div>
-          <h3 className={lusitana.className}>Date</h3>
+          <h3 className="font-lusitana">Date</h3>
           <UserDateTime created={created} />
         </div>
         <div>
-          <h3 className={lusitana.className}>Email</h3>
+          <h3 className="font-lusitana">Email</h3>
           <p>{customerEmail}</p>
         </div>
         <div>
-          <h3 className={lusitana.className}>Total</h3>
+          <h3 className="font-lusitana">Total</h3>
           <p>{formatCurrency(amount)}</p>
         </div>
         <div>
-          <h3 className={lusitana.className}>Payment Method</h3>
+          <h3 className="font-lusitana">Payment Method</h3>
           <p>{paymentMethod}</p>
         </div>
         <div>
-          <h3 className={lusitana.className}>Receipt</h3>
+          <h3 className="font-lusitana">Receipt</h3>
           {receiptUrl ? (
             <Link href={receiptUrl} target="_blank" className="link">
               View Receipt
@@ -79,11 +78,11 @@ export default function Header({
           )}
         </div>
         <div>
-          <h3 className={lusitana.className}>Ship To</h3>
+          <h3 className="font-lusitana">Ship To</h3>
           <ShipTo paymentIntent={paymentIntent} />
         </div>
         <div>
-          <h3 className={lusitana.className}>Shipping Method</h3>
+          <h3 className="font-lusitana">Shipping Method</h3>
           <p>{shippingMethod}</p>
         </div>
       </section>

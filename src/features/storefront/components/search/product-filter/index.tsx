@@ -22,9 +22,6 @@ import ByPriceBelow, { ByPriceBelowSkeleton } from "./ByPriceBelow";
 import ByFreeShipping, { ByFreeShippingSkeleton } from "./ByFreeShipping";
 import Footer, { FooterSkeleton } from "./Footer";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface ProductFilterProps {
   productFilterData: ProductFilterData;
@@ -41,7 +38,7 @@ export default function ProductFilter({ productFilterData, filteredCount = 0, sh
 
   return (
     <article className={cn(styles["product-filter"], className)}>
-      <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
+      <h4 className="font-lusitana text-xl">Filter Products</h4>
       <form>
         <ByBrandId productFilterData={productFilterData} />
         <ByPriceBelow productFilterData={productFilterData} />
@@ -59,7 +56,7 @@ export function ProductFilterSkeleton({ sheetMode = false, className }: Omit<Pro
 
   return (
     <div className={cn(styles["product-filter"], className)}>
-      <h4 className={cn(lusitana.className, "text-xl")}>Filter Products</h4>
+      <h4 className="font-lusitana text-xl">Filter Products</h4>
       <form>
         <ByBrandIdSkeleton />
         <ByPriceBelowSkeleton />

@@ -5,15 +5,11 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import stripe from "@/services/stripe";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
 import OrderComplete from "@/features/cart/components/order-complete";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
@@ -27,9 +23,7 @@ export const metadata = {
 export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
 
-  const {
-    payment_intent
-  } = searchParams;
+  const { payment_intent } = searchParams;
 
   // When stripe redirects the customer to the return_url, the payment_intent query parameter is appended by stripe.js
   if (!payment_intent) notFound();
@@ -40,7 +34,7 @@ export default async function Page(props: PageProps) {
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Order Complete</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Order Complete</h1>
         <OrderComplete paymentIntent={paymentIntent} />
       </article>
     </MainLayout>

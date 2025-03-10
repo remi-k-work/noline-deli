@@ -4,7 +4,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import type { SubCategoryWithInfo } from "../../../categories/db";
+import type { SubCategoryWithInfo } from "@/features/manager/categories/db";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -12,9 +12,6 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface SubCategoriesTableProps {
@@ -28,7 +25,7 @@ export default function SubCategoriesTable({ subCategories, createdByUser }: Sub
 
   return (
     <Table className={styles["subcategories-table"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>
@@ -56,7 +53,7 @@ export default function SubCategoriesTable({ subCategories, createdByUser }: Sub
           <Entry key={subCategory.id} subCategory={subCategory} createdByUser={createdByUser} />
         ))}
       </TableBody>
-      <TableFooter className={lusitana.className}>
+      <TableFooter className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>

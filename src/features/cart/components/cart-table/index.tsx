@@ -8,9 +8,6 @@ import { formatCurrency } from "@/lib/formatters";
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface CartTableProps {
   cart: DerivedCartWithItems;
@@ -22,7 +19,7 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
 
   return (
     <Table>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           <TableHead className="w-[70%]">Item</TableHead>
           <TableHead className="w-[30%] text-end">Qty / Total</TableHead>
@@ -33,10 +30,10 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
           <Entry key={cartItem.id} cartItem={cartItem} />
         ))}
       </TableBody>
-      <TableFooter className={lusitana.className}>
+      <TableFooter className="font-lusitana">
         <TableRow>
           <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
-          <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">
+          <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">
             {totalQty} / {formatCurrency(subTotal)}
           </TableHead>
         </TableRow>
@@ -44,15 +41,15 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
           <>
             <TableRow>
               <TableHead className="text-end text-xl">Taxes:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(taxAmount)}</TableHead>
+              <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(taxAmount)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-xl">Shipping:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-xl">{formatCurrency(shippingCost)}</TableHead>
+              <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(shippingCost)}</TableHead>
             </TableRow>
             <TableRow>
               <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-              <TableHead className="overflow-clip whitespace-nowrap text-end text-2xl underline">
+              <TableHead className="overflow-clip text-end text-2xl whitespace-nowrap underline">
                 {formatCurrency(subTotal + taxAmount + shippingCost)}
               </TableHead>
             </TableRow>

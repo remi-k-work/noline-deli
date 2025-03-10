@@ -15,9 +15,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { default as PriceTag } from "@/features/storefront/components/products/tags/Price";
 import { default as BrandTag } from "@/features/storefront/components/products/tags/Brand";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface OrderedItemInfoProps {
   orderedItem: OrderedItem;
@@ -26,7 +23,7 @@ interface OrderedItemInfoProps {
 export default function OrderedItemInfo({ orderedItem, orderedItem: { name, description, imageUrl, price } }: OrderedItemInfoProps) {
   return (
     <Table className={styles["ordered-item-info"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           <TableHead className="w-[50%]">Name</TableHead>
           <TableHead className="w-[50%] text-end">Price</TableHead>
@@ -39,7 +36,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
             <PriceTag priceInCents={price} />
           </TableCell>
         </TableRow>
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Image</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -56,7 +53,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
         </TableRow>
         <CategoryAndSubCategory orderedItem={orderedItem} />
         <Brand orderedItem={orderedItem} />
-        <TableRow className={lusitana.className}>
+        <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
         <TableRow className="bg-(--surface-3)">
@@ -72,7 +69,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
 function CategoryAndSubCategory({ orderedItem: { categoryName, subCategoryName } }: OrderedItemInfoProps) {
   return (
     <>
-      <TableRow className={lusitana.className}>
+      <TableRow className="font-lusitana">
         <TableHead>Category</TableHead>
         <TableHead className="text-end">SubCategory</TableHead>
       </TableRow>
@@ -87,7 +84,7 @@ function CategoryAndSubCategory({ orderedItem: { categoryName, subCategoryName }
 function Brand({ orderedItem: { brandName, brandLogo } }: OrderedItemInfoProps) {
   return (
     <>
-      <TableRow className={lusitana.className}>
+      <TableRow className="font-lusitana">
         <TableHead colSpan={2}>Brand</TableHead>
       </TableRow>
       <TableRow className="bg-(--surface-3)">

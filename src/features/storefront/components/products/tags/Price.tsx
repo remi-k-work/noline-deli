@@ -2,7 +2,7 @@
 import { formatCurrency } from "@/lib/formatters";
 
 // components
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 
 // types
 interface PriceProps {

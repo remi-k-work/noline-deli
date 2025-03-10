@@ -11,7 +11,6 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { default as searchProducts } from "@/features/storefront/db/all-products/search";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
@@ -19,9 +18,6 @@ import MainLayout from "@/features/storefront/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
 import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
@@ -70,7 +66,7 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
   return (
     <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">
           {getSectionTitle()} ► &quot;{keyword}&quot;
         </h1>
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
@@ -91,7 +87,7 @@ function PageSkeleton({ searchParamsState: { keyword, isListMode } }: PageSkelet
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">
           {getSectionTitle()} ► &quot;{keyword}&quot;
         </h1>
         <PaginateSkeleton />

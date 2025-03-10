@@ -14,7 +14,6 @@ import { default as allProductsByCategoryAndSubCategory } from "@/features/store
 import { default as allProductsWithPagination } from "@/features/storefront/db/all-products/withPagination";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
@@ -22,9 +21,6 @@ import MainLayout from "@/features/storefront/components/MainLayout";
 import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
 import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
@@ -59,9 +55,7 @@ function getSectionTitle(categories: string[]) {
 export async function generateMetadata(props: PageProps) {
   const params = await props.params;
 
-  const {
-    categories
-  } = params;
+  const { categories } = params;
 
   return { title: `NoLine-Deli ► ${getSectionTitle(categories)}` };
 }
@@ -70,9 +64,7 @@ export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
   const params = await props.params;
 
-  const {
-    categories
-  } = params;
+  const { categories } = params;
 
   const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
 
@@ -128,7 +120,7 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
   return (
     <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
         <br />
         {products.length > 0 ? (
@@ -147,7 +139,7 @@ function PageSkeleton({ categories, searchParamsState: { isListMode } }: PageSke
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>{getSectionTitle(categories)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
         <PaginateSkeleton />
         <br />
         <ProductsListSkeleton isListMode={isListMode} />

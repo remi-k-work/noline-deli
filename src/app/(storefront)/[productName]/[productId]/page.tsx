@@ -11,15 +11,11 @@ import { notFound } from "next/navigation";
 import { getProduct } from "@/features/storefront/db";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
 import ProductView, { ProductViewSkeleton } from "@/features/storefront/components/products/product-view";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface PageProps {
@@ -42,10 +38,7 @@ function getSectionTitle(productName: string) {
 export async function generateMetadata(props: PageProps) {
   const params = await props.params;
 
-  const {
-    productName,
-    productId
-  } = params;
+  const { productName, productId } = params;
 
   // Get all the information you need about this particular product
   const product = await getProduct(productId);
@@ -68,10 +61,7 @@ export async function generateMetadata(props: PageProps) {
 export default async function Page(props: PageProps) {
   const params = await props.params;
 
-  const {
-    productName,
-    productId
-  } = params;
+  const { productName, productId } = params;
 
   // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
   const suspenseTriggerKey = productId;
@@ -93,7 +83,7 @@ async function PageSuspense({ productName, productId }: PageSuspenseProps) {
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
         <ProductView product={product} />
       </article>
     </MainLayout>
@@ -104,7 +94,7 @@ function PageSkeleton({ productName }: PageSkeletonProps) {
   return (
     <MainLayout>
       <article className={styles["page"]}>
-        <h1 className={cn(lusitana.className, "mb-8 text-xl lg:text-3xl")}>Product Details ► {getSectionTitle(productName)}</h1>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
         <ProductViewSkeleton />
       </article>
     </MainLayout>

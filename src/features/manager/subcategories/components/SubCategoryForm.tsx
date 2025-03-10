@@ -30,7 +30,6 @@ import { FormInputField, FormSelectField } from "@/features/manager/components/F
 import FormSubmit from "@/features/manager/components/FormSubmit";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -92,7 +91,7 @@ function TheFormWrapped({ subCategory, categories, isModal = false, onResetClick
   return (
     <article className={styles["subcategory-form"]}>
       {!isModal && (
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           {subCategory ? (
             <>
               <PencilSquareIcon width={64} height={64} />

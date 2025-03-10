@@ -4,9 +4,6 @@ import styles from "./Header.module.css";
 // prisma and db access
 import type { ProductWithAll } from "@/features/storefront/db/types";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface HeaderProps {
   product: ProductWithAll;
@@ -15,7 +12,7 @@ interface HeaderProps {
 export default function Header({ product: { name } }: HeaderProps) {
   return (
     <header className={styles["header"]}>
-      <h2 className={lusitana.className}>{name}</h2>
+      <h2 className="font-lusitana">{name}</h2>
     </header>
   );
 }
@@ -23,7 +20,7 @@ export default function Header({ product: { name } }: HeaderProps) {
 export function HeaderSkeleton() {
   return (
     <div className={styles["header"]}>
-      <div className="h-14 w-44 animate-pulse bg-background"></div>
+      <div className="bg-background h-14 w-44 animate-pulse"></div>
     </div>
   );
 }

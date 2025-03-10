@@ -4,7 +4,7 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import type { CategoryWithInfo } from "../../db";
+import type { CategoryWithInfo } from "@/features/manager/categories/db";
 
 // other libraries
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -12,9 +12,6 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 // types
 interface CategoriesTableProps {
@@ -28,7 +25,7 @@ export default function CategoriesTable({ categories, createdByUser }: Categorie
 
   return (
     <Table className={styles["categories-table"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>
@@ -56,7 +53,7 @@ export default function CategoriesTable({ categories, createdByUser }: Categorie
           <Entry key={category.id} category={category} createdByUser={createdByUser} />
         ))}
       </TableBody>
-      <TableFooter className={lusitana.className}>
+      <TableFooter className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>

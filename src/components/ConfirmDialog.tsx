@@ -4,14 +4,10 @@ import styles from "./ConfirmDialog.module.css";
 // react
 import { ComponentProps } from "react";
 
-// other libraries
-import { cn } from "@/lib/utils";
-
 // components
 import { Button } from "@/components/ui/custom/button";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { HandThumbUpIcon, HandThumbDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -23,7 +19,7 @@ export default function ConfirmDialog({ onConfirmed, children, ...props }: Confi
   return (
     <dialog className={styles["confirm-dialog"]} {...props}>
       <form method="dialog">
-        <header className={cn(lusitana.className, "from-primary to-secondary text-primary-foreground bg-linear-to-r text-xl")} data-testid="titleBar">
+        <header className="font-lusitana from-primary to-secondary text-primary-foreground bg-linear-to-r text-xl" data-testid="titleBar">
           <QuestionMarkCircleIcon width={32} height={32} />
           Please Confirm!
         </header>

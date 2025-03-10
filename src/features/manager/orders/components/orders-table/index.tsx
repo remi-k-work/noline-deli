@@ -8,14 +8,11 @@ import { Fragment } from "react";
 
 // other libraries
 import { flexRender } from "@tanstack/react-table";
-import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/orders/stores/tan-table-instance";
 
 // components
 import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/custom/table";
 import NotFound from "@/components/NotFound";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 export default function OrdersTable() {
   const {
@@ -33,7 +30,7 @@ export default function OrdersTable() {
 
   return (
     <Table className={styles["orders-table"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => (

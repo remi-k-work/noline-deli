@@ -12,7 +12,7 @@ import useSearchParamsState from "@/hooks/useSearchParamsState";
 // components
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator";
 
 // assets
@@ -38,7 +38,7 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
   const handleSearch = useDebouncedCallback((keyword: string) => searchPanelChanged(keyword), 600);
 
   return (
-    <Label className={cn("flex w-full max-w-(--size-content-1) items-center gap-1 bg-background pr-1", className)}>
+    <Label className={cn("bg-background flex w-full max-w-(--size-content-1) items-center gap-1 pr-1", className)}>
       <Input
         ref={searchRef}
         type="search"
@@ -64,5 +64,5 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
 }
 
 export function SearchPanelSkeleton({ className }: Omit<SearchPanelProps, "searchedCount">) {
-  return <div className={cn("h-12 w-full max-w-(--size-content-1) animate-pulse rounded-lg bg-background", className)} />;
+  return <div className={cn("bg-background h-12 w-full max-w-(--size-content-1) animate-pulse rounded-lg", className)} />;
 }

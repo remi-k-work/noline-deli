@@ -34,7 +34,6 @@ import FormSubmit from "@/features/manager/components/FormSubmit";
 import ProductExcerpt from "@/features/storefront/components/products/ProductExcerpt";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PencilSquareIcon, PlusCircleIcon, TruckIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -103,7 +102,7 @@ function TheFormWrapped({ product, brands, categories, isModal = false, onResetC
   return (
     <article className={styles["product-form"]}>
       {!isModal && (
-        <h2 className={lusitana.className}>
+        <h2 className="font-lusitana">
           {product ? (
             <>
               <PencilSquareIcon width={64} height={64} />

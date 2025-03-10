@@ -13,9 +13,6 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
 
-// assets
-import { lusitana } from "@/assets/fonts";
-
 // types
 interface BrandsTableProps {
   brands: BrandWithInfo[];
@@ -28,7 +25,7 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
 
   return (
     <Table className={styles["brands-table"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>
@@ -57,7 +54,7 @@ export default function BrandsTable({ brands, createdByUser }: BrandsTableProps)
           <Entry key={brand.id} brand={brand} createdByUser={createdByUser} />
         ))}
       </TableBody>
-      <TableFooter className={lusitana.className}>
+      <TableFooter className="font-lusitana">
         <TableRow>
           {isSmall ? (
             <>

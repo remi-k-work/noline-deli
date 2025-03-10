@@ -9,7 +9,6 @@ import Link from "next/link";
 import dashboard from "@/features/storefront/db/get-data-for/dashboard";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
@@ -19,7 +18,6 @@ import BrandPreview from "@/features/storefront/components/products/BrandPreview
 import Hero, { HeroContent, HeroOverlay } from "@/components/ui/custom/hero";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import hero from "@/assets/hero.jpg";
 import bannerManager from "@/assets/manager/banner-manager.webp";
 
@@ -31,11 +29,11 @@ export default async function Page() {
     <MainLayout>
       <article className={styles["page"]}>
         <article className={styles["dashboard"]}>
-          <h4 className={cn(lusitana.className, "text-xl")}>Try our Manager Feature!</h4>
+          <h4 className="font-lusitana text-xl">Try our Manager Feature!</h4>
           <section className={styles["dashboard__manager"]}>
             <Link href={PathFinder.toManagerHome()} target="_blank">
               <Hero>
-                <HeroContent className={lusitana.className}>
+                <HeroContent className="font-lusitana">
                   <p className="text-center text-xl lg:text-2xl">Add, edit, and manage products, categories, brands, and images with ease</p>
                 </HeroContent>
                 <HeroOverlay>
@@ -47,7 +45,7 @@ export default async function Page() {
         </article>
         <br />
         <br />
-        <h1 className={cn(lusitana.className, "mb-8 text-3xl lg:text-4xl")}>Taste of Home, Delivered</h1>
+        <h1 className="font-lusitana mb-8 text-3xl lg:text-4xl">Taste of Home, Delivered</h1>
         <header className={styles["hero"]}>
           <Image src={hero} alt={"Hero"} />
           <p>
@@ -63,14 +61,14 @@ export default async function Page() {
           </p>
         </header>
         <article className={styles["dashboard"]}>
-          <h4 className={cn(lusitana.className, "text-xl")}>Featured Products</h4>
+          <h4 className="font-lusitana text-xl">Featured Products</h4>
           <section className={styles["dashboard__featured-products"]}>
             {featuredProducts.map((featuredProduct) => (
               <ProductExcerpt key={featuredProduct.id} kind="regular" product={featuredProduct} />
             ))}
           </section>
 
-          <h4 className={cn(lusitana.className, "text-xl")}>Featured Brands</h4>
+          <h4 className="font-lusitana text-xl">Featured Brands</h4>
           <section className={styles["dashboard__featured-brands"]}>
             {featuredBrands.map((featuredBrand) => (
               <BrandPreview key={featuredBrand.id} brand={featuredBrand} />
@@ -79,12 +77,12 @@ export default async function Page() {
 
           <article className={styles["dashboard__totals"]}>
             <section className={styles["dashboard-totals__total-products"]}>
-              <h4 className={cn(lusitana.className, "text-xl")}>Total Products</h4>
+              <h4 className="font-lusitana text-xl">Total Products</h4>
               <h5>{totalProducts}</h5>
             </section>
 
             <section className={styles["dashboard-totals__total-brands"]}>
-              <h4 className={cn(lusitana.className, "text-xl")}>Total Brands</h4>
+              <h4 className="font-lusitana text-xl">Total Brands</h4>
               <h5>{totalBrands}</h5>
             </section>
           </article>

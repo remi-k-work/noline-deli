@@ -8,14 +8,11 @@ import { Fragment } from "react";
 
 // other libraries
 import { flexRender } from "@tanstack/react-table";
-import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
 import { Table, TableBody, TableHeader, TableRow } from "@/components/ui/custom/table";
 import NotFound from "@/components/NotFound";
-
-// assets
-import { lusitana } from "@/assets/fonts";
 
 export default function ProductsTable() {
   const {
@@ -34,7 +31,7 @@ export default function ProductsTable() {
 
   return (
     <Table className={styles["products-table"]}>
-      <TableHeader className={lusitana.className}>
+      <TableHeader className="font-lusitana">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => (

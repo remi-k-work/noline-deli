@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/custom/badge";
 import { Button } from "@/components/ui/custom/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SearchPanel from "@/features/manager/components/SearchPanel";
@@ -17,7 +17,6 @@ import SortBy from "@/features/manager/components/SortBy";
 import Paginate from "@/features/manager/components/Paginate";
 
 // assets
-import { lusitana } from "@/assets/fonts";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
@@ -28,7 +27,7 @@ interface BrowseBarProps {
 
 export default async function BrowseBar({ itemsPerPage, totalItems }: BrowseBarProps) {
   return (
-    <section className={cn(lusitana.className, styles["browse-bar"])}>
+    <section className={cn("font-lusitana", styles["browse-bar"])}>
       <header className={styles["browse-bar__total-items"]}>
         <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>
