@@ -11,10 +11,6 @@
   --surface-2: var(--gray-2);
   --surface-3: var(--gray-3);
   --surface-4: var(--gray-4);
-  --scrollthumb-color: var(--gray-7);
-  /* form validation colors */
-  --form-field-alert-bg: var(--red-12);
-  --form-field-alert-tx: var(--yellow-9);
   /* gradients */
   --heading-gradient-1: var(--gradient-5);
   --dashboard-gradient: var(--gradient-15);
@@ -65,10 +61,6 @@
   --surface-2: var(--gray-8);
   --surface-3: var(--gray-7);
   --surface-4: var(--gray-6);
-  --scrollthumb-color: var(--gray-6);
-  /* form validation colors */
-  --form-field-alert-bg: var(--yellow-9);
-  --form-field-alert-tx: var(--red-12);
   /* gradients */
   --heading-gradient-1: var(--gradient-23);
   --dashboard-gradient: var(--gradient-16);
@@ -111,6 +103,12 @@
 @theme inline {
   --font-inter: var(--font-inter);
   --font-lusitana: var(--font-lusitana);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

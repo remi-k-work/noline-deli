@@ -41,7 +41,7 @@ export default function OrdersTable() {
       </TableHeader>
       <TableBody>
         {table.getRowModel().rows.map((row) => (
-          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="odd:bg-(--surface-3) even:bg-(--surface-4)">
+          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="odd:bg-surface-3 even:bg-surface-4">
             {row.getVisibleCells().map((cell) => (
               <Fragment key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Fragment>
             ))}

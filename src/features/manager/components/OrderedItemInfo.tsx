@@ -30,7 +30,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell>{name}</TableCell>
           <TableCell className="text-end">
             <PriceTag priceInCents={price} />
@@ -39,7 +39,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Image</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <Image
               src={PathFinder.toResolvedProductImage(imageUrl)}
@@ -56,7 +56,7 @@ export default function OrderedItemInfo({ orderedItem, orderedItem: { name, desc
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <p className="m-auto">{description}</p>
           </TableCell>
@@ -73,7 +73,7 @@ function CategoryAndSubCategory({ orderedItem: { categoryName, subCategoryName }
         <TableHead>Category</TableHead>
         <TableHead className="text-end">SubCategory</TableHead>
       </TableRow>
-      <TableRow className="bg-(--surface-3)">
+      <TableRow className="bg-surface-3">
         <TableCell>{categoryName}</TableCell>
         <TableCell className="text-end">{subCategoryName}</TableCell>
       </TableRow>
@@ -87,7 +87,7 @@ function Brand({ orderedItem: { brandName, brandLogo } }: OrderedItemInfoProps) 
       <TableRow className="font-lusitana">
         <TableHead colSpan={2}>Brand</TableHead>
       </TableRow>
-      <TableRow className="bg-(--surface-3)">
+      <TableRow className="bg-surface-3">
         <TableCell colSpan={2}>
           <BrandTag kind="orditem" name={brandName} logoUrl={brandLogo} />
         </TableCell>

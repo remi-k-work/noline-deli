@@ -31,7 +31,7 @@ export default function ProductInfo({ product, product: { name, description, ima
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell>{name}</TableCell>
           <TableCell className="text-end">
             <PriceTag priceInCents={price} />
@@ -40,7 +40,7 @@ export default function ProductInfo({ product, product: { name, description, ima
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Image</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <Image
               src={PathFinder.toResolvedProductImage(imageUrl)}
@@ -58,7 +58,7 @@ export default function ProductInfo({ product, product: { name, description, ima
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Description</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <p className="m-auto">{description}</p>
           </TableCell>
@@ -77,7 +77,7 @@ function CategoryAndSubCategory({ product: { categories, subCategories } }: Prod
           <TableHead>Category</TableHead>
           <TableHead className="text-end">SubCategory</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell>
             <ul>
               {categories.map(({ category: { id, name } }) => (
@@ -105,7 +105,7 @@ function Brand({ product: { brand } }: ProductInfoProps) {
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Brand</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <BrandTag kind="product" brand={brand} isCompact={true} />
           </TableCell>
@@ -122,7 +122,7 @@ function MoreImages({ product: { name, moreImages } }: ProductInfoProps) {
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>More Images</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2} className="overflow-x-auto">
             <div className="flex gap-4">
               {moreImages.map(({ id, imageUrl }) => (
@@ -151,7 +151,7 @@ function OtherInfo({ product: { freeShipping } }: ProductInfoProps) {
         <TableRow className="font-lusitana">
           <TableHead colSpan={2}>Other Info</TableHead>
         </TableRow>
-        <TableRow className="bg-(--surface-3)">
+        <TableRow className="bg-surface-3">
           <TableCell colSpan={2}>
             <FreeShippingTag />
           </TableCell>

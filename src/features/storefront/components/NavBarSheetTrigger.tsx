@@ -35,7 +35,7 @@ export default function NavBarSheetTrigger({ categoriesTreeViewData, className }
           <Bars4Icon width={36} height={36} />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className="bg-(--surface-2)">
+      <SheetContent side={"left"} className="bg-surface-2">
         <SheetHeader className="sr-only">
           <SheetTitle>NavBar</SheetTitle>
           <SheetDescription>NavBar</SheetDescription>
@@ -49,5 +49,5 @@ export default function NavBarSheetTrigger({ categoriesTreeViewData, className }
 }
 
 export function NavBarSheetTriggerSkeleton({ className }: Pick<NavBarSheetTriggerProps, "className">) {
-  return <div className={cn("h-12 w-12 animate-pulse rounded-full bg-background", className)} />;
+  return <div className={cn("bg-background h-12 w-12 animate-pulse rounded-full", className)} />;
 }
