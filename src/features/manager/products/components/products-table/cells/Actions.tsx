@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { useRef, useState, useTransition } from "react";
+import { useRef, useState } from "react";
 
 // next
 import Link from "next/link";
@@ -12,7 +12,6 @@ import { delProduct2 } from "@/features/manager/products/actions";
 
 // other libraries
 import { z } from "zod";
-import { waait } from "@/lib/helpers";
 import PathFinder from "@/lib/PathFinder";
 import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
 import type { ProductFormActionResult } from "@/features/manager/products/schemas/types";
@@ -37,25 +36,16 @@ interface ActionsProps {
 }
 
 export default function Actions({ row: { getValue, original } }: ActionsProps) {
-  const { execute, isExecuting, feedback } = useTableActionWithVal<z.ZodObject<{ productId: z.ZodString }>, readonly [], ProductFormActionResult>({
+  const { execute, isPending, feedback } = useTableActionWithVal<z.ZodObject<{ productId: z.ZodString }>, readonly [], ProductFormActionResult>({
     safeActionFunc: delProduct2,
     excerpt: <ProductExcerpt kind="simple" name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />,
   });
 
   const { refresh } = useRouter();
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
-  const [, startTransition] = useTransition();
 
   // The controlled open state of the drop-down menu
   const [open, setOpen] = useState(false);
-
-  function handleDeleteConfirmed() {
-    execute({ productId: original.id });
-    startTransition(async () => {
-      await waait();
-      refresh();
-    });
-  }
 
   return (
     <TableCell>
@@ -64,7 +54,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button size="icon" variant="ghost" asChild>
-                {isExecuting ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
+                {isPending ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
               </Button>
             </TooltipTrigger>
             <TooltipContent side="left">
@@ -83,14 +73,20 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Button type="button" size="block" variant="destructive" disabled={isExecuting} onClick={() => confirmDialogRef.current?.showModal()}>
+            <Button type="button" size="block" variant="destructive" disabled={isPending} onClick={() => confirmDialogRef.current?.showModal()}>
               <TrashIcon width={24} height={24} />
               Delete
             </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ConfirmDialog ref={confirmDialogRef} onConfirmed={handleDeleteConfirmed}>
+      <ConfirmDialog
+        ref={confirmDialogRef}
+        onConfirmed={() => {
+          execute({ productId: original.id });
+          refresh();
+        }}
+      >
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this product?
         </p>

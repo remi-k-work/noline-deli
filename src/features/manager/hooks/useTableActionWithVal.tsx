@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 // other libraries
 import { Schema } from "zod";
 import { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
-import { HookSafeActionFn, useAction } from "next-safe-action/hooks";
+import { type HookSafeActionFn, useAction } from "next-safe-action/hooks";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
 import useTableActionFeedback from "./useTableActionFeedback";
 
@@ -21,7 +21,7 @@ export default function useTableActionWithVal<S extends Schema, BAS extends read
   // To provide feedback to the user
   const { feedback, showFeedback } = useTableActionFeedback({ excerpt });
 
-  const { execute, isExecuting } = useAction(safeActionFunc, {
+  const { execute, isPending } = useAction(safeActionFunc, {
     onSuccess: ({ data }) => {
       // We are dealing with either "denied" or "succeeded" action
       if (data) showFeedback(data.actionStatus);
@@ -32,5 +32,5 @@ export default function useTableActionWithVal<S extends Schema, BAS extends read
     },
   });
 
-  return { execute, isExecuting, feedback };
+  return { execute, isPending, feedback };
 }

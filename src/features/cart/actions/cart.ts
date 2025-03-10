@@ -18,49 +18,60 @@ export interface CartActionResult extends FormActionResult {
   subTotal: number;
 }
 
-export async function deleteCartArticle(cartItemId: string): Promise<void> {
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-  if (!cart) return;
+export const incCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
+  try {
+    // Get an existing or brand-new empty cart from our database
+    const cart = await getCart();
+    if (!cart) return;
 
-  // Remove this cart item completely from our shopping basket
-  await delCartItem(cart.id, cartItemId);
+    // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
+    const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
+    if (cartItem && cartItem.quantity < 99) await incCartItemQty(cart.id, cartItemId);
+  } catch (error) {
+    // If any error occurs, rethrow, which means action simply "failed"
+    throw error;
+  }
 
   // Revalidate, so the fresh data will be fetched from the server next time this path is visited
   revalidatePath(PathFinder.toSfCartReval());
-}
+});
 
-export async function decArticleByOne(cartItemId: string): Promise<void> {
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-  if (!cart) return;
+export const decCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
+  try {
+    // Get an existing or brand-new empty cart from our database
+    const cart = await getCart();
+    if (!cart) return;
 
-  // Find the specified cart item, decrease its amount by one, and maintain it inside the 0 < q < 100 limit
-  const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
-  if (cartItem && cartItem.quantity > 1) {
-    await decCartItemQty(cart.id, cartItemId);
-
-    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-    revalidatePath(PathFinder.toSfCartReval());
+    // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
+    const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
+    if (cartItem && cartItem.quantity > 1) await decCartItemQty(cart.id, cartItemId);
+  } catch (error) {
+    // If any error occurs, rethrow, which means action simply "failed"
+    throw error;
   }
-}
 
-export async function incArticleByOne(cartItemId: string): Promise<void> {
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-  if (!cart) return;
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath(PathFinder.toSfCartReval());
+});
 
-  // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
-  const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
-  if (cartItem && cartItem.quantity < 99) {
-    await incCartItemQty(cart.id, cartItemId);
+export const delCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
+  try {
+    // Get an existing or brand-new empty cart from our database
+    const cart = await getCart();
+    if (!cart) return;
 
-    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-    revalidatePath(PathFinder.toSfCartReval());
+    // Remove this cart item completely from our shopping basket
+    await delCartItem(cart.id, cartItemId);
+  } catch (error) {
+    // If any error occurs, rethrow, which means action simply "failed"
+    throw error;
   }
-}
 
-export const addToCart = actionClient
+  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+  revalidatePath(PathFinder.toSfCartReval());
+});
+
+export const addCartArticle = actionClient
   .schema(z.object({ productId: objectIdSchema }))
   .action(async ({ parsedInput: { productId } }): Promise<CartActionResult> => {
     let cart: DerivedCartWithItems | undefined;

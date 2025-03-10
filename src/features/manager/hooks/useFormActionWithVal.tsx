@@ -42,7 +42,7 @@ export default function useFormActionWithVal<
   const {
     execute,
     result: { validationErrors: allFieldErrorsServer },
-    isExecuting,
+    isPending,
   } = useAction(safeActionFunc, {
     onSuccess: ({ data }) => {
       // We are dealing with either "denied" or "succeeded" action
@@ -82,5 +82,5 @@ export default function useFormActionWithVal<
     [onSubmitRHF, showFeedback, useFormMethods],
   );
 
-  return { useFormMethods, onSubmit, allFieldErrors: { ...allFieldErrorsServer, ...allFieldErrorsClient }, isExecuting };
+  return { useFormMethods, onSubmit, allFieldErrors: { ...allFieldErrorsServer, ...allFieldErrorsClient }, isPending };
 }

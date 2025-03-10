@@ -88,7 +88,7 @@ function TheFormWrapped({ product, brands, categories, isModal = false, onResetC
     pathToAllItems: PathFinder.toAllProducts(),
   });
 
-  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+  const { useFormMethods, onSubmit, allFieldErrors, isPending } = useFormActionWithVal<
     ProductFormSchemaType,
     typeof productFormSchema,
     readonly [productId: z.ZodString, orgCreatedAt: z.ZodDate] | readonly [],
@@ -151,7 +151,7 @@ function TheFormWrapped({ product, brands, categories, isModal = false, onResetC
               <TruckIcon width={24} height={24} />
               Free Shipping
             </FormCheckField>
-            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+            <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
         </AllFieldErrorsProvider>
       </FormProvider>

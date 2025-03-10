@@ -4,7 +4,7 @@
 import type { ProductWithAll } from "@/features/storefront/db/types";
 
 // server actions and mutations
-import { addToCart } from "@/features/cart/actions/cart";
+import { addCartArticle } from "@/features/cart/actions/cart";
 
 // other libraries
 import { z } from "zod";
@@ -25,15 +25,15 @@ interface AddToCartFormProps {
 }
 
 export default function AddToCartForm({ product: { id: productId, name, imageUrl, price } }: AddToCartFormProps) {
-  const { execute, isExecuting, feedback } = useCartActionWithVal<z.ZodObject<{ productId: z.ZodString }>, readonly [], CartActionResult>({
-    safeActionFunc: addToCart,
+  const { execute, isPending, feedback } = useCartActionWithVal<z.ZodObject<{ productId: z.ZodString }>, readonly [], CartActionResult>({
+    safeActionFunc: addCartArticle,
     excerpt: <ProductExcerpt kind="simple" name={name} imageUrl={imageUrl} price={price} />,
   });
 
   return (
     <>
-      <Button type="button" size="lg" disabled={isExecuting} onClick={() => execute({ productId })}>
-        {isExecuting ? (
+      <Button type="button" size="lg" disabled={isPending} onClick={() => execute({ productId })}>
+        {isPending ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please Wait...

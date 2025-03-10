@@ -66,7 +66,7 @@ function TheFormWrapped({ brand, isModal = false, onResetClicked }: TheFormWrapp
     pathToAllItems: PathFinder.toAllBrands(),
   });
 
-  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+  const { useFormMethods, onSubmit, allFieldErrors, isPending } = useFormActionWithVal<
     BrandFormSchemaType,
     typeof brandFormSchema,
     readonly [brandId: z.ZodString] | readonly [],
@@ -113,7 +113,7 @@ function TheFormWrapped({ brand, isModal = false, onResetClicked }: TheFormWrapp
               <header className={lusitana.className}>Brand Logo</header>
               <Logo />
             </section>
-            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+            <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
         </AllFieldErrorsProvider>
       </FormProvider>

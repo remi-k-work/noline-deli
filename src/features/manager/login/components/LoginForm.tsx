@@ -52,7 +52,7 @@ function TheFormWrapped() {
     pathToAllItems: PathFinder.toManagerHome(),
   });
 
-  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+  const { useFormMethods, onSubmit, allFieldErrors, isPending } = useFormActionWithVal<
     LoginFormSchemaType,
     typeof loginFormSchema,
     readonly [],
@@ -124,7 +124,7 @@ function TheFormWrapped() {
             >
               <Captcha captchaName={CAPTCHA_PASSWORD} />
             </FormInputField>
-            <FormSubmit isExecuting={isExecuting} />
+            <FormSubmit isExecuting={isPending} />
           </form>
         </AllFieldErrorsProvider>
       </FormProvider>

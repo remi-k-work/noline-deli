@@ -64,7 +64,7 @@ function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWr
     pathToAllItems: PathFinder.toAllCategories(),
   });
 
-  const { useFormMethods, onSubmit, allFieldErrors, isExecuting } = useFormActionWithVal<
+  const { useFormMethods, onSubmit, allFieldErrors, isPending } = useFormActionWithVal<
     CategoryFormSchemaType,
     typeof categoryFormSchema,
     readonly [categoryId: z.ZodString] | readonly [],
@@ -107,7 +107,7 @@ function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWr
               placeholder={"e.g., Meat & Seafood, Cheeses, Prepared Salads, Bakery Items"}
               defaultValue={name}
             />
-            <FormSubmit isExecuting={isExecuting} onResetClicked={onResetClicked} />
+            <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
         </AllFieldErrorsProvider>
       </FormProvider>

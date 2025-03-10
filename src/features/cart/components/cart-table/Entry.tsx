@@ -8,7 +8,7 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import { TableCell, TableRow } from "@/components/ui/custom/table";
 import ItemImageWithTrigger from "@/components/ItemImageWithTrigger";
-import { IncCartItemQtyForm, DecCartItemQtyForm, DelCartItemForm } from "./Forms";
+import { IncCartItemQtyButton, DecCartItemQtyButton, DelCartItemButton } from "./Actions";
 
 // types
 interface EntryProps {
@@ -30,13 +30,13 @@ export default function Entry({ cartItem }: EntryProps) {
         <section className="flex items-center gap-1">
           <ItemImageWithTrigger product={product} href={PathFinder.toSfProductDetails(name, productId)} />
           <footer className="flex flex-col items-center gap-1">
-            <IncCartItemQtyForm cartItemId={id} />
-            <DelCartItemForm cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
-            <DecCartItemQtyForm cartItemId={id} />
+            <IncCartItemQtyButton cartItemId={id} />
+            <DelCartItemButton cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
+            <DecCartItemQtyButton cartItemId={id} />
           </footer>
         </section>
       </TableCell>
-      <TableCell className="overflow-clip whitespace-nowrap text-end">
+      <TableCell className="overflow-clip text-end whitespace-nowrap">
         {quantity} / {formatCurrency(quantity * price)}
       </TableCell>
     </TableRow>
