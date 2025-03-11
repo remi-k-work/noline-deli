@@ -8,7 +8,7 @@ export default function Loading() {
   return (
     <MainLayout>
       <div className="grid h-full place-content-center">
-        <Loader className="size-48 animate-spin text-muted-foreground" />
+        <Loader className="text-muted-foreground size-48 animate-spin" />
       </div>
     </MainLayout>
   );

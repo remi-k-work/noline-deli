@@ -1,10 +1,8 @@
 // component css styles
 import styles from "./page.module.css";
 
-// react
-import { Suspense } from "react";
-
 // next
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { ReadonlyURLSearchParams } from "next/navigation";
@@ -19,8 +17,8 @@ import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
-import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
+import Paginate from "@/features/storefront/components/Paginate";
+import ProductsList from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
 
 // types
@@ -29,49 +27,22 @@ interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-interface PageSuspenseProps {
-  brandName: string;
-  brandId: string;
-  searchParamsState: SearchParamsState;
-}
-
-interface PageSkeletonProps {
-  brandName: string;
-  searchParamsState: SearchParamsState;
-}
-
 function getSectionTitle(brandName: string) {
   return decodeURIComponent(brandName);
 }
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-
-  const { brandName } = params;
+export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
+  const { brandName } = await paramsPromise;
 
   return { title: `NoLine-Deli ► ${getSectionTitle(brandName)}` };
 }
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
+export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
+  const { brandName, brandId } = await paramsPromise;
 
-  const { brandName, brandId } = params;
-
-  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
-
-  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
-  const suspenseTriggerKey = brandId;
-
-  return (
-    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton brandName={brandName} searchParamsState={searchParamsState} />}>
-      <PageSuspense brandName={brandName} brandId={brandId} searchParamsState={searchParamsState} />
-    </Suspense>
+  const { currentPage, isListMode, sortByField, sortByOrder, byPriceBelow, byFreeShipping } = new SearchParamsState(
+    new ReadonlyURLSearchParams((await searchParamsPromise) as any),
   );
-}
-
-async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspenseProps) {
-  const { currentPage, isListMode, sortByField, sortByOrder, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
   const itemsPerPage = 10;
@@ -113,24 +84,6 @@ async function PageSuspense({ brandName, brandId, searchParamsState }: PageSuspe
         )}
         <br />
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-      </article>
-    </MainLayout>
-  );
-}
-
-function PageSkeleton({ brandName, searchParamsState: { isListMode } }: PageSkeletonProps) {
-  return (
-    <MainLayout>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
-        <header className="mb-4">
-          <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
-        </header>
-        <PaginateSkeleton />
-        <br />
-        <ProductsListSkeleton isListMode={isListMode} />
-        <br />
-        <PaginateSkeleton />
       </article>
     </MainLayout>
   );

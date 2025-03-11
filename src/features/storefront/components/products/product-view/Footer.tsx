@@ -25,8 +25,8 @@ export default function Footer({ product, product: { price } }: FooterProps) {
 export function FooterSkeleton() {
   return (
     <div className={styles["footer"]}>
-      <div className="h-5 w-14 animate-pulse bg-background"></div>
-      <div className="h-10 w-36 animate-pulse bg-background"></div>
+      <div className="bg-background h-8 w-18 animate-pulse"></div>
+      <div className="bg-background h-10 w-36 animate-pulse"></div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function Figure({ product: { name, imageUrl, moreImages } }: Figu
 export function FigureSkeleton() {
   return (
     <div className={styles["figure-skeleton"]}>
-      <div className="animate-pulse bg-background"></div>
+      <div className="bg-background animate-pulse"></div>
     </div>
   );
 }

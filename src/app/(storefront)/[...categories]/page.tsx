@@ -1,10 +1,8 @@
 // component css styles
 import styles from "./page.module.css";
 
-// react
-import { Suspense } from "react";
-
 // next
+import type { Metadata } from "next";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
@@ -18,24 +16,14 @@ import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
-import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
+import Paginate from "@/features/storefront/components/Paginate";
+import ProductsList from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
 
 // types
 interface PageProps {
   params: Promise<{ categories: string[] }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-interface PageSuspenseProps {
-  categories: string[];
-  searchParamsState: SearchParamsState;
-}
-
-interface PageSkeletonProps {
-  categories: string[];
-  searchParamsState: SearchParamsState;
 }
 
 function getSectionTitle(categories: string[]) {
@@ -52,34 +40,18 @@ function getSectionTitle(categories: string[]) {
   return title;
 }
 
-export async function generateMetadata(props: PageProps) {
-  const params = await props.params;
-
-  const { categories } = params;
+export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
+  const { categories } = await paramsPromise;
 
   return { title: `NoLine-Deli ► ${getSectionTitle(categories)}` };
 }
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
+export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
+  const { categories } = await paramsPromise;
 
-  const { categories } = params;
-
-  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
-
-  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
-  const suspenseTriggerKey = getSectionTitle(categories);
-
-  return (
-    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton categories={categories} searchParamsState={searchParamsState} />}>
-      <PageSuspense categories={categories} searchParamsState={searchParamsState} />
-    </Suspense>
+  const { currentPage, isListMode, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = new SearchParamsState(
+    new ReadonlyURLSearchParams((await searchParamsPromise) as any),
   );
-}
-
-async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps) {
-  const { currentPage, isListMode, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
   const itemsPerPage = 10;
@@ -130,21 +102,6 @@ async function PageSuspense({ categories, searchParamsState }: PageSuspenseProps
         )}
         <br />
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-      </article>
-    </MainLayout>
-  );
-}
-
-function PageSkeleton({ categories, searchParamsState: { isListMode } }: PageSkeletonProps) {
-  return (
-    <MainLayout>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
-        <PaginateSkeleton />
-        <br />
-        <ProductsListSkeleton isListMode={isListMode} />
-        <br />
-        <PaginateSkeleton />
       </article>
     </MainLayout>
   );

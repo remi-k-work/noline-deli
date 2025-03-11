@@ -1,10 +1,8 @@
 // component css styles
 import styles from "./page.module.css";
 
-// react
-import { Suspense } from "react";
-
 // next
+import type { Metadata } from "next";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
 // prisma and db access
@@ -15,8 +13,8 @@ import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
 import MainLayout from "@/features/storefront/components/MainLayout";
-import Paginate, { PaginateSkeleton } from "@/features/storefront/components/Paginate";
-import ProductsList, { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
+import Paginate from "@/features/storefront/components/Paginate";
+import ProductsList from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
 
 // types
@@ -24,38 +22,18 @@ interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-interface PageSuspenseProps {
-  searchParamsState: SearchParamsState;
-}
-
-interface PageSkeletonProps {
-  searchParamsState: SearchParamsState;
-}
-
 function getSectionTitle() {
   return "Search Results";
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: `NoLine-Deli ► ${getSectionTitle()}`,
 };
 
-export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
-  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
-
-  // By default, the suspense will only be triggered once when the page loads; use the key prop to retrigger it if the parameters change
-  const suspenseTriggerKey = searchParamsState.keyword;
-
-  return (
-    <Suspense key={suspenseTriggerKey} fallback={<PageSkeleton searchParamsState={searchParamsState} />}>
-      <PageSuspense searchParamsState={searchParamsState} />
-    </Suspense>
+export default async function Page({ searchParams: searchParamsPromise }: PageProps) {
+  const { currentPage, isListMode, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = new SearchParamsState(
+    new ReadonlyURLSearchParams((await searchParamsPromise) as any),
   );
-}
-
-async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
-  const { currentPage, isListMode, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = searchParamsState;
 
   // Set the pagination data
   const itemsPerPage = 10;
@@ -78,23 +56,6 @@ async function PageSuspense({ searchParamsState }: PageSuspenseProps) {
         )}
         <br />
         <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-      </article>
-    </MainLayout>
-  );
-}
-
-function PageSkeleton({ searchParamsState: { keyword, isListMode } }: PageSkeletonProps) {
-  return (
-    <MainLayout>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">
-          {getSectionTitle()} ► &quot;{keyword}&quot;
-        </h1>
-        <PaginateSkeleton />
-        <br />
-        <ProductsListSkeleton isListMode={isListMode} />
-        <br />
-        <PaginateSkeleton />
       </article>
     </MainLayout>
   );

@@ -24,7 +24,7 @@ export default function Content({ product: { description, brand } }: ContentProp
 export function ContentSkeleton() {
   return (
     <div className={styles["content"]}>
-      <div className="h-48 animate-pulse bg-background"></div>
+      <div className="bg-background h-48 animate-pulse"></div>
     </div>
   );
 }
