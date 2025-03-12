@@ -2,12 +2,12 @@
 import { useCallback } from "react";
 
 // other libraries
-import { Table } from "@tanstack/react-table";
-import { RangeOption } from "@/lib/rangeOptions";
-import { DateRange } from "react-day-picker";
+import type { Table } from "@tanstack/react-table";
+import type { RangeOption } from "@/lib/rangeOptions";
+import type { DateRange } from "react-day-picker";
 
 // components
-import { OrderRow } from "../../components/orders-table/Columns";
+import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 export default function useTableActions(table: Table<OrderRow>) {
   const browsedAll = useCallback(() => {

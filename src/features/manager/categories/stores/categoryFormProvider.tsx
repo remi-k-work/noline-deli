@@ -1,10 +1,10 @@
 "use client";
 
 // react
-import { ReactNode, createContext, useRef, useContext } from "react";
+import { ReactNode, createContext, useRef, use } from "react";
 
 // prisma and db access
-import type { CategoryWithUser } from "../db";
+import type { CategoryWithUser } from "@/features/manager/categories/db";
 
 // other libraries
 import { useStore } from "zustand";
@@ -35,11 +35,11 @@ export const CategoryFormStoreProvider = ({ category, children }: CategoryFormPr
     if (!storeRef.current) storeRef.current = createCategoryFormStore();
   }
 
-  return <CategoryFormStoreContext.Provider value={storeRef.current}>{children}</CategoryFormStoreContext.Provider>;
+  return <CategoryFormStoreContext value={storeRef.current}>{children}</CategoryFormStoreContext>;
 };
 
 export const useCategoryFormStore = <T,>(selector: (store: CategoryFormStore) => T): T => {
-  const categoryFormStoreContext = useContext(CategoryFormStoreContext);
+  const categoryFormStoreContext = use(CategoryFormStoreContext);
   if (!categoryFormStoreContext) throw new Error("useCategoryFormStore must be used within a CategoryFormStoreProvider.");
   return useStore(categoryFormStoreContext, selector);
 };

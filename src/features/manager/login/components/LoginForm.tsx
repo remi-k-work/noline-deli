@@ -22,7 +22,7 @@ import { waait } from "@/lib/helpers";
 
 // components
 import { LoginFormStoreProvider } from "@/features/manager/login/stores/loginFormProvider";
-import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { AllFieldErrorsContext } from "@/contexts/AllFieldErrors";
 import { FormInputField } from "@/features/manager/components/FormControls";
 import FormSubmit from "./FormSubmit";
 import Captcha from "@/features/auth/components/Captcha";
@@ -94,7 +94,7 @@ function TheFormWrapped() {
         Login
       </h2>
       <FormProvider {...useFormMethods}>
-        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+        <AllFieldErrorsContext value={{ allFieldErrors }}>
           <form noValidate={true} onSubmit={onSubmit}>
             <FormInputField
               fieldName={"username"}
@@ -125,7 +125,7 @@ function TheFormWrapped() {
             </FormInputField>
             <FormSubmit isExecuting={isPending} />
           </form>
-        </AllFieldErrorsProvider>
+        </AllFieldErrorsContext>
       </FormProvider>
       {feedback}
     </article>

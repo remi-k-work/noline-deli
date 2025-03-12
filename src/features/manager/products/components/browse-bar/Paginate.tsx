@@ -8,7 +8,7 @@ import { useState } from "react";
 
 // other libraries
 import { cn } from "@/lib/utils";
-import { useTanTableInstanceContext } from "../../stores/tan-table-instance";
+import { useTanTableInstanceContext } from "@/features/manager/products/stores/tan-table-instance";
 
 // components
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

@@ -1,11 +1,11 @@
 // other libraries
 import { cn } from "@/lib/utils";
-import { Table } from "@tanstack/react-table";
-import { ProductRow } from "../Columns";
+import type { Table } from "@tanstack/react-table";
+import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
 import { TableHead } from "@/components/ui/custom/table";
-import ColumnHeader from "../../../../components/ColumnHeader";
+import ColumnHeader from "@/features/manager/components/ColumnHeader";
 
 // types
 interface PriceProps {

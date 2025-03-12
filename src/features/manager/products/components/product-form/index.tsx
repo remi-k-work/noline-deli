@@ -26,7 +26,7 @@ import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedbac
 
 // components
 import { ProductFormStoreProvider } from "@/features/manager/products/stores/productFormProvider";
-import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { AllFieldErrorsContext } from "@/contexts/AllFieldErrors";
 import { FormTextArea, FormInputField, FormCheckField } from "@/features/manager/components/FormControls";
 import { BrandAndLogo, CategoryAndSubCategory, PriceInCents } from "./Controls";
 import ProductFormImages from "@/features/manager/products/components/product-form-images";
@@ -117,7 +117,7 @@ function TheFormWrapped({ product, brands, categories, isModal = false, onResetC
         </h2>
       )}
       <FormProvider {...useFormMethods}>
-        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+        <AllFieldErrorsContext value={{ allFieldErrors }}>
           <form noValidate={true} onSubmit={onSubmit}>
             <FormInputField
               fieldName={"name"}
@@ -152,7 +152,7 @@ function TheFormWrapped({ product, brands, categories, isModal = false, onResetC
             </FormCheckField>
             <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
-        </AllFieldErrorsProvider>
+        </AllFieldErrorsContext>
       </FormProvider>
       {feedback}
     </article>

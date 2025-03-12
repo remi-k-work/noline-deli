@@ -2,10 +2,10 @@
 import Link from "next/link";
 
 // other libraries
-import { Row, Table } from "@tanstack/react-table";
+import type { Row, Table } from "@tanstack/react-table";
 import PathFinder from "@/lib/PathFinder";
 import { formatDateTime } from "@/lib/formatters";
-import { OrderRow } from "../Columns";
+import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";

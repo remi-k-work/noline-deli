@@ -1,10 +1,10 @@
 "use client";
 
 // react
-import { ReactNode, createContext, useRef, useContext } from "react";
+import { ReactNode, createContext, useRef, use } from "react";
 
 // prisma and db access
-import type { SubCategoryWithUser } from "../../categories/db";
+import type { SubCategoryWithUser } from "@/features/manager/categories/db";
 
 // other libraries
 import { useStore } from "zustand";
@@ -39,11 +39,11 @@ export const SubCategoryFormStoreProvider = ({ subCategory, children }: SubCateg
     if (!storeRef.current) storeRef.current = createSubCategoryFormStore();
   }
 
-  return <SubCategoryFormStoreContext.Provider value={storeRef.current}>{children}</SubCategoryFormStoreContext.Provider>;
+  return <SubCategoryFormStoreContext value={storeRef.current}>{children}</SubCategoryFormStoreContext>;
 };
 
 export const useSubCategoryFormStore = <T,>(selector: (store: SubCategoryFormStore) => T): T => {
-  const subCategoryFormStoreContext = useContext(SubCategoryFormStoreContext);
+  const subCategoryFormStoreContext = use(SubCategoryFormStoreContext);
   if (!subCategoryFormStoreContext) throw new Error("useSubCategoryFormStore must be used within a SubCategoryFormStoreProvider.");
   return useStore(subCategoryFormStoreContext, selector);
 };

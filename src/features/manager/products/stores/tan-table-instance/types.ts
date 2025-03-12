@@ -5,12 +5,12 @@ import { ReactNode } from "react";
 import type { BrowseBarData, ProductWithInfo } from "@/features/manager/products/db";
 
 // other libraries
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import useTableState from "./useTableState";
 import useTableActions from "./useTableActions";
 
 // components
-import { ProductRow } from "../../components/products-table/Columns";
+import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // types
 export interface TanTableInstanceContextType {

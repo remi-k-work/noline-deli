@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { ReactNode, createContext, useRef, useContext } from "react";
+import { ReactNode, createContext, useRef, use } from "react";
 
 // prisma and db access
 import type { BrandWithUser } from "@/features/manager/brands/db";
@@ -38,11 +38,11 @@ export const BrandFormStoreProvider = ({ brand, children }: BrandFormProviderPro
     if (!storeRef.current) storeRef.current = createBrandFormStore();
   }
 
-  return <BrandFormStoreContext.Provider value={storeRef.current}>{children}</BrandFormStoreContext.Provider>;
+  return <BrandFormStoreContext value={storeRef.current}>{children}</BrandFormStoreContext>;
 };
 
 export const useBrandFormStore = <T,>(selector: (store: BrandFormStore) => T): T => {
-  const brandFormStoreContext = useContext(BrandFormStoreContext);
+  const brandFormStoreContext = use(BrandFormStoreContext);
   if (!brandFormStoreContext) throw new Error("useBrandFormStore must be used within a BrandFormStoreProvider.");
   return useStore(brandFormStoreContext, selector);
 };

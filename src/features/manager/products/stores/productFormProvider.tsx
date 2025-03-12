@@ -1,7 +1,7 @@
 "use client";
 
 // react
-import { ReactNode, createContext, useRef, useContext } from "react";
+import { ReactNode, createContext, useRef, use } from "react";
 
 // prisma and db access
 import type { ProductWithAll } from "@/features/manager/products/db";
@@ -45,11 +45,11 @@ export const ProductFormStoreProvider = ({ product, children }: ProductFormProvi
     if (!storeRef.current) storeRef.current = createProductFormStore();
   }
 
-  return <ProductFormStoreContext.Provider value={storeRef.current}>{children}</ProductFormStoreContext.Provider>;
+  return <ProductFormStoreContext value={storeRef.current}>{children}</ProductFormStoreContext>;
 };
 
 export const useProductFormStore = <T,>(selector: (store: ProductFormStore) => T): T => {
-  const productFormStoreContext = useContext(ProductFormStoreContext);
+  const productFormStoreContext = use(ProductFormStoreContext);
   if (!productFormStoreContext) throw new Error("useProductFormStore must be used within a ProductFormStoreProvider.");
   return useStore(productFormStoreContext, selector);
 };

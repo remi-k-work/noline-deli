@@ -85,13 +85,13 @@ export function HeaderSkeleton() {
     <div className={cn(styles["header"], "mb-4 flex w-full flex-wrap items-center justify-end gap-4")}>
       <div className="flex flex-none items-center gap-2">
         <TableCellsIcon width={24} height={24} />
-        <div className="h-6 w-11 animate-pulse bg-background"></div>
+        <div className="bg-background h-6 w-11 animate-pulse"></div>
         <QueueListIcon width={24} height={24} />
       </div>
       <span className="flex-1 text-end">... Product(s) Found</span>
       <div className="flex flex-initial basis-48 items-center gap-1">
         <ArrowsUpDownIcon width={24} height={24} />
-        <div className="h-10 w-44 animate-pulse bg-background"></div>
+        <div className="bg-background h-10 w-44 animate-pulse"></div>
       </div>
     </div>
   );

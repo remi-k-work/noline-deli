@@ -25,7 +25,7 @@ import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedbac
 // components
 import { SelectItem } from "@/components/ui/select";
 import { SubCategoryFormStoreProvider } from "@/features/manager/subcategories/stores/subCategoryFormProvider";
-import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { AllFieldErrorsContext } from "@/contexts/AllFieldErrors";
 import { FormInputField, FormSelectField } from "@/features/manager/components/FormControls";
 import FormSubmit from "@/features/manager/components/FormSubmit";
 
@@ -106,7 +106,7 @@ function TheFormWrapped({ subCategory, categories, isModal = false, onResetClick
         </h2>
       )}
       <FormProvider {...useFormMethods}>
-        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+        <AllFieldErrorsContext value={{ allFieldErrors }}>
           <form noValidate={true} onSubmit={onSubmit}>
             <FormSelectField
               fieldName={"categoryId"}
@@ -134,7 +134,7 @@ function TheFormWrapped({ subCategory, categories, isModal = false, onResetClick
             />
             <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
-        </AllFieldErrorsProvider>
+        </AllFieldErrorsContext>
       </FormProvider>
       {feedback}
     </article>

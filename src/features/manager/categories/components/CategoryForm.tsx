@@ -24,7 +24,7 @@ import useFormActionFeedback from "@/features/manager/hooks/useFormActionFeedbac
 
 // components
 import { CategoryFormStoreProvider } from "@/features/manager/categories/stores/categoryFormProvider";
-import { AllFieldErrorsProvider } from "@/contexts/AllFieldErrors";
+import { AllFieldErrorsContext } from "@/contexts/AllFieldErrors";
 import { FormInputField } from "@/features/manager/components/FormControls";
 import FormSubmit from "@/features/manager/components/FormSubmit";
 
@@ -93,7 +93,7 @@ function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWr
         </h2>
       )}
       <FormProvider {...useFormMethods}>
-        <AllFieldErrorsProvider allFieldErrors={allFieldErrors}>
+        <AllFieldErrorsContext value={{ allFieldErrors }}>
           <form noValidate={true} onSubmit={onSubmit}>
             <FormInputField
               fieldName={"name"}
@@ -108,7 +108,7 @@ function TheFormWrapped({ category, isModal = false, onResetClicked }: TheFormWr
             />
             <FormSubmit isExecuting={isPending} onResetClicked={onResetClicked} />
           </form>
-        </AllFieldErrorsProvider>
+        </AllFieldErrorsContext>
       </FormProvider>
       {feedback}
     </article>

@@ -5,12 +5,12 @@ import { ReactNode } from "react";
 import type { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import useTableState from "./useTableState";
 import useTableActions from "./useTableActions";
 
 // components
-import { OrderRow } from "../../components/orders-table/Columns";
+import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 // types
 export interface TanTableInstanceContextType {

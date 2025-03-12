@@ -1,6 +1,6 @@
 // other libraries
-import { Row } from "@tanstack/react-table";
-import { OrderRow } from "../Columns";
+import type { Row } from "@tanstack/react-table";
+import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";

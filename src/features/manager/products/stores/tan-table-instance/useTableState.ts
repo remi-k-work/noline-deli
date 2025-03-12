@@ -1,8 +1,8 @@
 // other libraries
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 
 // components
-import { ProductRow } from "../../components/products-table/Columns";
+import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 export default function useTableState(table: Table<ProductRow>) {
   // Determine the total number of viewable items once all filters are applied

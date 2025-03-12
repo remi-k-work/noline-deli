@@ -1,7 +1,7 @@
 // other libraries
-import { Row } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import { formatDistanceToNow } from "date-fns";
-import { ProductRow } from "../Columns";
+import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";

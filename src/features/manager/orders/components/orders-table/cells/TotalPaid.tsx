@@ -1,7 +1,7 @@
 // other libraries
-import { Row } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import { formatCurrency } from "@/lib/formatters";
-import { OrderRow } from "../Columns";
+import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";

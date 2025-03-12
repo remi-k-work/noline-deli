@@ -1,7 +1,7 @@
 // other libraries
-import { Row } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import PathFinder from "@/lib/PathFinder";
-import { ProductRow } from "../Columns";
+import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";
