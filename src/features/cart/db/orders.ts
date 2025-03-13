@@ -56,7 +56,7 @@ export function newOrder(paymentIntent: Stripe.PaymentIntent, latestCharge: Stri
     for (const {
       productId,
       quantity,
-      product: { name, description, imageUrl, price, brand, categories, subCategories },
+      product: { name, description, imageUrl, price, brand, category, subCategory },
     } of cartItems) {
       orderedItems.push({
         orderId: order.id,
@@ -67,10 +67,10 @@ export function newOrder(paymentIntent: Stripe.PaymentIntent, latestCharge: Stri
         imageUrl,
         price,
         total: quantity * price,
-        brandName: brand?.name!,
-        brandLogo: brand?.logoUrl,
-        categoryName: categories[0].category.name,
-        subCategoryName: subCategories[0]?.subCategory.name,
+        brandName: brand.name,
+        brandLogo: brand.logoUrl,
+        categoryName: category.name,
+        subCategoryName: subCategory?.name,
       });
     }
 

@@ -1,30 +1,28 @@
 model Product {
-    id           String   @id @default(uuid())
-    brandId      String?
-    name         String
-    description  String
-    imageUrl     String
-    price        Int
-    freeShipping Boolean  @default(false)
-    createdBy    String
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    isApproved   Boolean  @default(false)
+    id            String   @id @default(uuid())
+    brandId       String
+    categoryId    String
+    subCategoryId String?
+    name          String
+    description   String
+    imageUrl      String
+    price         Int
+    freeShipping  Boolean  @default(false)
+    createdBy     String
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    isApproved    Boolean  @default(false)
 
-    // A product can have many categories (it can belong to many categories)
-    categories CategoriesOnProducts[]
-
-    // A product can have many subcategories (it can belong to many subcategories)
-    subCategories SubCategoriesOnProducts[]
-
-    // A product can have many images (it can belong to many images)
+    // A product can have many images
     moreImages ProductImage[]
 
     // A product can have many carts (it can belong to many carts)
     carts CartsOnProducts[]
 
-    brand Brand? @relation(fields: [brandId], references: [id], onDelete: Cascade)
-    user  User   @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+    brand       Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
+    category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    subCategory SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+    user        User         @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
 
 model ProductImage {

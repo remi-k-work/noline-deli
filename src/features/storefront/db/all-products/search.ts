@@ -22,18 +22,10 @@ export default async function search(
 
   return Promise.all([
     prisma.product.count({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...whereKeyword(keyword),
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), ...whereKeyword(keyword), ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) },
     }),
     prisma.product.findMany({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...whereKeyword(keyword),
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), ...whereKeyword(keyword), ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

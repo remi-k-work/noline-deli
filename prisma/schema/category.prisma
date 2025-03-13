@@ -6,11 +6,9 @@ model Category {
     updatedAt  DateTime @updatedAt
     isApproved Boolean  @default(false)
 
-    // A category can have many subcategories (it can belong to many subcategories)
+    // A category can have many subcategories and products
     subCategories SubCategory[]
-
-    // A category can have many products (it can belong to many products)
-    products CategoriesOnProducts[]
+    products      Product[]
 
     user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
@@ -24,27 +22,9 @@ model SubCategory {
     updatedAt  DateTime @updatedAt
     isApproved Boolean  @default(false)
 
-    // A subcategory can have many products (it can belong to many products)
-    products SubCategoriesOnProducts[]
+    // A subcategory can have many products
+    products Product[]
 
     category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     user     User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
-}
-
-model CategoriesOnProducts {
-    id         String @id @default(uuid())
-    productId  String
-    categoryId String
-
-    product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-    category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-}
-
-model SubCategoriesOnProducts {
-    id            String @id @default(uuid())
-    productId     String
-    subCategoryId String
-
-    product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-    subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
 }

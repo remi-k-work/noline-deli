@@ -20,17 +20,9 @@ export default async function withPagination(
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return Promise.all([
-    prisma.product.count({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
-    }),
+    prisma.product.count({ where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) } }),
     prisma.product.findMany({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

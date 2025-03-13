@@ -30,12 +30,8 @@ export const columnsLarge: ColumnDef<ProductRow>[] = [
   columnHelper.accessor("createdAt", { sortingFn: "datetime" }),
   columnHelper.accessor("updatedAt", { sortingFn: "datetime" }),
 
-  columnHelper.accessor((row) => row.categories[0].category.name, { id: "category", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
-  columnHelper.accessor((row) => row.subCategories[0]?.subCategory.name, {
-    id: "subCategory",
-    sortingFn: "alphanumericCaseSensitive",
-    filterFn: "equalsString",
-  }),
+  columnHelper.accessor((row) => row.category.name, { id: "category", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
+  columnHelper.accessor((row) => row.subCategory?.name, { id: "subCategory", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
   columnHelper.accessor((row) => row._count.moreImages + 1, { id: "images" }),
   columnHelper.accessor("_count.carts", { id: "popularity" }),
   columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
@@ -62,12 +58,8 @@ export const columnsSmall: ColumnDef<ProductRow>[] = [
   columnHelper.accessor("createdAt", { sortingFn: "datetime" }),
   columnHelper.accessor("updatedAt", { sortingFn: "datetime" }),
 
-  columnHelper.accessor((row) => row.categories[0].category.name, { id: "category", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
-  columnHelper.accessor((row) => row.subCategories[0]?.subCategory.name, {
-    id: "subCategory",
-    sortingFn: "alphanumericCaseSensitive",
-    filterFn: "equalsString",
-  }),
+  columnHelper.accessor((row) => row.category.name, { id: "category", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
+  columnHelper.accessor((row) => row.subCategory?.name, { id: "subCategory", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),
   columnHelper.accessor((row) => row._count.moreImages + 1, { id: "images" }),
   columnHelper.accessor("_count.carts", { id: "popularity" }),
   columnHelper.accessor("brand.name", { id: "brandName", sortingFn: "alphanumericCaseSensitive", filterFn: "equalsString" }),

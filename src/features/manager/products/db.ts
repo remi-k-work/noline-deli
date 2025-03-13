@@ -34,19 +34,13 @@ export interface BrowseBarData {
   productsBySubCategory: ProductsBySubCategory[];
 }
 
-const INCLUDE_PRODUCT_WITH_ALL = {
-  categories: { include: { category: true } },
-  subCategories: { include: { subCategory: true } },
-  moreImages: true,
-  brand: true,
-  user: true,
-} satisfies Prisma.ProductInclude;
+const INCLUDE_PRODUCT_WITH_ALL = { moreImages: true, brand: true, category: true, subCategory: true, user: true } satisfies Prisma.ProductInclude;
 
 const INCLUDE_PRODUCT_WITH_INFO = {
-  categories: { include: { category: true } },
-  subCategories: { include: { subCategory: true } },
   moreImages: true,
   brand: true,
+  category: true,
+  subCategory: true,
   user: true,
   _count: { select: { moreImages: true, carts: true } },
 } satisfies Prisma.ProductInclude;
@@ -96,24 +90,8 @@ export const getBrowseBarData = cache(async () => {
 });
 
 // Create and where clause generators and helpers
-function createSubCategories(subCategoryId?: string): Prisma.SubCategoriesOnProductsUncheckedCreateNestedManyWithoutProductInput | undefined {
-  return subCategoryId ? { create: [{ subCategoryId }] } : undefined;
-}
-
 function createMoreImages(createdBy: string, moreImagesUrls?: string[]): Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput | undefined {
   return moreImagesUrls ? { create: moreImagesUrls.map((extraImageUrl) => ({ createdBy, imageUrl: extraImageUrl })) } : undefined;
-}
-
-async function whereCategory(categoryId?: string): Promise<Prisma.ProductWhereInput> {
-  return categoryId === undefined
-    ? { categories: undefined }
-    : { categories: { some: { category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } } } } };
-}
-
-async function whereSubCategory(subCategoryId?: string): Promise<Prisma.ProductWhereInput> {
-  return subCategoryId === undefined
-    ? { subCategories: undefined }
-    : { subCategories: { some: { subCategory: { is: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()), id: subCategoryId } } } } };
 }
 
 function whereFilter(byBrandId?: string, byPriceBelow?: number, byFreeShipping?: boolean): Prisma.ProductWhereInput {
@@ -192,8 +170,8 @@ export async function createProduct(
       freeShipping,
       createdBy,
       createdAt: orgCreatedAt,
-      categories: { create: [{ categoryId }] },
-      subCategories: createSubCategories(subCategoryId),
+      categoryId,
+      subCategoryId,
       moreImages: createMoreImages(createdBy, moreImagesUrls),
     },
   });
@@ -224,8 +202,8 @@ export async function allProductsWithPagination(
     prisma.product.count({
       where: {
         ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...(await whereCategory(categoryId)),
-        ...(await whereSubCategory(subCategoryId)),
+        categoryId,
+        subCategoryId,
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },
@@ -233,8 +211,8 @@ export async function allProductsWithPagination(
     prisma.product.findMany({
       where: {
         ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        ...(await whereCategory(categoryId)),
-        ...(await whereSubCategory(subCategoryId)),
+        categoryId,
+        subCategoryId,
         ...whereKeyword(keyword),
         ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
       },

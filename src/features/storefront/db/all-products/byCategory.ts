@@ -22,26 +22,10 @@ export default async function byCategory(
 
   return Promise.all([
     prisma.product.count({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        categories: {
-          some: {
-            category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } },
-          },
-        },
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), categoryId, ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) },
     }),
     prisma.product.findMany({
-      where: {
-        ...(await whereAdminApproved<Prisma.ProductWhereInput>()),
-        categories: {
-          some: {
-            category: { is: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()), id: categoryId } },
-          },
-        },
-        ...whereFilter(byBrandId, byPriceBelow, byFreeShipping),
-      },
+      where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()), categoryId, ...whereFilter(byBrandId, byPriceBelow, byFreeShipping) },
       orderBy: { [sortByField]: sortByOrder },
       skip: indexOfFirstItem,
       take: itemsPerPage,

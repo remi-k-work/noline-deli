@@ -31,7 +31,7 @@ model OrderedItem {
     price           Int
     total           Int
     brandName       String
-    brandLogo       String?
+    brandLogo       String
     categoryName    String
     subCategoryName String?
     status          OrderedItemStatus @default(IN_PROCESS)

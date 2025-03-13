@@ -1,3 +1,6 @@
+// prisma and db access
+import prisma from "@/services/prisma";
+
 // Load environment variables
 import "dotenv/config";
 
@@ -24,8 +27,29 @@ async function seedDatabase() {
   // Your database seeding logic here
   console.log("Seeding database...");
 
+  await dropAllTables();
+
   // ... (Database operations)
   console.log("Database seeding complete");
+}
+
+// Drop all tables so we can start from scratch
+async function dropAllTables() {
+  const tables = [
+    "Brand",
+    "Cart",
+    "CartsOnProducts",
+    "Category",
+    "Customer",
+    "Order",
+    "OrderedItem",
+    "Product",
+    "ProductImage",
+    "SubCategory",
+    "User",
+  ] as const;
+
+  for (const table of tables) await prisma.$executeRawUnsafe(`DROP TABLE IF EXISTS "${table}" CASCADE;`);
 }
 
 // Execute the main function

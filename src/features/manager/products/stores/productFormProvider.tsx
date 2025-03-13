@@ -24,7 +24,7 @@ export const ProductFormStoreProvider = ({ product, children }: ProductFormProvi
   // Are we in editing mode?
   if (product) {
     // Yes, set all of the form's default values to match those from the edited product
-    const { name, description, imageUrl, moreImages, price, categories, subCategories, brandId, freeShipping } = product;
+    const { name, description, imageUrl, moreImages, price, categoryId, subCategoryId, brandId, freeShipping } = product;
 
     const initState: ProductFormState = {
       name,
@@ -32,11 +32,13 @@ export const ProductFormStoreProvider = ({ product, children }: ProductFormProvi
       theMainImage: imageUrl,
       extraImages: moreImages.map(({ imageUrl }) => imageUrl),
       price,
-      categoryId: categories.length > 0 ? categories[0].categoryId : "*",
-      subCategoryId: subCategories.length > 0 ? subCategories[0].subCategoryId : "*",
-      brandId: brandId ?? "*",
+      categoryId,
+      subCategoryId: subCategoryId ?? "*",
+      brandId,
       freeShipping,
-      hasSubCategories: subCategories.length > 0,
+      // When a category contains subcategories, the subcategory must be selected
+      // So, if the subcategory is chosen, we know that the category contains subcategories
+      hasSubCategories: !!subCategoryId,
       viewedImageIndex: 0,
     };
 

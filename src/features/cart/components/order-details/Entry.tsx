@@ -15,11 +15,8 @@ interface EntryProps {
 export default function Entry({ orderedCartItem }: EntryProps) {
   const {
     quantity,
-    product: { name, price, categories, subCategories },
+    product: { name, price, category, subCategory },
   } = orderedCartItem;
-
-  const categoryName = categories[0].category.name;
-  const subCategoryName = subCategories[0]?.subCategory.name;
 
   return (
     <TableRow>
@@ -27,12 +24,12 @@ export default function Entry({ orderedCartItem }: EntryProps) {
         {name}
         <small>
           <br />
-          {categoryName}
+          {category.name}
           <br />
-          {subCategoryName}
+          {subCategory?.name}
         </small>
       </TableCell>
-      <TableCell className="overflow-clip whitespace-nowrap text-end">
+      <TableCell className="overflow-clip text-end whitespace-nowrap">
         {quantity} / {formatCurrency(quantity * price)}
       </TableCell>
     </TableRow>

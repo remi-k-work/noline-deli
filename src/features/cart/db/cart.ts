@@ -11,7 +11,7 @@ export type DerivedCartWithItems = CartWithItems & { totalQty: number; subTotal:
 export type CartItemWithProduct = Prisma.CartsOnProductsGetPayload<{ include: typeof INCLUDE_CART_ITEM_WITH_PRODUCT }>;
 
 const INCLUDE_CART_ITEM_WITH_PRODUCT = {
-  product: { include: { categories: { include: { category: true } }, subCategories: { include: { subCategory: true } }, moreImages: true, brand: true } },
+  product: { include: { moreImages: true, brand: true, category: true, subCategory: true } },
 } satisfies Prisma.CartsOnProductsInclude;
 
 const INCLUDE_CART_WITH_ITEMS = { cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT } } satisfies Prisma.CartInclude;

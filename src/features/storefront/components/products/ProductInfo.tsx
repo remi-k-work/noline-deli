@@ -69,32 +69,18 @@ export default function ProductInfo({ product, product: { name, description, ima
   );
 }
 
-function CategoryAndSubCategory({ product: { categories, subCategories } }: ProductInfoProps) {
+function CategoryAndSubCategory({ product: { category, subCategory } }: ProductInfoProps) {
   return (
-    (categories.length > 0 || subCategories.length > 0) && (
-      <>
-        <TableRow className="font-lusitana">
-          <TableHead>Category</TableHead>
-          <TableHead className="text-end">SubCategory</TableHead>
-        </TableRow>
-        <TableRow className="bg-surface-3">
-          <TableCell>
-            <ul>
-              {categories.map(({ category: { id, name } }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
-          </TableCell>
-          <TableCell className="text-end">
-            <ul>
-              {subCategories.map(({ subCategory: { id, name } }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
-          </TableCell>
-        </TableRow>
-      </>
-    )
+    <>
+      <TableRow className="font-lusitana">
+        <TableHead>Category</TableHead>
+        <TableHead className="text-end">SubCategory</TableHead>
+      </TableRow>
+      <TableRow className="bg-surface-3">
+        <TableCell>{category.name}</TableCell>
+        <TableCell className="text-end">{subCategory?.name}</TableCell>
+      </TableRow>
+    </>
   );
 }
 
