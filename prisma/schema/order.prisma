@@ -1,6 +1,6 @@
 model Order {
-    id              String      @id @default(auto()) @map("_id") @db.ObjectId
-    customerId      String      @db.ObjectId
+    id              String      @id @default(uuid())
+    customerId      String
     // The original payment intent received from stripe and related to this order
     paymentIntentId String      @unique
     orderNumber     String      @unique
@@ -20,9 +20,9 @@ model Order {
 }
 
 model OrderedItem {
-    id              String            @id @default(auto()) @map("_id") @db.ObjectId
-    orderId         String            @db.ObjectId
-    productId       String            @db.ObjectId
+    id              String            @id @default(uuid())
+    orderId         String
+    productId       String
     // The original product may no longer exist, so we include the most significant information regarding an ordered item below
     quantity        Int
     name            String

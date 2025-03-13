@@ -1,7 +1,7 @@
 model Category {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    id         String   @id @default(uuid())
     name       String   @unique
-    createdBy  String   @db.ObjectId
+    createdBy  String
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
     isApproved Boolean  @default(false)
@@ -16,10 +16,10 @@ model Category {
 }
 
 model SubCategory {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    categoryId String   @db.ObjectId
+    id         String   @id @default(uuid())
+    categoryId String
     name       String   @unique
-    createdBy  String   @db.ObjectId
+    createdBy  String
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
     isApproved Boolean  @default(false)
@@ -32,18 +32,18 @@ model SubCategory {
 }
 
 model CategoriesOnProducts {
-    id         String @id @default(auto()) @map("_id") @db.ObjectId
-    productId  String @db.ObjectId
-    categoryId String @db.ObjectId
+    id         String @id @default(uuid())
+    productId  String
+    categoryId String
 
     product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
     category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model SubCategoriesOnProducts {
-    id            String @id @default(auto()) @map("_id") @db.ObjectId
-    productId     String @db.ObjectId
-    subCategoryId String @db.ObjectId
+    id            String @id @default(uuid())
+    productId     String
+    subCategoryId String
 
     product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
     subCategory SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)

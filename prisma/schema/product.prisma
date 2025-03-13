@@ -1,12 +1,12 @@
 model Product {
-    id           String   @id @default(auto()) @map("_id") @db.ObjectId
-    brandId      String?  @db.ObjectId
+    id           String   @id @default(uuid())
+    brandId      String?
     name         String
     description  String
     imageUrl     String
     price        Int
     freeShipping Boolean  @default(false)
-    createdBy    String   @db.ObjectId
+    createdBy    String
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     isApproved   Boolean  @default(false)
@@ -28,10 +28,10 @@ model Product {
 }
 
 model ProductImage {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    productId  String   @db.ObjectId
+    id         String   @id @default(uuid())
+    productId  String
     imageUrl   String
-    createdBy  String   @db.ObjectId
+    createdBy  String
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
     isApproved Boolean  @default(false)

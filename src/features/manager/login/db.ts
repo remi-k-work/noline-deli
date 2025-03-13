@@ -14,8 +14,11 @@ export async function getCreatedByUser() {
   // Try obtaining the created-by-user value from a local cookie
   const createdByUser = (await cookies()).get(CREATED_BY_USER_COOKIE)?.value;
 
-  // We obtained the created-by-user value; ensure that it is a valid objectid recognized by mongodb
-  if (createdByUser && createdByUser.match(/^[0-9a-fA-F]{24}$/)) return createdByUser;
+  // We obtained the created-by-user value; ensure that it is a valid uuid recognized by postgres
+  if (createdByUser && createdByUser.match(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/)) {
+    // It is valid; however, we still need to make sure that the user actually exists in the database
+    return (await prisma.user.findUnique({ where: { id: createdByUser } }))?.id;
+  }
 
   return undefined;
 }
@@ -44,6 +47,10 @@ export async function whereAdminApproved<WhereT>(): Promise<WhereT> {
 // Gather only the stuff created by you, the user
 export async function whereCreatedByYou<WhereT>(): Promise<WhereT> {
   return { createdBy: await getCreatedByUser() } as WhereT;
+}
+
+export async function whereAdminApprovedOnly<WhereT>(): Promise<WhereT> {
+  return { user: { role: "ADMIN" }, isApproved: true } as WhereT;
 }
 
 // Make sure to count only admin-approved + current user-created products (consider the relationship type)

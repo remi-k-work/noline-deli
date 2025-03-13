@@ -4,7 +4,7 @@ import { cache } from "react";
 // prisma and db access
 import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
-import { getCreatedByUser, whereAdminApproved, whereCreatedByYou } from "@/features/manager/login/db";
+import { getCreatedByUser, whereAdminApprovedOnly, whereCreatedByYou } from "@/features/manager/login/db";
 
 // other libraries
 import type { TotalNumbersData } from "./types";
@@ -15,15 +15,15 @@ const totalNumbers = cache(async () => {
   const createdByUser = await getCreatedByUser();
 
   const [totPrAdmin, totPrYou, totBrAdmin, totBrYou, totCaAdmin, totCaYou, totSuAdmin, totSuYou, totImAdmin, totImYou] = await Promise.all([
-    prisma.product.count({ where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } }),
+    prisma.product.count({ where: { ...(await whereAdminApprovedOnly<Prisma.ProductWhereInput>()) } }),
     createdByUser ? prisma.product.count({ where: { ...(await whereCreatedByYou<Prisma.ProductWhereInput>()) } }) : 0,
-    prisma.brand.count({ where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) } }),
+    prisma.brand.count({ where: { ...(await whereAdminApprovedOnly<Prisma.BrandWhereInput>()) } }),
     createdByUser ? prisma.brand.count({ where: { ...(await whereCreatedByYou<Prisma.BrandWhereInput>()) } }) : 0,
-    prisma.category.count({ where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) } }),
+    prisma.category.count({ where: { ...(await whereAdminApprovedOnly<Prisma.CategoryWhereInput>()) } }),
     createdByUser ? prisma.category.count({ where: { ...(await whereCreatedByYou<Prisma.CategoryWhereInput>()) } }) : 0,
-    prisma.subCategory.count({ where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) } }),
+    prisma.subCategory.count({ where: { ...(await whereAdminApprovedOnly<Prisma.SubCategoryWhereInput>()) } }),
     createdByUser ? prisma.subCategory.count({ where: { ...(await whereCreatedByYou<Prisma.SubCategoryWhereInput>()) } }) : 0,
-    prisma.productImage.count({ where: { ...(await whereAdminApproved<Prisma.ProductImageWhereInput>()) } }),
+    prisma.productImage.count({ where: { ...(await whereAdminApprovedOnly<Prisma.ProductImageWhereInput>()) } }),
     createdByUser ? prisma.productImage.count({ where: { ...(await whereCreatedByYou<Prisma.ProductImageWhereInput>()) } }) : 0,
   ]);
 

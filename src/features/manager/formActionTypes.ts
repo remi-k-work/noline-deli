@@ -16,7 +16,7 @@ export const emailSchema = z.string().trim().email();
 export const objectIdSchema = z
   .string()
   .trim()
-  .regex(/^[0-9a-fA-F]{24}$/);
+  .regex(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/);
 
 export const dateSchema = z.coerce.date();
 
