@@ -1,171 +1,47 @@
-[{
-  "_id": {
-    "$oid": "65f1ae04766da0fa0ce15cee"
+[
+  {
+    "id": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Large 200g"
   },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
+  {
+    "id": "7b31e4db-8062-41ad-855a-de05dc37e80e",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Small 40g"
   },
-  "name": "Large 200g",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
+  {
+    "id": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Medium 100g Milk"
   },
-  "createdAt": {
-    "$date": "2024-03-13T13:45:39.918Z"
+  {
+    "id": "d385c284-a24f-44dd-92f6-8720fdabc61d",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Medium 100g Other"
   },
-  "updatedAt": {
-    "$date": "2024-05-22T11:21:29.881Z"
+  {
+    "id": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Medium 100g Dark"
   },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1ae44766da0fa0ce15cf4"
+  {
+    "id": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "name": "Premium 100-220g"
   },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
+  {
+    "id": "034537e6-9721-4e5c-a1b6-4116e40b4706",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "name": "Full Dinner Menu"
   },
-  "name": "Small 40g",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
+  {
+    "id": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "name": "Trays"
   },
-  "createdAt": {
-    "$date": "2024-03-13T13:46:43.564Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-22T11:21:29.881Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1ae89766da0fa0ce15cfa"
-  },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
-  },
-  "name": "Medium 100g Milk",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T13:47:53.431Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1aef8766da0fa0ce15d06"
-  },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
-  },
-  "name": "Medium 100g Other",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T13:49:43.621Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1af75766da0fa0ce15d0c"
-  },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
-  },
-  "name": "Medium 100g Dark",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T13:51:49.009Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1afb9766da0fa0ce15d12"
-  },
-  "categoryId": {
-    "$oid": "65f1acb6766da0fa0ce15ce7"
-  },
-  "name": "Premium 100-220g",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T13:52:56.890Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f442193d5a70bf25adb148"
-  },
-  "categoryId": {
-    "$oid": "65f4415f3d5a70bf25adb141"
-  },
-  "name": "Full Dinner Menu",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T12:42:01.257Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4428c3d5a70bf25adb14e"
-  },
-  "categoryId": {
-    "$oid": "65f4415f3d5a70bf25adb141"
-  },
-  "name": "Trays",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T12:43:56.213Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:16:16.157Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f443023d5a70bf25adb154"
-  },
-  "categoryId": {
-    "$oid": "65f4415f3d5a70bf25adb141"
-  },
-  "name": "Sweet Tables",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T12:45:53.830Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-22T11:18:16.531Z"
-  },
-  "isApproved": true
-}]
+  {
+    "id": "9db235d6-7010-4c57-9605-fe39745ef476",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "name": "Sweet Tables"
+  }
+]

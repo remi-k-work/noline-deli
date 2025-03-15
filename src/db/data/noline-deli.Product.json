@@ -1,1127 +1,536 @@
-[{
-  "_id": {
-    "$oid": "65f1b0c4766da0fa0ce15d19"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with WW wafer 245g",
-  "description": "Classic WW in the form of a chocolate bar are crunchy and delicious wafers layered with nut filling covered with milk chocolate from Wedel. An ideal companion for small, everyday pleasures which, thanks to its unique form, you can easily share with your loved ones. Cocoa originally comes from tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/e733fb99156f928ed943d12c02c20712d204ff23.png",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T13:57:24.087Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1b3c6766da0fa0ce15d33"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with Tiramisu filling 293g",
-  "description": "Traditional Italian Tiramisu flavor encased in milk Wedel chocolate. A perfect combination for lovers of unique desserts. Literally translated from Italian, the name of the dessert means \"lift my spirits\" or \"cheer me up.\" And it seems that is the case because tiramisu is a dream come true for many chocoholics.",
-  "imageUrl": "/ebe22642d888b98681fc9e2586b7bb748c6dd88d.png",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T14:10:14.418Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1b5db766da0fa0ce15d48"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with Crème Brûlée filling 289g",
-  "description": "Milk chocolate coating with creamy vanilla Crème Brûlée filling. perfect for those who are looking for an extra chocolate experience. The first recipe for crème brûlée was published in 1961. We're not entirely sure who invented this now-iconic dessert. The British, French, and Spanish are all contending. But the fact is that the first written-down recipe comes from a cookbook by French chef François Massialot.",
-  "imageUrl": "/325101ee3399faef6eacdc4e5b06dc2464eb8524.png",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T14:19:07.192Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1b6f1766da0fa0ce15d5d"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with Panna Cotta filling 287g",
-  "description": "Milk chocolate with a soft, creamy filling and fruit mousse inspired by a northern Italian dessert, Panna Cotta. Panna Cotta was originally square. The original recipe comes from Piedmont and was most likely created early in the last century. It is said to have been invented by a Hungarian woman living in Italy. The dessert was square or rectangular in shape, and over time it began to be prepared in round molds.",
-  "imageUrl": "/e58cea7d3e8fc1eec97f60f37863496d87e750bc.png",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T14:23:45.040Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1b878766da0fa0ce15d72"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with Brownie filling 290g",
-  "description": "The most famous American dessert and the most famous Polish chocolate are perfect for all who are looking for an extra chocolate experience. The intense taste of a brownie softened with velvety milky Wedel chocolate provides a great moment of pleasure in American style. A brownie is an intense-flavor cake with dark chocolate. The special moist texture of this treat is the result of a happy mistake. One time, its accidental inventor, the American Mildred Schrumpf, forgot to add baking powder.",
-  "imageUrl": "/b1e1b4477c56bb92fe2083e5a666b8c1cabfc38c.png",
-  "price": 1095,
-  "freeShipping": true,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T14:30:16.261Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1b9c8766da0fa0ce15d8b"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with “Bajeczny” filling 290g",
-  "description": "“Bajeczny” in a chocolate bar? A dreamy and creamy nutty filling with wafer chunks is a temptation you won’t resist. Every minute, the E. Wedel factory produces approximately 500 chocolate bars.",
-  "imageUrl": "/99cec19e8c3751e21a83ac3a750462169221245e.png",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T14:35:51.783Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f2f732fa8a1e4d21f027"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Classic milk chocolate 40g",
-  "description": "A unique chocolate recipe in a smaller, more convenient format. Wedel—the highest quality and best flavor known for generations. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
-  "imageUrl": "/46dadf524ff2a54bdddc66e50a6968657b981619.png",
-  "price": 1299,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T18:39:51.171Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f46832fa8a1e4d21f03c"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Milk chocolate with hazelnuts 40g",
-  "description": "Original Wedel chocolate with chopped hazelnuts in a smaller, more convenient format. An absolute classic among sweets. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/93b70eeae90be27d3ba12193186b84795f6c4b04.png",
-  "price": 1299,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T18:45:59.761Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f5b532fa8a1e4d21f051"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Mild dark chocolate 50% cocoa 40g",
-  "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste in a smaller, more convenient format. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/96c6707f31e1d8a4b7e60bf507424e552fdf676a.png",
-  "price": 1299,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T18:51:32.896Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f72a32fa8a1e4d21f067"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Snack So Salty Milk chocolate with salty crispy cereals 85g",
-  "description": "Milk chocolate with salty crisps is the perfect solution for lovers of extreme combinations—in this case, salty and sweet. Wedel’s smooth milk classic chocolate, enhanced with salty, crunchy additives, creates a new, surprising combination that is hard to break away from. The history of chocolate is nearly 4,000 years old, with its origins in ancient Mesoamerica.",
-  "imageUrl": "/c33cd08676bcbddcca01b185917aa8c09a9bda3c.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T18:57:45.905Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:17:23.561Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f88f32fa8a1e4d21f07c"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Snack Fizzy Cola Cola flavour milk chocolate with popping Candy 90g",
-  "description": "The combination of the refreshing taste of cola with Wedel’s milk classic chocolate and an unexpected shooting addition makes each cube full of excitement and surprise. Delight in the intense taste while simultaneously experiencing the unforgettable effect of popping candy sugar on your palate. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
-  "imageUrl": "/f0040c9713432db4c2520a1a801fc5ac617e9f2f.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:03:42.993Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1f9f032fa8a1e4d21f091"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Snack So Sour Milk chocolate with sour lemon filling 100g",
-  "description": "Our milk chocolate stuffed with extra-sour lemon filling is a combination of velvety milk chocolate with an intense and refreshing taste of lemon. Indulge in this unique combination of sweetness and acidity that will enliven your palate and emphasize the variety of flavors. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/ebaf13bb04ee8c7218d06ef6273df91e99555929.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:09:36.254Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1fb4632fa8a1e4d21f0a7"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Snack Pop-Corn Milk chocolate with pop-corn 90g",
-  "description": "Popcorn-flavored milk chocolate with crisps is one of Wedel’s latest innovations. It offers a delightful fusion of classic Wedel milk chocolate with a hint of popcorn and saliness, inspired by the young ones' favorite snacks. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
-  "imageUrl": "/86ed7cd1705829e393c871e9fe02be755c8cdc1e.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:15:17.643Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1fc7732fa8a1e4d21f0bc"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Snack Bubble Gum Milk chocolate with buble gum flavour jellies 90g",
-  "description": "Discover milk chocolate with bubble gum flavor—a combination of sweet milk chocolate with a cheerful touch of bubble gum. This chocolate has a perfect creamy texture and intense flavor that will take you to the carefree world of childhood. Immerse yourself in the pleasure of chocolate delight and enliven your palate with this unique flavor composition. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
-  "imageUrl": "/a13066a31f9082dbac3c3c4f3fe8c5c942b26775.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:20:23.344Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f1ffc732fa8a1e4d21f0d6"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Extra milk chocolate 80g",
-  "description": "Continuing Wedel’s tradition of chocolate manufacture, we created the new extra milk chocolate. It has a smooth, delicate texture that melts in your mouth. Its balanced chocolate-milk flavor will enliven your taste buds. See if you like it as much as we do! The French word “bonbon” means sweet. In the 18th century, the custom of storing candies in small, decorative containers—then usually made of ceramics or faience—spread from France to other European countries.",
-  "imageUrl": "/8f04d07b14b8ad3a1551ea3af3a1d7a22d522944.png",
-  "price": 1495,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:34:31.096Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f200d232fa8a1e4d21f0eb"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "White chocolate 80g",
-  "description": "Stands out not only with color but also with taste. It’s delicious. Especially appreciated by those with a severe case of sweet tooth. In the last week of October, as many as 40,000 tons of chocolate were sold! To give you a comparison: 21,000 metric tons of sweets are sold in the week preceding St. Valentine’s Day! But why such a huge demand for chocolate treats at the end of October? The reason is the increasingly popular Halloween and the “trick-or-treat” tradition.",
-  "imageUrl": "/49d240e43929a79977129075cafa679ec897ff15.png",
-  "price": 1525,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:38:58.035Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f201c532fa8a1e4d21f100"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Caramel white chocolate 80g",
-  "description": "First in Poland, solid white caramel chocolate. The secret of Karmellove lies in chocolate of the highest quality with an intense caramel flavor packed in a crispy bar. Until recently, there were only three types of chocolate: dark, white, and milk. However, E. Wedel has created white caramel chocolate, a kind of chocolate with an unusual taste and color. Its taste and aroma result, among others, from the caramelization of milk and sugar.",
-  "imageUrl": "/59fa56a629004ecc081cd3a739341eb7f82ad472.png",
-  "price": 1525,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:43:00.816Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f202db32fa8a1e4d21f115"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Mild dark chocolate 50% cocoa 90g",
-  "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/e4fe7d6614374328808c8b692bc9b5909f514f0f.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:47:39.355Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f203c632fa8a1e4d21f129"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Dark chocolate 64% cocoa content 90g",
-  "description": "What gives Wedel chocolate its strong taste? Cocoa is from Ghana. This is what makes Wedel chocolate extremely flavorful. It’s a bestseller in Poland and a must-eat for every chocolate fan. “Adventures of Maciuś or the Chocolate Victory by Wedel” was a children’s book published before the war. It told the story of a boy sitting on a zebra and his adventures in Africa. The book featured coloring pictures and drawings by K. Mackiewicz.",
-  "imageUrl": "/1e192bcf135544619b6633c475f609da93d2314b.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:51:33.650Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f2047d32fa8a1e4d21f13e"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Extra dark chocolate 80% 80g",
-  "description": "The most intense dark chocolate in the Wedel product range, created for those who look for sophisticated delight.",
-  "imageUrl": "/4777fbb8f8144e4ff9f27fd1d1d066da6ab58036.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:54:36.955Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f2054632fa8a1e4d21f152"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Dark chocolate with raspberries and wafer flakes 80g",
-  "description": "Original Wedel dark chocolate bar with raspberries and wafer pieces. The dry taste is balanced with the intensity of the additions, thanks to which the bar gains its uniqueness. Wedel's logo with the zebra was created in 1926. It was designed by Leonetto Capiello, an Italian poster artist who worked mainly in Paris. The artist created posters for brands such as Pirelli and Campari. His distinctive style put Wedel on the top shelf of European design at that time.",
-  "imageUrl": "/6718fd287c4ed997846f75f009fd2865c15888bd.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T19:57:57.679Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f2062332fa8a1e4d21f167"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Dark chocolate with hazelnuts and peanuts 90g",
-  "description": "Dark chocolate with hazelnuts is a classic taste in a new version. Pleasantly melting dark chocolate with hazelnut will make every moment of pleasure even more enjoyable. See if you like it! The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
-  "imageUrl": "/79ed95ed832488124037e6fbcea87d240a812fef.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:01:39.041Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f206d832fa8a1e4d21f17c"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Dark chocolate with strawberry filling 100g",
-  "description": "All strawberry lovers will definitely be pleased. The very well-known and liked strawberry filling is now available in dark chocolate. This is a proposal for those who are looking for a fresh and fruity taste with a perfectly balanced, deep taste in dark chocolate. In the 17th century, King Louis XIV of France ordered the crossing of two wild strawberry varieties. As a result, the strawberries we know today were created. We have to admit it turned out really delicious!",
-  "imageUrl": "/b1a10fd91ca8bf92a739b137db9742b2353687c6.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:04:40.049Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f2079d32fa8a1e4d21f192"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Dark chocolate with coconut filling 100g",
-  "description": "Coconut delight fills every square of dark Wedel chocolate. Is there anything more one can crave? E. Wedel became a partner of the European Football Championships in 2012. For this occasion, 400 kg of chocolate were used to create a chocolate sculpture of the National Stadium as well as chocolate replicas of the winning cup.",
-  "imageUrl": "/fab370aea9c203702f303e8de713ea21942f1a48.png",
-  "price": 1699,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:07:56.759Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f2087d32fa8a1e4d21f1a7"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Premium dark chocolate with Red Currant",
-  "description": "A unique combination of intense Wedel dark chocolate with sour red currant is an ideal proposition for lovers of original flavors. In the form of a thin chocolate bar packed in an elegant cardboard box, perfect for a gift. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
-  "imageUrl": "/06fecdf892754c27fe07c641e3aae01c344564c7.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:11:40.639Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f20a5a32fa8a1e4d21f1bf"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Premium extra dark chocolate 80% cocoa",
-  "description": "Savory chocolate with 80% Ghanaian cocoa content in a thin chocolate bar packed in an elegant cardboard box. In Belgium, as many as 17,000 people are involved in chocolate manufacturing. And it is this country that is considered the kingdom of chocolate. Belgians produce more than 170,000 tons of chocolate each year and eat more than 70,000 tons.",
-  "imageUrl": "/f3edeccca5fb1d5ab42276c249234d16bb3118ac.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:19:37.867Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f20b5032fa8a1e4d21f1d4"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Premium dark chocolate with Hazelnuts & Salty Caramel",
-  "description": "Excellent dark chocolate with caramelized hazelnuts and salted caramel chunks in a special thin bar packed in an elegant cardboard box. The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
-  "imageUrl": "/364a190e998b674fedf6b79ad127b63982e9d364.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:23:44.303Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f20c0a32fa8a1e4d21f1ea"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "Premium dark chocolate with Orange",
-  "description": "A perfect combination of Wedel dark chocolate with orange chunks in a special thin bar packed in an elegant cardboard box. The word \"chocolate\" is derived from the Aztec \"Xocolatl,\"  meaning \"bitter water.\" Why did the Aztecs not associate chocolate with sweetness? Most likely because they drank a brew of cocoa beans to which they added corn and chili peppers.",
-  "imageUrl": "/a30791c25d18fac5dcdd752994dcc156a3a1d963.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:26:49.748Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f20d1d32fa8a1e4d21f202"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "“Jedyna” Chocolate 100g",
-  "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor ‘Czekolada Jedyna’ is a product invented by Jan Wedel, whose packaging was designed by the famous illustrator Karol Śliwka. It is worth noting that this chocolate is still produced and available in the same design.",
-  "imageUrl": "/a8afd855ea490d16bc572717900111742b9c525b.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:31:24.794Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f20e2332fa8a1e4d21f217"
-  },
-  "brandId": {
-    "$oid": "65e3054845dcd13d0e946a28"
-  },
-  "name": "“Jedyna” Chocolate 220g",
-  "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor in an elegant cardboard box is perfect for a gift. After taking over the factory from his father, Emil Wedel modernized production and expanded the product portfolio with more chocolate delicacies. The confectionery success of the company was so great that Wedel products started to be counterfeited. Emil Wedel then decided that each chocolate bar would be marked with his signature. Over time, this mark grew so close to the brand that Emil Wedel's signature can still be found on Wedel products to this day.",
-  "imageUrl": "/2d1dbe30d7666c8a53cc861cae41286a15a56787.png",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-13T20:35:47.236Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:18:31.043Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f44c483d5a70bf25adb170"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Pork tenderloin rolled in bacon with honey-mustard sauce",
-  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
-  "imageUrl": "/28.porktenderloin_wrapped_withbacon.jpg",
-  "price": 5000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T13:25:27.927Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f44fe73d5a70bf25adb196"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Stuffed cabbage with tomato sauce",
-  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
-  "imageUrl": "/16.golabki_z_sosem.jpg",
-  "price": 5000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T13:40:54.871Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f451473d5a70bf25adb1b8"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Roasted pork ribs in bbq sauce",
-  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
-  "imageUrl": "/27.pork_ribs.jpg",
-  "price": 5000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T13:46:47.052Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4529c3d5a70bf25adb1e0"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Meat balls with mushroom sauce",
-  "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
-  "imageUrl": "/26.pork_meatballs.jpg",
-  "price": 5000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T13:52:27.932Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f454743d5a70bf25adb201"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Cheese Tray",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/Sery2_str-1-edit.png",
-  "price": 6000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T14:00:19.743Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f456e73d5a70bf25adb226"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Country Board with Peasant Food",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/Deska-80-edit.png",
-  "price": 9000,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T14:10:47.204Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4baab336fe22f703207de"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Pastry Tray",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/montrose-1-1024x1024-edit.png",
-  "price": 4500,
-  "freeShipping": true,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T21:16:26.593Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4bce1336fe22f70320804"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Bread Tray",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/mae-mu-8GzmzEyLNyc-unsplash.jpg",
-  "price": 1999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T21:25:52.574Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4be7a336fe22f70320826"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Meat and Cheese Tray",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/montrose-3-1024x1024-edit.png",
-  "price": 5500,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T21:32:42.179Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4bf87336fe22f70320848"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Fruit Tray",
-  "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
-  "imageUrl": "/Owoce2_str-edit.png",
-  "price": 4995,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T21:37:10.935Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f4c1c4336fe22f7032086c"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Sweet Variety 1",
-  "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
-  "imageUrl": "/IMG_9736-1-1024x768.jpg",
-  "price": 5595,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T21:46:43.967Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5df0d7090e0e6b65e6f6f"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Sweet Variety 2",
-  "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
-  "imageUrl": "/IMG_9742-1-768x1024.jpg",
-  "price": 5595,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T18:03:56.384Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5e1177090e0e6b65e6f91"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Sweet Variety 3",
-  "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
-  "imageUrl": "/brooke-lark-M4E7X3z80PQ-unsplash.jpg",
-  "price": 5595,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T18:12:38.982Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5e2ae7090e0e6b65e6fbc"
-  },
-  "brandId": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Sweet Variety 4",
-  "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
-  "imageUrl": "/frank-zhang-O2ExGqIyvOw-unsplash.jpg",
-  "price": 5595,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T18:19:25.592Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5ec847090e0e6b65e6ffd"
-  },
-  "brandId": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": "Shea Butter",
-  "description": "Give your skin the care it deserves with NIVEA Shea Butter Body Wash with Nourishing Serum and its specially moisturizing formula that leaves skin nicely fragranced.",
-  "imageUrl": "/05acd01be733495ca6c2d937db43525e-web_1010x1180_transparent_png.webp",
-  "price": 1595,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T19:01:23.960Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5f10b7090e0e6b65e7025"
-  },
-  "brandId": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": "Nivea Soft",
-  "description": "NIVEA® Soft is a lightweight, non-greasy cream with Jojoba Oil and Vitamin E to deliver soft, supple skin in a travel size, for moisturizing on the go.",
-  "imageUrl": "/36934bf818df4853b302c5bcbad9f50c-web_1010x1180_transparent_png.webp",
-  "price": 1095,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T19:20:43.482Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5f3c17090e0e6b65e7044"
-  },
-  "brandId": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": " Shower & Shave",
-  "description": "Enriched with Avocado Oil, the caring formula provides nourishing moisture and long-lasting hydration and is specifically crafted for men's skin needs.",
-  "imageUrl": "/e38a972005ab482da17ebf2b38ab4dd0-web_1010x1180_transparent_png.webp",
-  "price": 1095,
-  "freeShipping": true,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T19:32:16.811Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5f7857090e0e6b65e705f"
-  },
-  "brandId": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": "Nivea Intense Healing Body Cream",
-  "description": "This nourishing body cream is infused with vitamin B5 and provides nourishing moisture. With regular use, the non-greasy formula relieves dry and rough skin for 72 hours. Intensively moisturize and sooth dry and rough skin after just 1 application of NIVEA Intense Healing Body Cream.",
-  "imageUrl": "/4889f4d54ecd489380af246dfa2aa468-web_1010x1180_transparent_png.webp",
-  "price": 990,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T19:48:20.864Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5fa067090e0e6b65e707d"
-  },
-  "brandId": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": "Sensitive Calm Liquid Shaving Cream",
-  "description": "A liquid shaving experience that delivers a comfortable shave for visibly healthier-looking skin. | 6.8 FL. OZ. | 200ml.",
-  "imageUrl": "/165d55532d154e418836d5809bc6b093-screen.webp",
-  "price": 999,
-  "freeShipping": false,
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T19:59:01.887Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-21T13:19:39.144Z"
-  },
-  "isApproved": true
-}]
+[
+  {
+    "id": "6a82c63c-faa8-4ddb-8c2d-fb1d44987434",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with WW wafer 245g",
+    "description": "Classic WW in the form of a chocolate bar are crunchy and delicious wafers layered with nut filling covered with milk chocolate from Wedel. An ideal companion for small, everyday pleasures which, thanks to its unique form, you can easily share with your loved ones. Cocoa originally comes from tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/e733fb99156f928ed943d12c02c20712d204ff23.png",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "a6ecb067-10ed-4c9d-b713-47e915d503e3",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with Tiramisu filling 293g",
+    "description": "Traditional Italian Tiramisu flavor encased in milk Wedel chocolate. A perfect combination for lovers of unique desserts. Literally translated from Italian, the name of the dessert means \"lift my spirits\" or \"cheer me up.\" And it seems that is the case because tiramisu is a dream come true for many chocoholics.",
+    "imageUrl": "/ebe22642d888b98681fc9e2586b7bb748c6dd88d.png",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "59b86fb1-3565-4189-a1a7-e8acacb066cf",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with Crème Brûlée filling 289g",
+    "description": "Milk chocolate coating with creamy vanilla Crème Brûlée filling. perfect for those who are looking for an extra chocolate experience. The first recipe for crème brûlée was published in 1961. We're not entirely sure who invented this now-iconic dessert. The British, French, and Spanish are all contending. But the fact is that the first written-down recipe comes from a cookbook by French chef François Massialot.",
+    "imageUrl": "/325101ee3399faef6eacdc4e5b06dc2464eb8524.png",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "6d0939ce-545c-4880-be4b-aa0494506782",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with Panna Cotta filling 287g",
+    "description": "Milk chocolate with a soft, creamy filling and fruit mousse inspired by a northern Italian dessert, Panna Cotta. Panna Cotta was originally square. The original recipe comes from Piedmont and was most likely created early in the last century. It is said to have been invented by a Hungarian woman living in Italy. The dessert was square or rectangular in shape, and over time it began to be prepared in round molds.",
+    "imageUrl": "/e58cea7d3e8fc1eec97f60f37863496d87e750bc.png",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "5cabfe6b-b193-40d9-9f78-c1e020a56c0d",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with Brownie filling 290g",
+    "description": "The most famous American dessert and the most famous Polish chocolate are perfect for all who are looking for an extra chocolate experience. The intense taste of a brownie softened with velvety milky Wedel chocolate provides a great moment of pleasure in American style. A brownie is an intense-flavor cake with dark chocolate. The special moist texture of this treat is the result of a happy mistake. One time, its accidental inventor, the American Mildred Schrumpf, forgot to add baking powder.",
+    "imageUrl": "/b1e1b4477c56bb92fe2083e5a666b8c1cabfc38c.png",
+    "price": 1095,
+    "freeShipping": true
+  },
+  {
+    "id": "c455906e-0bec-4984-9c4c-111b33eea723",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "46a7ff1f-ab7d-4114-9265-397691deac4b",
+    "name": "Milk chocolate with “Bajeczny” filling 290g",
+    "description": "“Bajeczny” in a chocolate bar? A dreamy and creamy nutty filling with wafer chunks is a temptation you won’t resist. Every minute, the E. Wedel factory produces approximately 500 chocolate bars.",
+    "imageUrl": "/99cec19e8c3751e21a83ac3a750462169221245e.png",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "fa48b638-259d-462f-a957-ba1acc88879e",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "7b31e4db-8062-41ad-855a-de05dc37e80e",
+    "name": "Classic milk chocolate 40g",
+    "description": "A unique chocolate recipe in a smaller, more convenient format. Wedel—the highest quality and best flavor known for generations. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+    "imageUrl": "/46dadf524ff2a54bdddc66e50a6968657b981619.png",
+    "price": 1299,
+    "freeShipping": false
+  },
+  {
+    "id": "edebb3af-7d95-4220-970b-d584e164001a",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "7b31e4db-8062-41ad-855a-de05dc37e80e",
+    "name": "Milk chocolate with hazelnuts 40g",
+    "description": "Original Wedel chocolate with chopped hazelnuts in a smaller, more convenient format. An absolute classic among sweets. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/93b70eeae90be27d3ba12193186b84795f6c4b04.png",
+    "price": 1299,
+    "freeShipping": false
+  },
+  {
+    "id": "d0796af3-e59d-4437-9565-3ef76bb8586f",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "7b31e4db-8062-41ad-855a-de05dc37e80e",
+    "name": "Mild dark chocolate 50% cocoa 40g",
+    "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste in a smaller, more convenient format. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/96c6707f31e1d8a4b7e60bf507424e552fdf676a.png",
+    "price": 1299,
+    "freeShipping": false
+  },
+  {
+    "id": "c7559541-0918-4183-9dfe-8939a2ecceb3",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Snack So Salty Milk chocolate with salty crispy cereals 85g",
+    "description": "Milk chocolate with salty crisps is the perfect solution for lovers of extreme combinations—in this case, salty and sweet. Wedel’s smooth milk classic chocolate, enhanced with salty, crunchy additives, creates a new, surprising combination that is hard to break away from. The history of chocolate is nearly 4,000 years old, with its origins in ancient Mesoamerica.",
+    "imageUrl": "/c33cd08676bcbddcca01b185917aa8c09a9bda3c.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "4b67e773-8ff5-423d-8860-d290692cd956",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Snack Fizzy Cola Cola flavour milk chocolate with popping Candy 90g",
+    "description": "The combination of the refreshing taste of cola with Wedel’s milk classic chocolate and an unexpected shooting addition makes each cube full of excitement and surprise. Delight in the intense taste while simultaneously experiencing the unforgettable effect of popping candy sugar on your palate. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+    "imageUrl": "/f0040c9713432db4c2520a1a801fc5ac617e9f2f.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "74fcb40c-5679-4018-a48b-2355f57ab477",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Snack So Sour Milk chocolate with sour lemon filling 100g",
+    "description": "Our milk chocolate stuffed with extra-sour lemon filling is a combination of velvety milk chocolate with an intense and refreshing taste of lemon. Indulge in this unique combination of sweetness and acidity that will enliven your palate and emphasize the variety of flavors. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/ebaf13bb04ee8c7218d06ef6273df91e99555929.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "f5178aab-0b2d-4bd1-8255-3f64d9fa811b",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Snack Pop-Corn Milk chocolate with pop-corn 90g",
+    "description": "Popcorn-flavored milk chocolate with crisps is one of Wedel’s latest innovations. It offers a delightful fusion of classic Wedel milk chocolate with a hint of popcorn and saliness, inspired by the young ones' favorite snacks. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+    "imageUrl": "/86ed7cd1705829e393c871e9fe02be755c8cdc1e.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "a193891d-8fa0-47c2-9b5b-50d7ff528b93",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Snack Bubble Gum Milk chocolate with buble gum flavour jellies 90g",
+    "description": "Discover milk chocolate with bubble gum flavor—a combination of sweet milk chocolate with a cheerful touch of bubble gum. This chocolate has a perfect creamy texture and intense flavor that will take you to the carefree world of childhood. Immerse yourself in the pleasure of chocolate delight and enliven your palate with this unique flavor composition. Chocolate needs to be prepared according to a carefully designed recipe in order to delight you with its extraordinary taste and melt-in-your-mouth effect. Wedel chocolate is made from cocoa beans from Ghana, which gives each bar a unique, deep taste. The final stage of chocolate manufacturing is the conching process, which influences the final taste. It can last up to several tens of hours for dark chocolate.",
+    "imageUrl": "/a13066a31f9082dbac3c3c4f3fe8c5c942b26775.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "e918b829-117f-405c-a0ce-6edc78de7559",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "df480488-b8ec-4986-b1a0-0060c1d128e9",
+    "name": "Extra milk chocolate 80g",
+    "description": "Continuing Wedel’s tradition of chocolate manufacture, we created the new extra milk chocolate. It has a smooth, delicate texture that melts in your mouth. Its balanced chocolate-milk flavor will enliven your taste buds. See if you like it as much as we do! The French word “bonbon” means sweet. In the 18th century, the custom of storing candies in small, decorative containers—then usually made of ceramics or faience—spread from France to other European countries.",
+    "imageUrl": "/8f04d07b14b8ad3a1551ea3af3a1d7a22d522944.png",
+    "price": 1495,
+    "freeShipping": false
+  },
+  {
+    "id": "bf0ac16e-0d2d-44f7-80f1-814a67fb510b",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "d385c284-a24f-44dd-92f6-8720fdabc61d",
+    "name": "White chocolate 80g",
+    "description": "Stands out not only with color but also with taste. It’s delicious. Especially appreciated by those with a severe case of sweet tooth. In the last week of October, as many as 40,000 tons of chocolate were sold! To give you a comparison: 21,000 metric tons of sweets are sold in the week preceding St. Valentine’s Day! But why such a huge demand for chocolate treats at the end of October? The reason is the increasingly popular Halloween and the “trick-or-treat” tradition.",
+    "imageUrl": "/49d240e43929a79977129075cafa679ec897ff15.png",
+    "price": 1525,
+    "freeShipping": false
+  },
+  {
+    "id": "152850b6-2ddb-437f-a8a5-39c9f97d6b4b",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "d385c284-a24f-44dd-92f6-8720fdabc61d",
+    "name": "Caramel white chocolate 80g",
+    "description": "First in Poland, solid white caramel chocolate. The secret of Karmellove lies in chocolate of the highest quality with an intense caramel flavor packed in a crispy bar. Until recently, there were only three types of chocolate: dark, white, and milk. However, E. Wedel has created white caramel chocolate, a kind of chocolate with an unusual taste and color. Its taste and aroma result, among others, from the caramelization of milk and sugar.",
+    "imageUrl": "/59fa56a629004ecc081cd3a739341eb7f82ad472.png",
+    "price": 1525,
+    "freeShipping": false
+  },
+  {
+    "id": "5d4971b9-e7f8-4c33-8e7a-eb1fbddf905a",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Mild dark chocolate 50% cocoa 90g",
+    "description": "The first step on a sweet path towards dark chocolate. Ideal for all those who fancy a sweet treat once in a while but want something richer in taste. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/e4fe7d6614374328808c8b692bc9b5909f514f0f.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "e70831d8-1a87-4c26-be3c-e5d614d7e35b",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Dark chocolate 64% cocoa content 90g",
+    "description": "What gives Wedel chocolate its strong taste? Cocoa is from Ghana. This is what makes Wedel chocolate extremely flavorful. It’s a bestseller in Poland and a must-eat for every chocolate fan. “Adventures of Maciuś or the Chocolate Victory by Wedel” was a children’s book published before the war. It told the story of a boy sitting on a zebra and his adventures in Africa. The book featured coloring pictures and drawings by K. Mackiewicz.",
+    "imageUrl": "/1e192bcf135544619b6633c475f609da93d2314b.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "9a271fc3-c180-4742-bb55-ccd2a384f617",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Extra dark chocolate 80% 80g",
+    "description": "The most intense dark chocolate in the Wedel product range, created for those who look for sophisticated delight.",
+    "imageUrl": "/4777fbb8f8144e4ff9f27fd1d1d066da6ab58036.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "fffdd328-ee80-42b1-a65e-0269ed532498",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Dark chocolate with raspberries and wafer flakes 80g",
+    "description": "Original Wedel dark chocolate bar with raspberries and wafer pieces. The dry taste is balanced with the intensity of the additions, thanks to which the bar gains its uniqueness. Wedel's logo with the zebra was created in 1926. It was designed by Leonetto Capiello, an Italian poster artist who worked mainly in Paris. The artist created posters for brands such as Pirelli and Campari. His distinctive style put Wedel on the top shelf of European design at that time.",
+    "imageUrl": "/6718fd287c4ed997846f75f009fd2865c15888bd.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "f51ad174-5500-4ff1-a1c9-8dac56c45a29",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Dark chocolate with hazelnuts and peanuts 90g",
+    "description": "Dark chocolate with hazelnuts is a classic taste in a new version. Pleasantly melting dark chocolate with hazelnut will make every moment of pleasure even more enjoyable. See if you like it! The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
+    "imageUrl": "/79ed95ed832488124037e6fbcea87d240a812fef.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "7a041560-a741-4cdf-9873-51d705731103",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Dark chocolate with strawberry filling 100g",
+    "description": "All strawberry lovers will definitely be pleased. The very well-known and liked strawberry filling is now available in dark chocolate. This is a proposal for those who are looking for a fresh and fruity taste with a perfectly balanced, deep taste in dark chocolate. In the 17th century, King Louis XIV of France ordered the crossing of two wild strawberry varieties. As a result, the strawberries we know today were created. We have to admit it turned out really delicious!",
+    "imageUrl": "/b1a10fd91ca8bf92a739b137db9742b2353687c6.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "1e37f370-bb61-42ed-adf6-3c0971deb0b1",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "c365220a-5531-4b07-8d25-ff35ff7ab248",
+    "name": "Dark chocolate with coconut filling 100g",
+    "description": "Coconut delight fills every square of dark Wedel chocolate. Is there anything more one can crave? E. Wedel became a partner of the European Football Championships in 2012. For this occasion, 400 kg of chocolate were used to create a chocolate sculpture of the National Stadium as well as chocolate replicas of the winning cup.",
+    "imageUrl": "/fab370aea9c203702f303e8de713ea21942f1a48.png",
+    "price": 1699,
+    "freeShipping": false
+  },
+  {
+    "id": "193acd1d-2339-4319-8ce5-f6cfa550111c",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "Premium dark chocolate with Red Currant",
+    "description": "A unique combination of intense Wedel dark chocolate with sour red currant is an ideal proposition for lovers of original flavors. In the form of a thin chocolate bar packed in an elegant cardboard box, perfect for a gift. Cocoa originally came from the tropical forests of South America, but today most trees of this species are found in Africa. These trees can grow really old! But although it grows for up to 200 years, its fruit is only usable for 25 years.",
+    "imageUrl": "/06fecdf892754c27fe07c641e3aae01c344564c7.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "671a0d6a-6e1c-415b-855d-5fd2880aee2b",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "Premium extra dark chocolate 80% cocoa",
+    "description": "Savory chocolate with 80% Ghanaian cocoa content in a thin chocolate bar packed in an elegant cardboard box. In Belgium, as many as 17,000 people are involved in chocolate manufacturing. And it is this country that is considered the kingdom of chocolate. Belgians produce more than 170,000 tons of chocolate each year and eat more than 70,000 tons.",
+    "imageUrl": "/f3edeccca5fb1d5ab42276c249234d16bb3118ac.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "f8f1d61d-fcdd-4aa9-8d5b-cb34c3926347",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "Premium dark chocolate with Hazelnuts & Salty Caramel",
+    "description": "Excellent dark chocolate with caramelized hazelnuts and salted caramel chunks in a special thin bar packed in an elegant cardboard box. The biggest chocolate in the world had 29 million calories! The Guinness World Record was set in Split, Croatia, in 2015. The biggest chocolate bar in the world was a square with a side length of 4 meters. It weighed nearly 6 tons, and more than 72,000 standard bars could be carved from it.",
+    "imageUrl": "/364a190e998b674fedf6b79ad127b63982e9d364.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "8db6da59-3538-4ad9-8b82-1946e6a2ccdc",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "Premium dark chocolate with Orange",
+    "description": "A perfect combination of Wedel dark chocolate with orange chunks in a special thin bar packed in an elegant cardboard box. The word \"chocolate\" is derived from the Aztec \"Xocolatl,\"  meaning \"bitter water.\" Why did the Aztecs not associate chocolate with sweetness? Most likely because they drank a brew of cocoa beans to which they added corn and chili peppers.",
+    "imageUrl": "/a30791c25d18fac5dcdd752994dcc156a3a1d963.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "26f5e099-aeeb-4b06-8b88-a57fd734f1b5",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "“Jedyna” Chocolate 100g",
+    "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor ‘Czekolada Jedyna’ is a product invented by Jan Wedel, whose packaging was designed by the famous illustrator Karol Śliwka. It is worth noting that this chocolate is still produced and available in the same design.",
+    "imageUrl": "/a8afd855ea490d16bc572717900111742b9c525b.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "6c4361b1-a417-420f-a71a-e00843662495",
+    "brandId": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "categoryId": "b6a52429-c0c8-4a2a-84e2-67e8ec8a0d0c",
+    "subCategoryId": "32be0ea7-bbb4-4ad6-8770-7ae724e7bdec",
+    "name": "“Jedyna” Chocolate 220g",
+    "description": "“Jedyna”: dark chocolate in traditional packaging, unchanged for years. Jedyna is well-known and loved by generations. The one and only flavor in an elegant cardboard box is perfect for a gift. After taking over the factory from his father, Emil Wedel modernized production and expanded the product portfolio with more chocolate delicacies. The confectionery success of the company was so great that Wedel products started to be counterfeited. Emil Wedel then decided that each chocolate bar would be marked with his signature. Over time, this mark grew so close to the brand that Emil Wedel's signature can still be found on Wedel products to this day.",
+    "imageUrl": "/2d1dbe30d7666c8a53cc861cae41286a15a56787.png",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "a2e78375-2575-4970-9f22-3e46cbdc4e89",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "034537e6-9721-4e5c-a1b6-4116e40b4706",
+    "name": "Pork tenderloin rolled in bacon with honey-mustard sauce",
+    "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+    "imageUrl": "/28.porktenderloin_wrapped_withbacon.jpg",
+    "price": 5000,
+    "freeShipping": false
+  },
+  {
+    "id": "9033f38f-30e1-4847-a03a-a6ce37ac6c50",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "034537e6-9721-4e5c-a1b6-4116e40b4706",
+    "name": "Stuffed cabbage with tomato sauce",
+    "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+    "imageUrl": "/16.golabki_z_sosem.jpg",
+    "price": 5000,
+    "freeShipping": false
+  },
+  {
+    "id": "2d0f85da-e902-4007-9021-f4d62719238d",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "034537e6-9721-4e5c-a1b6-4116e40b4706",
+    "name": "Roasted pork ribs in bbq sauce",
+    "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+    "imageUrl": "/27.pork_ribs.jpg",
+    "price": 5000,
+    "freeShipping": false
+  },
+  {
+    "id": "b3775bb9-6708-498e-a7ba-ff15bfc6be92",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "034537e6-9721-4e5c-a1b6-4116e40b4706",
+    "name": "Meat balls with mushroom sauce",
+    "description": "Whether you need to feed a large number of people through wedding catering or a small group that needs catering cuisine, we have the best catering service for your dinner party or big event. We handle everything from providing hot meal catering for all of your guests to making the occasion unforgettable with tasty catering services. We understand how to set up a dining table while keeping your meal warm and your guests satisfied. Furthermore, if you are unsure what to serve, we can provide invaluable assistance with catering cuisine ideas that will bring your event to life.",
+    "imageUrl": "/26.pork_meatballs.jpg",
+    "price": 5000,
+    "freeShipping": false
+  },
+  {
+    "id": "0e10638f-ea63-4439-a3cb-bf304f207af4",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Cheese Tray",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/Sery2_str-1-edit.png",
+    "price": 6000,
+    "freeShipping": false
+  },
+  {
+    "id": "c12ad930-7d30-4edb-85d4-e9f463900bc9",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Country Board with Peasant Food",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/Deska-80-edit.png",
+    "price": 9000,
+    "freeShipping": false
+  },
+  {
+    "id": "b2e30a5f-46fd-4697-ae55-9b85716ae665",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Pastry Tray",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/montrose-1-1024x1024-edit.png",
+    "price": 4500,
+    "freeShipping": true
+  },
+  {
+    "id": "0885f525-b6ae-468b-8c76-fad52a058291",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Bread Tray",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/mae-mu-8GzmzEyLNyc-unsplash.jpg",
+    "price": 1999,
+    "freeShipping": false
+  },
+  {
+    "id": "22d09050-b872-4782-bb60-5b5d47d03039",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Meat and Cheese Tray",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/montrose-3-1024x1024-edit.png",
+    "price": 5500,
+    "freeShipping": false
+  },
+  {
+    "id": "7841634b-7bb6-4d6b-bf61-1f24515e84db",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "5dcba332-e80f-4eb8-bdef-ee9416bc2355",
+    "name": "Fruit Tray",
+    "description": "We are your local catering specialists, offering a wide range of party food trays to suit every occasion. Sandwiches, wraps, fresh meats, desserts, and other delicious food options—we can provide you with any specialty catering ideas. You may also personalize your trays with Polish cuisine catering, which provides authentic and fresh food options that will bring exciting new flavors to your party or event. Make your event both easy and impressive by using some of our very tasty platters. It is party catering at its finest.",
+    "imageUrl": "/Owoce2_str-edit.png",
+    "price": 4995,
+    "freeShipping": false
+  },
+  {
+    "id": "08c0b1b6-2bbd-455b-bcdc-0b0ad3626e05",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "9db235d6-7010-4c57-9605-fe39745ef476",
+    "name": "Sweet Variety 1",
+    "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
+    "imageUrl": "/IMG_9736-1-1024x768.jpg",
+    "price": 5595,
+    "freeShipping": false
+  },
+  {
+    "id": "4e34e83c-eafb-4e53-8329-00eafde8ec5c",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "9db235d6-7010-4c57-9605-fe39745ef476",
+    "name": "Sweet Variety 2",
+    "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
+    "imageUrl": "/IMG_9742-1-768x1024.jpg",
+    "price": 5595,
+    "freeShipping": false
+  },
+  {
+    "id": "f89ca9f4-ebf8-4e9e-9594-74654ce5dbb8",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "9db235d6-7010-4c57-9605-fe39745ef476",
+    "name": "Sweet Variety 3",
+    "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
+    "imageUrl": "/brooke-lark-M4E7X3z80PQ-unsplash.jpg",
+    "price": 5595,
+    "freeShipping": false
+  },
+  {
+    "id": "c0cdb40a-87e5-4c45-a7af-6b4660f876ec",
+    "brandId": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "categoryId": "78a6aaaa-6680-446e-b3c4-497ccaf59e13",
+    "subCategoryId": "9db235d6-7010-4c57-9605-fe39745ef476",
+    "name": "Sweet Variety 4",
+    "description": "Trust your local party catering experts to create a deliciously sweet table for your event, from the mouthwatering to the delicately crafted. Whether you need to cap off an evening with the right sweets or you are bringing friends to a just-desserts gathering, you will be delighted by the vast selection of excellent deserts that provide just what you are searching for. We can even give a variety of fresh fruits to health-conscious dessert enthusiasts. Enjoy everything our catering services have to offer with a stunning display of delectable goodies, from our sweet table to yours.",
+    "imageUrl": "/frank-zhang-O2ExGqIyvOw-unsplash.jpg",
+    "price": 5595,
+    "freeShipping": false
+  },
+  {
+    "id": "f587a765-a0b3-4c34-ab3f-4bcab1b04e2c",
+    "brandId": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "categoryId": "efb0d25d-9f48-4b1d-8b20-6513710a854a",
+    "name": "Shea Butter",
+    "description": "Give your skin the care it deserves with NIVEA Shea Butter Body Wash with Nourishing Serum and its specially moisturizing formula that leaves skin nicely fragranced.",
+    "imageUrl": "/05acd01be733495ca6c2d937db43525e-web_1010x1180_transparent_png.webp",
+    "price": 1595,
+    "freeShipping": false
+  },
+  {
+    "id": "46eb9be7-1afe-4ba5-befe-e580dc85a0c2",
+    "brandId": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "categoryId": "efb0d25d-9f48-4b1d-8b20-6513710a854a",
+    "name": "Nivea Soft",
+    "description": "NIVEA® Soft is a lightweight, non-greasy cream with Jojoba Oil and Vitamin E to deliver soft, supple skin in a travel size, for moisturizing on the go.",
+    "imageUrl": "/36934bf818df4853b302c5bcbad9f50c-web_1010x1180_transparent_png.webp",
+    "price": 1095,
+    "freeShipping": false
+  },
+  {
+    "id": "ca4b711a-0a3d-4c2d-ba3f-46361bb33cb2",
+    "brandId": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "categoryId": "efb0d25d-9f48-4b1d-8b20-6513710a854a",
+    "name": " Shower & Shave",
+    "description": "Enriched with Avocado Oil, the caring formula provides nourishing moisture and long-lasting hydration and is specifically crafted for men's skin needs.",
+    "imageUrl": "/e38a972005ab482da17ebf2b38ab4dd0-web_1010x1180_transparent_png.webp",
+    "price": 1095,
+    "freeShipping": true
+  },
+  {
+    "id": "d0aebab2-b68b-46f1-a0f2-922d45ec726a",
+    "brandId": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "categoryId": "efb0d25d-9f48-4b1d-8b20-6513710a854a",
+    "name": "Nivea Intense Healing Body Cream",
+    "description": "This nourishing body cream is infused with vitamin B5 and provides nourishing moisture. With regular use, the non-greasy formula relieves dry and rough skin for 72 hours. Intensively moisturize and sooth dry and rough skin after just 1 application of NIVEA Intense Healing Body Cream.",
+    "imageUrl": "/4889f4d54ecd489380af246dfa2aa468-web_1010x1180_transparent_png.webp",
+    "price": 990,
+    "freeShipping": false
+  },
+  {
+    "id": "cb8f392c-ce43-4798-a876-1e861bbdf913",
+    "brandId": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "categoryId": "efb0d25d-9f48-4b1d-8b20-6513710a854a",
+    "name": "Sensitive Calm Liquid Shaving Cream",
+    "description": "A liquid shaving experience that delivers a comfortable shave for visibly healthier-looking skin. | 6.8 FL. OZ. | 200ml.",
+    "imageUrl": "/165d55532d154e418836d5809bc6b093-screen.webp",
+    "price": 999,
+    "freeShipping": false
+  }
+]

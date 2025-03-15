@@ -1,51 +1,17 @@
-[{
-  "_id": {
-    "$oid": "65e3054845dcd13d0e946a28"
+[
+  {
+    "id": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
+    "name": "Wedel",
+    "logoUrl": "/wedel.png"
   },
-  "name": "Wedel",
-  "logoUrl": "/wedel.png",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
+  {
+    "id": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
+    "name": "Montrose",
+    "logoUrl": "/montrose.jpg"
   },
-  "createdAt": {
-    "$date": "2024-03-02T10:54:00.540Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-22T11:21:57.776Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f446d33d5a70bf25adb168"
-  },
-  "name": "Montrose",
-  "logoUrl": "/montrose.jpg",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-15T13:02:11.123Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-22T11:21:57.776Z"
-  },
-  "isApproved": true
-},
-{
-  "_id": {
-    "$oid": "65f5e95f7090e0e6b65e6fec"
-  },
-  "name": "Nivea",
-  "logoUrl": "/nivea.jpeg",
-  "createdBy": {
-    "$oid": "65d9e530b31e9f9d87fedc4c"
-  },
-  "createdAt": {
-    "$date": "2024-03-16T18:47:59.386Z"
-  },
-  "updatedAt": {
-    "$date": "2024-05-22T11:21:57.776Z"
-  },
-  "isApproved": true
-}]
+  {
+    "id": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
+    "name": "Nivea",
+    "logoUrl": "/nivea.jpeg"
+  }
+]
