@@ -16,10 +16,10 @@ async function main() {
     // Perform database seeding or other tasks
     console.log("Seeding database...");
 
-    // await seedUser(ADMIN_USER_ID);
-    // await seedBrand(ADMIN_USER_ID);
-    // await seedCategory(ADMIN_USER_ID);
-    // await seedSubCategory(ADMIN_USER_ID);
+    await seedUser(ADMIN_USER_ID);
+    await seedBrand(ADMIN_USER_ID);
+    await seedCategory(ADMIN_USER_ID);
+    await seedSubCategory(ADMIN_USER_ID);
     await seedProduct(ADMIN_USER_ID);
 
     console.log("Database seeding complete.");

@@ -22,10 +22,10 @@ const getCategory = cache(async (categoryId: string) => {
     where: { ...(await whereAdminApproved<Prisma.CategoryWhereUniqueInput>()), id: categoryId },
     select: {
       name: true,
-      ...(await countAdminApprovedProducts<Prisma.CategorySelect>("MtM")),
+      ...(await countAdminApprovedProducts<Prisma.CategorySelect>()),
       subCategories: {
         where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) },
-        select: { name: true, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM")) },
+        select: { name: true, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>()) },
         orderBy: { name: "asc" },
       },
     },

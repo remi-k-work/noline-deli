@@ -55,7 +55,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.brand.findMany({
     where: { ...(await whereAdminApproved<Prisma.BrandWhereInput>()) },
-    select: { name: true, ...(await countAdminApprovedProducts<Prisma.BrandSelect>("OtM")) },
+    select: { name: true, ...(await countAdminApprovedProducts<Prisma.BrandSelect>()) },
     orderBy: { name: "asc" },
   })) {
     data.productsByBrand.push({ brandName, products });
@@ -67,7 +67,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.category.findMany({
     where: { ...(await whereAdminApproved<Prisma.CategoryWhereInput>()) },
-    select: { name: true, ...(await countAdminApprovedProducts<Prisma.CategorySelect>("MtM")) },
+    select: { name: true, ...(await countAdminApprovedProducts<Prisma.CategorySelect>()) },
     orderBy: { name: "asc" },
   })) {
     data.productsByCategory.push({ categoryName, products });
@@ -80,7 +80,7 @@ export const getBrowseBarData = cache(async () => {
     _count: { products },
   } of await prisma.subCategory.findMany({
     where: { ...(await whereAdminApproved<Prisma.SubCategoryWhereInput>()) },
-    select: { name: true, category: { select: { name: true } }, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>("MtM")) },
+    select: { name: true, category: { select: { name: true } }, ...(await countAdminApprovedProducts<Prisma.SubCategorySelect>()) },
     orderBy: { name: "asc" },
   })) {
     data.productsBySubCategory.push({ categoryName, subCategoryName, products });

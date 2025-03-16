@@ -53,11 +53,9 @@ export async function whereAdminApprovedOnly<WhereT>(): Promise<WhereT> {
   return { user: { role: "ADMIN" }, isApproved: true } as WhereT;
 }
 
-// Make sure to count only admin-approved + current user-created products (consider the relationship type)
-export async function countAdminApprovedProducts<SelectT>(rel: "MtM" | "OtM"): Promise<SelectT> {
-  return rel === "MtM"
-    ? ({ _count: { select: { products: { where: { product: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } } } } } } as SelectT)
-    : ({ _count: { select: { products: { where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } } } } } as SelectT);
+// Make sure to count only admin-approved + current user-created products
+export async function countAdminApprovedProducts<SelectT>(): Promise<SelectT> {
+  return { _count: { select: { products: { where: { ...(await whereAdminApproved<Prisma.ProductWhereInput>()) } } } } } as SelectT;
 }
 
 export async function isAccessDeniedTo(itemType: "brand" | "category" | "subCategory" | "product", itemId: string) {
