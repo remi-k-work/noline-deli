@@ -55,6 +55,7 @@ enum PathTo {
   orderView = orders + `/${ParamName.orderId}`,
 
   productImages = "/product-images",
+  moreImagesForCategory = "/more-for-category",
   brandLogos = "/brand-logos",
   imagePlaceholder = "/image.svg",
 
@@ -138,6 +139,7 @@ export default class PathFinder {
 
   static toResolvedProductImage = (imageUrl?: string) => PathFinder.toProductImage(imageUrl) ?? PathFinder.toImagePlaceholder();
   static toResolvedBrandLogo = (logoUrl?: string | null) => PathFinder.toBrandLogo(logoUrl) ?? PathFinder.toImagePlaceholder();
+  static toMoreImageForCategory = (categoryId: string, imageNumber: string) => `${PathTo.moreImagesForCategory}/${categoryId}/${imageNumber}.jpg`;
 
   static toProductImage = (imageUrl?: string) => {
     if (imageUrl && PathFinder.isImageSrcParsable(imageUrl)) {
