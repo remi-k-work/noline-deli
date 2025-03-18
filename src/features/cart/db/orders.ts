@@ -1,3 +1,6 @@
+// react
+import { cache } from "react";
+
 // prisma and db access
 import { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
@@ -5,6 +8,11 @@ import { getOrderedCart } from "./cart";
 
 // other libraries
 import Stripe from "stripe";
+
+// Retrieve all guest customers but only their stripe customer id and email
+export const allStripeGuestCustomers = cache(
+  async () => await prisma.customer.findMany({ where: { isGuest: true }, select: { stripeCustomerId: true, email: true } }),
+);
 
 // Place a new order for either an existing or new customer
 export function newOrder(paymentIntent: Stripe.PaymentIntent, latestCharge: Stripe.Charge) {

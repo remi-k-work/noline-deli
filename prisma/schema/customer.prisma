@@ -1,12 +1,13 @@
 model Customer {
-    id        String   @id @default(uuid())
-    email     String   @unique
-    // Either the customer's billing or shipping name (as provided by payment intent/charge information)
-    name      String
+    id               String   @id @default(uuid())
+    // The stripe's customer id associated with this customer
+    stripeCustomerId String   @unique
+    email            String   @unique
+    name             String
     // Unless they create an account, each customer is initially a guest
-    isGuest   Boolean  @default(true)
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    isGuest          Boolean  @default(true)
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
 
     // A customer can have many orders
     orders Order[]
