@@ -138,6 +138,10 @@ export default class PathFinder {
     shouldReload ? PathTo.captcha.replace(ParamName.captchaName, captchaName) + `?${Date.now()}` : PathTo.captcha.replace(ParamName.captchaName, captchaName);
 
   static toResolvedProductImage = (imageUrl?: string) => PathFinder.toProductImage(imageUrl) ?? PathFinder.toImagePlaceholder();
+  static toResolvedProductImageWithOrigin = (imageUrl: string, origin: string | null) =>
+    PathFinder.toResolvedProductImage(imageUrl).startsWith("/")
+      ? new URL(PathFinder.toResolvedProductImage(imageUrl), origin ?? undefined).href
+      : PathFinder.toResolvedProductImage(imageUrl);
   static toResolvedBrandLogo = (logoUrl?: string | null) => PathFinder.toBrandLogo(logoUrl) ?? PathFinder.toImagePlaceholder();
   static toMoreImageForCategory = (categoryId: string, imageNumber: string) => `${PathTo.moreImagesForCategory}/${categoryId}/${imageNumber}.jpg`;
 

@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 import { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 
+// other libraries
+import Stripe from "stripe";
+import PathFinder from "@/lib/PathFinder";
+
 // types
 export type CartWithItems = Prisma.CartGetPayload<{ include: typeof INCLUDE_CART_WITH_ITEMS }>;
 export type DerivedCartWithItems = CartWithItems & { totalQty: number; subTotal: number; taxAmount: number };
@@ -15,6 +19,31 @@ const INCLUDE_CART_ITEM_WITH_PRODUCT = {
 } satisfies Prisma.CartsOnProductsInclude;
 
 const INCLUDE_CART_WITH_ITEMS = { cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT } } satisfies Prisma.CartInclude;
+
+// Create line items from the cart for the stripe checkout session
+export function createLineItemsFromCart(cartItems: DerivedCartWithItems["cartItems"], origin: string | null) {
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+
+  for (const {
+    quantity,
+    product: { name, description, imageUrl, price },
+  } of cartItems) {
+    lineItems.push({
+      quantity,
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name,
+          description,
+          images: [PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin)],
+        },
+        unit_amount: price,
+      },
+    });
+  }
+
+  return lineItems;
+}
 
 // Increment the cart item quantity by one
 export function incCartItemQty(cartId: string, cartItemId: string) {
@@ -56,8 +85,25 @@ export function newCartItem(cartId: string, productId: string) {
 }
 
 // Get the ordered cart that the customer has already successfully checked out
-export async function getOrderedCart(orderedCartId: string): Promise<DerivedCartWithItems | undefined> {
-  const orderedCart = await prisma.cart.findUnique({ where: { id: orderedCartId }, include: INCLUDE_CART_WITH_ITEMS });
+export async function getOrderedCart(orderedCartId?: string): Promise<DerivedCartWithItems | undefined> {
+  // Get the ordered cart
+  let orderedCart: CartWithItems | null;
+
+  // If the ordered cart id is not provided, try to obtain it from a session cookie
+  if (!orderedCartId) {
+    const localCartId = (await cookies()).get("localCartId")?.value;
+
+    // The ordered cart id cannot be established, so exit
+    if (!localCartId) return;
+
+    // Obtain the ordered cart
+    orderedCart = await prisma.cart.findUnique({ where: { id: localCartId }, include: INCLUDE_CART_WITH_ITEMS });
+  } else {
+    // Obtain the ordered cart using the provided id
+    orderedCart = await prisma.cart.findUnique({ where: { id: orderedCartId }, include: INCLUDE_CART_WITH_ITEMS });
+  }
+
+  // The ordered cart cannot be established, so exit
   if (!orderedCart) return;
 
   // Use the cart's minimal state to derive extra data such as cart size, subtotal, and tax amount

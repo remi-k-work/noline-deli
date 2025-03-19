@@ -15,6 +15,7 @@ import ElementsProvider from "@/features/cart/components/checkout/ElementsProvid
 import Form from "@/features/cart/components/checkout/Form";
 import ShippingMethod, { SHIPPING_COSTS, SHIPPING_METHODS } from "./ShippingMethod";
 import CartTable from "@/features/cart/components/cart-table";
+import StripeCheckoutForm from "./StripeCheckoutForm";
 
 // assets
 import { CalculatorIcon } from "@heroicons/react/24/solid";
@@ -36,15 +37,17 @@ export default function Checkout({ cart }: CheckoutProps) {
   if (!cart || (cart && cart.cartItems.length === 0)) return <NotFound message={"Your cart is empty!"} />;
 
   return (
-    <article className={styles["checkout"]}>
-      <ShippingMethod
+    <>
+      <StripeCheckoutForm />
+      <article className={styles["checkout"]}>
+        {/* <ShippingMethod
         onShippingMethodChanged={(shippingCost, shippingMethod) => {
           setShippingCost(shippingCost);
           setShippingMethod(shippingMethod);
         }}
         className={styles["checkout__shipping-method"]}
-      />
-      <ElementsProvider amount={totalAmount}>
+      /> */}
+        {/* <ElementsProvider amount={totalAmount}>
         <Form
           cart={cart}
           shippingCost={shippingCost}
@@ -59,7 +62,8 @@ export default function Checkout({ cart }: CheckoutProps) {
           Order Summary
         </h2>
         <CartTable cart={cart} shippingCost={shippingCost} />
-      </section>
-    </article>
+      </section> */}
+      </article>
+    </>
   );
 }

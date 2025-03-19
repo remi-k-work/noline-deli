@@ -4,9 +4,7 @@
 import { headers } from "next/headers";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
-import prisma from "@/services/prisma";
-import { getOrderedCart } from "@/features/cart/db/cart";
+import { createLineItemsFromCart, getOrderedCart } from "@/features/cart/db/cart";
 import { allStripeGuestCustomers } from "@/features/cart/db/orders";
 
 // other libraries
@@ -22,44 +20,36 @@ interface PaymentIntentActionResult {
   clientSecret: string | null;
 }
 
-export const getClientSessionSecret = actionClient
-  .schema(z.object({ orderedCartId: objectIdSchema }))
-  .action(async ({ parsedInput: { orderedCartId } }): Promise<void> => {
-    try {
-      // Extract the origin of the incoming request
-      const origin = (await headers()).get("origin");
+export async function fetchClientSecret(): Promise<string> {
+  // Extract the origin of the incoming request
+  const origin = (await headers()).get("origin");
 
-      // Get the ordered cart that the customer has already successfully checked out
-      const orderedCart = await getOrderedCart(orderedCartId);
-      if (!orderedCart) throw new Error("The ordered cart is missing!");
+  // Get the ordered cart that the customer has already successfully checked out
+  const orderedCart = await getOrderedCart();
+  if (!orderedCart) throw new Error("The ordered cart is missing!");
+  const { id: orderedCartId, subTotal, taxAmount, cartItems } = orderedCart;
 
-      // Retrieve all guest customers but only their stripe customer id and email, then pick a random one
-      const { stripeCustomerId, email } = faker.helpers.arrayElement(await allStripeGuestCustomers());
+  // Retrieve all guest customers but only their stripe customer id and email, then pick a random one
+  const { stripeCustomerId, email: customerEmail } = faker.helpers.arrayElement(await allStripeGuestCustomers());
 
-      // Create a new checkout session for this customer
-      const checkoutSession = await stripe.checkout.sessions.create({
-        customer: stripeCustomerId,
-        ui_mode: "embedded",
-        mode: "payment",
-        return_url: `${origin}/cart/order/complete?session_id={CHECKOUT_SESSION_ID}`,
-        customer_email: email,
-        payment_intent_data: {
-          metadata: {
-            customerEmail: email,
-            orderedCartId,
-            subTotal: orderedCart.subTotal,
-            taxAmount: orderedCart.taxAmount,
-          },
-        },
-        metadata: { customerEmail: email, orderedCartId, subTotal: orderedCart.subTotal, taxAmount: orderedCart.taxAmount },
-        line_items: [],
-      });
-      return;
-    } catch (error) {
-      // If any error occurs, rethrow, which means action simply "failed"
-      throw error;
-    }
+  // Create a new checkout session for this customer
+  const checkoutSession = await stripe.checkout.sessions.create({
+    customer: stripeCustomerId,
+    billing_address_collection: "required",
+    shipping_address_collection: { allowed_countries: ["US", "CA", "PL"] },
+    ui_mode: "embedded",
+    mode: "payment",
+    return_url: `${origin}/cart/order/complete?session_id={CHECKOUT_SESSION_ID}`,
+    payment_intent_data: { receipt_email: customerEmail, metadata: { customerEmail, orderedCartId, subTotal, taxAmount } },
+    metadata: { customerEmail, orderedCartId, subTotal, taxAmount },
+    line_items: createLineItemsFromCart(cartItems, origin),
   });
+
+  // Return the checkout session’s client secret in the response to finish the checkout on the client
+  if (!checkoutSession.client_secret) throw new Error("The client secret is missing!");
+  return checkoutSession.client_secret;
+}
+
 export const createPaymentIntent = actionClient
   .schema(
     z.object({
