@@ -26,7 +26,7 @@ export function createLineItemsFromCart(cartItems: DerivedCartWithItems["cartIte
 
   for (const {
     quantity,
-    product: { name, description, imageUrl, price },
+    product: { name, description, imageUrl, price, moreImages },
   } of cartItems) {
     lineItems.push({
       quantity,
@@ -35,7 +35,10 @@ export function createLineItemsFromCart(cartItems: DerivedCartWithItems["cartIte
         product_data: {
           name,
           description,
-          images: [PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin)],
+          images: [
+            PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin),
+            ...moreImages.map(({ imageUrl }) => PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin)),
+          ],
         },
         unit_amount: price,
       },

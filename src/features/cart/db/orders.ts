@@ -9,6 +9,34 @@ import { getOrderedCart } from "./cart";
 // other libraries
 import Stripe from "stripe";
 
+// All shipping options that are available for the stripe checkout session
+export const SHIPPING_OPTIONS = [
+  {
+    shipping_rate_data: {
+      type: "fixed_amount",
+      fixed_amount: { amount: 1000, currency: "usd" },
+      display_name: "Standard",
+      delivery_estimate: { minimum: { unit: "business_day", value: 5 }, maximum: { unit: "business_day", value: 7 } },
+    },
+  },
+  {
+    shipping_rate_data: {
+      type: "fixed_amount",
+      fixed_amount: { amount: 1500, currency: "usd" },
+      display_name: "Express",
+      delivery_estimate: { minimum: { unit: "business_day", value: 2 }, maximum: { unit: "business_day", value: 3 } },
+    },
+  },
+  {
+    shipping_rate_data: {
+      type: "fixed_amount",
+      fixed_amount: { amount: 2500, currency: "usd" },
+      display_name: "Overnight",
+      delivery_estimate: { minimum: { unit: "business_day", value: 1 }, maximum: { unit: "business_day", value: 1 } },
+    },
+  },
+] as const satisfies Stripe.Checkout.SessionCreateParams.ShippingOption[];
+
 // Retrieve all guest customers but only their stripe customer id and email
 export const allStripeGuestCustomers = cache(
   async () => await prisma.customer.findMany({ where: { isGuest: true }, select: { stripeCustomerId: true, email: true } }),

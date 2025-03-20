@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 
 // prisma and db access
 import { createLineItemsFromCart, getOrderedCart } from "@/features/cart/db/cart";
-import { allStripeGuestCustomers } from "@/features/cart/db/orders";
+import { allStripeGuestCustomers, SHIPPING_OPTIONS } from "@/features/cart/db/orders";
 
 // other libraries
 import { z } from "zod";
@@ -36,13 +36,18 @@ export async function fetchClientSecret(): Promise<string> {
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: stripeCustomerId,
     billing_address_collection: "required",
-    shipping_address_collection: { allowed_countries: ["US", "CA", "PL"] },
+    shipping_address_collection: { allowed_countries: ["US", "CA", "PL", "DE"] },
+    automatic_tax: { enabled: true },
+    customer_update: { shipping: "auto" },
+    saved_payment_method_options: { payment_method_save: "enabled" },
+
     ui_mode: "embedded",
     mode: "payment",
     return_url: `${origin}/cart/order/complete?session_id={CHECKOUT_SESSION_ID}`,
     payment_intent_data: { receipt_email: customerEmail, metadata: { customerEmail, orderedCartId, subTotal, taxAmount } },
     metadata: { customerEmail, orderedCartId, subTotal, taxAmount },
     line_items: createLineItemsFromCart(cartItems, origin),
+    shipping_options: SHIPPING_OPTIONS,
   });
 
   // Return the checkout session’s client secret in the response to finish the checkout on the client
