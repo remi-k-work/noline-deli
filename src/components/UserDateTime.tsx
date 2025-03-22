@@ -5,10 +5,10 @@ import { formatDateTime } from "@/lib/formatters";
 
 // types
 interface UserDateTimeProps {
-  created: number;
+  date: Date;
 }
 
 // This component ensures that date and time are always displayed on the client side in the user's local timezone
-export default function UserDateTime({ created }: UserDateTimeProps) {
-  return <p>{formatDateTime(new Date(created * 1000))}</p>;
+export default function UserDateTime({ date }: UserDateTimeProps) {
+  return <p>{formatDateTime(date)}</p>;
 }

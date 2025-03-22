@@ -2,7 +2,8 @@
 import styles from "./index.module.css";
 
 // prisma and db access
-import type { DerivedCartWithItems } from "../../db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/types";
+import { processCheckoutSession, processPaymentIntent } from "@/features/cart/db/helpers";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -18,19 +19,18 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 
 // types
 interface OrderDetailsProps {
+  checkoutSession: Stripe.Checkout.Session;
   orderedCart: DerivedCartWithItems;
-  paymentIntent: Stripe.PaymentIntent;
   className?: string;
 }
 
-export default function OrderDetails({
-  orderedCart: { cartItems, totalQty, subTotal, taxAmount },
-  paymentIntent: {
-    status,
-    metadata: { shippingCost },
-  },
-  className,
-}: OrderDetailsProps) {
+export default function OrderDetails({ checkoutSession, orderedCart: { cartItems, totalQty }, className }: OrderDetailsProps) {
+  // Process the stripe checkout session by extracting and converting the relevant information
+  const { paymentIntent, subTotal, totalPaid, shippingCost, taxAmount } = processCheckoutSession(checkoutSession);
+
+  // Process the stripe payment intent by extracting and converting the relevant information
+  const { status } = processPaymentIntent(paymentIntent);
+
   // Do not render anything in the event of an unsuccessful payment intent
   if (status !== "succeeded" && status !== "processing") return;
 
@@ -65,13 +65,11 @@ export default function OrderDetails({
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-xl">Shipping:</TableHead>
-            <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(Number(shippingCost))}</TableHead>
+            <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(shippingCost)}</TableHead>
           </TableRow>
           <TableRow>
             <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-            <TableHead className="overflow-clip text-end text-2xl whitespace-nowrap underline">
-              {formatCurrency(subTotal + taxAmount + Number(shippingCost))}
-            </TableHead>
+            <TableHead className="overflow-clip text-end text-2xl whitespace-nowrap underline">{formatCurrency(totalPaid)}</TableHead>
           </TableRow>
         </TableFooter>
       </Table>

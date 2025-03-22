@@ -4,8 +4,10 @@
 import { headers } from "next/headers";
 
 // prisma and db access
-import { createLineItemsFromCart, getOrderedCart } from "@/features/cart/db/cart";
-import { allStripeGuestCustomers, SHIPPING_OPTIONS } from "@/features/cart/db/orders";
+import { getOrderedCart } from "@/features/cart/db/cart";
+import { allStripeGuestCustomers } from "@/features/cart/db/orders";
+import { createLineItemsFromCart } from "@/features/cart/db/helpers";
+import { SHIPPING_OPTIONS } from "@/features/cart/db/consts";
 
 // other libraries
 import { z } from "zod";
@@ -27,10 +29,10 @@ export async function fetchClientSecret(): Promise<string> {
   // Get the ordered cart that the customer has already successfully checked out
   const orderedCart = await getOrderedCart();
   if (!orderedCart) throw new Error("The ordered cart is missing!");
-  const { id: orderedCartId, subTotal, taxAmount, cartItems } = orderedCart;
+  const { id: orderedCartId, cartItems } = orderedCart;
 
   // Retrieve all guest customers but only their stripe customer id and email, then pick a random one
-  const { stripeCustomerId, email: customerEmail } = faker.helpers.arrayElement(await allStripeGuestCustomers());
+  const { id: customerId, stripeCustomerId, email: customerEmail } = faker.helpers.arrayElement(await allStripeGuestCustomers());
 
   // Create a new checkout session for this customer
   const checkoutSession = await stripe.checkout.sessions.create({
@@ -44,8 +46,8 @@ export async function fetchClientSecret(): Promise<string> {
     ui_mode: "embedded",
     mode: "payment",
     return_url: `${origin}/cart/order/complete?session_id={CHECKOUT_SESSION_ID}`,
-    payment_intent_data: { receipt_email: customerEmail, metadata: { customerEmail, orderedCartId, subTotal, taxAmount } },
-    metadata: { customerEmail, orderedCartId, subTotal, taxAmount },
+    payment_intent_data: { receipt_email: customerEmail },
+    metadata: { orderNumber: nanoid(), customerId, customerEmail, orderedCartId },
     line_items: createLineItemsFromCart(cartItems, origin),
     shipping_options: SHIPPING_OPTIONS,
   });

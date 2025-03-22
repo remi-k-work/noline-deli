@@ -6,7 +6,7 @@ import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
-// other libraries
+// consts and types
 import { INCLUDE_PRODUCT_WITH_ALL } from "@/features/storefront/db/consts";
 import type { DashboardData } from "@/features/storefront/db/types";
 

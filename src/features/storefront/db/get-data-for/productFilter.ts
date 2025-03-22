@@ -6,7 +6,7 @@ import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
-// other libraries
+// consts and types
 import type { ProductFilterData } from "@/features/storefront/db/types";
 
 // Gather the necessary data for the product filter, such as a list of all available brands and pricing ranges

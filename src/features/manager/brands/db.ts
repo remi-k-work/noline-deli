@@ -10,8 +10,9 @@ import { whereAdminApproved } from "@/features/manager/login/db";
 export type BrandWithUser = Prisma.BrandGetPayload<{ include: typeof INCLUDE_BRAND_WITH_USER }>;
 export type BrandWithInfo = Prisma.BrandGetPayload<{ include: typeof INCLUDE_BRAND_WITH_INFO }>;
 
-const INCLUDE_BRAND_WITH_USER = { user: true } satisfies Prisma.BrandInclude;
-const INCLUDE_BRAND_WITH_INFO = { user: true, _count: { select: { products: true } } } satisfies Prisma.BrandInclude;
+// Prisma includes
+const INCLUDE_BRAND_WITH_USER = { user: true } as const satisfies Prisma.BrandInclude;
+const INCLUDE_BRAND_WITH_INFO = { user: true, _count: { select: { products: true } } } as const satisfies Prisma.BrandInclude;
 
 // Create and where clause generators and helpers
 function whereKeyword(keyword?: string): Prisma.BrandWhereInput {

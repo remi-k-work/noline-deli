@@ -6,6 +6,8 @@ import { allCategories } from "@/features/storefront/db";
 
 // other libraries
 import PathFinder from "@/lib/PathFinder";
+
+// consts and types
 import type { CategoriesTreeViewData } from "@/features/storefront/db/types";
 
 // Create a product category tree in the format that is needed by the categories tree view component

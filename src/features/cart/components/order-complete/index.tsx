@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 
 // prisma and db access
 import { getOrderedCart } from "@/features/cart/db/cart";
+import { processCheckoutSession } from "@/features/cart/db/helpers";
 
 // other libraries
 import Stripe from "stripe";
@@ -17,26 +18,24 @@ import OrderDetails from "@/features/cart/components/order-details";
 
 // types
 interface OrderCompleteProps {
-  paymentIntent: Stripe.PaymentIntent;
+  checkoutSession: Stripe.Checkout.Session;
 }
 
-export default async function OrderComplete({
-  paymentIntent,
-  paymentIntent: {
-    metadata: { orderedCartId },
-  },
-}: OrderCompleteProps) {
+export default async function OrderComplete({ checkoutSession }: OrderCompleteProps) {
+  // Process the stripe checkout session by extracting and converting the relevant information
+  const { orderedCartId } = processCheckoutSession(checkoutSession);
+
   // Get the ordered cart that the customer has already successfully checked out
   const orderedCart = await getOrderedCart(orderedCartId);
   if (!orderedCart) notFound();
 
   return (
     <>
-      <Status paymentIntent={paymentIntent} />
+      <Status checkoutSession={checkoutSession} />
       <br />
       <article className={styles["order-complete"]}>
-        <Header paymentIntent={paymentIntent} />
-        <OrderDetails orderedCart={orderedCart} paymentIntent={paymentIntent} />
+        <Header checkoutSession={checkoutSession} />
+        <OrderDetails checkoutSession={checkoutSession} orderedCart={orderedCart} />
       </article>
     </>
   );

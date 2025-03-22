@@ -7,7 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 // prisma and db access
-import type { DerivedCartWithItems } from "@/features/cart/db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // other libraries
 import { cn } from "@/lib/utils";

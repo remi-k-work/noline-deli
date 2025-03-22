@@ -8,6 +8,7 @@ import { getBrand } from "@/features/manager/brands/db";
 import { getCategory, getSubCategory } from "@/features/manager/categories/db";
 import { getProduct } from "@/features/manager/products/db";
 
+// Name of the cookie that stores the created-by-user value
 const CREATED_BY_USER_COOKIE = "createdByUser";
 
 export async function getCreatedByUser() {

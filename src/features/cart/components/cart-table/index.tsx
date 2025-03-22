@@ -1,5 +1,5 @@
 // prisma and db access
-import type { DerivedCartWithItems } from "@/features/cart/db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // other libraries
 import { formatCurrency } from "@/lib/formatters";
@@ -15,7 +15,7 @@ interface CartTableProps {
 }
 
 export default function CartTable({ cart, shippingCost }: CartTableProps) {
-  const { cartItems, totalQty, subTotal, taxAmount } = cart;
+  const { cartItems, totalQty, subTotal } = cart;
 
   return (
     <Table>

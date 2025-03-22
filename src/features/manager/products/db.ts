@@ -34,8 +34,8 @@ export interface BrowseBarData {
   productsBySubCategory: ProductsBySubCategory[];
 }
 
-const INCLUDE_PRODUCT_WITH_ALL = { moreImages: true, brand: true, category: true, subCategory: true, user: true } satisfies Prisma.ProductInclude;
-
+// Prisma includes
+const INCLUDE_PRODUCT_WITH_ALL = { moreImages: true, brand: true, category: true, subCategory: true, user: true } as const satisfies Prisma.ProductInclude;
 const INCLUDE_PRODUCT_WITH_INFO = {
   moreImages: true,
   brand: true,
@@ -43,7 +43,7 @@ const INCLUDE_PRODUCT_WITH_INFO = {
   subCategory: true,
   user: true,
   _count: { select: { moreImages: true, carts: true } },
-} satisfies Prisma.ProductInclude;
+} as const satisfies Prisma.ProductInclude;
 
 // Gather all the necessary data for the browse bar to use
 export const getBrowseBarData = cache(async () => {

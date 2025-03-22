@@ -1,17 +1,17 @@
 model Order {
-    id              String      @id @default(uuid())
-    customerId      String
-    // The original payment intent received from stripe and related to this order
-    paymentIntentId String      @unique
-    orderNumber     String      @unique
-    created         DateTime
-    totalQty        Int
-    subTotal        Int
-    taxAmount       Int
-    shippingCost    Int
-    shippingMethod  String
-    totalPaid       Int
-    status          OrderStatus @default(IN_PROCESS)
+    id                String      @id @default(uuid())
+    customerId        String
+    // The original checkout session id received from stripe and related to this order
+    checkoutSessionId String      @unique
+    orderNumber       String      @unique
+    created           DateTime
+    totalQty          Int
+    subTotal          Int
+    taxAmount         Int
+    shippingCost      Int
+    shippingMethod    String
+    totalPaid         Int
+    status            OrderStatus @default(IN_PROCESS)
 
     // An order can have many ordered items
     orderedItems OrderedItem[]

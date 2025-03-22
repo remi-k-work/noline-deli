@@ -2,51 +2,11 @@
 import { cookies } from "next/headers";
 
 // prisma and db access
-import { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 
-// other libraries
-import Stripe from "stripe";
-import PathFinder from "@/lib/PathFinder";
-
-// types
-export type CartWithItems = Prisma.CartGetPayload<{ include: typeof INCLUDE_CART_WITH_ITEMS }>;
-export type DerivedCartWithItems = CartWithItems & { totalQty: number; subTotal: number; taxAmount: number };
-export type CartItemWithProduct = Prisma.CartsOnProductsGetPayload<{ include: typeof INCLUDE_CART_ITEM_WITH_PRODUCT }>;
-
-const INCLUDE_CART_ITEM_WITH_PRODUCT = {
-  product: { include: { moreImages: true, brand: true, category: true, subCategory: true } },
-} satisfies Prisma.CartsOnProductsInclude;
-
-const INCLUDE_CART_WITH_ITEMS = { cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT } } satisfies Prisma.CartInclude;
-
-// Create line items from the cart for the stripe checkout session
-export function createLineItemsFromCart(cartItems: DerivedCartWithItems["cartItems"], origin: string | null) {
-  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
-
-  for (const {
-    quantity,
-    product: { name, description, imageUrl, price, moreImages },
-  } of cartItems) {
-    lineItems.push({
-      quantity,
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name,
-          description,
-          images: [
-            PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin),
-            ...moreImages.map(({ imageUrl }) => PathFinder.toResolvedProductImageWithOrigin(imageUrl, origin)),
-          ],
-        },
-        unit_amount: price,
-      },
-    });
-  }
-
-  return lineItems;
-}
+// consts and types
+import { INCLUDE_CART_WITH_ITEMS, LOCAL_CART_ID_COOKIE } from "./consts";
+import type { CartWithItems, DerivedCartWithItems } from "./types";
 
 // Increment the cart item quantity by one
 export function incCartItemQty(cartId: string, cartItemId: string) {
@@ -94,7 +54,7 @@ export async function getOrderedCart(orderedCartId?: string): Promise<DerivedCar
 
   // If the ordered cart id is not provided, try to obtain it from a session cookie
   if (!orderedCartId) {
-    const localCartId = (await cookies()).get("localCartId")?.value;
+    const localCartId = (await cookies()).get(LOCAL_CART_ID_COOKIE)?.value;
 
     // The ordered cart id cannot be established, so exit
     if (!localCartId) return;
@@ -116,7 +76,7 @@ export async function getOrderedCart(orderedCartId?: string): Promise<DerivedCar
 // Get an existing or brand-new empty cart from our database
 export async function getCart(): Promise<DerivedCartWithItems | undefined> {
   // Try obtaining the current cart's id from a session cookie
-  const localCartId = (await cookies()).get("localCartId")?.value;
+  const localCartId = (await cookies()).get(LOCAL_CART_ID_COOKIE)?.value;
 
   // If the cart exists, obtain its contents, which should include cart items and product information
   const cart = localCartId ? await prisma.cart.findUnique({ where: { id: localCartId }, include: INCLUDE_CART_WITH_ITEMS }) : undefined;
@@ -125,7 +85,7 @@ export async function getCart(): Promise<DerivedCartWithItems | undefined> {
     // Will we be able to set a new cart's id in a session cookie?
     try {
       // Remember that cookies can only be modified in a server action or route handler
-      (await cookies()).set("localCartId", "************************");
+      (await cookies()).set(LOCAL_CART_ID_COOKIE, "************************");
     } catch (error) {
       // Calling this from a server component will result in an error; exit with null immediately
       return undefined;
@@ -135,23 +95,19 @@ export async function getCart(): Promise<DerivedCartWithItems | undefined> {
     const newCart = await prisma.cart.create({ data: {} });
 
     // Save the new cart's id in a session cookie
-    (await cookies()).set("localCartId", newCart.id);
+    (await cookies()).set(LOCAL_CART_ID_COOKIE, newCart.id);
 
     // Finally, return the new cart
-    return { ...newCart, cartItems: [], totalQty: 0, subTotal: 0, taxAmount: 0 };
+    return { ...newCart, cartItems: [], totalQty: 0, subTotal: 0 };
   }
 
-  // Use the cart's minimal state to derive extra data such as cart size, subtotal, and tax amount
+  // Use the cart's minimal state to derive extra data such as cart size, subtotal
   return derivedCart(cart);
 }
 
-// Use the cart's minimal state to derive extra data such as cart size, subtotal, and tax amount
-function derivedCart(cart: CartWithItems) {
-  const totalQty = deriveTotalQty(cart);
-  const subTotal = deriveSubTotal(cart);
-  const taxAmount = deriveTaxAmount(subTotal);
-
-  return { ...cart, totalQty, subTotal, taxAmount };
+// Use the cart's minimal state to derive extra data such as cart size, subtotal
+function derivedCart(cart: CartWithItems): DerivedCartWithItems {
+  return { ...cart, totalQty: deriveTotalQty(cart), subTotal: deriveSubTotal(cart) };
 }
 
 function deriveTotalQty(cart: CartWithItems) {
@@ -160,12 +116,4 @@ function deriveTotalQty(cart: CartWithItems) {
 
 function deriveSubTotal(cart: CartWithItems) {
   return cart.cartItems.reduce((acc, cartItem) => acc + cartItem.quantity * cartItem.product.price, 0);
-}
-
-function deriveTaxAmount(subTotal: number) {
-  // Polish vat rate in percentage points (to avoid floating-point operations)
-  const vatRatePercentage = 23;
-
-  // Calculate vat amount in cents (rounded to the nearest cent)
-  return Math.round((subTotal * vatRatePercentage) / 100);
 }

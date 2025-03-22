@@ -13,11 +13,15 @@ export type SubCategoryWithUser = Prisma.SubCategoryGetPayload<{ include: typeof
 export type CategoryWithInfo = Prisma.CategoryGetPayload<{ include: typeof INCLUDE_CATEGORY_WITH_INFO }>;
 export type SubCategoryWithInfo = Prisma.SubCategoryGetPayload<{ include: typeof INCLUDE_SUBCATEGORY_WITH_INFO }>;
 
-const INCLUDE_CATEGORY_WITH_SUBCATEGORY = { subCategories: { orderBy: { name: "asc" }, include: { user: true } }, user: true } satisfies Prisma.CategoryInclude;
-const INCLUDE_CATEGORY_WITH_USER = { user: true } satisfies Prisma.CategoryInclude;
-const INCLUDE_SUBCATEGORY_WITH_USER = { category: true, user: true } satisfies Prisma.SubCategoryInclude;
-const INCLUDE_CATEGORY_WITH_INFO = { user: true, _count: { select: { subCategories: true, products: true } } } satisfies Prisma.CategoryInclude;
-const INCLUDE_SUBCATEGORY_WITH_INFO = { category: true, user: true, _count: { select: { products: true } } } satisfies Prisma.SubCategoryInclude;
+// Prisma includes
+const INCLUDE_CATEGORY_WITH_SUBCATEGORY = {
+  subCategories: { orderBy: { name: "asc" }, include: { user: true } },
+  user: true,
+} as const satisfies Prisma.CategoryInclude;
+const INCLUDE_CATEGORY_WITH_USER = { user: true } as const satisfies Prisma.CategoryInclude;
+const INCLUDE_SUBCATEGORY_WITH_USER = { category: true, user: true } as const satisfies Prisma.SubCategoryInclude;
+const INCLUDE_CATEGORY_WITH_INFO = { user: true, _count: { select: { subCategories: true, products: true } } } as const satisfies Prisma.CategoryInclude;
+const INCLUDE_SUBCATEGORY_WITH_INFO = { category: true, user: true, _count: { select: { products: true } } } as const satisfies Prisma.SubCategoryInclude;
 
 // Create and where clause generators and helpers
 function whereKeywordCategory(keyword?: string): Prisma.CategoryWhereInput {

@@ -1,5 +1,5 @@
 // prisma and db access
-import type { CartItemWithProduct } from "@/features/cart/db/cart";
+import type { CartItemWithProduct } from "@/features/cart/db/types";
 
 // other libraries
 import { formatCurrency } from "@/lib/formatters";
