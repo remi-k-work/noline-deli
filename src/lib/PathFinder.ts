@@ -16,6 +16,7 @@ enum SearchParamName {
   categoryId = "mcat",
   subCategoryId = "scat",
   actionFeedback = "afeed",
+  checkoutSessionId = "session_id",
 }
 
 enum PathTo {
@@ -29,6 +30,9 @@ enum PathTo {
   sfProductDetails = storeFront + `/${ParamName.productName}/${ParamName.productId}`,
 
   sfCart = storeFront + "/cart",
+  sfOrder = sfCart + "/order",
+  sfCheckoutPage = sfOrder + "/checkout",
+  sfOrderComplete = sfOrder + `/complete?${SearchParamName.checkoutSessionId}={CHECKOUT_SESSION_ID}`,
 
   manager = "/manager",
   managerLogin = manager + "/login",
@@ -93,6 +97,9 @@ export default class PathFinder {
 
   static toSfCart = () => PathTo.sfCart;
   static toSfCartReval = () => PathTo.sfCart;
+  static toSfCheckoutPage = () => PathTo.sfCheckoutPage;
+  static toSfOrderComplete = () => PathTo.sfOrderComplete;
+  static toSfOrderCompleteWithOrigin = (origin: string | null) => new URL(PathFinder.toSfOrderComplete(), origin ?? undefined).href;
 
   // Are we displaying a bunch of products?
   static isBunchOfProducts = (pathname: string) =>

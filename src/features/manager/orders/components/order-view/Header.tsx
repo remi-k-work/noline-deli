@@ -4,6 +4,9 @@ import styles from "./Header.module.css";
 // next
 import Link from "next/link";
 
+// prisma and db access
+import { processCheckoutSession, processPaymentIntent } from "@/features/cart/db/helpers";
+
 // other libraries
 import { cn } from "@/lib/utils";
 import Stripe from "stripe";
@@ -18,23 +21,16 @@ import { CalculatorIcon } from "@heroicons/react/24/solid";
 
 // types
 interface HeaderProps {
-  paymentIntent: Stripe.PaymentIntent;
+  checkoutSession: Stripe.Checkout.Session;
   className?: string;
 }
 
-export default function Header({
-  paymentIntent,
-  paymentIntent: {
-    amount,
-    created,
-    metadata: { orderNumber, customerEmail, shippingMethod },
-    latest_charge,
-    payment_method,
-  },
-  className,
-}: HeaderProps) {
-  const paymentMethod = (payment_method as Stripe.PaymentMethod).type;
-  const receiptUrl = (latest_charge as Stripe.Charge).receipt_url;
+export default function Header({ checkoutSession, className }: HeaderProps) {
+  // Process the stripe checkout session by extracting and converting the relevant information
+  const { paymentIntent, totalPaid, shippingMethod, created, orderNumber, customerEmail } = processCheckoutSession(checkoutSession);
+
+  // Process the stripe payment intent by extracting and converting the relevant information
+  const { paymentMethodType, receiptUrl } = processPaymentIntent(paymentIntent);
 
   return (
     <article className={cn(styles["header"], className)}>
@@ -49,7 +45,7 @@ export default function Header({
         </div>
         <div>
           <h3 className="font-lusitana">Date</h3>
-          <UserDateTime created={created} />
+          <UserDateTime date={created} />
         </div>
         <div>
           <h3 className="font-lusitana">Email</h3>
@@ -57,11 +53,11 @@ export default function Header({
         </div>
         <div>
           <h3 className="font-lusitana">Total</h3>
-          <p>{formatCurrency(amount)}</p>
+          <p>{formatCurrency(totalPaid)}</p>
         </div>
         <div>
           <h3 className="font-lusitana">Payment Method</h3>
-          <p>{paymentMethod}</p>
+          <p>{paymentMethodType}</p>
         </div>
         <div>
           <h3 className="font-lusitana">Receipt</h3>

@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 
 // prisma and db access
 import type { DerivedCartWithItems } from "@/features/cart/db/types";
-import { processCheckoutSession, processPaymentIntent } from "@/features/cart/db/helpers";
+import { processCheckoutSession } from "@/features/cart/db/helpers";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -26,13 +26,7 @@ interface OrderDetailsProps {
 
 export default function OrderDetails({ checkoutSession, orderedCart: { cartItems, totalQty }, className }: OrderDetailsProps) {
   // Process the stripe checkout session by extracting and converting the relevant information
-  const { paymentIntent, subTotal, totalPaid, shippingCost, taxAmount } = processCheckoutSession(checkoutSession);
-
-  // Process the stripe payment intent by extracting and converting the relevant information
-  const { status } = processPaymentIntent(paymentIntent);
-
-  // Do not render anything in the event of an unsuccessful payment intent
-  if (status !== "succeeded" && status !== "processing") return;
+  const { subTotal, totalPaid, shippingCost, taxAmount } = processCheckoutSession(checkoutSession);
 
   return (
     <section className={cn(styles["order-details"], className)}>

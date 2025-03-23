@@ -2,13 +2,14 @@
 import styles from "./index.module.css";
 
 // next
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 // prisma and db access
 import { getOrderedCart } from "@/features/cart/db/cart";
 import { processCheckoutSession } from "@/features/cart/db/helpers";
 
 // other libraries
+import PathFinder from "@/lib/PathFinder";
 import Stripe from "stripe";
 
 // components
@@ -21,22 +22,31 @@ interface OrderCompleteProps {
   checkoutSession: Stripe.Checkout.Session;
 }
 
-export default async function OrderComplete({ checkoutSession }: OrderCompleteProps) {
-  // Process the stripe checkout session by extracting and converting the relevant information
-  const { orderedCartId } = processCheckoutSession(checkoutSession);
+export default async function OrderComplete({ checkoutSession, checkoutSession: { status } }: OrderCompleteProps) {
+  // The payment failed or was canceled; remount checkout so that the customer can try again
+  if (status === "open") redirect(PathFinder.toSfCheckoutPage());
 
-  // Get the ordered cart that the customer has already successfully checked out
-  const orderedCart = await getOrderedCart(orderedCartId);
-  if (!orderedCart) notFound();
+  // The payment succeeded; use the information from the checkout session to render a success page
+  if (status === "complete") {
+    // Process the stripe checkout session by extracting and converting the relevant information
+    const { orderedCartId } = processCheckoutSession(checkoutSession);
 
-  return (
-    <>
-      <Status checkoutSession={checkoutSession} />
-      <br />
-      <article className={styles["order-complete"]}>
-        <Header checkoutSession={checkoutSession} />
-        <OrderDetails checkoutSession={checkoutSession} orderedCart={orderedCart} />
-      </article>
-    </>
-  );
+    // Get the ordered cart that the customer has already successfully checked out
+    const orderedCart = await getOrderedCart(orderedCartId);
+    if (!orderedCart) notFound();
+
+    return (
+      <>
+        <Status isSuccess />
+        <br />
+        <article className={styles["order-complete"]}>
+          <Header checkoutSession={checkoutSession} />
+          <OrderDetails checkoutSession={checkoutSession} orderedCart={orderedCart} />
+        </article>
+      </>
+    );
+  }
+
+  // The payment failed; render a failure page
+  return <Status />;
 }

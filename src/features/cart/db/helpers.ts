@@ -10,7 +10,7 @@ import type { DerivedCartWithItems } from "./types";
 
 // Process the stripe payment intent by extracting and converting the relevant information
 export function processPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
-  const { status, payment_method, latest_charge } = paymentIntent;
+  const { payment_method, latest_charge } = paymentIntent;
 
   if (!payment_method || typeof payment_method === "string") {
     throw new Error("The payment intent payment method is missing!");
@@ -20,7 +20,7 @@ export function processPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
     throw new Error("The payment intent latest charge is missing!");
   }
 
-  return { status, paymentMethod: payment_method, latestCharge: latest_charge, paymentMethodType: payment_method.type, receiptUrl: latest_charge.receipt_url };
+  return { paymentMethod: payment_method, latestCharge: latest_charge, paymentMethodType: payment_method.type, receiptUrl: latest_charge.receipt_url };
 }
 
 // Process the stripe checkout session by extracting and converting the relevant information
@@ -31,8 +31,9 @@ export function processCheckoutSession(checkoutSession: Stripe.Checkout.Session)
     throw new Error("The checkout session payment intent is missing!");
   }
 
+  // Explicitly check for null/undefined, treating '0' as a valid amount
   const { amount_shipping: shippingAmount, amount_tax: taxAmount } = total_details ?? {};
-  if (!amount_subtotal || !amount_total || !shippingAmount || !taxAmount) {
+  if ((amount_subtotal ?? null) === null || (amount_total ?? null) === null || (shippingAmount ?? null) === null || (taxAmount ?? null) === null) {
     throw new Error("The checkout session total details are missing!");
   }
 
@@ -49,10 +50,10 @@ export function processCheckoutSession(checkoutSession: Stripe.Checkout.Session)
   return {
     checkoutSessionId,
     paymentIntent: payment_intent,
-    subTotal: amount_subtotal,
-    totalPaid: amount_total,
-    shippingCost: shippingAmount,
-    taxAmount,
+    subTotal: amount_subtotal!,
+    totalPaid: amount_total!,
+    shippingCost: shippingAmount!,
+    taxAmount: taxAmount!,
     shippingMethod: shippingRate.display_name!,
     created: new Date(created * 1000),
     orderNumber,

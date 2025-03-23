@@ -5,30 +5,32 @@ import styles from "./index.module.css";
 import { notFound } from "next/navigation";
 
 // prisma and db access
-import type { OrderWithItems } from "../../db";
+import type { OrderWithItems } from "@/features/manager/orders/db";
 
 // other libraries
 import stripe from "@/services/stripe";
 
 // components
 import Header from "./Header";
-import OrderDetails from "../order-details";
+import OrderDetails from "@/features/manager/orders/components/order-details";
 
 // types
 interface OrderViewProps {
   order: OrderWithItems;
 }
 
-export default async function OrderView({ order, order: { paymentIntentId } }: OrderViewProps) {
-  // Retrieve the payment intent object that is attached to this order
-  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId, { expand: ["latest_charge", "payment_method"] });
+export default async function OrderView({ order, order: { checkoutSessionId } }: OrderViewProps) {
+  // Retrieve the checkout session object that is attached to this order
+  const checkoutSession = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+    expand: ["payment_intent.payment_method", "payment_intent.latest_charge", "shipping_cost.shipping_rate"],
+  });
 
-  // Ensure the payment intent exists
-  if (!paymentIntent) notFound();
+  // Ensure the checkout session exists
+  if (!checkoutSession) notFound();
 
   return (
     <article className={styles["order-view"]}>
-      <Header paymentIntent={paymentIntent} />
+      <Header checkoutSession={checkoutSession} />
       <OrderDetails order={order} />
     </article>
   );

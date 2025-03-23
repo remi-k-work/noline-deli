@@ -11,10 +11,9 @@ import Entry from "./Entry";
 // types
 interface CartTableProps {
   cart: DerivedCartWithItems;
-  shippingCost?: number;
 }
 
-export default function CartTable({ cart, shippingCost }: CartTableProps) {
+export default function CartTable({ cart }: CartTableProps) {
   const { cartItems, totalQty, subTotal } = cart;
 
   return (
@@ -37,24 +36,6 @@ export default function CartTable({ cart, shippingCost }: CartTableProps) {
             {totalQty} / {formatCurrency(subTotal)}
           </TableHead>
         </TableRow>
-        {shippingCost && (
-          <>
-            <TableRow>
-              <TableHead className="text-end text-xl">Taxes:</TableHead>
-              <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(taxAmount)}</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-end text-xl">Shipping:</TableHead>
-              <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(shippingCost)}</TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-              <TableHead className="overflow-clip text-end text-2xl whitespace-nowrap underline">
-                {formatCurrency(subTotal + taxAmount + shippingCost)}
-              </TableHead>
-            </TableRow>
-          </>
-        )}
       </TableFooter>
     </Table>
   );

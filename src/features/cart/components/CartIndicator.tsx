@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/custom/badge";
 import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator";
 
 // assets
-import { BuildingStorefrontIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { BuildingStorefrontIcon, ShoppingBagIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 // types
 interface CartIndicatorProps {
@@ -82,6 +82,12 @@ export default function CartIndicator({ cart, className }: CartIndicatorProps) {
           <Link href={PathFinder.toSfCart()}>
             <ShoppingCartIcon width={24} height={24} />
             View Cart
+          </Link>
+        </Button>
+        <Button type="button" size="block" variant="secondary" onClick={() => setOpen(false)} asChild>
+          <Link href={PathFinder.toSfCheckoutPage()}>
+            <ShoppingBagIcon width={24} height={24} />
+            Checkout Now
           </Link>
         </Button>
         <Button type="button" size="block" variant="outline" onClick={() => setOpen(false)}>

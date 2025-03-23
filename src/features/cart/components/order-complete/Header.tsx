@@ -30,10 +30,7 @@ export default function Header({ checkoutSession, className }: HeaderProps) {
   const { paymentIntent, totalPaid, shippingMethod, created, orderNumber, customerEmail } = processCheckoutSession(checkoutSession);
 
   // Process the stripe payment intent by extracting and converting the relevant information
-  const { status, paymentMethodType, receiptUrl } = processPaymentIntent(paymentIntent);
-
-  // Do not render anything in the event of an unsuccessful payment intent
-  if (status !== "succeeded" && status !== "processing") return;
+  const { paymentMethodType, receiptUrl } = processPaymentIntent(paymentIntent);
 
   return (
     <article className={cn(styles["header"], className)}>

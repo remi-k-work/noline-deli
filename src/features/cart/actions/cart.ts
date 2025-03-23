@@ -4,7 +4,8 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem, type DerivedCartWithItems } from "@/features/cart/db/cart";
+import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "@/features/cart/db/cart";
+import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // other libraries
 import { z } from "zod";

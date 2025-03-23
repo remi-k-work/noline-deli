@@ -24,8 +24,10 @@ export default async function Page({ searchParams: searchParamsPromise }: PagePr
   const { session_id } = await searchParamsPromise;
   if (!session_id) notFound();
 
-  // Use the checkout session id in the url to retrieve the status of the checkout session
-  const checkoutSession = await stripe.checkout.sessions.retrieve(session_id, { expand: ["payment_intent"] });
+  // As soon as the return/order complete page loads, retrieve the checkout session
+  const checkoutSession = await stripe.checkout.sessions.retrieve(session_id, {
+    expand: ["payment_intent.payment_method", "payment_intent.latest_charge", "shipping_cost.shipping_rate"],
+  });
 
   return (
     <MainLayout>
