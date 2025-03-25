@@ -20,7 +20,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 // assets
-import { inter, lusitana } from "@/assets/fonts";
+import { inter, lusitana, notoColorEmoji } from "@/assets/fonts";
 
 // types
 interface LayoutProps {
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default async function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${lusitana.variable} font-inter antialiased`}>
+      <body className={`${inter.variable} ${lusitana.variable} ${notoColorEmoji.variable} font-inter antialiased`}>
         <TooltipProvider>{children}</TooltipProvider>
         <Analytics debug={false} />
       </body>

@@ -26,6 +26,7 @@ export default async function seedCustomer(numberOfCustomers: number) {
       country: faker.location.countryCode(),
       city: faker.location.city(),
       line1: faker.location.streetAddress(),
+      line2: faker.location.secondaryAddress(),
       postal_code: faker.location.zipCode(),
       state: faker.location.state(),
     };
@@ -36,6 +37,7 @@ export default async function seedCustomer(numberOfCustomers: number) {
       name,
       phone,
       address,
+      shipping: { name, address },
       preferred_locales: ["en"],
 
       // Store the generated customer id in stripe's metadata for linking

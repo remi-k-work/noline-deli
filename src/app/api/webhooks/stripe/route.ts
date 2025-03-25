@@ -35,8 +35,11 @@ export async function POST(req: NextRequest) {
           expand: ["payment_intent.payment_method", "payment_intent.latest_charge", "shipping_cost.shipping_rate"],
         });
 
-        // Place a new order for this customer
-        await newOrder(checkoutSession);
+        // Start the fulfillment process only for paid orders
+        if (checkoutSession.payment_status !== "unpaid") {
+          // Place a new order for this customer
+          await newOrder(checkoutSession);
+        }
       } catch {
         return new NextResponse(null, { status: 500 });
       }

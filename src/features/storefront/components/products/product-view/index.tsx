@@ -25,7 +25,7 @@ export default function ProductView({ product, product: { freeShipping, createdA
   return isNew || freeShipping ? (
     <WithIndicator>
       {isNew && (
-        <Indicator hPos="start">
+        <Indicator hPos="center">
           <NewTag />
         </Indicator>
       )}

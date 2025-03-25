@@ -6,6 +6,8 @@ model Customer {
     name             String
     // Unless they create an account, each customer is initially a guest
     isGuest          Boolean  @default(true)
+    // Are we dealing with a test customer?
+    isTest           Boolean  @default(true)
     createdAt        DateTime @default(now())
     updatedAt        DateTime @updatedAt
 

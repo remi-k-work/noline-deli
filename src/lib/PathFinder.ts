@@ -17,6 +17,7 @@ enum SearchParamName {
   subCategoryId = "scat",
   actionFeedback = "afeed",
   checkoutSessionId = "session_id",
+  guestTestCustomerId = "guest_test_customer_id",
 }
 
 enum PathTo {
@@ -97,7 +98,8 @@ export default class PathFinder {
 
   static toSfCart = () => PathTo.sfCart;
   static toSfCartReval = () => PathTo.sfCart;
-  static toSfCheckoutPage = () => PathTo.sfCheckoutPage;
+  static toSfCheckoutPage = (guestTestCustomerId?: string) =>
+    guestTestCustomerId ? `${PathTo.sfCheckoutPage}?${SearchParamName.guestTestCustomerId}=${guestTestCustomerId}` : PathTo.sfCheckoutPage;
   static toSfOrderComplete = () => PathTo.sfOrderComplete;
   static toSfOrderCompleteWithOrigin = (origin: string | null) => new URL(PathFinder.toSfOrderComplete(), origin ?? undefined).href;
 

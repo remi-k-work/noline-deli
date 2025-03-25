@@ -1,12 +1,41 @@
 // prisma and db access
 import { Prisma } from "@prisma/client";
+import { allGuestTestCustomersWithName } from "./orders";
 
 // other libraries
 import Stripe from "stripe";
+import stripe from "@/services/stripe";
 import PathFinder from "@/lib/PathFinder";
 
 // consts and types
-import type { DerivedCartWithItems } from "./types";
+import type { AllGuestTestCustomersData, DerivedCartWithItems } from "./types";
+
+// Get all the necessary data about all guest test customers
+export async function allGuestTestCustomersData() {
+  // Retrieve all guest test customers, including their names
+  const customers = await allGuestTestCustomersWithName();
+
+  const data: AllGuestTestCustomersData[] = [];
+  for (const { id, stripeCustomerId, email, name } of customers) {
+    const { phone, address } = (await stripe.customers.retrieve(stripeCustomerId)) as Stripe.Customer;
+    const { country, city, line1, line2, postal_code, state } = address!;
+    data.push({
+      id,
+      stripeCustomerId,
+      email,
+      name,
+      phone: phone!,
+      country: country!,
+      city: city!,
+      line1: line1!,
+      line2: line2!,
+      postal_code: postal_code!,
+      state: state!,
+    });
+  }
+
+  return data;
+}
 
 // Process the stripe payment intent by extracting and converting the relevant information
 export function processPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
