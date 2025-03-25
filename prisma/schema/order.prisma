@@ -11,6 +11,8 @@ model Order {
     shippingCost      Int
     shippingMethod    String
     totalPaid         Int
+    // Are we dealing with an order that is connected to a stripe checkout session?
+    isConnected       Boolean     @default(true)
     status            OrderStatus @default(IN_PROCESS)
 
     // An order can have many ordered items

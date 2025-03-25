@@ -1,5 +1,6 @@
 // prisma and db access
 import type { Prisma } from "@prisma/client";
+import prisma from "@/services/prisma";
 
 // other libraries
 import { faker } from "@faker-js/faker";
@@ -43,6 +44,58 @@ export function generateMoreImagesForCategory(createdBy: string, categoryId: str
     createdAt: generateRandomCreatedAt(90),
     isApproved: true,
   }));
+}
+
+// Pick a bunch of random product ids as if they were thrown into the shopping cart
+async function pickBunchOfRandomProductIds(): Promise<string[]> {
+  // First get all the admin-approved products in our database
+  const approvedProducts = await prisma.product.findMany({ where: { isApproved: true }, select: { id: true } });
+
+  // Then pick a random subset of them - the subset will be of random size as well
+  return getRandomSubset(
+    approvedProducts.map((product) => product.id),
+    faker.number.int({ min: 1, max: 6 }),
+  );
+}
+
+// Pick a random guest test customer
+export async function pickRandomGuestTestCustomer(): Promise<string> {
+  const allGuestTestCustomers = await prisma.customer.findMany({ where: { isGuest: true, isTest: true }, select: { id: true } });
+  return faker.helpers.arrayElement(allGuestTestCustomers).id;
+}
+
+// Generate an array of ordered items from a bunch of random product ids as if they were thrown into the shopping cart
+export async function generateOrderedItemsFromProductIds() {
+  const orderedItems: Prisma.OrderedItemCreateManyOrderInput[] = [];
+
+  let totalQty = 0;
+  let subTotal = 0;
+  for (const randomProductId of await pickBunchOfRandomProductIds()) {
+    const randomProduct = await prisma.product.findUnique({ where: { id: randomProductId }, include: { brand: true, category: true, subCategory: true } });
+    if (!randomProduct) continue;
+
+    const { id: productId, name, description, imageUrl, price, brand, category, subCategory } = randomProduct;
+    const quantity = faker.number.int({ min: 1, max: 5 });
+
+    orderedItems.push({
+      productId,
+      quantity,
+      name,
+      description,
+      imageUrl,
+      price,
+      total: quantity * price,
+      brandName: brand.name,
+      brandLogo: brand.logoUrl,
+      categoryName: category.name,
+      subCategoryName: subCategory?.name,
+    });
+
+    totalQty += quantity;
+    subTotal += quantity * price;
+  }
+
+  return { orderedItems, totalQty, subTotal };
 }
 
 // Generate a random subset of a specified length from an input array

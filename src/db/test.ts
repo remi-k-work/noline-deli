@@ -2,12 +2,11 @@
 import "dotenv/config";
 
 // other libraries
-import { allGuestTestCustomers } from "@/features/cart/db/orders";
-import { faker } from "@faker-js/faker";
+import seedOrder from "./seed/order";
 
 async function main() {
   try {
-    console.log(faker.helpers.arrayElement(await allGuestTestCustomers()));
+    await seedOrder(10);
   } catch (error) {
     console.error("An error occurred:", error);
     process.exit(1);
