@@ -1,5 +1,5 @@
 // prisma and db access
-import type { Prisma } from "@prisma/client";
+import { OrderedItemStatus, type Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 
 // other libraries
@@ -89,6 +89,9 @@ export async function generateOrderedItemsFromProductIds() {
       brandLogo: brand.logoUrl,
       categoryName: category.name,
       subCategoryName: subCategory?.name,
+
+      // Pick a random ordered item status
+      status: faker.helpers.arrayElement(Object.values(OrderedItemStatus)),
     });
 
     totalQty += quantity;

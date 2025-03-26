@@ -1,5 +1,6 @@
 // prisma and db access
 import { Prisma } from "@prisma/client";
+import prisma from "@/services/prisma";
 import { allGuestTestCustomersWithName } from "./orders";
 
 // other libraries
@@ -9,6 +10,7 @@ import PathFinder from "@/lib/PathFinder";
 
 // consts and types
 import type { AllGuestTestCustomersData, DerivedCartWithItems } from "./types";
+import type { OrderWithItems } from "@/features/manager/orders/db";
 
 // Get all the necessary data about all guest test customers
 export async function allGuestTestCustomersData() {
@@ -50,6 +52,14 @@ export function processPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
   }
 
   return { paymentMethod: payment_method, latestCharge: latest_charge, paymentMethodType: payment_method.type, receiptUrl: latest_charge.receipt_url };
+}
+
+// Process the disconnected (from stripe) order and use it as a fallback to extract the relevant information
+export async function processDisconnectedOrder(order: OrderWithItems) {
+  const { checkoutSessionId, subTotal, totalPaid, shippingCost, taxAmount, shippingMethod, created, orderNumber, customerId } = order;
+  const { email: customerEmail } = (await prisma.customer.findUnique({ where: { id: customerId }, select: { email: true } })) ?? {};
+
+  return { checkoutSessionId, subTotal, totalPaid, shippingCost, taxAmount, shippingMethod, created, orderNumber, customerId, customerEmail };
 }
 
 // Process the stripe checkout session by extracting and converting the relevant information

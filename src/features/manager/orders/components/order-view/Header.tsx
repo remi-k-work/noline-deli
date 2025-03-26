@@ -5,7 +5,8 @@ import styles from "./Header.module.css";
 import Link from "next/link";
 
 // prisma and db access
-import { processCheckoutSession, processPaymentIntent } from "@/features/cart/db/helpers";
+import type { OrderWithItems } from "@/features/manager/orders/db";
+import { processCheckoutSession, processDisconnectedOrder, processPaymentIntent } from "@/features/cart/db/helpers";
 
 // other libraries
 import { cn } from "@/lib/utils";
@@ -21,16 +22,31 @@ import { CalculatorIcon } from "@heroicons/react/24/solid";
 
 // types
 interface HeaderProps {
-  checkoutSession: Stripe.Checkout.Session;
+  order: OrderWithItems;
+  checkoutSession?: Stripe.Checkout.Session;
   className?: string;
 }
 
-export default function Header({ checkoutSession, className }: HeaderProps) {
-  // Process the stripe checkout session by extracting and converting the relevant information
-  const { paymentIntent, totalPaid, shippingMethod, created, orderNumber, customerEmail } = processCheckoutSession(checkoutSession);
+export default async function Header({ order, order: { isConnected }, checkoutSession, className }: HeaderProps) {
+  let paymentIntent: Stripe.PaymentIntent | undefined = undefined,
+    totalPaid: number,
+    shippingMethod: string,
+    created: Date,
+    orderNumber: string,
+    customerEmail: string | undefined,
+    paymentMethodType: string = "Unknown",
+    receiptUrl: string | null = null;
 
-  // Process the stripe payment intent by extracting and converting the relevant information
-  const { paymentMethodType, receiptUrl } = processPaymentIntent(paymentIntent);
+  // Process the stripe checkout session by extracting and converting the relevant information, but only for connected orders
+  if (isConnected && checkoutSession) {
+    ({ paymentIntent, totalPaid, shippingMethod, created, orderNumber, customerEmail } = processCheckoutSession(checkoutSession));
+
+    // Process the stripe payment intent by extracting and converting the relevant information
+    ({ paymentMethodType, receiptUrl } = processPaymentIntent(paymentIntent));
+  } else {
+    // Process the disconnected (from stripe) order and use it as a fallback to extract the relevant information
+    ({ totalPaid, shippingMethod, created, orderNumber, customerEmail } = await processDisconnectedOrder(order));
+  }
 
   return (
     <article className={cn(styles["header"], className)}>

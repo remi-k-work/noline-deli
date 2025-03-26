@@ -1,4 +1,5 @@
 // prisma and db access
+import { OrderStatus } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { SHIPPING_OPTIONS } from "@/features/cart/db/consts";
 
@@ -39,6 +40,9 @@ export default async function seedOrder(numberOfOrders: number) {
 
         // This is a test order that is not connected to a stripe checkout session
         isConnected: false,
+
+        // Pick a random order status
+        status: faker.helpers.arrayElement(Object.values(OrderStatus)),
 
         // Create ordered items from the cart items by including only the most significant information
         orderedItems: { createMany: { data: orderedItems } },

@@ -8,6 +8,7 @@ import seedCategory from "./seed/category";
 import seedSubCategory from "./seed/subCategory";
 import seedProduct from "./seed/product";
 import seedCustomer from "./seed/customer";
+import seedOrder from "./seed/order";
 
 // UUID for the admin user
 const ADMIN_USER_ID = crypto.randomUUID();
@@ -23,6 +24,7 @@ async function main() {
     await seedSubCategory(ADMIN_USER_ID);
     await seedProduct(ADMIN_USER_ID);
     await seedCustomer(10);
+    await seedOrder(100);
 
     console.log("Database seeding complete.");
   } catch (error) {
