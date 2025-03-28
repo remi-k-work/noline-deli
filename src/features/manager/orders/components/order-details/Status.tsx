@@ -4,6 +4,9 @@ import { OrderedItem, OrderedItemStatus } from "@prisma/client";
 // server actions and mutations
 import { chgOrderedItemStatus } from "@/features/manager/orders/actions";
 
+// other libraries
+import { useOptimisticAction } from "next-safe-action/hooks";
+
 // components
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -14,13 +17,19 @@ interface StatusProps {
 }
 
 export default function Status({ orderedItem: { id, status }, className }: StatusProps) {
+  // We will update the status of this ordered item optimistically
+  const { execute, optimisticState } = useOptimisticAction(chgOrderedItemStatus, {
+    currentState: { orderedItemId: id, newStatus: status },
+    updateFn: (curState, newState) => ({ ...curState, newStatus: newState.newStatus }),
+  });
+
   return (
     <Select
       name={"orderedItemStatus"}
-      value={status}
-      onValueChange={async (value) => {
-        // Update the status of this ordered item at the underlying database level
-        await chgOrderedItemStatus({ orderedItemId: id, newStatus: value as OrderedItemStatus });
+      value={optimisticState.newStatus}
+      onValueChange={async (newStatus) => {
+        // Execute the server action to update the ordered item status, but if it fails, we will revert the changes
+        execute({ orderedItemId: id, newStatus: newStatus as OrderedItemStatus });
       }}
     >
       <SelectTrigger className={className}>

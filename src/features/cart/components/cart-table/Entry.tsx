@@ -15,24 +15,24 @@ interface EntryProps {
   cartItem: CartItemWithProduct;
 }
 
-export default function Entry({ cartItem }: EntryProps) {
-  const {
-    id,
+export default function Entry({
+  cartItem,
+  cartItem: {
     productId,
     quantity,
     product,
-    product: { name, imageUrl, price },
-  } = cartItem;
-
+    product: { name, price },
+  },
+}: EntryProps) {
   return (
     <TableRow className="odd:bg-surface-3 even:bg-surface-4">
       <TableCell>
         <section className="flex items-center gap-1">
           <ItemImageWithTrigger product={product} href={PathFinder.toSfProductDetails(name, productId)} />
           <footer className="flex flex-col items-center gap-1">
-            <IncCartItemQtyButton cartItemId={id} />
-            <DelCartItemButton cartItemId={id} productName={name} productImageUrl={imageUrl} productPrice={price} />
-            <DecCartItemQtyButton cartItemId={id} />
+            <IncCartItemQtyButton cartItem={cartItem} />
+            <DelCartItemButton cartItem={cartItem} />
+            <DecCartItemQtyButton cartItem={cartItem} />
           </footer>
         </section>
       </TableCell>

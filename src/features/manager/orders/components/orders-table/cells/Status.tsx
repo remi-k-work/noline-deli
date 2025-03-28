@@ -7,6 +7,7 @@ import { chgOrderStatus } from "@/features/manager/orders/actions";
 // other libraries
 import type { Row, Table } from "@tanstack/react-table";
 import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
+import { useAction } from "next-safe-action/hooks";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";
@@ -33,16 +34,16 @@ export default function Status({ row, table }: StatusProps) {
 }
 
 export function StatusCell({ table: { options }, row: { index, getValue, original }, triggerCn }: StatusCellProps) {
+  const { executeAsync } = useAction(chgOrderStatus, { onError: () => options.meta?.updateData(index, "status", original.status) });
+
+  const handleStatusChanged = (newStatus: string) => {
+    // Update the status of this order at both the tanstack table and the underlying database levels
+    options.meta?.updateData(index, "status", newStatus);
+    executeAsync({ orderId: original.id, newStatus: newStatus as OrderStatus });
+  };
+
   return (
-    <Select
-      name={"orderStatus"}
-      value={getValue("status")}
-      onValueChange={async (value) => {
-        // Update the status of this order at both the tanstack table and the underlying database levels
-        options.meta?.updateData(index, "status", value);
-        await chgOrderStatus({ orderId: original.id, newStatus: value as OrderStatus });
-      }}
-    >
+    <Select name={"orderStatus"} value={getValue("status")} onValueChange={handleStatusChanged}>
       <SelectTrigger className={triggerCn}>
         <SelectValue placeholder="Choose Status" />
       </SelectTrigger>

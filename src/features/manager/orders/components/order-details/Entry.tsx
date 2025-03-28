@@ -29,9 +29,9 @@ export default function Entry({ orderedItem }: EntryProps) {
         {isSmall ? (
           <ItemImageWithTrigger orderedItem={orderedItem} />
         ) : (
-          <article className="flex items-center gap-2">
-            <ItemImageWithTrigger orderedItem={orderedItem} className="flex-none" />
-            <footer className="flex-1">
+          <article className="grid grid-cols-[9rem_1fr] items-center gap-2">
+            <ItemImageWithTrigger orderedItem={orderedItem} />
+            <footer>
               {name}
               <small>
                 <br />
@@ -43,7 +43,7 @@ export default function Entry({ orderedItem }: EntryProps) {
           </article>
         )}
       </TableCell>
-      <TableCell className="overflow-clip whitespace-nowrap text-end">
+      <TableCell className="overflow-clip text-end whitespace-nowrap">
         {quantity} / {formatCurrency(total)}
         <br className="clear-end" />
         <Status orderedItem={orderedItem} className="float-end w-fit" />

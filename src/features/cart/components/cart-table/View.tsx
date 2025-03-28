@@ -8,6 +8,7 @@ import { getCart } from "@/features/cart/db/cart";
 import PathFinder from "@/lib/PathFinder";
 
 // components
+import { CartStoreProvider } from "@/features/cart/stores/cartProvider";
 import { Button } from "@/components/ui/custom/button";
 import NotFound from "@/components/NotFound";
 import CartTable from ".";
@@ -22,8 +23,8 @@ export default async function View() {
   if (!cart || (cart && cart.cartItems.length === 0)) return <NotFound message={"Your cart is empty!"} />;
 
   return (
-    <>
-      <CartTable cart={cart} />
+    <CartStoreProvider cart={cart}>
+      <CartTable />
       <br />
       <Button size="lg" className="float-end" asChild>
         <Link href={PathFinder.toSfCheckoutPage()}>
@@ -33,6 +34,6 @@ export default async function View() {
       </Button>
       <br />
       <br />
-    </>
+    </CartStoreProvider>
   );
 }

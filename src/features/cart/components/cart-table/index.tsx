@@ -1,20 +1,17 @@
-// prisma and db access
-import type { DerivedCartWithItems } from "@/features/cart/db/types";
+"use client";
 
 // other libraries
+import { useCartStore } from "@/features/cart/stores/cartProvider";
 import { formatCurrency } from "@/lib/formatters";
 
 // components
 import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/custom/table";
 import Entry from "./Entry";
 
-// types
-interface CartTableProps {
-  cart: DerivedCartWithItems;
-}
-
-export default function CartTable({ cart }: CartTableProps) {
-  const { cartItems, totalQty, subTotal } = cart;
+export default function CartTable() {
+  const cartItems = useCartStore((state) => state.cartItems);
+  const totalQty = useCartStore((state) => state.totalQty);
+  const subTotal = useCartStore((state) => state.subTotal);
 
   return (
     <Table>

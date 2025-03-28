@@ -7,7 +7,7 @@ import styles from "./View.module.css";
 import { useEffect, useRef } from "react";
 
 // other libraries
-import { useProductFormStore } from "../../stores/productFormProvider";
+import { useProductFormStore } from "@/features/manager/products/stores/productFormProvider";
 import { useFormContext } from "react-hook-form";
 import useIsMounted from "@/hooks/useIsMounted";
 
@@ -52,7 +52,7 @@ export default function View() {
   return (
     <div className={styles["view"]}>
       <ImageView
-        ref={productImageNode => {
+        ref={(productImageNode) => {
           addThisProductImageNodeRef(0, productImageNode);
         }}
         fieldName={"theMainImage"}
@@ -62,7 +62,7 @@ export default function View() {
       {extraImages.map((extraImageUrl, extraImageIndex) => (
         <ImageView
           key={`${extraImageUrl}.${extraImageIndex}`}
-          ref={productImageNode => {
+          ref={(productImageNode) => {
             addThisProductImageNodeRef(extraImageIndex + 1, productImageNode);
           }}
           fieldName={`extraImages.${extraImageIndex}`}

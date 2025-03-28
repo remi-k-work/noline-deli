@@ -4,7 +4,7 @@
 import { revalidatePath } from "next/cache";
 
 // prisma and db access
-import { getCart, decCartItemQty, incCartItemQty, newCartItem, delCartItem } from "@/features/cart/db/cart";
+import { getCart, incCartItemQty, newCartItem, delCartItem, setCartItemQty } from "@/features/cart/db/cart";
 import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // other libraries
@@ -19,47 +19,30 @@ export interface CartActionResult extends FormActionResult {
   subTotal: number;
 }
 
-export const incCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
-  try {
-    // Get an existing or brand-new empty cart from our database
-    const cart = await getCart();
-    if (!cart) return;
+export const updCartArticle = actionClient
+  .schema(z.object({ cartItemId: objectIdSchema, quantity: z.number().min(1).max(99) }))
+  .action(async ({ parsedInput: { cartItemId, quantity } }): Promise<void> => {
+    try {
+      // Get an existing or brand-new empty cart from our database
+      const cart = await getCart();
+      if (!cart) throw new Error("Could not find or create a cart!");
 
-    // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
-    const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
-    if (cartItem && cartItem.quantity < 99) await incCartItemQty(cart.id, cartItemId);
-  } catch (error) {
-    // If any error occurs, rethrow, which means action simply "failed"
-    throw error;
-  }
+      // Set the cart item quantity to the provided value
+      await setCartItemQty(cart.id, cartItemId, quantity);
+    } catch (error) {
+      // If any error occurs, rethrow, which means action simply "failed"
+      throw error;
+    }
 
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath(PathFinder.toSfCartReval());
-});
-
-export const decCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
-  try {
-    // Get an existing or brand-new empty cart from our database
-    const cart = await getCart();
-    if (!cart) return;
-
-    // Find the specified cart item, increase its amount by one, and maintain it inside the 0 < q < 100 limit
-    const cartItem = cart.cartItems.find((cartItem) => cartItem.id === cartItemId);
-    if (cartItem && cartItem.quantity > 1) await decCartItemQty(cart.id, cartItemId);
-  } catch (error) {
-    // If any error occurs, rethrow, which means action simply "failed"
-    throw error;
-  }
-
-  // Revalidate, so the fresh data will be fetched from the server next time this path is visited
-  revalidatePath(PathFinder.toSfCartReval());
-});
+    // Revalidate, so the fresh data will be fetched from the server next time this path is visited
+    revalidatePath(PathFinder.toSfCartReval());
+  });
 
 export const delCartArticle = actionClient.schema(z.object({ cartItemId: objectIdSchema })).action(async ({ parsedInput: { cartItemId } }): Promise<void> => {
   try {
     // Get an existing or brand-new empty cart from our database
     const cart = await getCart();
-    if (!cart) return;
+    if (!cart) throw new Error("Could not find or create a cart!");
 
     // Remove this cart item completely from our shopping basket
     await delCartItem(cart.id, cartItemId);

@@ -7,6 +7,7 @@ import { allGuestTestCustomersWithName } from "./orders";
 import Stripe from "stripe";
 import stripe from "@/services/stripe";
 import PathFinder from "@/lib/PathFinder";
+import { faker } from "@faker-js/faker";
 
 // consts and types
 import type { AllGuestTestCustomersData, DerivedCartWithItems } from "./types";
@@ -19,20 +20,22 @@ export async function allGuestTestCustomersData() {
 
   const data: AllGuestTestCustomersData[] = [];
   for (const { id, stripeCustomerId, email, name } of customers) {
-    const { phone, address } = (await stripe.customers.retrieve(stripeCustomerId)) as Stripe.Customer;
-    const { country, city, line1, line2, postal_code, state } = address!;
+    const { phone, address } = ((await stripe.customers.retrieve(stripeCustomerId)) as Stripe.Customer) ?? {};
+    const { country, city, line1, line2, postal_code, state } = address ?? {};
     data.push({
       id,
       stripeCustomerId,
       email,
       name,
-      phone: phone!,
-      country: country!,
-      city: city!,
-      line1: line1!,
-      line2: line2!,
-      postal_code: postal_code!,
-      state: state!,
+
+      // If the customer's address cannot be acquired from stripe, we will generate a random one
+      phone: phone ?? faker.phone.number({ style: "national" }),
+      country: country ?? faker.location.countryCode(),
+      city: city ?? faker.location.city(),
+      line1: line1 ?? faker.location.streetAddress(),
+      line2: line2 ?? faker.location.secondaryAddress(),
+      postal_code: postal_code ?? faker.location.zipCode(),
+      state: state ?? faker.location.state(),
     });
   }
 

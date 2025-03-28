@@ -48,7 +48,7 @@ export interface BrowseBarData {
 }
 
 // Prisma includes
-const INCLUDE_ORDER_WITH_ITEMS = { orderedItems: true, customer: true } as const satisfies Prisma.OrderInclude;
+const INCLUDE_ORDER_WITH_ITEMS = { orderedItems: { orderBy: { productId: "asc" } }, customer: true } as const satisfies Prisma.OrderInclude;
 
 // Gather all the necessary data for the browse bar to use
 export const getBrowseBarData = cache(async () => {

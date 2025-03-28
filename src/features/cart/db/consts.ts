@@ -8,7 +8,9 @@ import Stripe from "stripe";
 export const INCLUDE_CART_ITEM_WITH_PRODUCT = {
   product: { include: { moreImages: true, brand: true, category: true, subCategory: true } },
 } as const satisfies Prisma.CartsOnProductsInclude;
-export const INCLUDE_CART_WITH_ITEMS = { cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT } } as const satisfies Prisma.CartInclude;
+export const INCLUDE_CART_WITH_ITEMS = {
+  cartItems: { include: INCLUDE_CART_ITEM_WITH_PRODUCT, orderBy: { productId: "asc" } },
+} as const satisfies Prisma.CartInclude;
 
 // Name of a cookie that holds the local cart id
 export const LOCAL_CART_ID_COOKIE = "localCartId";
