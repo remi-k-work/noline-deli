@@ -2,8 +2,6 @@
 import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
-
-// other libraries
 import { whereFilter, whereKeyword } from "@/features/storefront/db/helpers";
 
 // Search our products for a certain keyword in either the name or description sections

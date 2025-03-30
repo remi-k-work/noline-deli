@@ -6,7 +6,7 @@ import type { Prisma } from "@prisma/client";
 import prisma from "@/services/prisma";
 import { whereAdminApproved } from "@/features/manager/login/db";
 
-// other libraries
+// consts and types
 import { INCLUDE_PRODUCT_WITH_ALL } from "./consts";
 
 // Get all the information you need about this particular product

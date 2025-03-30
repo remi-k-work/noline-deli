@@ -1,0 +1,94 @@
+.paginate {
+  color: var(--text-2);
+
+  display: flex;
+  align-items: center;
+
+  gap: var(--size-2);
+}
+
+.paginate__prev,
+.paginate__next {
+  cursor: pointer;
+
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  border-radius: var(--radius-3);
+  border: var(--border-size-1) solid var(--surface-2);
+}
+
+.paginate__curr {
+  cursor: pointer;
+
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  border-radius: var(--radius-3);
+  border: var(--border-size-1) solid var(--surface-2);
+
+  min-inline-size: var(--size-10);
+}
+
+.paginate__pages {
+  background: var(--surface-2);
+  padding-inline: var(--size-2);
+  padding-block: var(--size-2);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-6);
+}
+
+.paginate__page-number {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--surface-3);
+  padding-inline: var(--size-3);
+  padding-block: var(--size-2);
+  border-radius: var(--radius-2);
+}
+
+.paginate__page-number--current {
+  cursor: not-allowed;
+
+  background: var(--surface-4);
+  color: var(--text-1);
+
+  transition: none;
+}
+
+/* || MEDIA QUERIES */
+
+@media (hover: hover) and (pointer: fine) {
+  .paginate__prev,
+  .paginate__next,
+  .paginate__curr,
+  .paginate__page-number {
+    transition: all 0.5s var(--ease-3);
+  }
+
+  .paginate__prev:disabled,
+  .paginate__next:disabled {
+    cursor: not-allowed;
+  }
+
+  .paginate__prev:hover:not(:disabled),
+  .paginate__next:hover:not(:disabled),
+  .paginate__curr:hover:not(:disabled) {
+    background: var(--surface-2);
+    color: var(--text-1);
+  }
+
+  .paginate__page-number:hover {
+    background: var(--surface-4);
+    color: var(--text-1);
+  }
+}

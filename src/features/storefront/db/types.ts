@@ -2,10 +2,11 @@
 import type { Brand, Prisma } from "@prisma/client";
 
 // other libraries
-import { INCLUDE_PRODUCT_WITH_ALL } from "./consts";
+import { INCLUDE_ORDER_WITH_ITEMS, INCLUDE_PRODUCT_WITH_ALL } from "./consts";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
+export type OrderWithItems = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_ITEMS }>;
 
 interface CategoriesTreeView {
   label: string;
@@ -28,4 +29,33 @@ export interface ProductFilterData {
   byBrandList: Brand[];
   byPriceBelowMin: number;
   byPriceBelowMax: number;
+}
+
+interface OrdersByDate {
+  rangeLabel: string;
+  startDate: Date;
+  endDate: Date;
+  orders: number;
+}
+
+interface OrdersByShipping {
+  shipping: string;
+  orders: number;
+}
+
+interface OrdersByStatus {
+  status: string;
+  orders: number;
+}
+
+interface OrdersByBrand {
+  brandName: string;
+  orders: number;
+}
+
+export interface BrowseBarData {
+  ordersByDate: OrdersByDate[];
+  ordersByShipping: OrdersByShipping[];
+  ordersByStatus: OrdersByStatus[];
+  ordersByBrand: OrdersByBrand[];
 }
