@@ -1,3 +1,5 @@
+"use client";
+
 // react
 import { useEffect, useState } from "react";
 
@@ -58,8 +60,8 @@ export default function ByBrandId({ productFilterData: { byBrandList } }: ByBran
 export function ByBrandIdSkeleton() {
   return (
     <>
-      <div className="mb-1 mt-5 h-3 animate-pulse bg-background"></div>
-      <div className="h-10 animate-pulse bg-background"></div>
+      <div className="bg-background mt-5 mb-1 h-3 animate-pulse"></div>
+      <div className="bg-background h-10 animate-pulse"></div>
     </>
   );
 }

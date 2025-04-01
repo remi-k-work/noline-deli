@@ -3,10 +3,12 @@ import type { Brand, Prisma } from "@prisma/client";
 
 // other libraries
 import { INCLUDE_ORDER_WITH_ITEMS, INCLUDE_PRODUCT_WITH_ALL } from "./consts";
+import type { getCustomerData } from "./customers";
 
 // types
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
 export type OrderWithItems = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_ITEMS }>;
+export type CustomerData = Awaited<ReturnType<typeof getCustomerData>>;
 
 interface CategoriesTreeView {
   label: string;

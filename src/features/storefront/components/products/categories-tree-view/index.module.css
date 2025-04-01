@@ -1,0 +1,22 @@
+.categories-tree-view-skeleton {
+  inline-size: 100%;
+  min-inline-size: var(--size-13);
+  max-inline-size: var(--size-content-2);
+  background: var(--surface-2);
+}
+
+.categories-tree-view-skeleton > h4 {
+  background: var(--heading-gradient-1);
+  color: var(--text-2);
+  padding-inline: var(--size-2) var(--size-2);
+  padding-block: var(--size-1) var(--size-1);
+  margin-block-end: var(--size-2);
+}
+
+.categories-list-skeleton {
+  line-height: var(--font-lineheight-5);
+}
+
+.categories-item-skeleton {
+  margin-inline-start: var(--size-3);
+}

@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -12,8 +15,9 @@ import { getProduct } from "@/features/storefront/db";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import MainLayout from "@/features/storefront/components/MainLayout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
 import ProductView from "@/features/storefront/components/products/product-view";
+import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
 
 // types
 interface PageProps {
@@ -55,10 +59,17 @@ export default async function Page({ params: paramsPromise }: PageProps) {
 
   return (
     <MainLayout>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
-        <ProductView product={product} />
-      </article>
+      <MainLayoutNavBar>
+        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
+          <CategoriesTreeView />
+        </Suspense>
+      </MainLayoutNavBar>
+      <MainLayoutMain>
+        <article className={styles["page"]}>
+          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
+          <ProductView product={product} />
+        </article>
+      </MainLayoutMain>
     </MainLayout>
   );
 }

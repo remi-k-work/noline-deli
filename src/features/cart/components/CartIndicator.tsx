@@ -10,7 +10,6 @@ import Link from "next/link";
 import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/formatters";
 import PathFinder from "@/lib/PathFinder";
 
@@ -26,10 +25,9 @@ import { BuildingStorefrontIcon, ShoppingBagIcon, ShoppingCartIcon } from "@hero
 // types
 interface CartIndicatorProps {
   cart?: DerivedCartWithItems;
-  className?: string;
 }
 
-export default function CartIndicator({ cart, className }: CartIndicatorProps) {
+export default function CartIndicator({ cart }: CartIndicatorProps) {
   // The controlled open state of the popover
   const [open, setOpen] = useState(false);
 
@@ -38,7 +36,7 @@ export default function CartIndicator({ cart, className }: CartIndicatorProps) {
     // If the cart is not there, display the empty cart indicator nonetheless
     return (
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger className={className} asChild>
+        <PopoverTrigger className="[place-self:center_start] [grid-area:cind]" asChild>
           <Button type="button" size="icon" variant="ghost" title="Your cart is empty!">
             <WithIndicator>
               <Indicator>
@@ -63,7 +61,7 @@ export default function CartIndicator({ cart, className }: CartIndicatorProps) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className={className} asChild>
+      <PopoverTrigger className="[place-self:center_start] [grid-area:cind]" asChild>
         <Button type="button" size="icon" variant="ghost" title={`Your cart has ${totalQty} item(s)`}>
           <WithIndicator>
             <Indicator>
@@ -99,6 +97,6 @@ export default function CartIndicator({ cart, className }: CartIndicatorProps) {
   );
 }
 
-export function CartIndicatorSkeleton({ className }: Pick<CartIndicatorProps, "className">) {
-  return <div className={cn("bg-background h-12 w-12 animate-pulse rounded-full", className)} />;
+export function CartIndicatorSkeleton() {
+  return <div className="bg-background h-12 w-12 animate-pulse [place-self:center_start] rounded-full [grid-area:cind]" />;
 }

@@ -3,7 +3,6 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 
 // components

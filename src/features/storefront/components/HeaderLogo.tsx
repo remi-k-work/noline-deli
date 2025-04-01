@@ -1,14 +1,9 @@
 // next
 import Link from "next/link";
 
-// types
-interface HeaderLogoProps {
-  className?: string;
-}
-
-export default function HeaderLogo({ className }: HeaderLogoProps) {
+export default function HeaderLogo() {
   return (
-    <Link href={"/"} className={className}>
+    <Link href={"/"} className="[grid-area:logo]">
       <svg xmlns="http://www.w3.org/2000/svg" width="117.213" height="64.418" viewBox="0 0 31.013 17.044">
         <path
           fill="currentColor"

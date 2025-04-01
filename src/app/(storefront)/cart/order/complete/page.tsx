@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import { notFound } from "next/navigation";
 
@@ -8,8 +11,9 @@ import { notFound } from "next/navigation";
 import stripe from "@/services/stripe";
 
 // components
-import MainLayout from "@/features/storefront/components/MainLayout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
 import OrderComplete from "@/features/cart/components/order-complete";
+import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
 
 // types
 interface PageProps {
@@ -31,10 +35,17 @@ export default async function Page({ searchParams: searchParamsPromise }: PagePr
 
   return (
     <MainLayout>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Order Complete</h1>
-        <OrderComplete checkoutSession={checkoutSession} />
-      </article>
+      <MainLayoutNavBar>
+        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
+          <CategoriesTreeView />
+        </Suspense>
+      </MainLayoutNavBar>
+      <MainLayoutMain>
+        <article className={styles["page"]}>
+          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Order Complete</h1>
+          <OrderComplete checkoutSession={checkoutSession} />
+        </article>
+      </MainLayoutMain>
     </MainLayout>
   );
 }

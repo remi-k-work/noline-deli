@@ -1,0 +1,70 @@
+.customer-view {
+  inline-size: 100%;
+  max-inline-size: var(--size-content-3);
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: [nam-start] var(--size-3) [ava-start bck-start] var(--size-3) [cnt-start] auto [nam-end ava-end bck-end] var(--size-3) [cnt-end];
+  grid-template-rows: [ava-start] 150px [bck-start] 80px [ava-end nam-start] auto [cnt-start] var(--size-2) [nam-end] auto [cnt-end] var(--size-3) [bck-end];
+
+  &::before {
+    content: "";
+    grid-area: bck;
+    background: var(--surface-2);
+    border-radius: var(--radius-3);
+  }
+
+  & > img {
+    grid-area: ava;
+    inline-size: 300px;
+    block-size: 300px;
+  }
+
+  & > h2 {
+    grid-area: nam;
+    font-family: var(--font-lusitana);
+    font-size: var(--font-size-3);
+    background: var(--surface-3);
+    padding-inline: var(--size-3);
+    padding-block: var(--size-3);
+    border-radius: var(--radius-3);
+    box-shadow: var(--shadow-5);
+    z-index: var(--layer-1);
+  }
+
+  & > dl {
+    grid-area: cnt;
+    background: var(--surface-4);
+    color: var(--text-1);
+    padding-inline: var(--size-3);
+    padding-block: var(--size-3);
+    border-radius: var(--radius-3);
+    box-shadow: var(--inner-shadow-4);
+
+    & > dt {
+      clear: inline-end;
+      padding-block-start: var(--size-4);
+      font-size: var(--font-size-0);
+      text-transform: uppercase;
+      display: flex;
+      align-items: end;
+      gap: var(--size-1);
+      color: var(--text-2);
+      border-block-end: var(--border-size-1) dotted var(--text-2);
+    }
+
+    & > dd {
+      text-align: end;
+    }
+
+    & > dd.email {
+      float: inline-end;
+      max-inline-size: var(--size-content-1);
+      font-size: var(--font-size-0);
+
+      overflow: clip;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

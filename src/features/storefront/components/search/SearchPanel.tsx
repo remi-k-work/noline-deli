@@ -4,9 +4,9 @@
 import { useEffect, useRef } from "react";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import PathFinder from "@/lib/PathFinder";
+import { useMainLayoutStore } from "@/features/storefront/stores/mainLayoutProvider";
 import useSearchParamsState from "@/hooks/useSearchParamsState";
 
 // components
@@ -18,15 +18,11 @@ import WithIndicator, { Indicator } from "@/components/ui/custom/with-indicator"
 // assets
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 
-// types
-interface SearchPanelProps {
-  searchedCount?: number;
-  className?: string;
-}
+export default function SearchPanel() {
+  // Get the state and actions we need from the main layout store
+  const totalItems = useMainLayoutStore((state) => state.totalItems);
 
-export default function SearchPanel({ searchedCount = 0, className }: SearchPanelProps) {
   const { keyword, searchPanelChanged } = useSearchParamsState(PathFinder.toSfProductsSearch());
-
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -38,7 +34,7 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
   const handleSearch = useDebouncedCallback((keyword: string) => searchPanelChanged(keyword), 600);
 
   return (
-    <Label className={cn("bg-background flex w-full max-w-(--size-content-1) items-center gap-1 pr-1", className)}>
+    <Label className="bg-background flex w-full max-w-(--size-content-1) items-center gap-1 place-self-center pr-1 [grid-area:srpa]">
       <Input
         ref={searchRef}
         type="search"
@@ -54,7 +50,7 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
       <WithIndicator>
         {keyword && (
           <Indicator>
-            <Badge variant="secondary">{searchedCount}</Badge>
+            <Badge variant="secondary">{totalItems}</Badge>
           </Indicator>
         )}
         <MagnifyingGlassCircleIcon width={36} height={36} />
@@ -63,6 +59,6 @@ export default function SearchPanel({ searchedCount = 0, className }: SearchPane
   );
 }
 
-export function SearchPanelSkeleton({ className }: Omit<SearchPanelProps, "searchedCount">) {
-  return <div className={cn("bg-background h-12 w-full max-w-(--size-content-1) animate-pulse rounded-lg", className)} />;
+export function SearchPanelSkeleton() {
+  return <div className="bg-background h-12 w-full max-w-(--size-content-1) animate-pulse place-self-center rounded-lg [grid-area:srpa]" />;
 }

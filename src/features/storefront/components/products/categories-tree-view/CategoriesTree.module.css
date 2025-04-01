@@ -1,12 +1,11 @@
-.categories-tree-view {
+.categories-tree {
   inline-size: 100%;
+  min-inline-size: var(--size-13);
   max-inline-size: var(--size-content-2);
-  margin-inline: auto;
-
   background: var(--surface-2);
 }
 
-.categories-tree-view > h4 {
+.categories-tree > h4 {
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);
@@ -14,8 +13,8 @@
   margin-block-end: var(--size-2);
 }
 
-.categories-tree-view > .categories-list,
-.categories-tree-view-skeleton > .categories-list-skeleton {
+.categories-tree > .categories-list,
+.categories-tree-skeleton > .categories-list-skeleton {
   margin-inline-end: var(--size-3);
 }
 
@@ -27,13 +26,12 @@
   margin-inline-start: var(--size-3);
 }
 
-.categories-tree-view-skeleton {
+.categories-tree-skeleton {
   inline-size: 100%;
-
   background: var(--surface-2);
 }
 
-.categories-tree-view-skeleton > h4 {
+.categories-tree-skeleton > h4 {
   background: var(--heading-gradient-1);
   color: var(--text-2);
   padding-inline: var(--size-2) var(--size-2);

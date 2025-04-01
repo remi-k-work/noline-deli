@@ -9,6 +9,7 @@ import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from 
 import Entry from "./Entry";
 
 export default function CartTable() {
+  // Get the state and actions we need from the cart store
   const cartItems = useCartStore((state) => state.cartItems);
   const totalQty = useCartStore((state) => state.totalQty);
   const subTotal = useCartStore((state) => state.subTotal);

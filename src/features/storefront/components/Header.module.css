@@ -7,64 +7,22 @@
 
   display: grid;
 
-  grid-template-columns: minmax(3rem, auto) minmax(3rem, auto) minmax(3rem, 1fr) auto;
+  grid-template-columns: auto minmax(3rem, auto) 1fr;
   grid-template-rows: auto auto;
   gap: var(--size-3);
 
   grid-template-areas:
-    "logo nbst srpa srpa"
-    "prfi cind sbst thsw";
+    "logo srpa srpa"
+    "prfi cind thsw";
 
   position: sticky;
   inset-block-start: 0;
-}
 
-.header__logo {
-  grid-area: logo;
-}
-
-.header__navbar-sheet-trigger {
-  grid-area: nbst;
-  place-self: center start;
-}
-
-.header__search-panel {
-  grid-area: srpa;
-  place-self: center end;
-}
-
-.header__product-filter-indicator {
-  grid-area: prfi;
-  place-self: center end;
-}
-
-.header__cart-indicator {
-  grid-area: cind;
-  place-self: center start;
-}
-
-.header__sidebar-sheet-trigger {
-  grid-area: sbst;
-  place-self: center end;
-}
-
-.header__theme-switcher {
-  grid-area: thsw;
-  place-self: center end;
-}
-
-/* || MEDIA QUERIES */
-
-/* Medium screens */
-@media screen and (min-width: 768px) {
-  .header {
-    grid-template-columns: auto minmax(3rem, auto) minmax(3rem, 1fr) 1fr 3fr minmax(3rem, auto) auto;
+  /* Medium screens */
+  @media screen and (min-width: 768px) {
+    grid-template-columns: auto minmax(3rem, auto) minmax(3rem, auto) 1fr minmax(3rem, auto);
     grid-template-rows: auto;
 
-    grid-template-areas: "logo nbst prfi cind srpa sbst thsw";
-  }
-
-  .header__search-panel {
-    place-self: center start;
+    grid-template-areas: "logo prfi cind srpa thsw";
   }
 }

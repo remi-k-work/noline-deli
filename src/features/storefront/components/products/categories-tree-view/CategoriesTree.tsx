@@ -1,7 +1,7 @@
 "use client";
 
 // component css styles
-import styles from "./CategoriesTreeView.module.css";
+import styles from "./CategoriesTree.module.css";
 
 // next
 import Link from "next/link";
@@ -14,7 +14,7 @@ import type { CategoriesTreeViewData } from "@/features/storefront/db/types";
 import { cn } from "@/lib/utils";
 import useSearchParamsState from "@/hooks/useSearchParamsState";
 
-interface CategoriesTreeViewProps {
+interface CategoriesTreeProps {
   data: CategoriesTreeViewData;
 }
 
@@ -26,39 +26,11 @@ interface CategoriesItemProps {
   entry: CategoriesTreeViewData["categoriesTreeView"][0];
 }
 
-export default function CategoriesTreeView({ data }: CategoriesTreeViewProps) {
+export default function CategoriesTree({ data }: CategoriesTreeProps) {
   return (
-    <article className={styles["categories-tree-view"]}>
+    <article className={styles["categories-tree"]}>
       <h4 className="font-lusitana text-xl">Browse by Category</h4>
       <CategoriesList data={data.categoriesTreeView} />
-    </article>
-  );
-}
-
-export function CategoriesTreeViewSkeleton() {
-  return (
-    <article className={styles["categories-tree-view-skeleton"]}>
-      <h4 className="font-lusitana text-xl">Browse by Category</h4>
-      {new Array(6).fill(null).map((_, index) => (
-        <ul key={index} className={styles["categories-list-skeleton"]}>
-          <li className={styles["categories-item-skeleton"]}>
-            <div className="bg-background mb-2 h-5 animate-pulse rounded-lg" />
-          </li>
-          <li className={styles["categories-item-skeleton"]}>
-            <ul className={styles["categories-list-skeleton"]}>
-              <li className={styles["categories-item-skeleton"]}>
-                <div className="bg-background mb-2 h-5 animate-pulse rounded-lg" />
-              </li>
-              <li className={styles["categories-item-skeleton"]}>
-                <div className="bg-background mb-2 h-5 animate-pulse rounded-lg" />
-              </li>
-              <li className={styles["categories-item-skeleton"]}>
-                <div className="bg-background mb-2 h-5 animate-pulse rounded-lg" />
-              </li>
-            </ul>
-          </li>
-        </ul>
-      ))}
     </article>
   );
 }

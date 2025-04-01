@@ -1,3 +1,5 @@
+"use client";
+
 // react
 import { useEffect, useState } from "react";
 
@@ -45,8 +47,8 @@ export default function ByFreeShipping() {
 export function ByFreeShippingSkeleton() {
   return (
     <div className="mt-4 flex items-center gap-4">
-      <div className="h-6 flex-1 animate-pulse bg-background"></div>
-      <div className="h-6 w-4 flex-none animate-pulse bg-background"></div>
+      <div className="bg-background h-6 flex-1 animate-pulse"></div>
+      <div className="bg-background h-6 w-4 flex-none animate-pulse"></div>
     </div>
   );
 }

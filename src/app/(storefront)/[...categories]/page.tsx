@@ -1,6 +1,9 @@
 // component css styles
 import styles from "./page.module.css";
 
+// react
+import { Suspense } from "react";
+
 // next
 import type { Metadata } from "next";
 import { ReadonlyURLSearchParams } from "next/navigation";
@@ -15,10 +18,12 @@ import { default as allProductsWithPagination } from "@/features/storefront/db/a
 import SearchParamsState from "@/lib/SearchParamsState";
 
 // components
-import MainLayout from "@/features/storefront/components/MainLayout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import Paginate from "@/features/storefront/components/Paginate";
 import ProductsList from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
+import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
+import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/product-filter";
 
 // types
 interface PageProps {
@@ -90,19 +95,31 @@ export default async function Page({ params: paramsPromise, searchParams: search
   else [totalItems, products] = await allProductsWithPagination(itemsPerPage, sortByField, sortByOrder, currentPage, byBrandId, byPriceBelow, byFreeShipping);
 
   return (
-    <MainLayout searchedCount={totalItems} filteredCount={totalItems}>
-      <article className={styles["page"]}>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
-        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-        <br />
-        {products.length > 0 ? (
-          <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
-        ) : (
-          <NotFound message={"Products were not found!"} />
-        )}
-        <br />
-        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-      </article>
+    <MainLayout totalItems={totalItems}>
+      <MainLayoutNavBar>
+        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
+          <CategoriesTreeView />
+        </Suspense>
+      </MainLayoutNavBar>
+      <MainLayoutSideBar>
+        <Suspense fallback={<ProductFilterSkeleton />}>
+          <ProductFilter />
+        </Suspense>
+      </MainLayoutSideBar>
+      <MainLayoutMain>
+        <article className={styles["page"]}>
+          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
+          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+          <br />
+          {products.length > 0 ? (
+            <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
+          ) : (
+            <NotFound message={"Products were not found!"} />
+          )}
+          <br />
+          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+        </article>
+      </MainLayoutMain>
     </MainLayout>
   );
 }

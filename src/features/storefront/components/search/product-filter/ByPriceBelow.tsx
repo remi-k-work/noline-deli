@@ -1,3 +1,5 @@
+"use client";
+
 // react
 import { useEffect, useState } from "react";
 
@@ -53,9 +55,9 @@ export default function ByPriceBelow({ productFilterData: { byPriceBelowMin, byP
 export function ByPriceBelowSkeleton() {
   return (
     <>
-      <div className="mb-1 mt-5 h-3 animate-pulse bg-background"></div>
-      <div className="h-6 animate-pulse bg-background"></div>
-      <div className="h-5 animate-pulse bg-background"></div>
+      <div className="bg-background mt-5 mb-1 h-3 animate-pulse"></div>
+      <div className="bg-background h-6 animate-pulse"></div>
+      <div className="bg-background h-5 animate-pulse"></div>
     </>
   );
 }

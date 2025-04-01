@@ -11,30 +11,10 @@
     "header"
     "main"
     "footer";
-}
 
-.main-layout__main {
-  grid-area: main;
-}
-
-.main-layout__navbar {
-  grid-area: navbar;
-
-  background: var(--surface-2);
-}
-
-.main-layout__sidebar {
-  grid-area: sidebar;
-
-  background: var(--surface-2);
-}
-
-/* || MEDIA QUERIES */
-
-/* Large screens */
-@media screen and (min-width: 1024px) {
-  .main-layout {
-    grid-template-columns: 1fr 3fr 1fr;
+  /* Large screens */
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: auto 1fr auto;
 
     grid-template-areas:
       "header header header"

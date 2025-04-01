@@ -6,9 +6,6 @@ import { useState } from "react";
 // prisma and db access
 import type { ProductFilterData } from "@/features/storefront/db/types";
 
-// other libraries
-import { cn } from "@/lib/utils";
-
 // components
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import Trigger from "./Trigger";
@@ -18,16 +15,15 @@ import Footer from "./Footer";
 // types
 interface ProductFilterIndicatorProps {
   productFilterData: ProductFilterData;
-  className?: string;
 }
 
-export default function ProductFilterIndicator({ productFilterData, className }: ProductFilterIndicatorProps) {
+export default function ProductFilterIndicator({ productFilterData }: ProductFilterIndicatorProps) {
   // The controlled open state of the popover
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <Trigger className={className} />
+      <Trigger className="[place-self:center_end] [grid-area:prfi]" />
       <PopoverContent className="grid place-items-center gap-4">
         <AppliedFilters productFilterData={productFilterData} />
         <Footer setOpen={setOpen} />
@@ -36,6 +32,6 @@ export default function ProductFilterIndicator({ productFilterData, className }:
   );
 }
 
-export function ProductFilterIndicatorSkeleton({ className }: Pick<ProductFilterIndicatorProps, "className">) {
-  return <div className={cn("h-12 w-12 animate-pulse rounded-full bg-background", className)} />;
+export function ProductFilterIndicatorSkeleton() {
+  return <div className="bg-background h-12 w-12 animate-pulse [place-self:center_end] rounded-full [grid-area:prfi]" />;
 }
