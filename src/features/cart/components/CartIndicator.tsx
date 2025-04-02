@@ -36,7 +36,7 @@ export default function CartIndicator({ cart }: CartIndicatorProps) {
     // If the cart is not there, display the empty cart indicator nonetheless
     return (
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger className="[place-self:center_start] [grid-area:cind]" asChild>
+        <PopoverTrigger className="place-self-center [grid-area:cind]" asChild>
           <Button type="button" size="icon" variant="ghost" title="Your cart is empty!">
             <WithIndicator>
               <Indicator>
@@ -61,7 +61,7 @@ export default function CartIndicator({ cart }: CartIndicatorProps) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger className="[place-self:center_start] [grid-area:cind]" asChild>
+      <PopoverTrigger className="place-self-center [grid-area:cind]" asChild>
         <Button type="button" size="icon" variant="ghost" title={`Your cart has ${totalQty} item(s)`}>
           <WithIndicator>
             <Indicator>
@@ -98,5 +98,5 @@ export default function CartIndicator({ cart }: CartIndicatorProps) {
 }
 
 export function CartIndicatorSkeleton() {
-  return <div className="bg-background h-12 w-12 animate-pulse [place-self:center_start] rounded-full [grid-area:cind]" />;
+  return <div className="bg-background h-12 w-12 animate-pulse place-self-center rounded-full [grid-area:cind]" />;
 }

@@ -1,11 +1,24 @@
 .customer-view {
   inline-size: 100%;
-  max-inline-size: var(--size-content-3);
-  margin-inline: auto;
+  min-inline-size: var(--size-13);
+  max-inline-size: var(--size-content-2);
 
   display: grid;
   grid-template-columns: [nam-start] var(--size-3) [ava-start bck-start] var(--size-3) [cnt-start] auto [nam-end ava-end bck-end] var(--size-3) [cnt-end];
-  grid-template-rows: [ava-start] 150px [bck-start] 80px [ava-end nam-start] auto [cnt-start] var(--size-2) [nam-end] auto [cnt-end] var(--size-3) [bck-end];
+  grid-template-rows: [ava-start] 100px [bck-start] 80px [ava-end nam-start] auto [cnt-start] var(--size-2) [nam-end] auto [cnt-end] var(--size-3) [bck-end];
+
+  transition-property: box-shadow, transform;
+  transition-duration: 500ms;
+  transition-timing-function: ease;
+
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-1);
+
+  &:focus,
+  &:hover {
+    box-shadow: var(--shadow-3);
+    transform: translateX(-4px) translateY(-4px);
+  }
 
   &::before {
     content: "";
@@ -16,8 +29,8 @@
 
   & > img {
     grid-area: ava;
-    inline-size: 300px;
-    block-size: 300px;
+    inline-size: 200px;
+    block-size: 200px;
   }
 
   & > h2 {

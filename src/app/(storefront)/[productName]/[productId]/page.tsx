@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // react
 import { Suspense } from "react";
 
@@ -65,10 +62,8 @@ export default async function Page({ params: paramsPromise }: PageProps) {
         </Suspense>
       </MainLayoutNavBar>
       <MainLayoutMain>
-        <article className={styles["page"]}>
-          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
-          <ProductView product={product} />
-        </article>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
+        <ProductView product={product} />
       </MainLayoutMain>
     </MainLayout>
   );

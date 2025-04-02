@@ -25,7 +25,12 @@ export default function NavBar({ children }: NavBarProps) {
   const toggledNavBar = useMainLayoutStore((state) => state.toggledNavBar);
 
   // On large screens, render the navbar regularly
-  if (!isSheetMode) return <nav className="bg-surface-2 [grid-area:navbar]">{children}</nav>;
+  if (!isSheetMode)
+    return (
+      <nav className="bg-surface-1 [grid-area:navbar]">
+        <section className="sticky top-20">{children}</section>
+      </nav>
+    );
 
   // On small screens, render the navbar in a sheet and show the sheet trigger
   return (
@@ -35,7 +40,7 @@ export default function NavBar({ children }: NavBarProps) {
           <Bars4Icon width={36} height={36} />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className="bg-surface-2">
+      <SheetContent side={"left"} className="bg-background">
         <SheetHeader className="sr-only">
           <SheetTitle>NavBar</SheetTitle>
           <SheetDescription>NavBar</SheetDescription>

@@ -25,7 +25,12 @@ export default function SideBar({ children }: SideBarProps) {
   const toggledSideBar = useMainLayoutStore((state) => state.toggledSideBar);
 
   // On large screens, render the sidebar regularly
-  if (!isSheetMode) return <aside className="bg-surface-2 [grid-area:sidebar]">{children}</aside>;
+  if (!isSheetMode)
+    return (
+      <aside className="bg-surface-1 [grid-area:sidebar]">
+        <section className="sticky top-20">{children}</section>
+      </aside>
+    );
 
   // On small screens, render the sidebar in a sheet and show the sheet trigger
   return (
@@ -35,7 +40,7 @@ export default function SideBar({ children }: SideBarProps) {
           <Bars4Icon width={36} height={36} />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"right"} className="bg-surface-2">
+      <SheetContent side={"right"} className="bg-background">
         <SheetHeader className="sr-only">
           <SheetTitle>SideBar</SheetTitle>
           <SheetDescription>SideBar</SheetDescription>

@@ -3,7 +3,7 @@ import type { DerivedCartWithItems } from "@/features/cart/db/types";
 
 // components
 import NotFound from "@/components/NotFound";
-import TestCustomersList from "./TestCustomersList";
+import TestCustomersList from "@/features/storefront/components/customers/TestCustomersList";
 import StripeCheckoutForm from "./StripeCheckoutForm";
 
 // types
@@ -15,5 +15,5 @@ interface CheckoutProps {
 export default function Checkout({ cart, hasPickedCustomerId = false }: CheckoutProps) {
   if (!cart || (cart && cart.cartItems.length === 0)) return <NotFound message={"Your cart is empty!"} />;
 
-  return hasPickedCustomerId ? <StripeCheckoutForm /> : <TestCustomersList />;
+  return hasPickedCustomerId ? <StripeCheckoutForm /> : <TestCustomersList goingTo="checkout" />;
 }

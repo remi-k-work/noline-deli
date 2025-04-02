@@ -7,5 +7,5 @@ interface MainProps {
 }
 
 export default function Main({ children }: MainProps) {
-  return <main className="[grid-area:main]">{children}</main>;
+  return <main className="container mx-auto px-4 py-4 [grid-area:main]">{children}</main>;
 }

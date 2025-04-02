@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // react
 import { Suspense } from "react";
 
@@ -12,7 +9,7 @@ import { notFound } from "next/navigation";
 import { getCustomer, getCustomerData } from "@/features/storefront/db/customers";
 
 // components
-import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import CustomerView from "@/features/storefront/components/customers/CustomerView";
 import { default as OrdersTableView } from "@/features/storefront/components/customers/orders-table/View";
 import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
@@ -32,7 +29,7 @@ export async function generateMetadata({ params: paramsPromise }: PageProps): Pr
   if (!customer) notFound();
   const { name } = customer;
 
-  return { title: `NoLine-Deli ► ${name} ► Orders` };
+  return { title: `NoLine-Deli ► ${name} ► My Orders` };
 }
 
 export default async function Page({ params: paramsPromise }: PageProps) {
@@ -52,12 +49,14 @@ export default async function Page({ params: paramsPromise }: PageProps) {
           <CategoriesTreeView />
         </Suspense>
       </MainLayoutNavBar>
-      <MainLayoutMain>
-        <article className={styles["page"]}>
-          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{name} ► Orders</h1>
+      <MainLayoutSideBar>
+        <Suspense>
           <CustomerView customer={customer} />
-          <OrdersTableView customerId={customerId} />
-        </article>
+        </Suspense>
+      </MainLayoutSideBar>
+      <MainLayoutMain>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{name} ► My Orders</h1>
+        <OrdersTableView customerId={customerId} />
       </MainLayoutMain>
     </MainLayout>
   );

@@ -1,28 +1,28 @@
 .header {
   grid-area: header;
 
-  background: var(--surface-2);
+  background: var(--surface-1);
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
 
   display: grid;
 
-  grid-template-columns: auto minmax(3rem, auto) 1fr;
+  grid-template-columns: auto minmax(3rem, auto) 1fr minmax(3rem, auto);
   grid-template-rows: auto auto;
   gap: var(--size-3);
 
   grid-template-areas:
-    "logo srpa srpa"
-    "prfi cind thsw";
+    "logo srpa srpa srpa"
+    "prfi cind macc thsw";
 
   position: sticky;
   inset-block-start: 0;
 
   /* Medium screens */
   @media screen and (min-width: 768px) {
-    grid-template-columns: auto minmax(3rem, auto) minmax(3rem, auto) 1fr minmax(3rem, auto);
+    grid-template-columns: auto minmax(3rem, auto) minmax(3rem, auto) 1fr minmax(3rem, auto) minmax(3rem, auto);
     grid-template-rows: auto;
 
-    grid-template-areas: "logo prfi cind srpa thsw";
+    grid-template-areas: "logo prfi cind srpa macc thsw";
   }
 }

@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // react
 import { Suspense } from "react";
 
@@ -76,31 +73,29 @@ export default async function Page({ params: paramsPromise, searchParams: search
         </Suspense>
       </MainLayoutSideBar>
       <MainLayoutMain>
-        <article className={styles["page"]}>
-          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
-          {logoUrl && (
-            <header className="mb-4">
-              <Image
-                src={PathFinder.toResolvedBrandLogo(logoUrl)}
-                width={640}
-                height={400}
-                alt={name}
-                sizes="100vw"
-                className="m-auto max-h-48 w-auto object-contain"
-                priority
-              />
-            </header>
-          )}
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-          <br />
-          {products.length > 0 ? (
-            <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
-          ) : (
-            <NotFound message={"Products were not found!"} />
-          )}
-          <br />
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-        </article>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
+        {logoUrl && (
+          <header className="mb-4">
+            <Image
+              src={PathFinder.toResolvedBrandLogo(logoUrl)}
+              width={640}
+              height={400}
+              alt={name}
+              sizes="100vw"
+              className="m-auto max-h-48 w-auto object-contain"
+              priority
+            />
+          </header>
+        )}
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+        <br />
+        {products.length > 0 ? (
+          <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
+        ) : (
+          <NotFound message={"Products were not found!"} />
+        )}
+        <br />
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       </MainLayoutMain>
     </MainLayout>
   );

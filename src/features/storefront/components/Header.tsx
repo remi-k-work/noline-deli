@@ -13,6 +13,7 @@ import HeaderLogo from "./HeaderLogo";
 import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/product-filter-indicator";
 import CartIndicator, { CartIndicatorSkeleton } from "@/features/cart/components/CartIndicator";
 import SearchPanel, { SearchPanelSkeleton } from "@/features/storefront/components/search/SearchPanel";
+import MyAccount, { MyAccountSkeleton } from "./MyAccount";
 import ThemeSwitcher, { ThemeSwitcherSkeleton } from "@/components/ThemeSwitcher";
 
 export default async function Header() {
@@ -25,6 +26,7 @@ export default async function Header() {
       <SearchPanel />
       <ProductFilterIndicator productFilterData={productFilterData} />
       <CartIndicator cart={cart} />
+      <MyAccount />
       <ThemeSwitcher />
     </header>
   );
@@ -37,6 +39,7 @@ export function HeaderSkeleton() {
       <SearchPanelSkeleton />
       <ProductFilterIndicatorSkeleton />
       <CartIndicatorSkeleton />
+      <MyAccountSkeleton />
       <ThemeSwitcherSkeleton />
     </header>
   );

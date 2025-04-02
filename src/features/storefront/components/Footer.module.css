@@ -1,7 +1,7 @@
 .footer {
   grid-area: footer;
 
-  background: var(--surface-2);
+  background: var(--surface-1);
   padding-inline: var(--size-3);
   padding-block: var(--size-2);
 

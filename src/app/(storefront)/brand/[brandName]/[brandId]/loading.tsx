@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // components
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import { PaginateSkeleton } from "@/features/storefront/components/Paginate";
@@ -18,17 +15,15 @@ export default function Loading() {
         <ProductFilterSkeleton />
       </MainLayoutSideBar>
       <MainLayoutMain>
-        <article className={styles["page"]}>
-          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">...</h1>
-          <header className="mb-4">
-            <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
-          </header>
-          <PaginateSkeleton />
-          <br />
-          <ProductsListSkeleton />
-          <br />
-          <PaginateSkeleton />
-        </article>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">...</h1>
+        <header className="mb-4">
+          <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
+        </header>
+        <PaginateSkeleton />
+        <br />
+        <ProductsListSkeleton />
+        <br />
+        <PaginateSkeleton />
       </MainLayoutMain>
     </MainLayout>
   );

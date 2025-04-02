@@ -3,10 +3,14 @@
 // component css styles
 import styles from "./CustomerView.module.css";
 
+// next
+import Link from "next/link";
+
 // prisma and db access
 import type { CustomerData } from "@/features/storefront/db/types";
 
 // other libraries
+import PathFinder from "@/lib/PathFinder";
 import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 
 // assets
@@ -20,11 +24,11 @@ interface CustomerViewProps {
 export default function CustomerView({ customer }: CustomerViewProps) {
   // Do not render anything if there is no customer
   if (!customer) return null;
-  const { name, email, phone, country, city, line1, line2, postal_code, state } = customer;
+  const { id, email, name, phone, country, city, line1, line2, postal_code, state } = customer;
 
   return (
-    <article className={styles["customer-view"]}>
-      <img src={`https://doodleipsum.com/300x300/avatar-3?n=${name}`} width={300} height={300} alt="Avatar" />
+    <Link href={PathFinder.toSfCustomerAccount(id)} className={styles["customer-view"]}>
+      <img src={`https://doodleipsum.com/200x200/avatar-3?n=${name}`} width={200} height={200} alt="Avatar" />
       <h2>{name}</h2>
       <dl>
         <dt>
@@ -53,6 +57,6 @@ export default function CustomerView({ customer }: CustomerViewProps) {
           </p>
         </dd>
       </dl>
-    </article>
+    </Link>
   );
 }

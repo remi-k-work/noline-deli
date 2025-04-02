@@ -23,7 +23,7 @@ export default function ProductFilterIndicator({ productFilterData }: ProductFil
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <Trigger className="[place-self:center_end] [grid-area:prfi]" />
+      <Trigger className="place-self-center [grid-area:prfi]" />
       <PopoverContent className="grid place-items-center gap-4">
         <AppliedFilters productFilterData={productFilterData} />
         <Footer setOpen={setOpen} />
@@ -33,5 +33,5 @@ export default function ProductFilterIndicator({ productFilterData }: ProductFil
 }
 
 export function ProductFilterIndicatorSkeleton() {
-  return <div className="bg-background h-12 w-12 animate-pulse [place-self:center_end] rounded-full [grid-area:prfi]" />;
+  return <div className="bg-background h-12 w-12 animate-pulse place-self-center rounded-full [grid-area:prfi]" />;
 }

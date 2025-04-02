@@ -10,6 +10,7 @@ enum ParamName {
   productName = "[productName]",
   captchaName = "[name]",
   orderId = "[orderId]",
+  customerId = "[customerId]",
 }
 
 enum SearchParamName {
@@ -34,6 +35,9 @@ enum PathTo {
   sfOrder = sfCart + "/order",
   sfCheckoutPage = sfOrder + "/checkout",
   sfOrderComplete = sfOrder + `/complete?${SearchParamName.checkoutSessionId}={CHECKOUT_SESSION_ID}`,
+
+  sfCustomer = storeFront + `/customer/${ParamName.customerId}`,
+  sfCustomerAccount = sfCustomer + "/orders",
 
   manager = "/manager",
   managerLogin = manager + "/login",
@@ -96,12 +100,16 @@ export default class PathFinder {
     PathTo.sfProductDetails.replace(ParamName.productName, encodeURIComponent(productName)).replace(ParamName.productId, productId);
   static toSfProductDetailsReval = () => PathTo.sfProductDetails;
 
+  static toSfCustomerAccount = (customerId: string) => PathTo.sfCustomerAccount.replace(ParamName.customerId, customerId);
+
   static toSfCart = () => PathTo.sfCart;
   static toSfCartReval = () => PathTo.sfCart;
   static toSfCheckoutPage = (guestTestCustomerId?: string) =>
     guestTestCustomerId ? `${PathTo.sfCheckoutPage}?${SearchParamName.guestTestCustomerId}=${guestTestCustomerId}` : PathTo.sfCheckoutPage;
-  static toSfOrderComplete = () => PathTo.sfOrderComplete;
-  static toSfOrderCompleteWithOrigin = (origin: string | null) => new URL(PathFinder.toSfOrderComplete(), origin ?? undefined).href;
+  static toSfOrderComplete = (guestTestCustomerId: string) =>
+    guestTestCustomerId ? `${PathTo.sfOrderComplete}&${SearchParamName.guestTestCustomerId}=${guestTestCustomerId}` : PathTo.sfOrderComplete;
+  static toSfOrderCompleteWithOrigin = (guestTestCustomerId: string, origin: string | null) =>
+    new URL(PathFinder.toSfOrderComplete(guestTestCustomerId), origin ?? undefined).href;
 
   // Are we displaying a bunch of products?
   static isBunchOfProducts = (pathname: string) =>

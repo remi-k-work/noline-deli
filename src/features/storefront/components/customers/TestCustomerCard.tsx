@@ -20,15 +20,20 @@ import { AtSymbolIcon, HomeIcon, PhoneIcon } from "@heroicons/react/24/solid";
 // types
 interface TestCustomerCardProps {
   customer: AllGuestTestCustomersData;
+  goingTo: "checkout" | "my-account";
   isPicked: boolean;
 }
 
 export default function TestCustomerCard({
   customer: { id, email, name, phone, country, city, line1, line2, postal_code, state },
+  goingTo,
   isPicked = false,
 }: TestCustomerCardProps) {
   return (
-    <Link href={PathFinder.toSfCheckoutPage(id)} className={cn(styles["test-customer-card"], isPicked && styles["test-customer-card--is-picked"])}>
+    <Link
+      href={goingTo === "checkout" ? PathFinder.toSfCheckoutPage(id) : PathFinder.toSfCustomerAccount(id)}
+      className={cn(styles["test-customer-card"], isPicked && styles["test-customer-card--is-picked"])}
+    >
       <img src={`https://doodleipsum.com/200x200/avatar-3?n=${name}`} width={200} height={200} alt="Avatar" />
       <h2>{name}</h2>
       <dl>

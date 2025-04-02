@@ -48,7 +48,7 @@ export async function fetchClientSecret(): Promise<string> {
 
     ui_mode: "embedded",
     mode: "payment",
-    return_url: PathFinder.toSfOrderCompleteWithOrigin(origin),
+    return_url: PathFinder.toSfOrderCompleteWithOrigin(customerId, origin),
     payment_intent_data: { receipt_email: customerEmail },
     metadata: { orderNumber: nanoid(), customerId, customerEmail, orderedCartId },
     line_items: createLineItemsFromCart(cartItems, origin),

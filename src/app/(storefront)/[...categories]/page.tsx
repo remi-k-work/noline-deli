@@ -1,6 +1,3 @@
-// component css styles
-import styles from "./page.module.css";
-
 // react
 import { Suspense } from "react";
 
@@ -107,18 +104,16 @@ export default async function Page({ params: paramsPromise, searchParams: search
         </Suspense>
       </MainLayoutSideBar>
       <MainLayoutMain>
-        <article className={styles["page"]}>
-          <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-          <br />
-          {products.length > 0 ? (
-            <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
-          ) : (
-            <NotFound message={"Products were not found!"} />
-          )}
-          <br />
-          <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
-        </article>
+        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(categories)}</h1>
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
+        <br />
+        {products.length > 0 ? (
+          <ProductsList totalProducts={totalItems} products={products} isListMode={isListMode} />
+        ) : (
+          <NotFound message={"Products were not found!"} />
+        )}
+        <br />
+        <Paginate itemsPerPage={itemsPerPage} totalItems={totalItems} />
       </MainLayoutMain>
     </MainLayout>
   );
