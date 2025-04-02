@@ -11,7 +11,7 @@ export default function MyAccount() {
   return (
     <Button type="button" size="icon" variant="ghost" className="[place-self:center_end] [grid-area:macc]" title="My Account" asChild>
       <Link href="/customer">
-        <UserIcon width={24} height={24} />
+        <UserIcon width={36} height={36} />
       </Link>
     </Button>
   );

@@ -35,8 +35,8 @@ export default function Footer({ product: { price }, isListMode = false }: Foote
 export function FooterSkeleton({ isListMode = false }: Pick<FooterProps, "isListMode">) {
   return (
     <div className={cn(styles["footer"], isListMode && styles["footer--list-mode"])}>
-      <div className="h-5 w-14 animate-pulse bg-background"></div>
-      <div className="h-10 w-36 animate-pulse bg-background"></div>
+      <div className="bg-background h-5 w-14 animate-pulse"></div>
+      <div className="bg-background h-10 w-36 animate-pulse"></div>
     </div>
   );
 }

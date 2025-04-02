@@ -21,7 +21,7 @@ export default function Content({ product: { description }, isListMode = false }
 export function ContentSkeleton({ isListMode = false }: Pick<ContentProps, "isListMode">) {
   return (
     <div className={styles["content"]}>
-      {isListMode ? <div className="h-48 animate-pulse bg-background"></div> : <div className="h-32 animate-pulse bg-background"></div>}
+      {isListMode ? <div className="bg-background h-48 animate-pulse"></div> : <div className="bg-background h-32 animate-pulse"></div>}
     </div>
   );
 }

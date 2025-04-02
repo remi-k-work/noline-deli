@@ -13,7 +13,7 @@ import { faker } from "@faker-js/faker";
 
 // components
 import { Button } from "@/components/ui/custom/button";
-import TestCustomerCard from "./TestCustomerCard";
+import TestCustomerCard, { TestCustomerCardSkeleton } from "./TestCustomerCard";
 
 // assets
 import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid";
@@ -61,5 +61,33 @@ export default async function TestCustomersList({ goingTo }: TestCustomersListPr
       <br />
       <br />
     </article>
+  );
+}
+
+export function TestCustomersListSkeleton({ goingTo }: TestCustomersListProps) {
+  return (
+    <div className={styles["test-customers-list"]}>
+      {goingTo === "checkout" ? (
+        <h4 className="font-lusitana text-xl">Select a test Customer for Checkout!</h4>
+      ) : (
+        <h4 className="font-lusitana text-xl">Select a test Customer to Login!</h4>
+      )}
+      <section>
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+        <TestCustomerCardSkeleton />
+      </section>
+      <br />
+      <div className="bg-primary float-end h-10 w-48 animate-pulse"></div>
+      <br />
+      <br />
+    </div>
   );
 }

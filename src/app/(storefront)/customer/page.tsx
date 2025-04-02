@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 
 // components
-import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
 import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
 import TestCustomersList from "@/features/storefront/components/customers/TestCustomersList";
 

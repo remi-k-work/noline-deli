@@ -34,7 +34,7 @@ export default function Figure({ product: { name, imageUrl }, isListMode = false
 export function FigureSkeleton({ isListMode = false }: Pick<FigureProps, "isListMode">) {
   return (
     <div className={cn(styles["figure-skeleton"], isListMode && styles["figure-skeleton--list-mode"])}>
-      <div className="animate-pulse bg-background"></div>
+      <div className="bg-background animate-pulse"></div>
     </div>
   );
 }
