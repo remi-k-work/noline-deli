@@ -14,8 +14,7 @@ export default function Loading() {
       <MainLayoutSideBar>
         <ProductFilterSkeleton />
       </MainLayoutSideBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">...</h1>
+      <MainLayoutMain heading="...">
         <header className="mb-4">
           <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
         </header>

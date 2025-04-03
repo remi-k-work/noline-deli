@@ -1,6 +1,3 @@
-// react
-import { Suspense } from "react";
-
 // next
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -20,8 +17,8 @@ import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from 
 import Paginate from "@/features/storefront/components/Paginate";
 import ProductsList from "@/features/storefront/components/products/products-list";
 import NotFound from "@/components/NotFound";
-import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
-import ProductFilter, { ProductFilterSkeleton } from "@/features/storefront/components/search/product-filter";
+import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
+import ProductFilter from "@/features/storefront/components/search/product-filter";
 
 // types
 interface PageProps {
@@ -63,17 +60,12 @@ export default async function Page({ params: paramsPromise, searchParams: search
   return (
     <MainLayout totalItems={totalItems}>
       <MainLayoutNavBar>
-        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
-          <CategoriesTreeView />
-        </Suspense>
+        <CategoriesTreeView />
       </MainLayoutNavBar>
       <MainLayoutSideBar>
-        <Suspense fallback={<ProductFilterSkeleton />}>
-          <ProductFilter />
-        </Suspense>
+        <ProductFilter />
       </MainLayoutSideBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{getSectionTitle(brandName)}</h1>
+      <MainLayoutMain heading={getSectionTitle(brandName)}>
         {logoUrl && (
           <header className="mb-4">
             <Image

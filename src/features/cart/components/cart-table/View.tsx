@@ -32,8 +32,6 @@ export default async function View() {
           Checkout Now
         </Link>
       </Button>
-      <br />
-      <br />
     </CartStoreProvider>
   );
 }

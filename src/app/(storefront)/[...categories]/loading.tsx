@@ -14,8 +14,7 @@ export default function Loading() {
       <MainLayoutSideBar>
         <ProductFilterSkeleton />
       </MainLayoutSideBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">...</h1>
+      <MainLayoutMain heading="...">
         <PaginateSkeleton />
         <br />
         <ProductsListSkeleton />

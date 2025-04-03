@@ -1,6 +1,3 @@
-// react
-import { Suspense } from "react";
-
 // next
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -17,7 +14,7 @@ import { Button } from "@/components/ui/custom/button";
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import CustomerView from "@/features/storefront/components/customers/CustomerView";
 import OrderComplete from "@/features/cart/components/order-complete";
-import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
+import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 
 // assets
 import { UserIcon } from "@heroicons/react/24/solid";
@@ -46,19 +43,14 @@ export default async function Page({ searchParams: searchParamsPromise }: PagePr
   return (
     <MainLayout>
       <MainLayoutNavBar>
-        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
-          <CategoriesTreeView />
-        </Suspense>
+        <CategoriesTreeView />
       </MainLayoutNavBar>
       {hasPickedCustomerId && (
         <MainLayoutSideBar>
-          <Suspense>
-            <CustomerView customer={await getCustomerData(guest_test_customer_id)} />
-          </Suspense>
+          <CustomerView customer={await getCustomerData(guest_test_customer_id)} />
         </MainLayoutSideBar>
       )}
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Order Complete</h1>
+      <MainLayoutMain heading="Order Complete">
         <OrderComplete checkoutSession={checkoutSession} />
         {hasPickedCustomerId && (
           <>
@@ -69,8 +61,6 @@ export default async function Page({ searchParams: searchParamsPromise }: PagePr
                 Go to My Account
               </Link>
             </Button>
-            <br />
-            <br />
           </>
         )}
       </MainLayoutMain>

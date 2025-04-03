@@ -1,6 +1,3 @@
-// react
-import { Suspense } from "react";
-
 // next
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -12,7 +9,7 @@ import { getCustomer, getCustomerData } from "@/features/storefront/db/customers
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import CustomerView from "@/features/storefront/components/customers/CustomerView";
 import { default as OrdersTableView } from "@/features/storefront/components/customers/orders-table/View";
-import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
+import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 
 // types
 interface PageProps {
@@ -45,17 +42,12 @@ export default async function Page({ params: paramsPromise }: PageProps) {
   return (
     <MainLayout>
       <MainLayoutNavBar>
-        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
-          <CategoriesTreeView />
-        </Suspense>
+        <CategoriesTreeView />
       </MainLayoutNavBar>
       <MainLayoutSideBar>
-        <Suspense>
-          <CustomerView customer={customer} />
-        </Suspense>
+        <CustomerView customer={customer} />
       </MainLayoutSideBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">{name} ► My Orders</h1>
+      <MainLayoutMain heading={`${name} ► My Orders`}>
         <OrdersTableView customerId={customerId} />
       </MainLayoutMain>
     </MainLayout>

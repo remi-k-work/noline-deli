@@ -11,7 +11,7 @@ export default function Loading() {
       <MainLayoutNavBar>
         <CategoriesTreeViewSkeleton />
       </MainLayoutNavBar>
-      <MainLayoutMain>
+      <MainLayoutMain heading="Your Shopping Cart">
         <div className="grid h-full place-content-center">
           <Loader className="text-muted-foreground size-48 animate-spin" />
         </div>

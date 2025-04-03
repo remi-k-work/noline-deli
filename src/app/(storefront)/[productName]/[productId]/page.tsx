@@ -1,6 +1,3 @@
-// react
-import { Suspense } from "react";
-
 // next
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -14,7 +11,7 @@ import PathFinder from "@/lib/PathFinder";
 // components
 import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
 import ProductView from "@/features/storefront/components/products/product-view";
-import CategoriesTreeView, { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
+import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 
 // types
 interface PageProps {
@@ -57,12 +54,9 @@ export default async function Page({ params: paramsPromise }: PageProps) {
   return (
     <MainLayout>
       <MainLayoutNavBar>
-        <Suspense fallback={<CategoriesTreeViewSkeleton />}>
-          <CategoriesTreeView />
-        </Suspense>
+        <CategoriesTreeView />
       </MainLayoutNavBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► {getSectionTitle(productName)}</h1>
+      <MainLayoutMain heading={`Product Details ► ${getSectionTitle(productName)}`}>
         <ProductView product={product} />
       </MainLayoutMain>
     </MainLayout>

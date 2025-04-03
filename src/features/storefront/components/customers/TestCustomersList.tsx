@@ -58,8 +58,6 @@ export default async function TestCustomersList({ goingTo }: TestCustomersListPr
           </Link>
         </Button>
       )}
-      <br />
-      <br />
     </article>
   );
 }
@@ -86,8 +84,6 @@ export function TestCustomersListSkeleton({ goingTo }: TestCustomersListProps) {
       </section>
       <br />
       <div className="bg-primary float-end h-10 w-48 animate-pulse"></div>
-      <br />
-      <br />
     </div>
   );
 }

@@ -60,3 +60,37 @@ export default function CustomerView({ customer }: CustomerViewProps) {
     </Link>
   );
 }
+
+export function CustomerViewSkeleton() {
+  return (
+    <div className={styles["customer-view"]}>
+      <div className="bg-background h-[200px] w-[200px] animate-pulse [grid-area:ava]"></div>
+      <h2>
+        <div className="bg-background h-15 animate-pulse"></div>
+      </h2>
+      <dl>
+        <dt>
+          <AtSymbolIcon width={24} height={24} />
+          email
+        </dt>
+        <dd>
+          <div className="bg-background h-4 animate-pulse"></div>
+        </dd>
+        <dt>
+          <PhoneIcon width={24} height={24} />
+          phone
+        </dt>
+        <dd>
+          <div className="bg-background h-5.5 animate-pulse"></div>
+        </dd>
+        <dt>
+          <HomeIcon width={24} height={24} />
+          address
+        </dt>
+        <dd>
+          <div className="bg-background h-35.5 animate-pulse"></div>
+        </dd>
+      </dl>
+    </div>
+  );
+}

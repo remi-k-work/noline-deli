@@ -9,8 +9,7 @@ export default function Loading() {
       <MainLayoutNavBar>
         <CategoriesTreeViewSkeleton />
       </MainLayoutNavBar>
-      <MainLayoutMain>
-        <h1 className="font-lusitana mb-8 text-xl lg:text-3xl">Product Details ► ...</h1>
+      <MainLayoutMain heading="Product Details ► ...">
         <ProductViewSkeleton />
       </MainLayoutMain>
     </MainLayout>

@@ -1,9 +1,10 @@
 // components
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
-import { PaginateSkeleton } from "@/features/storefront/components/Paginate";
-import { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
-import { ProductFilterSkeleton } from "@/features/storefront/components/search/product-filter";
+import { CustomerViewSkeleton } from "@/features/storefront/components/customers/CustomerView";
+
+// assets
+import { Loader } from "lucide-react";
 
 export default function Loading() {
   return (
@@ -12,14 +13,12 @@ export default function Loading() {
         <CategoriesTreeViewSkeleton />
       </MainLayoutNavBar>
       <MainLayoutSideBar>
-        <ProductFilterSkeleton />
+        <CustomerViewSkeleton />
       </MainLayoutSideBar>
-      <MainLayoutMain heading="Search Results ► ...">
-        <PaginateSkeleton />
-        <br />
-        <ProductsListSkeleton />
-        <br />
-        <PaginateSkeleton />
+      <MainLayoutMain heading="... ► My Orders">
+        <div className="grid h-full place-content-center">
+          <Loader className="text-muted-foreground size-48 animate-spin" />
+        </div>
       </MainLayoutMain>
     </MainLayout>
   );
