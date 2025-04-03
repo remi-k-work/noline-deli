@@ -45,7 +45,7 @@ export default function SideBar({ children }: SideBarProps) {
           <SheetTitle>SideBar</SheetTitle>
           <SheetDescription>SideBar</SheetDescription>
         </SheetHeader>
-        <nav className="max-h-[80vh] overflow-y-auto">{children}</nav>
+        <aside className="max-h-screen overflow-y-auto">{children}</aside>
       </SheetContent>
     </Sheet>
   );

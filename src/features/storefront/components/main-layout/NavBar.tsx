@@ -45,7 +45,7 @@ export default function NavBar({ children }: NavBarProps) {
           <SheetTitle>NavBar</SheetTitle>
           <SheetDescription>NavBar</SheetDescription>
         </SheetHeader>
-        <nav className="max-h-[80vh] overflow-y-auto">{children}</nav>
+        <nav className="max-h-screen overflow-y-auto">{children}</nav>
       </SheetContent>
     </Sheet>
   );

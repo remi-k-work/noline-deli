@@ -19,7 +19,7 @@ export default function Loading() {
       </MainLayoutSideBar>
       <MainLayoutMain heading="...">
         <header className="mb-4">
-          <div className="bg-background m-auto h-48 w-72 animate-pulse rounded-lg"></div>
+          <div className="bg-primary m-auto h-48 w-72 animate-pulse rounded-lg"></div>
         </header>
         <PaginateSkeleton />
         <br />
