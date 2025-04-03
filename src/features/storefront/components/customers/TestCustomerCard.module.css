@@ -4,6 +4,7 @@
   margin-inline: auto;
 
   display: grid;
+
   grid-template-columns: [nam-start] var(--size-3) [ava-start bck-start] var(--size-3) [cnt-start] auto [nam-end ava-end bck-end] var(--size-3) [cnt-end];
   grid-template-rows: [ava-start] 100px [bck-start] 80px [ava-end nam-start] auto [cnt-start] var(--size-2) [nam-end] auto [cnt-end] var(--size-3) [bck-end];
 

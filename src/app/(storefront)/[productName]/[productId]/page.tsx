@@ -9,9 +9,11 @@ import { getProduct } from "@/features/storefront/db";
 import PathFinder from "@/lib/PathFinder";
 
 // components
-import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import ProductView from "@/features/storefront/components/products/product-view";
 import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
+import FeaturedProducts from "@/features/storefront/components/products/FeaturedProducts";
+import FeaturedBrands from "@/features/storefront/components/products/FeaturedBrands";
 
 // types
 interface PageProps {
@@ -56,6 +58,11 @@ export default async function Page({ params: paramsPromise }: PageProps) {
       <MainLayoutNavBar>
         <CategoriesTreeView />
       </MainLayoutNavBar>
+      <MainLayoutSideBar>
+        <FeaturedProducts />
+        <br />
+        <FeaturedBrands />
+      </MainLayoutSideBar>
       <MainLayoutMain heading={`Product Details ► ${getSectionTitle(productName)}`}>
         <ProductView product={product} />
       </MainLayoutMain>

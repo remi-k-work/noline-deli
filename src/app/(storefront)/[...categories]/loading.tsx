@@ -4,6 +4,7 @@ import { PaginateSkeleton } from "@/features/storefront/components/Paginate";
 import { ProductsListSkeleton } from "@/features/storefront/components/products/products-list";
 import { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
 import { ProductFilterSkeleton } from "@/features/storefront/components/search/product-filter";
+import { FeaturedBrandsSkeleton } from "@/features/storefront/components/products/FeaturedBrands";
 
 export default function Loading() {
   return (
@@ -13,6 +14,8 @@ export default function Loading() {
       </MainLayoutNavBar>
       <MainLayoutSideBar>
         <ProductFilterSkeleton />
+        <br />
+        <FeaturedBrandsSkeleton />
       </MainLayoutSideBar>
       <MainLayoutMain heading="...">
         <PaginateSkeleton />

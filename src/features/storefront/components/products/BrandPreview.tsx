@@ -13,25 +13,29 @@ import PathFinder from "@/lib/PathFinder";
 
 // types
 interface BrandPreviewProps {
-  brand: Brand | null;
+  brand: Brand;
 }
 
-export default function BrandPreview({ brand }: BrandPreviewProps) {
-  // Ensure the brand exists
-  if (!brand) return null;
-
-  const { id, name, logoUrl } = brand;
-
+export default function BrandPreview({ brand: { id, name, logoUrl } }: BrandPreviewProps) {
   return (
     <article className={styles["brand-preview"]}>
       <Link href={PathFinder.toSfProductsByBrand(name, id)} className="transition-transform delay-150 duration-700 ease-in-out hover:scale-110">
-        {logoUrl && (
-          <header className={styles["brand-preview__logo"]}>
-            <Image src={PathFinder.toResolvedBrandLogo(logoUrl)} width={320} height={200} alt={name} sizes="50vw" className="object-contain" />
-          </header>
-        )}
-        <footer className={styles["brand-preview__name"]}>{name}</footer>
+        <header>
+          <Image src={PathFinder.toResolvedBrandLogo(logoUrl)} width={320} height={200} alt={name} sizes="50vw" className="object-contain" />
+        </header>
+        <footer>{name}</footer>
       </Link>
     </article>
+  );
+}
+
+export function BrandPreviewSkeleton() {
+  return (
+    <div className={styles["brand-preview"]}>
+      <header className="size-46 animate-pulse"></header>
+      <footer>
+        <div className="bg-background h-5.5 w-32 animate-pulse"></div>
+      </footer>
+    </div>
   );
 }

@@ -19,6 +19,7 @@ import ProductsList from "@/features/storefront/components/products/products-lis
 import NotFound from "@/components/NotFound";
 import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 import ProductFilter from "@/features/storefront/components/search/product-filter";
+import FeaturedBrands from "@/features/storefront/components/products/FeaturedBrands";
 
 // types
 interface PageProps {
@@ -64,6 +65,8 @@ export default async function Page({ params: paramsPromise, searchParams: search
       </MainLayoutNavBar>
       <MainLayoutSideBar>
         <ProductFilter />
+        <br />
+        <FeaturedBrands />
       </MainLayoutSideBar>
       <MainLayoutMain heading={getSectionTitle(brandName)}>
         {logoUrl && (
