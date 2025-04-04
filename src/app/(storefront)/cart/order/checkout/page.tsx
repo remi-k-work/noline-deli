@@ -1,43 +1,20 @@
-// prisma and db access
-import { getCart } from "@/features/cart/db/cart";
-import { getCustomerData } from "@/features/storefront/db/customers";
-
 // components
-import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
-import CustomerView from "@/features/storefront/components/customers/CustomerView";
-import Checkout from "@/features/cart/components/checkout";
+import MainLayout, { MainLayoutMain, MainLayoutNavBar } from "@/features/storefront/components/main-layout";
 import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
-
-// types
-interface PageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined; guest_test_customer_id: string | undefined }>;
-}
+import TestCustomersList from "@/features/storefront/components/customers/TestCustomersList";
 
 export const metadata = {
   title: "NoLine-Deli ► Checkout Page",
 };
 
-export default async function Page({ searchParams: searchParamsPromise }: PageProps) {
-  const { guest_test_customer_id } = await searchParamsPromise;
-
-  // Get an existing or brand-new empty cart from our database
-  const cart = await getCart();
-
-  // Has the guest test customer already been picked?
-  const hasPickedCustomerId = !!guest_test_customer_id;
-
+export default async function Page() {
   return (
     <MainLayout>
       <MainLayoutNavBar>
         <CategoriesTreeView />
       </MainLayoutNavBar>
-      {hasPickedCustomerId && (
-        <MainLayoutSideBar>
-          <CustomerView customer={await getCustomerData(guest_test_customer_id)} />
-        </MainLayoutSideBar>
-      )}
       <MainLayoutMain heading="Checkout Page">
-        <Checkout cart={cart} hasPickedCustomerId={hasPickedCustomerId} />
+        <TestCustomersList goingTo="checkout" />
       </MainLayoutMain>
     </MainLayout>
   );

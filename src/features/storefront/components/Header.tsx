@@ -5,9 +5,6 @@ import styles from "./Header.module.css";
 import { getCart } from "@/features/cart/db/cart";
 import productFilter from "@/features/storefront/db/get-data-for/productFilter";
 
-// other libraries
-import { cn } from "@/lib/utils";
-
 // components
 import HeaderLogo from "./HeaderLogo";
 import ProductFilterIndicator, { ProductFilterIndicatorSkeleton } from "./search/product-filter-indicator";
@@ -21,7 +18,7 @@ export default async function Header() {
   const [cart, productFilterData] = await Promise.all([getCart(), productFilter()]);
 
   return (
-    <header className={cn(styles["header"], "z-3")}>
+    <header className={styles["header"]}>
       <HeaderLogo />
       <SearchPanel />
       <ProductFilterIndicator productFilterData={productFilterData} />
@@ -34,7 +31,7 @@ export default async function Header() {
 
 export function HeaderSkeleton() {
   return (
-    <header className={cn(styles["header"], "z-3")}>
+    <header className={styles["header"]}>
       <HeaderLogo />
       <SearchPanelSkeleton />
       <ProductFilterIndicatorSkeleton />

@@ -15,7 +15,7 @@ export default function Loading() {
       <MainLayoutSideBar>
         <CustomerViewSkeleton />
       </MainLayoutSideBar>
-      <MainLayoutMain heading="Order Complete">
+      <MainLayoutMain heading="Checkout Page ► ...">
         <div className="grid h-full place-content-center">
           <Loader className="text-muted-foreground size-48 animate-spin" />
         </div>

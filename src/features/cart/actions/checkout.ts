@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 
 // prisma and db access
 import { getOrderedCart } from "@/features/cart/db/cart";
-import { allGuestTestCustomers } from "@/features/cart/db/orders";
+import { getCustomer } from "@/features/storefront/db/customers";
 import { createLineItemsFromCart } from "@/features/cart/db/helpers";
 import { SHIPPING_OPTIONS } from "@/features/cart/db/consts";
 
@@ -13,9 +13,8 @@ import { SHIPPING_OPTIONS } from "@/features/cart/db/consts";
 import PathFinder from "@/lib/PathFinder";
 import stripe from "@/services/stripe";
 import { nanoid } from "nanoid";
-import { faker } from "@faker-js/faker";
 
-export async function fetchClientSecret(): Promise<string> {
+export async function fetchClientSecret(customerId: string): Promise<string> {
   // Extract the origin of the incoming request
   const origin = (await headers()).get("origin");
 
@@ -24,18 +23,10 @@ export async function fetchClientSecret(): Promise<string> {
   if (!orderedCart) throw new Error("The ordered cart is missing!");
   const { id: orderedCartId, cartItems } = orderedCart;
 
-  // Extract the guest test customer id from the incoming request
-  const referer = (await headers()).get("referer");
-  const searchParams = new URL(referer ? referer : "").searchParams;
-  const guestTestCustomerId = searchParams.get("guest_test_customer_id");
-
-  // Retrieve all guest test customers but only their stripe customer id and email,
-  // then pick a random one unless a guest test customer id is provided in the query params
-  let customerId: string, stripeCustomerId: string, customerEmail: string;
-  const customers = await allGuestTestCustomers();
-  const guestTestCustomer = customers.find(({ id }) => id === guestTestCustomerId);
-  if (guestTestCustomer) ({ id: customerId, stripeCustomerId, email: customerEmail } = guestTestCustomer);
-  else ({ id: customerId, stripeCustomerId, email: customerEmail } = faker.helpers.arrayElement(customers));
+  // Get all the information you need about this particular customer
+  const customer = await getCustomer(customerId);
+  if (!customer) throw new Error("The customer is missing!");
+  const { stripeCustomerId, email: customerEmail } = customer;
 
   // Create a new checkout session for this customer
   const checkoutSession = await stripe.checkout.sessions.create({

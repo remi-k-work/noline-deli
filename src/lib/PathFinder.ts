@@ -18,7 +18,6 @@ enum SearchParamName {
   subCategoryId = "scat",
   actionFeedback = "afeed",
   checkoutSessionId = "session_id",
-  guestTestCustomerId = "guest_test_customer_id",
 }
 
 enum PathTo {
@@ -34,7 +33,8 @@ enum PathTo {
   sfCart = storeFront + "/cart",
   sfOrder = sfCart + "/order",
   sfCheckoutPage = sfOrder + "/checkout",
-  sfOrderComplete = sfOrder + `/complete?${SearchParamName.checkoutSessionId}={CHECKOUT_SESSION_ID}`,
+  sfCheckoutPageForCustomer = sfCheckoutPage + `/${ParamName.customerId}`,
+  sfOrderComplete = sfOrder + `/complete/${ParamName.customerId}?${SearchParamName.checkoutSessionId}={CHECKOUT_SESSION_ID}`,
 
   sfCustomer = storeFront + `/customer/${ParamName.customerId}`,
   sfCustomerAccount = sfCustomer + "/orders",
@@ -104,12 +104,11 @@ export default class PathFinder {
 
   static toSfCart = () => PathTo.sfCart;
   static toSfCartReval = () => PathTo.sfCart;
-  static toSfCheckoutPage = (guestTestCustomerId?: string) =>
-    guestTestCustomerId ? `${PathTo.sfCheckoutPage}?${SearchParamName.guestTestCustomerId}=${guestTestCustomerId}` : PathTo.sfCheckoutPage;
-  static toSfOrderComplete = (guestTestCustomerId: string) =>
-    guestTestCustomerId ? `${PathTo.sfOrderComplete}&${SearchParamName.guestTestCustomerId}=${guestTestCustomerId}` : PathTo.sfOrderComplete;
-  static toSfOrderCompleteWithOrigin = (guestTestCustomerId: string, origin: string | null) =>
-    new URL(PathFinder.toSfOrderComplete(guestTestCustomerId), origin ?? undefined).href;
+  static toSfCheckoutPage = (customerId?: string) =>
+    customerId ? PathTo.sfCheckoutPageForCustomer.replace(ParamName.customerId, customerId) : PathTo.sfCheckoutPage;
+  static toSfOrderComplete = (customerId: string) => PathTo.sfOrderComplete.replace(ParamName.customerId, customerId);
+  static toSfOrderCompleteWithOrigin = (customerId: string, origin: string | null) =>
+    new URL(PathFinder.toSfOrderComplete(customerId), origin ?? undefined).href;
 
   // Are we displaying a bunch of products?
   static isBunchOfProducts = (pathname: string) =>
