@@ -18,8 +18,9 @@ export default function OrderDetails({ order: { orderedItems, totalQty, subTotal
     <Table className="w-full table-fixed border-collapse">
       <TableHeader className="font-lusitana text-base">
         <TableRow>
-          <TableHead className="w-[70%]">Item and Description</TableHead>
-          <TableHead className="w-[30%] text-end">
+          <TableHead className="w-46">Item and Description</TableHead>
+          <TableHead className="collapse w-[0%] sm:visible sm:w-[100%]">&nbsp;</TableHead>
+          <TableHead className="w-42 text-end">
             Qty / Total
             <br />
             Status
@@ -33,22 +34,30 @@ export default function OrderDetails({ order: { orderedItems, totalQty, subTotal
       </TableBody>
       <TableFooter className="font-lusitana text-base">
         <TableRow>
-          <TableHead className="text-end">Total Qty / Subtotal:</TableHead>
-          <TableHead className="overflow-clip text-end whitespace-nowrap">
+          <TableHead colSpan={2} className="text-end">
+            Total Qty / Subtotal:
+          </TableHead>
+          <TableHead className="truncate text-end">
             {totalQty} / {formatCurrency(subTotal)}
           </TableHead>
         </TableRow>
         <TableRow>
-          <TableHead className="text-end">Taxes:</TableHead>
-          <TableHead className="overflow-clip text-end whitespace-nowrap">{formatCurrency(taxAmount)}</TableHead>
+          <TableHead colSpan={2} className="text-end">
+            Taxes:
+          </TableHead>
+          <TableHead className="truncate text-end">{formatCurrency(taxAmount)}</TableHead>
         </TableRow>
         <TableRow>
-          <TableHead className="text-end">Shipping:</TableHead>
-          <TableHead className="overflow-clip text-end whitespace-nowrap">{formatCurrency(shippingCost)}</TableHead>
+          <TableHead colSpan={2} className="text-end">
+            Shipping:
+          </TableHead>
+          <TableHead className="truncate text-end">{formatCurrency(shippingCost)}</TableHead>
         </TableRow>
         <TableRow>
-          <TableHead className="text-end underline">TOTAL:</TableHead>
-          <TableHead className="overflow-clip text-end whitespace-nowrap underline">{formatCurrency(totalPaid)}</TableHead>
+          <TableHead colSpan={2} className="text-end underline">
+            TOTAL:
+          </TableHead>
+          <TableHead className="truncate text-end underline">{formatCurrency(totalPaid)}</TableHead>
         </TableRow>
       </TableFooter>
     </Table>

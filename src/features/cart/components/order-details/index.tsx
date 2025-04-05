@@ -34,8 +34,8 @@ export default function OrderDetails({ checkoutSession, orderedCart: { cartItems
         <ShoppingBagIcon width={64} height={64} />
         Order Details
       </h2>
-      <Table>
-        <TableHeader className="font-lusitana">
+      <Table className="w-full table-fixed border-collapse">
+        <TableHeader className="font-lusitana text-base">
           <TableRow>
             <TableHead className="w-[70%]">Item and Description</TableHead>
             <TableHead className="w-[30%] text-end">Qty / Total</TableHead>
@@ -46,24 +46,24 @@ export default function OrderDetails({ checkoutSession, orderedCart: { cartItems
             <Entry key={orderedCartItem.id} orderedCartItem={orderedCartItem} />
           ))}
         </TableBody>
-        <TableFooter className="font-lusitana">
+        <TableFooter className="font-lusitana text-base">
           <TableRow>
-            <TableHead className="text-end text-xl">Total Qty / Subtotal:</TableHead>
-            <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">
+            <TableHead className="text-end">Total Qty / Subtotal:</TableHead>
+            <TableHead className="truncate text-end">
               {totalQty} / {formatCurrency(subTotal)}
             </TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-end text-xl">Taxes:</TableHead>
-            <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(taxAmount)}</TableHead>
+            <TableHead className="text-end">Taxes:</TableHead>
+            <TableHead className="truncate text-end">{formatCurrency(taxAmount)}</TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-end text-xl">Shipping:</TableHead>
-            <TableHead className="overflow-clip text-end text-xl whitespace-nowrap">{formatCurrency(shippingCost)}</TableHead>
+            <TableHead className="text-end">Shipping:</TableHead>
+            <TableHead className="truncate text-end">{formatCurrency(shippingCost)}</TableHead>
           </TableRow>
           <TableRow>
-            <TableHead className="text-end text-2xl underline">TOTAL:</TableHead>
-            <TableHead className="overflow-clip text-end text-2xl whitespace-nowrap underline">{formatCurrency(totalPaid)}</TableHead>
+            <TableHead className="text-end underline">TOTAL:</TableHead>
+            <TableHead className="truncate text-end underline">{formatCurrency(totalPaid)}</TableHead>
           </TableRow>
         </TableFooter>
       </Table>

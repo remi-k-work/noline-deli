@@ -19,22 +19,24 @@ export default function Entry({ orderedItem }: EntryProps) {
   return (
     <TableRow>
       <TableCell>
-        <article className="grid grid-cols-[9rem_1fr] items-center gap-2">
-          <ItemImageWithTrigger orderedItem={orderedItem} />
-          <footer>
-            {name}
-            <small>
-              <br />
-              {categoryName}
+        <ItemImageWithTrigger orderedItem={orderedItem} />
+      </TableCell>
+      <TableCell className="collapse truncate sm:visible">
+        {name}
+        <br />
+        <small>
+          {categoryName}
+          {subCategoryName && (
+            <>
               <br />
               {subCategoryName}
-            </small>
-          </footer>
-        </article>
+            </>
+          )}
+        </small>
       </TableCell>
-      <TableCell className="overflow-clip text-end whitespace-nowrap">
+      <TableCell className="truncate text-end">
         {quantity} / {formatCurrency(total)}
-        <br className="clear-end" />
+        <br />
         {status.replace("_", " ").toUpperCase()}
       </TableCell>
     </TableRow>

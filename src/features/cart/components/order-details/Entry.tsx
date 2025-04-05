@@ -20,16 +20,20 @@ export default function Entry({ orderedCartItem }: EntryProps) {
 
   return (
     <TableRow>
-      <TableCell>
+      <TableCell className="truncate">
         {name}
+        <br />
         <small>
-          <br />
           {category.name}
-          <br />
-          {subCategory?.name}
+          {subCategory && (
+            <>
+              <br />
+              {subCategory.name}
+            </>
+          )}
         </small>
       </TableCell>
-      <TableCell className="overflow-clip text-end whitespace-nowrap">
+      <TableCell className="truncate text-end">
         {quantity} / {formatCurrency(quantity * price)}
       </TableCell>
     </TableRow>

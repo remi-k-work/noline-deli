@@ -22,15 +22,14 @@ interface ItemImageWithTriggerProps {
   product?: ProductWithAll;
   orderedItem?: OrderedItem;
   href?: string;
-  className?: string;
 }
 
-export default function ItemImageWithTrigger({ product, orderedItem, href, className }: ItemImageWithTriggerProps) {
+export default function ItemImageWithTrigger({ product, orderedItem, href }: ItemImageWithTriggerProps) {
   if (product)
     return (
-      <div className={cn(styles["item-image-with-trigger"], className)}>
+      <div className={styles["item-image-with-trigger"]}>
         {href ? (
-          <Link href={href} className={styles["item-image-with-trigger__image"]}>
+          <Link href={href} className="[grid-area:img]">
             <Image
               src={PathFinder.toResolvedProductImage(product.imageUrl)}
               width={320}
@@ -49,10 +48,10 @@ export default function ItemImageWithTrigger({ product, orderedItem, href, class
             alt={product.name}
             title={product.name}
             sizes="50vw"
-            className={cn(styles["item-image-with-trigger__image"], "h-auto w-36 rounded-lg object-cover")}
+            className="h-auto w-36 rounded-lg object-cover [grid-area:img]"
           />
         )}
-        <ProductInfoTrigger product={product} className={cn(styles["item-image-with-trigger__trigger"], "z-1")} />
+        <ProductInfoTrigger product={product} className="z-1 [gird-area:inf]" />
       </div>
     );
 
@@ -60,7 +59,7 @@ export default function ItemImageWithTrigger({ product, orderedItem, href, class
     return (
       <div className={styles["item-image-with-trigger"]}>
         {href ? (
-          <Link href={href} className={styles["item-image-with-trigger__image"]}>
+          <Link href={href} className="[grid-area:img]">
             <Image
               src={PathFinder.toResolvedProductImage(orderedItem.imageUrl)}
               width={320}
@@ -79,10 +78,19 @@ export default function ItemImageWithTrigger({ product, orderedItem, href, class
             alt={orderedItem.name}
             title={orderedItem.name}
             sizes="50vw"
-            className={cn(styles["item-image-with-trigger__image"], "h-auto w-36 rounded-lg object-cover")}
+            className="h-auto w-36 rounded-lg object-cover [grid-area:img]"
           />
         )}
-        <OrderedItemInfoTrigger orderedItem={orderedItem} className={cn(styles["item-image-with-trigger__trigger"], "z-1")} />
+        <OrderedItemInfoTrigger orderedItem={orderedItem} className="z-1 [gird-area:inf]" />
       </div>
     );
+}
+
+export function ItemImageWithTriggerSkeleton() {
+  return (
+    <div className={cn(styles["item-image-with-trigger"], "animate-pulse")}>
+      <div className="bg-background size-36 rounded-lg [grid-area:img]" />
+      <div className="bg-background size-9 rounded-lg [grid-area:inf]" />
+    </div>
+  );
 }
