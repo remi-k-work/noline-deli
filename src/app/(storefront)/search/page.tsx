@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export default async function Page({ searchParams: searchParamsPromise }: PageProps) {
   const { currentPage, isListMode, keyword, sortByField, sortByOrder, byBrandId, byPriceBelow, byFreeShipping } = new SearchParamsState(
-    new ReadonlyURLSearchParams((await searchParamsPromise) as any),
+    new ReadonlyURLSearchParams((await searchParamsPromise) as Record<string, string>),
   );
 
   // Set the pagination data

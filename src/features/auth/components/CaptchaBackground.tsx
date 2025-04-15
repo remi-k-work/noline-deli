@@ -22,7 +22,7 @@ export default function CaptchaBackground() {
   }
 
   // Draw rectangles at random locations on our original background
-  let rects: ReactElement<any>[] = [];
+  const rects: ReactElement<"div">[] = [];
 
   for (let i = 0; i < 32; i++) {
     // The width, height, rotation, and color of those rectangles vary

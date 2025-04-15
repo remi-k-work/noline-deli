@@ -28,10 +28,9 @@ interface LayoutProps {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.WEBSITE_URL as string),
   title: "NoLine-Deli",
   description:
-    "NoLine-Deli: Your European deli delivered! Enjoy fresh, organic, high-quality European foods at home, no matter where you are in the US. Find Polish favorites like pierogi & kielbasa, plus breads, coffees, desserts & more. We cater to individual needs & welcome your suggestions!",
+    "Your European deli delivered! Enjoy fresh, organic, high-quality European foods at home, no matter where you are in the US. Find Polish favorites like pierogi & kielbasa, plus breads, coffees, desserts & more. We cater to individual needs & welcome your suggestions!",
   authors: [{ name: "Remi" }],
   robots: { index: true, follow: true },
   category: "e-commerce",

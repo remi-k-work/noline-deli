@@ -199,7 +199,7 @@ export default class PathFinder {
     let parsedSrc;
     try {
       parsedSrc = new URL(imageSrc);
-    } catch (error) {
+    } catch {
       return false;
     }
 

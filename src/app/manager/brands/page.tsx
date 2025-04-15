@@ -22,7 +22,7 @@ export const metadata = {
 
 export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
-  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as any));
+  const searchParamsState = new SearchParamsState(new ReadonlyURLSearchParams(searchParams as Record<string, string>));
 
   return (
     <>

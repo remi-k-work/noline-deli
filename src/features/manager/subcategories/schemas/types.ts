@@ -4,7 +4,7 @@ import { subCategoryFormSchema } from "./subCategoryForm";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
-export interface SubCategoryFormActionResult extends FormActionResult {}
+export type SubCategoryFormActionResult = FormActionResult;
 
 // Export the type of the schema object and the type of the errors
 export type SubCategoryFormSchemaType = z.infer<typeof subCategoryFormSchema>;

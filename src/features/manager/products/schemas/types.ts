@@ -4,7 +4,7 @@ import { productFormSchema } from "./productForm";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
-export interface ProductFormActionResult extends FormActionResult {}
+export type ProductFormActionResult = FormActionResult;
 
 // Export the type of the schema object and the type of the errors
 export type ProductFormSchemaType = z.infer<typeof productFormSchema>;

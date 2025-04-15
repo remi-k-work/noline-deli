@@ -82,11 +82,13 @@ export default function TimeRangeOptions({ chartType, rangeKey, startDate, endDa
             setOpen={setOpen}
             onRangePicked={(dateRange) => {
               setDateRange(dateRange);
-              chartType === "obd"
-                ? chartObdCustomRangeProvided(dateRange)
-                : chartType === "rbi"
-                  ? chartRbiCustomRangeProvided(dateRange)
-                  : chartCbdCustomRangeProvided(dateRange);
+              if (chartType === "obd") {
+                chartObdCustomRangeProvided(dateRange);
+              } else if (chartType === "rbi") {
+                chartRbiCustomRangeProvided(dateRange);
+              } else {
+                chartCbdCustomRangeProvided(dateRange);
+              }
             }}
           />
         </SelectContent>

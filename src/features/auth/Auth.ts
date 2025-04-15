@@ -35,7 +35,7 @@ export default class Auth extends AuthBase {
 
       // Yes, simply return it
       return await this.getAccessToken();
-    } catch (error) {
+    } catch {
       // The access token appears to be invalid or missing; renew it
       await this.renewAccessToken();
 
@@ -56,6 +56,7 @@ export default class Auth extends AuthBase {
   }
 
   // Make sure we have the specified user in our database
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private isUserFound({ userId }: RefreshTokenPayload) {
     // const foundUser = await User.findOne({ username: decoded.username }).exec();
     // if (!foundUser) return res.status(401).json({ message: "Unauthorized" });

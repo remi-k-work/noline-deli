@@ -5,7 +5,7 @@ import type { DerivedCartWithItems } from "@/features/cart/db/types";
 import { createStore } from "zustand/vanilla";
 
 // types
-export interface CartState extends DerivedCartWithItems {}
+export type CartState = DerivedCartWithItems;
 
 interface CartActions {
   increasedCartArticle: (cartItemId: string) => void;

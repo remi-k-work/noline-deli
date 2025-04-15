@@ -16,7 +16,6 @@ import NotFound from "@/components/NotFound";
 
 export default function ProductsTable() {
   const {
-    createdByUser,
     table,
     tableState: { totalItems },
   } = useTanTableInstanceContext();

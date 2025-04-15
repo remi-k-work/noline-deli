@@ -6,9 +6,7 @@ export interface CategoryFormState {
   name: string;
 }
 
-interface CategoryFormActions {}
-
-export type CategoryFormStore = CategoryFormState & CategoryFormActions;
+export type CategoryFormStore = CategoryFormState;
 export type CategoryFormStoreApi = ReturnType<typeof createCategoryFormStore>;
 
 const defaultInitState: CategoryFormState = {

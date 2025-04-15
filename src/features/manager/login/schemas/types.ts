@@ -4,7 +4,7 @@ import { loginFormSchema } from "./loginForm";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
 
 // types
-export interface LoginFormActionResult extends FormActionResult {}
+export type LoginFormActionResult = FormActionResult;
 
 // Export the type of the schema object and the type of the errors
 export type LoginFormSchemaType = z.infer<typeof loginFormSchema>;

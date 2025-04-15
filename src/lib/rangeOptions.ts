@@ -70,7 +70,7 @@ export const RANGE_OPTIONS: RangeOptions = {
 // Create a properly scaled time axis with the appropriate tick unit for a given time range
 export function createTimeAxis(rangeOption?: RangeOption, startDate?: Date, endDate?: Date) {
   // Select either the predefined range or a custom time range
-  rangeOption && ({ startDate, endDate } = rangeOption);
+  if (rangeOption) ({ startDate, endDate } = rangeOption);
   if (!startDate || !endDate) return {};
 
   // "Last 24 Hours" selected range or a custom range inside that boundary

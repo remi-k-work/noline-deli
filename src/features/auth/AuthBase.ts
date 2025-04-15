@@ -43,7 +43,7 @@ export default class AuthBase {
     try {
       const verifiedAccessToken = await jwtVerify((await this.getAccessToken())!, new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET));
       return verifiedAccessToken.payload as AccessTokenPayload;
-    } catch (error) {
+    } catch {
       // Invalid access token
       throw new AuthError("Forbidden", 403);
     }
@@ -57,7 +57,7 @@ export default class AuthBase {
     try {
       const verifiedRefreshToken = await jwtVerify((await this.getRefreshToken())!, new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET));
       return verifiedRefreshToken.payload as RefreshTokenPayload;
-    } catch (error) {
+    } catch {
       // Invalid refresh token
       throw new AuthError("Forbidden", 403);
     }

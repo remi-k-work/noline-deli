@@ -7,9 +7,7 @@ export interface SubCategoryFormState {
   name: string;
 }
 
-interface SubCategoryFormActions {}
-
-export type SubCategoryFormStore = SubCategoryFormState & SubCategoryFormActions;
+export type SubCategoryFormStore = SubCategoryFormState;
 export type SubCategoryFormStoreApi = ReturnType<typeof createSubCategoryFormStore>;
 
 const defaultInitState: SubCategoryFormState = {

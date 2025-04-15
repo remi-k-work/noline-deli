@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // other libraries
 import { FilterFn } from "@tanstack/react-table";
 import { RangeOption } from "./rangeOptions";

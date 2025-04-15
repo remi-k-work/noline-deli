@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // react
 import { ChangeEventHandler, ComponentProps, FocusEventHandler } from "react";
 

@@ -22,7 +22,7 @@ interface EntryProps {
   createdByUser?: string;
 }
 
-export default function Entry({ subCategory, createdByUser }: EntryProps) {
+export default function Entry({ subCategory }: EntryProps) {
   // Small devices (landscape phones, less than 768px)
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
@@ -32,9 +32,7 @@ export default function Entry({ subCategory, createdByUser }: EntryProps) {
   const {
     id,
     name,
-    createdBy,
     category: { name: parentCategoryName },
-    user: { role },
     _count: { products },
     createdAt,
     updatedAt,

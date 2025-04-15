@@ -41,7 +41,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const { brandName, brandId } = await paramsPromise;
 
   const { currentPage, isListMode, sortByField, sortByOrder, byPriceBelow, byFreeShipping } = new SearchParamsState(
-    new ReadonlyURLSearchParams((await searchParamsPromise) as any),
+    new ReadonlyURLSearchParams((await searchParamsPromise) as Record<string, string>),
   );
 
   // Set the pagination data

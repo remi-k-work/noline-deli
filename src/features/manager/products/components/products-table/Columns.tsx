@@ -19,7 +19,7 @@ import { default as CreatedCell } from "./cells/Created";
 import { default as ActionsCell } from "./cells/Actions";
 
 // Define the row shape
-export interface ProductRow extends ProductWithInfo {}
+export type ProductRow = ProductWithInfo;
 
 const columnHelper = createColumnHelper<ProductRow>();
 

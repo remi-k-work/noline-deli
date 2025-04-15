@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // react
 import { FormEventHandler, useCallback } from "react";
 

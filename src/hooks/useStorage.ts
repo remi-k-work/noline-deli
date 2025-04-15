@@ -29,7 +29,7 @@ function useStorage<T>(key: string, initialValue: T | (() => T), webStorage?: St
         // We can use web storage now, so retrieve the stored value
         const item = webStorageRef.current?.getItem(key);
         return item ? (JSON.parse(item) as T) : initialValueToUse;
-      } catch (error) {
+      } catch {
         // In case of any errors, fallback to the initial value
         return initialValueToUse;
       }
@@ -45,7 +45,7 @@ function useStorage<T>(key: string, initialValue: T | (() => T), webStorage?: St
     if (storedValue) {
       try {
         webStorageRef.current?.setItem(key, JSON.stringify(storedValue));
-      } catch (error) {}
+      } catch {}
     }
   }, [key, storedValue]);
 

@@ -17,7 +17,8 @@ import { PowerIcon } from "@heroicons/react/24/solid";
 
 export default function Logout() {
   // Is the user currently logged in?
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
 
   // To display a pending status while the server action is running
   const [isPending, startTransition] = useTransition();
@@ -27,11 +28,10 @@ export default function Logout() {
 
   useEffect(() => {
     // Is the user currently logged in?
-    async function checkIfLoggedIn() {
-      const res = await fetch(PathFinder.toAuth(), { method: "GET" });
-      setIsLoggedIn(res.ok);
-    }
-
+    // async function checkIfLoggedIn() {
+    //   const res = await fetch(PathFinder.toAuth(), { method: "GET" });
+    //   setIsLoggedIn(res.ok);
+    // }
     // Temporarily disable user authentication so that everyone can access the manager
     // checkIfLoggedIn();
   }, []);

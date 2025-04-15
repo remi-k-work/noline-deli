@@ -2,11 +2,11 @@
 import "dotenv/config";
 
 // prisma and db access
-import { OrderedItemStatus } from "@prisma/client";
+// import { OrderedItemStatus } from "@prisma/client";
 
 // other libraries
 import seedOrder from "./seed/order";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
 
 async function main() {
   try {

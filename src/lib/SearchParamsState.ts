@@ -121,7 +121,7 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   // Actions for product filter
   productFilterByBrandChanged = (newByBrandId: string | undefined) => {
     // When the filter is set to "All Brands", remove the filter
-    newByBrandId === "*" && (newByBrandId = undefined);
+    if (newByBrandId === "*") newByBrandId = undefined;
 
     const paramsToSet: ParamsToSet = [];
     paramsToSet.push([SearchParamName.byBrandId, newByBrandId]);
@@ -165,9 +165,9 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   get numberOfProductFilters() {
     let totalFilters = 0;
 
-    this.params.has(SearchParamName.byBrandId) && totalFilters++;
-    this.params.has(SearchParamName.byPriceBelow) && totalFilters++;
-    this.params.has(SearchParamName.byFreeShipping) && totalFilters++;
+    if (this.params.has(SearchParamName.byBrandId)) totalFilters++;
+    if (this.params.has(SearchParamName.byPriceBelow)) totalFilters++;
+    if (this.params.has(SearchParamName.byFreeShipping)) totalFilters++;
 
     return totalFilters;
   }
@@ -176,15 +176,15 @@ export default class SearchParamsState extends SearchParamsStateBase<SearchParam
   appliedProductFilters = (byBrandList: Brand[]) => {
     const appliedFilters: AppliedFilter[] = [];
 
-    this.params.has(SearchParamName.byBrandId) &&
+    if (this.params.has(SearchParamName.byBrandId))
       appliedFilters.push({
         paramName: SearchParamName.byBrandId,
         paramValue: byBrandList.find((brand) => brand.id === this.byBrandId)?.name ?? "",
         description: "Products by",
       });
-    this.params.has(SearchParamName.byPriceBelow) &&
+    if (this.params.has(SearchParamName.byPriceBelow))
       appliedFilters.push({ paramName: SearchParamName.byPriceBelow, paramValue: formatCurrency(Number(this.byPriceBelow)), description: "Price is below" });
-    this.params.has(SearchParamName.byFreeShipping) &&
+    if (this.params.has(SearchParamName.byFreeShipping))
       appliedFilters.push({ paramName: SearchParamName.byFreeShipping, paramValue: "Free Shipping", description: "with" });
 
     return appliedFilters;

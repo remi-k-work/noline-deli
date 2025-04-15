@@ -53,13 +53,11 @@ const productsPerCategory = cache(async (categoryId?: string) => {
   } = category;
   data.productsPerCategory.push({ category: name, mCatProd: products });
 
-  let subCategoryIndex = 0;
   for (const {
     name,
     _count: { products },
   } of subCategories) {
     data.productsPerCategory.push({ category: name, sCatProd: products });
-    subCategoryIndex++;
   }
 
   return data;

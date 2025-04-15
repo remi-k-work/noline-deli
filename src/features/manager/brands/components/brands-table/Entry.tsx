@@ -6,7 +6,6 @@ import Image from "next/image";
 import type { BrandWithInfo } from "@/features/manager/brands/db";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import PathFinder from "@/lib/PathFinder";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { formatDistanceToNow } from "date-fns";
@@ -24,7 +23,7 @@ interface EntryProps {
   createdByUser?: string;
 }
 
-export default function Entry({ brand, createdByUser }: EntryProps) {
+export default function Entry({ brand }: EntryProps) {
   // Small devices (landscape phones, less than 768px)
   const isSmall = useMediaQuery("(max-width: 767.98px)");
 
@@ -35,8 +34,6 @@ export default function Entry({ brand, createdByUser }: EntryProps) {
     id,
     name,
     logoUrl,
-    createdBy,
-    user: { role },
     _count: { products },
     createdAt,
     updatedAt,

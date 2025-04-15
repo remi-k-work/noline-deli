@@ -86,7 +86,7 @@ export async function getCart(): Promise<DerivedCartWithItems | undefined> {
     try {
       // Remember that cookies can only be modified in a server action or route handler
       (await cookies()).set(LOCAL_CART_ID_COOKIE, "************************");
-    } catch (error) {
+    } catch {
       // Calling this from a server component will result in an error; exit with null immediately
       return undefined;
     }

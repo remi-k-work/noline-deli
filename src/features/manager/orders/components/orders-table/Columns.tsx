@@ -18,7 +18,7 @@ import { default as TotalPaidCell } from "./cells/TotalPaid";
 import { default as StatusCell } from "./cells/Status";
 
 // Define the row shape
-export interface OrderRow extends OrderWithItems {}
+export type OrderRow = OrderWithItems;
 
 const columnHelper = createColumnHelper<OrderRow>();
 
