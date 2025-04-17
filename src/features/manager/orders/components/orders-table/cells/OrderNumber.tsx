@@ -1,38 +1,35 @@
 // next
 import Link from "next/link";
 
+// prisma and db access
+import type { OrderWithItems } from "@/features/manager/orders/db";
+
 // other libraries
-import type { Row, Table } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import PathFinder from "@/lib/PathFinder";
 import { formatDateTime } from "@/lib/formatters";
-import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";
-import { StatusCell } from "./Status";
 
 // assets
 import { ClockIcon } from "@heroicons/react/24/solid";
 
 // types
 interface OrderNumberProps {
-  row: Row<OrderRow>;
-  table: Table<OrderRow>;
-  includeStatus?: boolean;
+  row: Row<OrderWithItems>;
 }
 
-export default function OrderNumber({ row, table, row: { getValue, original }, includeStatus = false }: OrderNumberProps) {
+export default function OrderNumber({ row: { getValue, original } }: OrderNumberProps) {
   return (
-    <TableCell className="overflow-clip">
+    <TableCell className="text-center">
       <Link href={PathFinder.toOrderView(original.id)} className="link">
-        <b>{getValue("orderNumber")}</b>
+        <b className="truncate">{getValue("orderNumber")}</b>
       </Link>
-      <span className="flex w-fit items-center gap-2">
+      <span className="flex items-center justify-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
-        {formatDateTime(getValue("created"))}
+        <span className="truncate">{formatDateTime(getValue("created"))}</span>
       </span>
-      {/* Merge this cell with another if it needs to squeeze more info (for example, on small displays) */}
-      {includeStatus && <StatusCell row={row} table={table} triggerCn="w-fit" />}
     </TableCell>
   );
 }

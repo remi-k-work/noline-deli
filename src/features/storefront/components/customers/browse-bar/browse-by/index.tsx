@@ -7,7 +7,6 @@ import styles from "./index.module.css";
 import { useState } from "react";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { useInstanceContext } from "@/features/storefront/stores/customers/orders-table";
 
 // components
@@ -22,12 +21,7 @@ import ByShipping from "./ByShipping";
 import ByStatus from "./ByStatus";
 import ByBrand from "./ByBrand";
 
-// types
-interface BrowseByProps {
-  className?: string;
-}
-
-export default function BrowseBy({ className }: BrowseByProps) {
+export default function BrowseBy() {
   const {
     state: { totalItems },
   } = useInstanceContext();
@@ -36,7 +30,7 @@ export default function BrowseBy({ className }: BrowseByProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className={cn(styles["browse-by"], className)}>
+    <section className={styles["browse-by"]}>
       <header className={styles["browse-by__total"]}>
         <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>

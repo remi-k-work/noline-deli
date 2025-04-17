@@ -15,8 +15,8 @@ interface OrderDetailsProps {
 
 export default function OrderDetails({ order: { orderedItems, totalQty, subTotal, taxAmount, shippingCost, totalPaid } }: OrderDetailsProps) {
   return (
-    <Table className="w-full table-fixed border-collapse">
-      <TableHeader className="font-lusitana text-base">
+    <Table>
+      <TableHeader className="font-lusitana">
         <TableRow>
           <TableHead className="w-46">Item and Description</TableHead>
           <TableHead className="collapse w-[0%] sm:visible sm:w-[100%]">&nbsp;</TableHead>
@@ -32,7 +32,7 @@ export default function OrderDetails({ order: { orderedItems, totalQty, subTotal
           <Entry key={orderedItem.id} orderedItem={orderedItem} />
         ))}
       </TableBody>
-      <TableFooter className="font-lusitana text-base">
+      <TableFooter className="font-lusitana">
         <TableRow>
           <TableHead colSpan={2} className="text-end">
             Total Qty / Subtotal:

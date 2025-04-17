@@ -51,17 +51,17 @@ export const columns: ColumnDef<OrderWithItems>[] = [
 
   columnHelper.display({
     id: "orderAndCreated",
-    header: ({ table }) => <OrderAndCreatedHeader table={table} className="w-1/3" />,
+    header: ({ table }) => <OrderAndCreatedHeader table={table} className="w-80" />,
     cell: ({ row }) => <OrderAndCreatedCell row={row} />,
   }),
   columnHelper.display({
     id: "totalAndItems",
-    header: ({ table }) => <TotalAndItemsHeader table={table} className="w-1/3" />,
+    header: ({ table }) => <TotalAndItemsHeader table={table} className="w-32" />,
     cell: ({ row }) => <TotalAndItemsCell row={row} />,
   }),
   columnHelper.display({
     id: "shippingAndStatus",
-    header: ({ table }) => <ShippingAndStatusHeader table={table} className="w-1/3" />,
+    header: ({ table }) => <ShippingAndStatusHeader table={table} className="w-42" />,
     cell: ({ row }) => <ShippingAndStatusCell row={row} />,
   }),
 ] as ColumnDef<OrderWithItems, unknown>[];

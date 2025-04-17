@@ -1,8 +1,5 @@
 "use client";
 
-// component css styles
-import styles from "./index.module.css";
-
 // react
 import { Fragment } from "react";
 
@@ -29,7 +26,7 @@ export default function ProductsTable() {
     );
 
   return (
-    <Table className={styles["products-table"]}>
+    <Table>
       <TableHeader className="font-lusitana">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>

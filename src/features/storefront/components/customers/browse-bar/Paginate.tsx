@@ -17,12 +17,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 // assets
 import { BackwardIcon, CheckIcon, ForwardIcon } from "@heroicons/react/24/solid";
 
-// types
-interface PaginateProps {
-  className?: string;
-}
-
-export default function Paginate({ className }: PaginateProps) {
+export default function Paginate() {
   const {
     table,
     state: { currentPage, totalPages },
@@ -37,7 +32,7 @@ export default function Paginate({ className }: PaginateProps) {
   }
 
   return (
-    <section className={cn(styles["paginate"], className)}>
+    <section className={styles["paginate"]}>
       <Tooltip>
         <TooltipTrigger type="button" className={styles["paginate__prev"]} onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           <BackwardIcon width={24} height={24} />

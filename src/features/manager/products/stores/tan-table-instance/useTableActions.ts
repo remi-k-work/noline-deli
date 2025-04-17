@@ -1,13 +1,13 @@
 // react
 import { useCallback } from "react";
 
+// prisma and db access
+import type { ProductWithInfo } from "@/features/manager/products/db";
+
 // other libraries
 import type { Table } from "@tanstack/react-table";
 
-// components
-import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
-
-export default function useTableActions(table: Table<ProductRow>) {
+export default function useTableActions(table: Table<ProductWithInfo>) {
   const browsedAll = useCallback(() => {
     table.resetGlobalFilter();
     table.resetColumnFilters();

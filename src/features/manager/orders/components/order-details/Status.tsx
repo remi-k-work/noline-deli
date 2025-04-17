@@ -1,3 +1,5 @@
+"use client";
+
 // prisma and db access
 import { OrderedItem, OrderedItemStatus } from "@prisma/client";
 

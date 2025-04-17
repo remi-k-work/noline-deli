@@ -6,18 +6,15 @@ import type { BrowseBarData, OrderWithItems } from "@/features/manager/orders/db
 
 // other libraries
 import type { Table } from "@tanstack/react-table";
-import useTableState from "./useTableState";
-import useTableActions from "./useTableActions";
-
-// components
-import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
+import type useTableState from "./useTableState";
+import type useTableActions from "./useTableActions";
 
 // types
 export interface TanTableInstanceContextType {
   orders: OrderWithItems[];
   browseBarData: BrowseBarData;
 
-  table: Table<OrderRow>;
+  table: Table<OrderWithItems>;
   tableState: ReturnType<typeof useTableState>;
   tableActions: ReturnType<typeof useTableActions>;
 }

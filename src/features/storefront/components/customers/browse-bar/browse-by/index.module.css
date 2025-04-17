@@ -1,4 +1,6 @@
 .browse-by {
+  grid-area: bsc;
+
   color: var(--text-2);
   cursor: pointer;
 

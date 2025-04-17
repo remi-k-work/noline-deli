@@ -1,15 +1,15 @@
 // react
 import { useCallback } from "react";
 
+// prisma and db access
+import type { OrderWithItems } from "@/features/manager/orders/db";
+
 // other libraries
 import type { Table } from "@tanstack/react-table";
 import type { RangeOption } from "@/lib/rangeOptions";
 import type { DateRange } from "react-day-picker";
 
-// components
-import type { OrderRow } from "@/features/manager/orders/components/orders-table/Columns";
-
-export default function useTableActions(table: Table<OrderRow>) {
+export default function useTableActions(table: Table<OrderWithItems>) {
   const browsedAll = useCallback(() => {
     table.resetGlobalFilter();
     table.resetColumnFilters();

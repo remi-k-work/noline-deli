@@ -21,7 +21,7 @@ export default function OrdersTable() {
   if (totalItems === 0) return <NotFound message={"Orders were not found!"} />;
 
   return (
-    <Table className="bg-surface-2 w-full table-fixed border-collapse">
+    <Table className="bg-surface-2">
       <TableHeader className="font-lusitana">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>

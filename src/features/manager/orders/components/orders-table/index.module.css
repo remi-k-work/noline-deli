@@ -1,9 +1,0 @@
-.orders-table {
-  inline-size: 100%;
-
-  background: var(--surface-2);
-  box-shadow: var(--shadow-6);
-
-  table-layout: fixed;
-  border-collapse: collapse;
-}

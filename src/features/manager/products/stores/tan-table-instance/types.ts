@@ -6,11 +6,8 @@ import type { BrowseBarData, ProductWithInfo } from "@/features/manager/products
 
 // other libraries
 import type { Table } from "@tanstack/react-table";
-import useTableState from "./useTableState";
-import useTableActions from "./useTableActions";
-
-// components
-import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
+import type useTableState from "./useTableState";
+import type useTableActions from "./useTableActions";
 
 // types
 export interface TanTableInstanceContextType {
@@ -18,7 +15,7 @@ export interface TanTableInstanceContextType {
   browseBarData: BrowseBarData;
   createdByUser?: string;
 
-  table: Table<ProductRow>;
+  table: Table<ProductWithInfo>;
   tableState: ReturnType<typeof useTableState>;
   tableActions: ReturnType<typeof useTableActions>;
 }

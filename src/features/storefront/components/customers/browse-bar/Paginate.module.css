@@ -1,4 +1,6 @@
 .paginate {
+  grid-area: pag;
+
   color: var(--text-2);
 
   display: flex;

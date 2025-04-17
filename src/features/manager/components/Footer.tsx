@@ -15,7 +15,7 @@ export default function Footer() {
         <p className="font-lusitana">
           NoLine-Deli Ltd.
           <br />
-          Taste of Home Delivered
+          Taste of Home, Delivered
         </p>
       </aside>
       <nav>

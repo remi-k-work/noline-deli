@@ -4,7 +4,6 @@
 import { useEffect, useRef } from "react";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { useInstanceContext } from "@/features/storefront/stores/customers/orders-table";
 
@@ -16,12 +15,7 @@ import { Input } from "@/components/ui/input";
 // assets
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/solid";
 
-// types
-interface SearchPanelProps {
-  className?: string;
-}
-
-export default function SearchPanel({ className }: SearchPanelProps) {
+export default function SearchPanel() {
   const {
     table,
     state: { keyword },
@@ -41,7 +35,7 @@ export default function SearchPanel({ className }: SearchPanelProps) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Label className={cn("bg-background flex w-full max-w-(--size-content-2) items-center gap-1 pr-1", className)}>
+        <Label className={"bg-background flex w-full max-w-(--size-content-2) items-center gap-1 pr-1 [grid-area:spa]"}>
           <Input
             ref={searchRef}
             type="search"

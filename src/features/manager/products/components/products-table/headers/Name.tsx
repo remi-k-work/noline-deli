@@ -1,6 +1,8 @@
+// prisma and db access
+import type { ProductWithInfo } from "@/features/manager/products/db";
+
 // other libraries
 import type { Table } from "@tanstack/react-table";
-import type { ProductRow } from "@/features/manager/products/components/products-table/Columns";
 
 // components
 import { TableHead } from "@/components/ui/custom/table";
@@ -8,7 +10,7 @@ import ColumnHeader from "@/features/manager/components/ColumnHeader";
 
 // types
 interface NameProps {
-  table: Table<ProductRow>;
+  table: Table<ProductWithInfo>;
   className?: string;
 }
 

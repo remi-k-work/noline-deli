@@ -7,6 +7,9 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// prisma and db access
+import type { ProductWithInfo } from "@/features/manager/products/db";
+
 // server actions and mutations
 import { delProduct2 } from "@/features/manager/products/actions";
 
@@ -15,8 +18,7 @@ import { z } from "zod";
 import PathFinder from "@/lib/PathFinder";
 import useTableActionWithVal from "@/features/manager/hooks/useTableActionWithVal";
 import type { ProductFormActionResult } from "@/features/manager/products/schemas/types";
-import { Row } from "@tanstack/react-table";
-import { ProductRow } from "@/features/manager/products/components/products-table/Columns";
+import type { Row } from "@tanstack/react-table";
 
 // components
 import { Button } from "@/components/ui/custom/button";
@@ -32,7 +34,7 @@ import { Loader2 } from "lucide-react";
 
 // types
 interface ActionsProps {
-  row: Row<ProductRow>;
+  row: Row<ProductWithInfo>;
 }
 
 export default function Actions({ row: { getValue, original } }: ActionsProps) {

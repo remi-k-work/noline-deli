@@ -1,4 +1,6 @@
 .browse-bar {
+  font-family: var(--font-lusitana);
+
   padding-inline: var(--size-2);
   padding-block: var(--size-2);
 
@@ -14,32 +16,12 @@
     ".   .   pag";
 
   box-shadow: var(--inner-shadow-4);
-}
 
-.browse-bar__browse-by {
-  grid-area: bsc;
-}
-
-.browse-bar__search-panel {
-  grid-area: spa;
-}
-
-.browse-bar__paginate {
-  grid-area: pag;
-}
-
-/* || MEDIA QUERIES */
-
-/* Medium screens */
-@media screen and (min-width: 768px) {
-  .browse-bar {
+  /* Medium screens */
+  @media screen and (min-width: 768px) {
     grid-template-areas:
       "bsc spa pag"
       "bsc spa pag"
       "bsc spa pag";
-  }
-
-  .browse-bar__search-panel {
-    place-self: center start;
   }
 }

@@ -24,10 +24,10 @@ export default function CartTable() {
 
   return (
     <>
-      <Table className="w-full table-fixed border-collapse">
-        <TableHeader className="font-lusitana text-base">
+      <Table>
+        <TableHeader className="font-lusitana">
           <TableRow>
-            <TableHead className="w-56">Item and Description</TableHead>
+            <TableHead className="w-52">Item and Description</TableHead>
             <TableHead className="collapse w-[0%] sm:visible sm:w-[100%]">&nbsp;</TableHead>
             <TableHead className="w-42 text-end">Qty / Total</TableHead>
           </TableRow>
@@ -37,7 +37,7 @@ export default function CartTable() {
             <Entry key={cartItem.id} cartItem={cartItem} />
           ))}
         </TableBody>
-        <TableFooter className="font-lusitana text-base">
+        <TableFooter className="font-lusitana">
           <TableRow>
             <TableHead colSpan={2} className="text-end">
               Total Qty / Subtotal:
@@ -62,10 +62,10 @@ export default function CartTable() {
 export function CartTableSkeleton() {
   return (
     <>
-      <Table className="w-full table-fixed border-collapse">
+      <Table>
         <TableHeader className="font-lusitana text-base">
           <TableRow>
-            <TableHead className="w-56">Item and Description</TableHead>
+            <TableHead className="w-52">Item and Description</TableHead>
             <TableHead className="collapse w-[0%] sm:visible sm:w-[100%]">&nbsp;</TableHead>
             <TableHead className="w-42 text-end">Qty / Total</TableHead>
           </TableRow>
