@@ -28,3 +28,9 @@
     text-align: center;
   }
 }
+
+.product-preview--ordered {
+  inline-size: var(--size-12);
+  place-items: unset;
+  flex: none;
+}

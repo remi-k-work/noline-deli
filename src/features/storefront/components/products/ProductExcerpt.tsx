@@ -33,12 +33,10 @@ type ProductExcerptProps = Regular | Simple;
 
 export default function ProductExcerpt(props: ProductExcerptProps) {
   if (props.kind === "regular") {
-    const { product } = props;
-
-    // Ensure the product exists
-    if (!product) return null;
-
-    const { id, name, imageUrl, price } = product;
+    const {
+      product,
+      product: { id, name, imageUrl, price },
+    } = props;
 
     return (
       <article className={styles["product-excerpt"]}>

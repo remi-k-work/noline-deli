@@ -26,7 +26,7 @@ export default function ProductsTable() {
     );
 
   return (
-    <Table>
+    <Table className="bg-surface-2">
       <TableHeader className="font-lusitana">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>

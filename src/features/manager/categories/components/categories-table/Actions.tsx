@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 
 // next
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 // server actions and mutations
 import { delCategory2 } from "@/features/manager/categories/actions";
@@ -38,7 +37,7 @@ export default function Actions({ categoryId, categoryName }: ActionsProps) {
     excerpt: <p className="text-center text-2xl font-bold">{categoryName}</p>,
   });
 
-  const { refresh } = useRouter();
+  // To make sure the user is certain
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
 
   // The controlled open state of the drop-down menu
@@ -50,7 +49,7 @@ export default function Actions({ categoryId, categoryName }: ActionsProps) {
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button size="icon" variant="ghost" asChild>
+              <Button type="button" size="icon" variant="ghost" asChild>
                 {isPending ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
               </Button>
             </TooltipTrigger>
@@ -77,13 +76,7 @@ export default function Actions({ categoryId, categoryName }: ActionsProps) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ConfirmDialog
-        ref={confirmDialogRef}
-        onConfirmed={() => {
-          execute({ categoryId });
-          refresh();
-        }}
-      >
+      <ConfirmDialog ref={confirmDialogRef} onConfirmed={() => execute({ categoryId })}>
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this category?
         </p>

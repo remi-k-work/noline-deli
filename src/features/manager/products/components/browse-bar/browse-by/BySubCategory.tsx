@@ -39,12 +39,12 @@ export default function BySubCategory({ setOpen }: BySubCategoryProps) {
                 setOpen(false);
               }}
             >
-              <p className="flex-1">
+              <p className="flex-1 basis-4/5">
                 {subCategoryName}
                 <br />
                 <small>{categoryName}</small>
               </p>
-              <Badge className="w-fit flex-none text-base">{products}</Badge>
+              <Badge className="shrink-0 basis-1/5 text-base">{products}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>

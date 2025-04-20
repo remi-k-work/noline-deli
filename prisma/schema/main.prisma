@@ -14,6 +14,7 @@ enum Role {
 }
 
 enum OrderStatus {
+    JUST_ORDERED
     IN_PROCESS
     PARTIALLY_SHIPPED
     SHIPPED
@@ -23,6 +24,7 @@ enum OrderStatus {
 }
 
 enum OrderedItemStatus {
+    JUST_ORDERED
     IN_PROCESS
     SHIPPED
     FULFILLED

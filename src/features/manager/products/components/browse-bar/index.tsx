@@ -29,7 +29,7 @@ export default function BrowseBar() {
       <footer className={styles["browse-bar__new-product"]}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button size="icon" variant="outline" asChild>
+            <Button type="button" size="icon" variant="outline" asChild>
               <Link href={PathFinder.toProductNew()} scroll={false}>
                 <PlusCircleIcon width={24} height={24} />
               </Link>

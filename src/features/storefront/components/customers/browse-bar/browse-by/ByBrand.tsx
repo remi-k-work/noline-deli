@@ -37,8 +37,8 @@ export default function ByBrand({ setOpen }: ByBrandProps) {
                 setOpen(false);
               }}
             >
-              <p className="flex-1">{brandName}</p>
-              <Badge className="w-fit flex-none text-base">{orders}</Badge>
+              <p className="flex-1 basis-4/5">{brandName}</p>
+              <Badge className="shrink-0 basis-1/5 text-base">{orders}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>

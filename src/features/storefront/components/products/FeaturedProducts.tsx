@@ -15,7 +15,7 @@ export default async function FeaturedProducts() {
     <article className={styles["featured-products"]}>
       <h4 className="font-lusitana text-xl">We Also Suggest</h4>
       {products.map((product) => (
-        <ProductPreview key={product.id} product={product} />
+        <ProductPreview key={product.id} kind="product" product={product} />
       ))}
     </article>
   );

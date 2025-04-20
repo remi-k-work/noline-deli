@@ -37,12 +37,12 @@ export default function ByCustomer({ setOpen }: ByCustomerProps) {
                 setOpen(false);
               }}
             >
-              <p className="flex-1">
+              <p className="flex-1 basis-9/10">
                 {email}
                 <br />
                 <small>{name}</small>
               </p>
-              <Badge className="w-fit flex-none text-base">{orders}</Badge>
+              <Badge className="shrink-0 basis-1/10 text-base">{orders}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>

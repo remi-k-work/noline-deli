@@ -6,20 +6,20 @@ import { Schema } from "zod";
 import type { BindArgsValidationErrors, ValidationErrors } from "next-safe-action";
 import { type HookSafeActionFn, useAction } from "next-safe-action/hooks";
 import type { FormActionResult } from "@/features/manager/formActionTypes";
-import useCartActionFeedback from "./useCartActionFeedback";
+import useOrderActionFeedback from "./useOrderActionFeedback";
 
 // types
-interface UseCartActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {
+interface UseOrderActionWithValProps<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult> {
   safeActionFunc: HookSafeActionFn<string, S, BAS, ValidationErrors<S>, BindArgsValidationErrors<BAS>, Data>;
   excerpt?: ReactNode;
 }
 
-export default function useCartActionWithVal<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult>({
+export default function useOrderActionWithVal<S extends Schema, BAS extends readonly Schema[], Data extends FormActionResult>({
   safeActionFunc,
   excerpt,
-}: UseCartActionWithValProps<S, BAS, Data>) {
+}: UseOrderActionWithValProps<S, BAS, Data>) {
   // To provide feedback to the user
-  const { feedback, showFeedback } = useCartActionFeedback({ excerpt });
+  const { feedback, showFeedback } = useOrderActionFeedback({ excerpt });
 
   const { execute, isPending } = useAction(safeActionFunc, {
     onSuccess: ({ data }) => {

@@ -13,7 +13,7 @@ model Order {
     totalPaid         Int
     // Are we dealing with an order that is connected to a stripe checkout session?
     isConnected       Boolean     @default(true)
-    status            OrderStatus @default(IN_PROCESS)
+    status            OrderStatus @default(JUST_ORDERED)
 
     // An order can have many ordered items
     orderedItems OrderedItem[]
@@ -36,7 +36,7 @@ model OrderedItem {
     brandLogo       String
     categoryName    String
     subCategoryName String?
-    status          OrderedItemStatus @default(IN_PROCESS)
+    status          OrderedItemStatus @default(JUST_ORDERED)
 
     order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }

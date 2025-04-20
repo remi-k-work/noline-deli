@@ -37,8 +37,8 @@ export default function ByCategory({ setOpen }: ByCategoryProps) {
                 setOpen(false);
               }}
             >
-              <p className="flex-1">{categoryName}</p>
-              <Badge className="w-fit flex-none text-base">{products}</Badge>
+              <p className="flex-1 basis-4/5">{categoryName}</p>
+              <Badge className="shrink-0 basis-1/5 text-base">{products}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>

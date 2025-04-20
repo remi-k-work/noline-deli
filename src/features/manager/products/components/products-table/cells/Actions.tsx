@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 
 // next
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 // prisma and db access
 import type { ProductWithInfo } from "@/features/manager/products/db";
@@ -43,7 +42,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
     excerpt: <ProductExcerpt kind="simple" name={getValue("name")} imageUrl={original.imageUrl} price={getValue("price")} />,
   });
 
-  const { refresh } = useRouter();
+  // To make sure the user is certain
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
 
   // The controlled open state of the drop-down menu
@@ -55,7 +54,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button size="icon" variant="ghost" asChild>
+              <Button type="button" size="icon" variant="ghost" asChild>
                 {isPending ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
               </Button>
             </TooltipTrigger>
@@ -82,13 +81,7 @@ export default function Actions({ row: { getValue, original } }: ActionsProps) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ConfirmDialog
-        ref={confirmDialogRef}
-        onConfirmed={() => {
-          execute({ productId: original.id });
-          refresh();
-        }}
-      >
+      <ConfirmDialog ref={confirmDialogRef} onConfirmed={() => execute({ productId: original.id })}>
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this product?
         </p>

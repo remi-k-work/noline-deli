@@ -35,7 +35,7 @@ export default function SearchPanel() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Label className={"bg-background flex w-full max-w-(--size-content-2) items-center gap-1 pr-1 [grid-area:spa]"}>
+        <Label className={"bg-background border-surface-2 flex w-full max-w-(--size-content-2) items-center gap-1 rounded-2xl border pr-1 [grid-area:spa]"}>
           <Input
             ref={searchRef}
             type="search"

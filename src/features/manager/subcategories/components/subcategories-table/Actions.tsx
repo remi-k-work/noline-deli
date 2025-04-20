@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 
 // next
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 // server actions and mutations
 import { delSubCategory2 } from "@/features/manager/subcategories/actions";
@@ -43,7 +42,7 @@ export default function Actions({ subCategoryId, subCategoryName, parentCategory
     ),
   });
 
-  const { refresh } = useRouter();
+  // To make sure the user is certain
   const confirmDialogRef = useRef<HTMLDialogElement>(null);
 
   // The controlled open state of the drop-down menu
@@ -55,7 +54,7 @@ export default function Actions({ subCategoryId, subCategoryName, parentCategory
         <DropdownMenuTrigger>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button size="icon" variant="ghost" asChild>
+              <Button type="button" size="icon" variant="ghost" asChild>
                 {isPending ? <Loader2 className="size-9 animate-spin" /> : <EllipsisVerticalIcon width={36} height={36} />}
               </Button>
             </TooltipTrigger>
@@ -82,13 +81,7 @@ export default function Actions({ subCategoryId, subCategoryName, parentCategory
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ConfirmDialog
-        ref={confirmDialogRef}
-        onConfirmed={() => {
-          execute({ subCategoryId });
-          refresh();
-        }}
-      >
+      <ConfirmDialog ref={confirmDialogRef} onConfirmed={() => execute({ subCategoryId })}>
         <p className="mb-2 p-4">
           Are you certain you want to <b className="text-destructive">remove</b> this subcategory?
         </p>

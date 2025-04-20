@@ -11,9 +11,11 @@ import { dateBetweenFilterFn } from "@/lib/filters";
 import { default as OrderAndCreatedHeader } from "./headers/OrderAndCreated";
 import { default as TotalAndItemsHeader } from "./headers/TotalAndItems";
 import { default as ShippingAndStatusHeader } from "./headers/ShippingAndStatus";
+import { default as ActionsHeader } from "./headers/Actions";
 import { default as OrderAndCreatedCell } from "./cells/OrderAndCreated";
 import { default as TotalAndItemsCell } from "./cells/TotalAndItems";
 import { default as ShippingAndStatusCell } from "./cells/ShippingAndStatus";
+import { default as ActionsCell } from "./cells/Actions";
 
 const columnHelper = createColumnHelper<OrderWithItems>();
 
@@ -64,4 +66,5 @@ export const columns: ColumnDef<OrderWithItems>[] = [
     header: ({ table }) => <ShippingAndStatusHeader table={table} className="w-42" />,
     cell: ({ row }) => <ShippingAndStatusCell row={row} />,
   }),
+  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-(--size-9)" />, cell: ({ row }) => <ActionsCell row={row} /> }),
 ] as ColumnDef<OrderWithItems, unknown>[];

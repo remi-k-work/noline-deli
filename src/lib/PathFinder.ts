@@ -101,6 +101,7 @@ export default class PathFinder {
   static toSfProductDetailsReval = () => PathTo.sfProductDetails;
 
   static toSfCustomerAccount = (customerId: string) => PathTo.sfCustomerAccount.replace(ParamName.customerId, customerId);
+  static toSfCustomerAccountReval = () => PathTo.sfCustomerAccount;
 
   static toSfCart = () => PathTo.sfCart;
   static toSfCartReval = () => PathTo.sfCart;

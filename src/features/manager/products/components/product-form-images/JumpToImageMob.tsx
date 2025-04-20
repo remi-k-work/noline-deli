@@ -24,7 +24,7 @@ export default function JumpToImageMob() {
       <DropdownMenuTrigger className={styles["product-form-images__statusbar"]}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button size="icon" variant="outline" asChild>
+            <Button type="button" size="icon" variant="outline" asChild>
               <div>
                 {viewedImageIndex + 1}&nbsp;/&nbsp;{extraImages.length + 1}
               </div>

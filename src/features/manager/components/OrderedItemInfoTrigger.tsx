@@ -22,7 +22,7 @@ export default function OrderedItemInfoTrigger({ orderedItem, className }: Order
       trigger={
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button size="icon" variant="secondary" asChild>
+            <Button type="button" size="icon" variant="secondary" asChild>
               <InformationCircleIcon width={36} height={36} />
             </Button>
           </TooltipTrigger>

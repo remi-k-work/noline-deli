@@ -74,7 +74,6 @@
       overscroll-behavior-y: contain;
 
       display: grid;
-      justify-items: start;
 
       padding-inline: var(--size-2);
       padding-block: var(--size-2);

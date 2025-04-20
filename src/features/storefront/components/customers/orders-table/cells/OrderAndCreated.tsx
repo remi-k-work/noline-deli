@@ -7,6 +7,7 @@ import { formatDateTime } from "@/lib/formatters";
 
 // components
 import { TableCell } from "@/components/ui/custom/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/custom/button";
 
 // assets
@@ -20,10 +21,21 @@ interface OrderAndCreatedProps {
 export default function OrderAndCreated({ row: { getValue, getCanExpand, getToggleExpandedHandler, getIsExpanded } }: OrderAndCreatedProps) {
   return (
     <TableCell>
-      <Button type="button" variant={getIsExpanded() ? "secondary" : "default"} size="block" disabled={!getCanExpand()} onClick={getToggleExpandedHandler()}>
-        {getIsExpanded() ? <MinusCircleIcon width={24} height={24} /> : <PlusCircleIcon width={24} height={24} />}
-        <span className="truncate">{getValue("orderNumber")}</span>
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant={getIsExpanded() ? "secondary" : "default"}
+            size="block"
+            disabled={!getCanExpand()}
+            onClick={getToggleExpandedHandler()}
+          >
+            {getIsExpanded() ? <MinusCircleIcon width={24} height={24} /> : <PlusCircleIcon width={24} height={24} />}
+            <span className="truncate">{getValue("orderNumber")}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{getIsExpanded() ? <p>Collapse this order</p> : <p>Expand this order</p>}</TooltipContent>
+      </Tooltip>
       <span className="flex items-center justify-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
         <span className="truncate">{formatDateTime(getValue("created"))}</span>

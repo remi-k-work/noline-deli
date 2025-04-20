@@ -37,8 +37,8 @@ export default function ByStatus({ setOpen }: ByStatusProps) {
                 setOpen(false);
               }}
             >
-              <p className="flex-1">{status}</p>
-              <Badge className="w-fit flex-none text-base">{orders}</Badge>
+              <p className="flex-1 basis-4/5">{status.replace("_", " ")}</p>
+              <Badge className="shrink-0 basis-1/5 text-base">{orders}</Badge>
             </DropdownMenuItem>
           ))}
         </DropdownMenuSubContent>
