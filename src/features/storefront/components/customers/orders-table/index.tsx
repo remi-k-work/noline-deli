@@ -11,6 +11,14 @@ import { useInstanceContext } from "@/features/storefront/stores/customers/order
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/custom/table";
 import NotFound from "@/components/NotFound";
 import OrderDetails from "@/features/storefront/components/customers/order-details";
+import { OrderAndCreatedHeaderSkeleton } from "./headers/OrderAndCreated";
+import { TotalAndItemsHeaderSkeleton } from "./headers/TotalAndItems";
+import { ShippingAndStatusHeaderSkeleton } from "./headers/ShippingAndStatus";
+import { ActionsHeaderSkeleton } from "./headers/Actions";
+import { OrderAndCreatedCellSkeleton } from "./cells/OrderAndCreated";
+import { TotalAndItemsCellSkeleton } from "./cells/TotalAndItems";
+import { ShippingAndStatusCellSkeleton } from "./cells/ShippingAndStatus";
+import { ActionsCellSkeleton } from "./cells/Actions";
 
 export default function OrdersTable() {
   const {
@@ -50,6 +58,59 @@ export default function OrdersTable() {
             )}
           </Fragment>
         ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export function OrdersTableSkeleton() {
+  return (
+    <Table className="bg-surface-2">
+      <TableHeader className="font-lusitana">
+        <TableRow>
+          <OrderAndCreatedHeaderSkeleton />
+          <TotalAndItemsHeaderSkeleton />
+          <ShippingAndStatusHeaderSkeleton />
+          <ActionsHeaderSkeleton />
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow className="bg-surface-3">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
+        <TableRow className="bg-surface-4">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
+        <TableRow className="bg-surface-3">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
+        <TableRow className="bg-surface-4">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
+        <TableRow className="bg-surface-3">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
+        <TableRow className="bg-surface-4">
+          <OrderAndCreatedCellSkeleton />
+          <TotalAndItemsCellSkeleton />
+          <ShippingAndStatusCellSkeleton />
+          <ActionsCellSkeleton />
+        </TableRow>
       </TableBody>
     </Table>
   );

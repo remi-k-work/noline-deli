@@ -8,14 +8,14 @@ import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { dateBetweenFilterFn } from "@/lib/filters";
 
 // components
-import { default as OrderAndCreatedHeader } from "./headers/OrderAndCreated";
-import { default as TotalAndItemsHeader } from "./headers/TotalAndItems";
-import { default as ShippingAndStatusHeader } from "./headers/ShippingAndStatus";
-import { default as ActionsHeader } from "./headers/Actions";
-import { default as OrderAndCreatedCell } from "./cells/OrderAndCreated";
-import { default as TotalAndItemsCell } from "./cells/TotalAndItems";
-import { default as ShippingAndStatusCell } from "./cells/ShippingAndStatus";
-import { default as ActionsCell } from "./cells/Actions";
+import OrderAndCreatedHeader from "./headers/OrderAndCreated";
+import TotalAndItemsHeader from "./headers/TotalAndItems";
+import ShippingAndStatusHeader from "./headers/ShippingAndStatus";
+import ActionsHeader from "./headers/Actions";
+import OrderAndCreatedCell from "./cells/OrderAndCreated";
+import TotalAndItemsCell from "./cells/TotalAndItems";
+import ShippingAndStatusCell from "./cells/ShippingAndStatus";
+import ActionsCell from "./cells/Actions";
 
 const columnHelper = createColumnHelper<OrderWithItems>();
 
@@ -53,18 +53,18 @@ export const columns: ColumnDef<OrderWithItems>[] = [
 
   columnHelper.display({
     id: "orderAndCreated",
-    header: ({ table }) => <OrderAndCreatedHeader table={table} className="w-80" />,
+    header: ({ table }) => <OrderAndCreatedHeader table={table} />,
     cell: ({ row }) => <OrderAndCreatedCell row={row} />,
   }),
   columnHelper.display({
     id: "totalAndItems",
-    header: ({ table }) => <TotalAndItemsHeader table={table} className="w-32" />,
+    header: ({ table }) => <TotalAndItemsHeader table={table} />,
     cell: ({ row }) => <TotalAndItemsCell row={row} />,
   }),
   columnHelper.display({
     id: "shippingAndStatus",
-    header: ({ table }) => <ShippingAndStatusHeader table={table} className="w-42" />,
+    header: ({ table }) => <ShippingAndStatusHeader table={table} />,
     cell: ({ row }) => <ShippingAndStatusCell row={row} />,
   }),
-  columnHelper.display({ id: "actions", header: () => <ActionsHeader className="w-(--size-9)" />, cell: ({ row }) => <ActionsCell row={row} /> }),
+  columnHelper.display({ id: "actions", header: () => <ActionsHeader />, cell: ({ row }) => <ActionsCell row={row} /> }),
 ] as ColumnDef<OrderWithItems, unknown>[];

@@ -48,7 +48,7 @@ export default function ByContext({ ...props }) {
         <p>
           By Status
           <br />
-          <small>{currentStatus}</small>
+          <small>{currentStatus.replace("_", " ")}</small>
         </p>
       ) : (
         <p>

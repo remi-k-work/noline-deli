@@ -14,11 +14,11 @@ import { Button } from "@/components/ui/custom/button";
 import { ClockIcon, MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 
 // types
-interface OrderAndCreatedProps {
+interface OrderAndCreatedCellProps {
   row: Row<OrderWithItems>;
 }
 
-export default function OrderAndCreated({ row: { getValue, getCanExpand, getToggleExpandedHandler, getIsExpanded } }: OrderAndCreatedProps) {
+export default function OrderAndCreatedCell({ row: { getValue, getCanExpand, getToggleExpandedHandler, getIsExpanded } }: OrderAndCreatedCellProps) {
   return (
     <TableCell>
       <Tooltip>
@@ -39,6 +39,21 @@ export default function OrderAndCreated({ row: { getValue, getCanExpand, getTogg
       <span className="flex items-center justify-center gap-2">
         <ClockIcon width={24} height={24} className="min-w-max" />
         <span className="truncate">{formatDateTime(getValue("created"))}</span>
+      </span>
+    </TableCell>
+  );
+}
+
+export function OrderAndCreatedCellSkeleton() {
+  return (
+    <TableCell>
+      <Button type="button" variant="default" size="block" disabled>
+        <PlusCircleIcon width={24} height={24} />
+        <span className="bg-background h-5 w-43 animate-pulse"></span>
+      </Button>
+      <span className="flex items-center justify-center gap-2">
+        <ClockIcon width={24} height={24} className="min-w-max" />
+        <span className="bg-background h-5 w-43 animate-pulse"></span>
       </span>
     </TableCell>
   );

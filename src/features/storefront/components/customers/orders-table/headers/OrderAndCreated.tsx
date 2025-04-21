@@ -2,25 +2,33 @@
 import type { OrderWithItems } from "@/features/storefront/db/types";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import type { Table } from "@tanstack/react-table";
 
 // components
 import { TableHead } from "@/components/ui/custom/table";
-import ColumnHeader from "@/features/manager/components/ColumnHeader";
+import ColumnHeader, { ColumnHeaderSkeleton } from "@/features/manager/components/ColumnHeader";
 
 // types
-interface OrderAndCreatedProps {
+interface OrderAndCreatedHeaderProps {
   table: Table<OrderWithItems>;
-  className?: string;
 }
 
-export default function OrderAndCreated({ table: { getColumn }, className }: OrderAndCreatedProps) {
+export default function OrderAndCreatedHeader({ table: { getColumn } }: OrderAndCreatedHeaderProps) {
   return (
-    <TableHead className={cn("text-center", className)}>
+    <TableHead className="w-80 text-center">
       <ColumnHeader column={getColumn("orderNumber")!} title="Order#" />
       <br />
       <ColumnHeader column={getColumn("created")!} title="Created" />
+    </TableHead>
+  );
+}
+
+export function OrderAndCreatedHeaderSkeleton() {
+  return (
+    <TableHead className="w-80 text-center">
+      <ColumnHeaderSkeleton title="Order#" />
+      <br />
+      <ColumnHeaderSkeleton title="Created" />
     </TableHead>
   );
 }

@@ -1,11 +1,10 @@
 // components
 import { TableHead } from "@/components/ui/custom/table";
 
-// types
-interface ActionsProps {
-  className?: string;
+export default function ActionsHeader() {
+  return <TableHead className="w-(--size-9)">&nbsp;</TableHead>;
 }
 
-export default function Actions({ className }: ActionsProps) {
-  return <TableHead className={className}>&nbsp;</TableHead>;
+export function ActionsHeaderSkeleton() {
+  return <TableHead className="w-(--size-9)">&nbsp;</TableHead>;
 }

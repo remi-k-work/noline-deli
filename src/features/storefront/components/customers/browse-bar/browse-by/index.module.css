@@ -13,10 +13,19 @@
 
   border-radius: var(--radius-3);
   border: var(--border-size-1) solid var(--surface-2);
-}
 
-.browse-by__total {
-  grid-area: tot;
+  & > header {
+    grid-area: tot;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    transition: all 0.5s var(--ease-3);
+
+    &:hover {
+      background: var(--surface-2);
+      color: var(--text-1);
+    }
+  }
 }
 
 .browse-by__context {
@@ -34,17 +43,4 @@
 
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-6);
-}
-
-/* || MEDIA QUERIES */
-
-@media (hover: hover) and (pointer: fine) {
-  .browse-by {
-    transition: all 0.5s var(--ease-3);
-  }
-
-  .browse-by:hover {
-    background: var(--surface-2);
-    color: var(--text-1);
-  }
 }

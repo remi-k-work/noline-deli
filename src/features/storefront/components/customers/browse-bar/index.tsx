@@ -4,9 +4,9 @@
 import styles from "./index.module.css";
 
 // components
-import BrowseBy from "./browse-by";
-import SearchPanel from "./SearchPanel";
-import Paginate from "./Paginate";
+import BrowseBy, { BrowseBySkeleton } from "./browse-by";
+import SearchPanel, { SearchPanelSkeleton } from "./SearchPanel";
+import Paginate, { PaginateSkeleton } from "./Paginate";
 
 export default function BrowseBar() {
   return (
@@ -15,5 +15,15 @@ export default function BrowseBar() {
       <SearchPanel />
       <Paginate />
     </section>
+  );
+}
+
+export function BrowseBarSkeleton() {
+  return (
+    <div className={styles["browse-bar"]}>
+      <BrowseBySkeleton />
+      <SearchPanelSkeleton />
+      <PaginateSkeleton />
+    </div>
   );
 }

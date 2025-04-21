@@ -31,7 +31,7 @@ export default function BrowseBy() {
 
   return (
     <section className={styles["browse-by"]}>
-      <header className={styles["browse-by__total"]}>
+      <header>
         <Badge className="w-fit text-base">{totalItems}</Badge>
       </header>
       <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
@@ -56,4 +56,8 @@ export default function BrowseBy() {
       </DropdownMenu>
     </section>
   );
+}
+
+export function BrowseBySkeleton() {
+  return <div className="bg-foreground h-11 max-w-(--size-content-2) animate-pulse rounded-2xl [grid-area:bsc]"></div>;
 }

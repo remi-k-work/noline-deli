@@ -2,25 +2,33 @@
 import type { OrderWithItems } from "@/features/storefront/db/types";
 
 // other libraries
-import { cn } from "@/lib/utils";
 import type { Table } from "@tanstack/react-table";
 
 // components
 import { TableHead } from "@/components/ui/custom/table";
-import ColumnHeader from "@/features/manager/components/ColumnHeader";
+import ColumnHeader, { ColumnHeaderSkeleton } from "@/features/manager/components/ColumnHeader";
 
 // types
-interface ShippingAndStatusProps {
+interface ShippingAndStatusHeaderProps {
   table: Table<OrderWithItems>;
-  className?: string;
 }
 
-export default function ShippingAndStatus({ table: { getColumn }, className }: ShippingAndStatusProps) {
+export default function ShippingAndStatusHeader({ table: { getColumn } }: ShippingAndStatusHeaderProps) {
   return (
-    <TableHead className={cn("text-center", className)}>
+    <TableHead className="w-42 text-center">
       <ColumnHeader column={getColumn("shippingMethod")!} title="Shipping" />
       <br />
       <ColumnHeader column={getColumn("status")!} title="Status" />
+    </TableHead>
+  );
+}
+
+export function ShippingAndStatusHeaderSkeleton() {
+  return (
+    <TableHead className="w-42 text-center">
+      <ColumnHeaderSkeleton title="Shipping" />
+      <br />
+      <ColumnHeaderSkeleton title="Status" />
     </TableHead>
   );
 }

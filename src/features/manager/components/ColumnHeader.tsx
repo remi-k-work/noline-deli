@@ -29,3 +29,12 @@ export default function ColumnHeader<TData, TValue>({ column, title }: ColumnHea
     </Button>
   );
 }
+
+export function ColumnHeaderSkeleton<TData, TValue>({ title }: Pick<ColumnHeaderProps<TData, TValue>, "title">) {
+  return (
+    <Button type="button" variant="ghost" size="sm" disabled>
+      {title}
+      <ArrowUpDown className="ml-2 h-4 w-4" />
+    </Button>
+  );
+}

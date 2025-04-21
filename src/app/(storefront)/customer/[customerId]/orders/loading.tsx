@@ -2,9 +2,7 @@
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import { CategoriesTreeViewSkeleton } from "@/features/storefront/components/products/categories-tree-view";
 import { CustomerViewSkeleton } from "@/features/storefront/components/customers/CustomerView";
-
-// assets
-import { Loader } from "lucide-react";
+import { OrdersTableViewSkeleton } from "@/features/storefront/components/customers/orders-table/View";
 
 export default function Loading() {
   return (
@@ -16,9 +14,7 @@ export default function Loading() {
         <CustomerViewSkeleton />
       </MainLayoutSideBar>
       <MainLayoutMain heading="... ► My Orders">
-        <div className="grid h-full place-content-center">
-          <Loader className="text-muted-foreground size-48 animate-spin" />
-        </div>
+        <OrdersTableViewSkeleton />
       </MainLayoutMain>
     </MainLayout>
   );

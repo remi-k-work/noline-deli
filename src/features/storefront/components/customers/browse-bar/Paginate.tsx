@@ -89,3 +89,13 @@ export default function Paginate() {
     </section>
   );
 }
+
+export function PaginateSkeleton() {
+  return (
+    <div className={styles["paginate"]}>
+      <div className="bg-foreground size-11 animate-pulse rounded-2xl"></div>
+      <div className="bg-foreground h-11 w-20 animate-pulse rounded-2xl"></div>
+      <div className="bg-foreground size-11 animate-pulse rounded-2xl"></div>
+    </div>
+  );
+}

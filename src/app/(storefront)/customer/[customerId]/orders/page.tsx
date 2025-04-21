@@ -8,7 +8,7 @@ import { getCustomer, getCustomerData } from "@/features/storefront/db/customers
 // components
 import MainLayout, { MainLayoutMain, MainLayoutNavBar, MainLayoutSideBar } from "@/features/storefront/components/main-layout";
 import CustomerView from "@/features/storefront/components/customers/CustomerView";
-import { default as OrdersTableView } from "@/features/storefront/components/customers/orders-table/View";
+import OrdersTableView from "@/features/storefront/components/customers/orders-table/View";
 import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 
 // types

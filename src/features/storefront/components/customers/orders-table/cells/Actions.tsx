@@ -28,16 +28,16 @@ import { XCircleIcon } from "@heroicons/react/24/solid";
 import { Loader2 } from "lucide-react";
 
 // types
-interface ActionsProps {
+interface ActionsCellProps {
   row: Row<OrderWithItems>;
 }
 
-export default function Actions({
+export default function ActionsCell({
   row: {
     original,
     original: { id: orderId, customerId, checkoutSessionId, isConnected, status },
   },
-}: ActionsProps) {
+}: ActionsCellProps) {
   const { execute, isPending, feedback } = useOrderActionWithVal<
     z.ZodObject<{
       orderId: z.ZodString;
@@ -81,6 +81,16 @@ export default function Actions({
         <OrderExcerpt order={original} />
       </ConfirmDialog>
       {feedback}
+    </TableCell>
+  );
+}
+
+export function ActionsCellSkeleton() {
+  return (
+    <TableCell>
+      <Button type="button" size="icon" variant="destructive" disabled>
+        <XCircleIcon className="size-9" />
+      </Button>
     </TableCell>
   );
 }

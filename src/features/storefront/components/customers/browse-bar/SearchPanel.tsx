@@ -57,3 +57,7 @@ export default function SearchPanel() {
     </Tooltip>
   );
 }
+
+export function SearchPanelSkeleton() {
+  return <div className="bg-foreground h-11 max-w-(--size-content-2) animate-pulse rounded-2xl [grid-area:spa]"></div>;
+}
