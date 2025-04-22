@@ -101,6 +101,8 @@ export default class PathFinder {
   static toSfProductDetailsReval = () => PathTo.sfProductDetails;
 
   static toSfCustomerAccount = (customerId: string) => PathTo.sfCustomerAccount.replace(ParamName.customerId, customerId);
+  static toSfCustomerAccountWithOrigin = (customerId: string, origin: string | null) =>
+    new URL(PathFinder.toSfCustomerAccount(customerId), origin ?? undefined).href;
   static toSfCustomerAccountReval = () => PathTo.sfCustomerAccount;
 
   static toSfCart = () => PathTo.sfCart;

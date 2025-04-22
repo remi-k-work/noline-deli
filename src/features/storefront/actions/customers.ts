@@ -2,6 +2,8 @@
 
 // next
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 // prisma and db access
 import { cancelOrderForCustomer } from "@/features/storefront/db/customers";
@@ -12,9 +14,24 @@ import { z } from "zod";
 import { actionClient } from "@/lib/safeAction";
 import PathFinder from "@/lib/PathFinder";
 import { type FormActionResult, objectIdSchema } from "@/features/manager/formActionTypes";
+import stripe from "@/services/stripe";
 
 // types
 export type OrderActionResult = FormActionResult;
+
+// Allow the customer to manage their billing or invoicing by creating a new portal session
+export async function createCustomerPortal(customerId: string, stripeCustomerId: string): Promise<void> {
+  // Extract the origin of the incoming request
+  const origin = (await headers()).get("origin");
+
+  // Create a customer portal session for this customer, and redirect them to it
+  const { url } = await stripe.billingPortal.sessions.create({
+    customer: stripeCustomerId,
+    return_url: PathFinder.toSfCustomerAccountWithOrigin(customerId, origin),
+  });
+
+  redirect(url);
+}
 
 export const cancelOrder = actionClient
   .schema(

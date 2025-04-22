@@ -39,6 +39,7 @@ export async function fetchClientSecret(customerId: string): Promise<string> {
 
     ui_mode: "embedded",
     mode: "payment",
+    invoice_creation: { enabled: true },
     return_url: PathFinder.toSfOrderCompleteWithOrigin(customerId, origin),
     payment_intent_data: { receipt_email: customerEmail },
     metadata: { orderNumber: nanoid(), customerId, customerEmail, orderedCartId },
