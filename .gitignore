@@ -1,5 +1,8 @@
 secrets.txt
 .env
+/auth-server/node_modules
+/auth-server/persist.json
+/auth-server/.env
 
 # dependencies
 /node_modules
