@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { headers as getHeaders, cookies as getCookies } from "next/headers";
 
 // openauth
-import { subjects } from "../../auth-server/src/subjects";
+import { subjects } from "./subjects";
 import { client, setTokens } from ".";
 
 // Check if the user is authenticated
