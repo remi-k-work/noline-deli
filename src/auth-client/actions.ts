@@ -17,7 +17,6 @@ export async function auth() {
   if (!accessToken) return false;
 
   const verified = await client.verify(subjects, accessToken.value, { refresh: refreshToken?.value });
-
   if (verified.err) return false;
 
   if (verified.tokens) await setTokens(verified.tokens.access, verified.tokens.refresh);
