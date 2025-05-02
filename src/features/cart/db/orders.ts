@@ -9,11 +9,6 @@ import { getOrderedCart } from "./cart";
 // other libraries
 import Stripe from "stripe";
 
-// Retrieve all guest test customers but only their stripe customer id and email
-export const allGuestTestCustomers = cache(
-  async () => await prisma.customer.findMany({ where: { isGuest: true, isTest: true }, select: { id: true, stripeCustomerId: true, email: true } }),
-);
-
 // Retrieve all guest test customers, including their names
 export const allGuestTestCustomersWithName = cache(
   async () => await prisma.customer.findMany({ where: { isGuest: true, isTest: true }, select: { id: true, stripeCustomerId: true, email: true, name: true } }),

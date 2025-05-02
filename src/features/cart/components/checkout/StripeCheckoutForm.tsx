@@ -9,15 +9,16 @@ import { loadStripe } from "@stripe/stripe-js";
 
 // types
 interface StripeCheckoutFormProps {
-  customerId: string;
+  customerIdFromParams: string;
+  customerIdFromSession?: string;
 }
 
 // Make sure to call loadstripe outside of a component’s render to avoid recreating the stripe object on every render
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function StripeCheckoutForm({ customerId }: StripeCheckoutFormProps) {
+export default function StripeCheckoutForm({ customerIdFromParams, customerIdFromSession }: StripeCheckoutFormProps) {
   return (
-    <EmbeddedCheckoutProvider stripe={stripePromise} options={{ fetchClientSecret: fetchClientSecret.bind(null, customerId) }}>
+    <EmbeddedCheckoutProvider stripe={stripePromise} options={{ fetchClientSecret: fetchClientSecret.bind(null, customerIdFromParams, customerIdFromSession) }}>
       <EmbeddedCheckout />
     </EmbeddedCheckoutProvider>
   );

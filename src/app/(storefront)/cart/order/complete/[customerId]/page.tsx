@@ -20,6 +20,9 @@ import CategoriesTreeView from "@/features/storefront/components/products/catego
 // assets
 import { UserIcon } from "@heroicons/react/24/solid";
 
+// openauth
+import { auth } from "@/auth-client/actions";
+
 // types
 interface PageProps {
   params: Promise<{ customerId: string }>;
@@ -27,10 +30,15 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
-  const { customerId } = await paramsPromise;
+  // Get the customer id from the params (this is the test customer)
+  const { customerId: customerIdFromParams } = await paramsPromise;
 
-  // Get all the information you need about this particular customer
-  const customer = await getCustomer(customerId);
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
+
+  // Get all the information you need about this particular customer (either a real or test customer)
+  const customer = await getCustomer(customerIdFromParams, customerIdFromSession);
 
   // Ensure the customer exists
   if (!customer) notFound();
@@ -40,7 +48,6 @@ export async function generateMetadata({ params: paramsPromise }: PageProps): Pr
 }
 
 export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
-  const { customerId } = await paramsPromise;
   const { session_id } = await searchParamsPromise;
   if (!session_id) notFound();
 
@@ -49,8 +56,15 @@ export default async function Page({ params: paramsPromise, searchParams: search
     expand: ["payment_intent.payment_method", "payment_intent.latest_charge", "shipping_cost.shipping_rate"],
   });
 
-  // Get all the necessary data about this particular customer
-  const customer = await getCustomerData(customerId);
+  // Get the customer id from the params (this is the test customer)
+  const { customerId: customerIdFromParams } = await paramsPromise;
+
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
+
+  // Get all the necessary data about this particular customer (either a real or test customer)
+  const customer = await getCustomerData(customerIdFromParams, customerIdFromSession);
 
   // Ensure the customer exists
   if (!customer) notFound();
@@ -68,7 +82,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         <OrderComplete checkoutSession={checkoutSession} />
         <br />
         <Button size="lg" className="float-end" asChild>
-          <Link href={PathFinder.toSfCustomerAccount(customerId)}>
+          <Link href={PathFinder.toSfCustomerAccount(customerIdFromSession ?? customerIdFromParams)}>
             <UserIcon width={24} height={24} />
             Go to My Account
           </Link>

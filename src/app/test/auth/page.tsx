@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { auth, login, logout } from "@/auth-client/actions";
+import { auth, logout } from "@/auth-client/actions";
 
 export default async function Home() {
   const subject = await auth();
@@ -33,9 +33,9 @@ export default async function Home() {
               <button className={styles.secondary}>Logout</button>
             </form>
           ) : (
-            <form action={login}>
-              <button className={styles.primary}>Login with OpenAuth</button>
-            </form>
+            // <form action={login}>
+            <button className={styles.primary}>Login with OpenAuth</button>
+            // </form>
           )}
         </div>
       </main>

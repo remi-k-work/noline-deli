@@ -11,16 +11,24 @@ import CustomerView from "@/features/storefront/components/customers/CustomerVie
 import OrdersTableView from "@/features/storefront/components/customers/orders-table/View";
 import CategoriesTreeView from "@/features/storefront/components/products/categories-tree-view";
 
+// openauth
+import { auth } from "@/auth-client/actions";
+
 // types
 interface PageProps {
   params: Promise<{ customerId: string }>;
 }
 
 export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
-  const { customerId } = await paramsPromise;
+  // Get the customer id from the params (this is the test customer)
+  const { customerId: customerIdFromParams } = await paramsPromise;
 
-  // Get all the information you need about this particular customer
-  const customer = await getCustomer(customerId);
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
+
+  // Get all the information you need about this particular customer (either a real or test customer)
+  const customer = await getCustomer(customerIdFromParams, customerIdFromSession);
 
   // Ensure the customer exists
   if (!customer) notFound();
@@ -30,10 +38,15 @@ export async function generateMetadata({ params: paramsPromise }: PageProps): Pr
 }
 
 export default async function Page({ params: paramsPromise }: PageProps) {
-  const { customerId } = await paramsPromise;
+  // Get the customer id from the params (this is the test customer)
+  const { customerId: customerIdFromParams } = await paramsPromise;
 
-  // Get all the necessary data about this particular customer
-  const customer = await getCustomerData(customerId);
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
+
+  // Get all the necessary data about this particular customer (either a real or test customer)
+  const customer = await getCustomerData(customerIdFromParams, customerIdFromSession);
 
   // Ensure the customer exists
   if (!customer) notFound();
@@ -48,7 +61,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
         <CustomerView customer={customer} />
       </MainLayoutSideBar>
       <MainLayoutMain heading={`${name} ► My Orders`}>
-        <OrdersTableView customerId={customerId} />
+        <OrdersTableView customerId={customerIdFromSession ?? customerIdFromParams} />
       </MainLayoutMain>
     </MainLayout>
   );

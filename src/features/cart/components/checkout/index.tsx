@@ -8,11 +8,12 @@ import StripeCheckoutForm from "./StripeCheckoutForm";
 // types
 interface CheckoutProps {
   cart: DerivedCartWithItems | undefined;
-  customerId: string;
+  customerIdFromParams: string;
+  customerIdFromSession?: string;
 }
 
-export default function Checkout({ cart, customerId }: CheckoutProps) {
+export default function Checkout({ cart, customerIdFromParams, customerIdFromSession }: CheckoutProps) {
   if (!cart || (cart && cart.cartItems.length === 0)) return <NotFound message={"Your cart is empty!"} />;
 
-  return <StripeCheckoutForm customerId={customerId} />;
+  return <StripeCheckoutForm customerIdFromParams={customerIdFromParams} customerIdFromSession={customerIdFromSession} />;
 }

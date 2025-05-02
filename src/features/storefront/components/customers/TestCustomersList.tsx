@@ -3,6 +3,7 @@ import styles from "./TestCustomersList.module.css";
 
 // next
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 // prisma and db access
 import { allGuestTestCustomersData } from "@/features/cart/db/helpers";
@@ -18,12 +19,27 @@ import TestCustomerCard, { TestCustomerCardSkeleton } from "./TestCustomerCard";
 // assets
 import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid";
 
+// openauth
+import { auth, login } from "@/auth-client/actions";
+
 // types
 interface TestCustomersListProps {
   goingTo: "checkout" | "my-account";
 }
 
 export default async function TestCustomersList({ goingTo }: TestCustomersListProps) {
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
+
+  if (customerIdFromSession) {
+    if (goingTo === "checkout") {
+      redirect(PathFinder.toSfCheckoutPage(customerIdFromSession));
+    } else {
+      redirect(PathFinder.toSfCustomerAccount(customerIdFromSession));
+    }
+  }
+
   // Get all the necessary data about all guest test customers
   const customers = await allGuestTestCustomersData();
 
@@ -32,6 +48,14 @@ export default async function TestCustomersList({ goingTo }: TestCustomersListPr
 
   return (
     <article className={styles["test-customers-list"]}>
+      <form action={login.bind(null, goingTo)}>
+        <Button type="submit" size="lg" variant="secondary">
+          Login with OpenAuth
+        </Button>
+      </form>
+      <br />
+      <h3 className="font-lusitana text-xl">- OR -</h3>
+      <br />
       {goingTo === "checkout" ? (
         <h4 className="font-lusitana text-xl">Select a test Customer for Checkout!</h4>
       ) : (

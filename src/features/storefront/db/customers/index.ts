@@ -40,14 +40,19 @@ export function cancelOrderForCustomer(orderId: string, customerId: string, chec
   });
 }
 
-// Get all the information you need about this particular customer
-export const getCustomer = cache((customerId: string) => {
-  return prisma.customer.findUnique({ where: { id: customerId } });
+// Get all the information you need about this particular customer (either a real or test customer)
+export const getCustomer = cache((customerIdFromParams: string, customerIdFromSession?: string) => {
+  // If the customer id from the session is available, use it instead of the one from the params, which by definition is a real customer
+  if (customerIdFromSession) return prisma.customer.findUnique({ where: { id: customerIdFromSession, isTest: false } });
+
+  // Otherwise, use the one from the params, which by definition is a test customer
+  return prisma.customer.findUnique({ where: { id: customerIdFromParams, isTest: true } });
 });
 
-// Get all the necessary data about this particular customer
-export const getCustomerData = cache(async (customerId: string) => {
-  const customer = await prisma.customer.findUnique({ where: { id: customerId }, select: { id: true, stripeCustomerId: true, email: true, name: true } });
+// Get all the necessary data about this particular customer (either a real or test customer)
+export const getCustomerData = cache(async (customerIdFromParams: string, customerIdFromSession?: string) => {
+  // If the customer id from the session is available, use it instead of the one from the params, which by definition is a real customer
+  const customer = await getCustomer(customerIdFromParams, customerIdFromSession);
   if (!customer) return;
 
   const { id, stripeCustomerId, email, name } = customer;
@@ -60,14 +65,14 @@ export const getCustomerData = cache(async (customerId: string) => {
     email,
     name,
 
-    // If the customer's address cannot be acquired from stripe, we will generate a random one
-    phone: phone ?? faker.phone.number({ style: "national" }),
-    country: country ?? faker.location.countryCode(),
-    city: city ?? faker.location.city(),
-    line1: line1 ?? faker.location.streetAddress(),
-    line2: line2 ?? faker.location.secondaryAddress(),
-    postal_code: postal_code ?? faker.location.zipCode(),
-    state: state ?? faker.location.state(),
+    // If the customer's address cannot be acquired from stripe, we will generate a random one (this will only happen for test customers)
+    phone: phone ?? (customerIdFromSession ? "" : faker.phone.number({ style: "national" })),
+    country: country ?? (customerIdFromSession ? "" : faker.location.countryCode()),
+    city: city ?? (customerIdFromSession ? "" : faker.location.city()),
+    line1: line1 ?? (customerIdFromSession ? "" : faker.location.streetAddress()),
+    line2: line2 ?? (customerIdFromSession ? "" : faker.location.secondaryAddress()),
+    postal_code: postal_code ?? (customerIdFromSession ? "" : faker.location.zipCode()),
+    state: state ?? (customerIdFromSession ? "" : faker.location.state()),
   };
 });
 

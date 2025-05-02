@@ -14,7 +14,7 @@ import PathFinder from "@/lib/PathFinder";
 import stripe from "@/services/stripe";
 import { nanoid } from "nanoid";
 
-export async function fetchClientSecret(customerId: string): Promise<string> {
+export async function fetchClientSecret(customerIdFromParams: string, customerIdFromSession?: string): Promise<string> {
   // Extract the origin of the incoming request
   const origin = (await headers()).get("origin");
 
@@ -23,8 +23,8 @@ export async function fetchClientSecret(customerId: string): Promise<string> {
   if (!orderedCart) throw new Error("The ordered cart is missing!");
   const { id: orderedCartId, cartItems } = orderedCart;
 
-  // Get all the information you need about this particular customer
-  const customer = await getCustomer(customerId);
+  // Get all the information you need about this particular customer (either a real or test customer)
+  const customer = await getCustomer(customerIdFromParams, customerIdFromSession);
   if (!customer) throw new Error("The customer is missing!");
   const { stripeCustomerId, email: customerEmail } = customer;
 
@@ -40,9 +40,9 @@ export async function fetchClientSecret(customerId: string): Promise<string> {
     ui_mode: "embedded",
     mode: "payment",
     invoice_creation: { enabled: true },
-    return_url: PathFinder.toSfOrderCompleteWithOrigin(customerId, origin),
+    return_url: PathFinder.toSfOrderCompleteWithOrigin(customerIdFromSession ?? customerIdFromParams, origin),
     payment_intent_data: { receipt_email: customerEmail },
-    metadata: { orderNumber: nanoid(), customerId, customerEmail, orderedCartId },
+    metadata: { orderNumber: nanoid(), customerId: customerIdFromSession ?? customerIdFromParams, customerEmail, orderedCartId },
     line_items: createLineItemsFromCart(cartItems, origin),
     shipping_options: SHIPPING_OPTIONS,
   });

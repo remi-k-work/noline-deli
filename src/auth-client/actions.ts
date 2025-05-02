@@ -4,6 +4,9 @@
 import { redirect } from "next/navigation";
 import { headers as getHeaders, cookies as getCookies } from "next/headers";
 
+// other libraries
+import PathFinder from "@/lib/PathFinder";
+
 // openauth
 import { subjects } from "./subjects";
 import { client, setTokens } from ".";
@@ -25,7 +28,7 @@ export async function auth() {
 }
 
 // This function starts the oauth flow
-export async function login() {
+export async function login(goingTo: "checkout" | "my-account") {
   const cookies = await getCookies();
   const accessToken = cookies.get("access_token");
   const refreshToken = cookies.get("refresh_token");
@@ -35,7 +38,12 @@ export async function login() {
 
     if (!verified.err && verified.tokens) {
       await setTokens(verified.tokens.access, verified.tokens.refresh);
-      redirect("/");
+
+      if (goingTo === "checkout") {
+        redirect(PathFinder.toSfCheckoutPage(verified.subject.properties.customerId));
+      } else {
+        redirect(PathFinder.toSfCustomerAccount(verified.subject.properties.customerId));
+      }
     }
   }
 
