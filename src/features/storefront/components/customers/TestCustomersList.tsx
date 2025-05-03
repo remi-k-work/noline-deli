@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/custom/button";
 import TestCustomerCard, { TestCustomerCardSkeleton } from "./TestCustomerCard";
 
 // assets
-import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid";
+import { LockOpenIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/24/solid";
 
 // openauth
 import { auth, login } from "@/auth-client/actions";
@@ -32,13 +32,10 @@ export default async function TestCustomersList({ goingTo }: TestCustomersListPr
   const subject = await auth();
   const customerIdFromSession = subject ? subject.properties.customerId : undefined;
 
-  if (customerIdFromSession) {
-    if (goingTo === "checkout") {
-      redirect(PathFinder.toSfCheckoutPage(customerIdFromSession));
-    } else {
-      redirect(PathFinder.toSfCustomerAccount(customerIdFromSession));
-    }
-  }
+  // If yes, there is no need to let them pick a test customer; redirect them to their destination
+  if (customerIdFromSession)
+    if (goingTo === "checkout") redirect(PathFinder.toSfCheckoutPage(customerIdFromSession));
+    else redirect(PathFinder.toSfCustomerAccount(customerIdFromSession));
 
   // Get all the necessary data about all guest test customers
   const customers = await allGuestTestCustomersData();
@@ -48,14 +45,14 @@ export default async function TestCustomersList({ goingTo }: TestCustomersListPr
 
   return (
     <article className={styles["test-customers-list"]}>
-      <form action={login.bind(null, goingTo)}>
-        <Button type="submit" size="lg" variant="secondary">
+      <form action={login.bind(null, goingTo)} className="mx-auto w-fit">
+        <Button type="submit" size="lg" variant="secondary" className="p-8 text-2xl">
+          <LockOpenIcon width={36} height={36} />
           Login with OpenAuth
         </Button>
       </form>
       <br />
-      <h3 className="font-lusitana text-xl">- OR -</h3>
-      <br />
+      <h3 className="font-lusitana mx-auto max-w-none text-center text-xl">--- OR ---</h3>
       {goingTo === "checkout" ? (
         <h4 className="font-lusitana text-xl">Select a test Customer for Checkout!</h4>
       ) : (

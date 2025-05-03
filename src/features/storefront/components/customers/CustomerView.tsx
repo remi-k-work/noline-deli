@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-"use client";
-
 // component css styles
 import styles from "./CustomerView.module.css";
 
@@ -22,17 +20,24 @@ import countryCodeToFlagEmoji from "country-code-to-flag-emoji";
 import { Button } from "@/components/ui/custom/button";
 
 // assets
-import { AtSymbolIcon, BanknotesIcon, HomeIcon, PhoneIcon, UserIcon } from "@heroicons/react/24/solid";
+import { AtSymbolIcon, BanknotesIcon, HomeIcon, LockClosedIcon, PhoneIcon, UserIcon } from "@heroicons/react/24/solid";
+
+// openauth
+import { auth, logout } from "@/auth-client/actions";
 
 // types
 interface CustomerViewProps {
   customer: CustomerData;
 }
 
-export default function CustomerView({ customer }: CustomerViewProps) {
+export default async function CustomerView({ customer }: CustomerViewProps) {
   // Do not render anything if there is no customer
   if (!customer) return null;
   const { id, stripeCustomerId, email, name, phone, country, city, line1, line2, postal_code, state } = customer;
+
+  // Check if the user/customer is authenticated (this is the real customer)
+  const subject = await auth();
+  const customerIdFromSession = subject ? subject.properties.customerId : undefined;
 
   return (
     <article className={styles["customer-view"]}>
@@ -48,10 +53,23 @@ export default function CustomerView({ customer }: CustomerViewProps) {
           </Button>
           <br />
           <br />
-          <Button type="button" size="block" onClick={async () => await createCustomerPortal(id, stripeCustomerId)}>
-            <BanknotesIcon width={24} height={24} />
-            Manage My Billing
-          </Button>
+          <form action={createCustomerPortal.bind(null, id, stripeCustomerId)}>
+            <Button type="submit" size="block">
+              <BanknotesIcon width={24} height={24} />
+              Manage My Billing
+            </Button>
+          </form>
+          {customerIdFromSession && (
+            <>
+              <br />
+              <form action={logout}>
+                <Button type="submit" size="block" variant="secondary">
+                  <LockClosedIcon width={24} height={24} />
+                  Logout
+                </Button>
+              </form>
+            </>
+          )}
         </dd>
         <dt>
           <AtSymbolIcon width={24} height={24} />
@@ -74,9 +92,11 @@ export default function CustomerView({ customer }: CustomerViewProps) {
           <p>
             {state}, {postal_code}
           </p>
-          <p className="text-2xl">
-            <b>{country}</b>&nbsp;<span className="font-noto-color-emoji">{countryCodeToFlagEmoji(country)}</span>
-          </p>
+          {country && (
+            <p className="text-2xl">
+              <b>{country}</b>&nbsp;<span className="font-noto-color-emoji">{countryCodeToFlagEmoji(country)}</span>
+            </p>
+          )}
         </dd>
       </dl>
     </article>

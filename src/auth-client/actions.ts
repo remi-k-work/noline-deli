@@ -39,18 +39,18 @@ export async function login(goingTo: "checkout" | "my-account") {
     if (!verified.err && verified.tokens) {
       await setTokens(verified.tokens.access, verified.tokens.refresh);
 
-      if (goingTo === "checkout") {
-        redirect(PathFinder.toSfCheckoutPage(verified.subject.properties.customerId));
-      } else {
-        redirect(PathFinder.toSfCustomerAccount(verified.subject.properties.customerId));
-      }
+      // If the user/customer is authenticated, redirect them to their original destination
+      if (goingTo === "checkout") redirect(PathFinder.toSfCheckoutPage(verified.subject.properties.customerId));
+      else redirect(PathFinder.toSfCustomerAccount(verified.subject.properties.customerId));
     }
   }
 
   const headers = await getHeaders();
   const host = headers.get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
-  const { url } = await client.authorize(`${protocol}://${host}/api/callback`, "code");
+
+  // Start the authorization flow and do not forget to include the user's/customer's original destination
+  const { url } = await client.authorize(`${protocol}://${host}/api/callback/${goingTo}`, "code");
 
   redirect(url);
 }
