@@ -40,6 +40,11 @@ export function cancelOrderForCustomer(orderId: string, customerId: string, chec
   });
 }
 
+// Update the customer name in our database
+export function updateCustomerName(customerId: string, name: string) {
+  return prisma.customer.update({ where: { id: customerId }, data: { name } });
+}
+
 // Get all the information you need about this particular customer (either a real or test customer)
 export const getCustomer = cache((customerIdFromParams: string, customerIdFromSession?: string) => {
   // If the customer id from the session is available, use it instead of the one from the params, which by definition is a real customer

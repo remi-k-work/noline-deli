@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // prisma and db access
+import { updateCustomerName } from "@/features/storefront/db/customers";
 import { newOrder } from "@/features/cart/db/orders";
 
 // other libraries
@@ -27,6 +28,20 @@ export async function POST(req: NextRequest) {
 
   // Handle the event
   switch (event.type) {
+    case "customer.updated": {
+      try {
+        // Update the customer name in our database
+        const {
+          metadata: { customerId },
+          name,
+        } = event.data.object;
+        await updateCustomerName(customerId, name!);
+      } catch {
+        return new NextResponse(null, { status: 500 });
+      }
+      break;
+    }
+
     case "checkout.session.completed":
     case "checkout.session.async_payment_succeeded": {
       try {
@@ -43,6 +58,7 @@ export async function POST(req: NextRequest) {
       } catch {
         return new NextResponse(null, { status: 500 });
       }
+      break;
     }
   }
 
