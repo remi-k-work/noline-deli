@@ -49,8 +49,9 @@ export async function login(goingTo: "checkout" | "my-account") {
   const host = headers.get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
 
-  // Start the authorization flow and do not forget to include the user's/customer's original destination
-  const { url } = await client.authorize(`${protocol}://${host}/api/callback/${goingTo}`, "code");
+  // Start the authorization flow, and do not forget to save the user's/customer's original destination in the http-only cookie
+  cookies.set({ name: "goingTo", value: goingTo, httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 });
+  const { url } = await client.authorize(`${protocol}://${host}/api/callback`, "code");
 
   redirect(url);
 }
