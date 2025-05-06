@@ -19,6 +19,9 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
 
+  // Only attempt to exchange the code if there was no error
+  if (!code) return NextResponse.redirect(`${url.origin}`);
+
   const exchanged = await client.exchange(code!, `${url.origin}/api/callback`);
   if (exchanged.err) return NextResponse.json(exchanged.err, { status: 400 });
   await setTokens(exchanged.tokens.access, exchanged.tokens.refresh);
