@@ -1,0 +1,49 @@
+// other libraries
+import { faker } from "@faker-js/faker";
+
+// components
+import { Text } from "@react-email/components";
+
+// types
+interface ShipToProps {
+  name: string | undefined;
+  line1: string | null;
+  line2: string | null;
+  city: string | null;
+  state: string | null;
+  postal_code: string | null;
+  country: string | null;
+}
+
+// Generate a random shipping address for the preview
+const gender = faker.person.sexType();
+const firstName = faker.person.firstName(gender);
+const lastName = faker.person.lastName(gender);
+
+ShipTo.PreviewProps = {
+  name: faker.person.fullName({ firstName, lastName }),
+  line1: faker.location.streetAddress(),
+  line2: faker.location.secondaryAddress(),
+  city: faker.location.city(),
+  state: faker.location.state(),
+  postal_code: faker.location.zipCode(),
+  country: faker.location.countryCode(),
+};
+
+export default function ShipTo({ name, line1, line2, city, state, postal_code, country }: ShipToProps) {
+  return (
+    <>
+      {name && <Text className="font-bold">{name}</Text>}
+      {line1 && <Text>{line1},</Text>}
+      {line2 && <Text>{line2},</Text>}
+      {city && (
+        <Text>
+          {city}
+          {state && `, ${state}`}
+          {postal_code && ` ${postal_code}`}
+        </Text>
+      )}
+      {country && <Text className="font-bold">{country}</Text>}
+    </>
+  );
+}
