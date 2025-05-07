@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 import { Text } from "@react-email/components";
 
 // types
-interface ShipToProps {
+export interface ShipToProps {
   name: string | undefined;
   line1: string | null;
   line2: string | null;
