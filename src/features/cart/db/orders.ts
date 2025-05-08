@@ -26,7 +26,7 @@ export async function newOrder(checkoutSession: Stripe.Checkout.Session) {
   const { cartItems, totalQty } = orderedCart;
 
   // Place a new order for this customer
-  await prisma.order.create({
+  return await prisma.order.create({
     data: {
       customerId,
       checkoutSessionId,

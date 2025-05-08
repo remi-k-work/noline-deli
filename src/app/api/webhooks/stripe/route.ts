@@ -53,7 +53,9 @@ export async function POST(req: NextRequest) {
         // Start the fulfillment process only for paid orders
         if (checkoutSession.payment_status !== "unpaid") {
           // Place a new order for this customer
-          await newOrder(checkoutSession);
+          const order = await newOrder(checkoutSession);
+
+          // Send an email with a order confirmation
         }
       } catch {
         return new NextResponse(null, { status: 500 });

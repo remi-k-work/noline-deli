@@ -33,17 +33,12 @@ ShipTo.PreviewProps = {
 export default function ShipTo({ name, line1, line2, city, state, postal_code, country }: ShipToProps) {
   return (
     <>
-      {name && <Text className="font-bold">{name}</Text>}
-      {line1 && <Text>{line1},</Text>}
-      {line2 && <Text>{line2},</Text>}
-      {city && (
-        <Text>
-          {city}
-          {state && `, ${state}`}
-          {postal_code && ` ${postal_code}`}
-        </Text>
-      )}
-      {country && <Text className="font-bold">{country}</Text>}
+      {name && <Text className="m-0 font-bold">{name}</Text>}
+      {line1 && <Text className="m-0">{line1}</Text>}
+      {line2 && <Text className="m-0">{line2}</Text>}
+      {(city || state) && <Text className="m-0">{[city, state].filter(Boolean).join(", ")}</Text>}
+      {postal_code && <Text className="m-0">{postal_code}</Text>}
+      {country && <Text className="m-0 font-bold">{country}</Text>}
     </>
   );
 }

@@ -46,12 +46,10 @@ export default function ShipTo({ paymentIntent }: ShipToProps) {
           <b>{name}</b>
         </p>
       )}
-      {line1 && <p>{line1},</p>}
-      {line2 && <p>{line2},</p>}
-      {city && <p>{city},</p>}
-      {state && <span>{state}</span>}
-      &nbsp;
-      {postal_code && <span>{postal_code}</span>}
+      {line1 && <p>{line1}</p>}
+      {line2 && <p>{line2}</p>}
+      {(city || state) && <p>{[city, state].filter(Boolean).join(", ")}</p>}
+      {postal_code && <p>{postal_code}</p>}
       {country && (
         <p>
           <b>{country}</b>

@@ -1,5 +1,5 @@
 // prisma and db access
-import type { Brand, Prisma } from "@prisma/client";
+import type { Brand, OrderedItem, Prisma } from "@prisma/client";
 
 // other libraries
 import { INCLUDE_ORDER_WITH_ITEMS, INCLUDE_PRODUCT_WITH_ALL } from "./consts";
@@ -9,6 +9,11 @@ import type { getCustomerData } from "./customers";
 export type ProductWithAll = Prisma.ProductGetPayload<{ include: typeof INCLUDE_PRODUCT_WITH_ALL }>;
 export type OrderWithItems = Prisma.OrderGetPayload<{ include: typeof INCLUDE_ORDER_WITH_ITEMS }>;
 export type CustomerData = Awaited<ReturnType<typeof getCustomerData>>;
+
+export interface OrderWithItemsSimple
+  extends Pick<OrderWithItems, "orderNumber" | "created" | "totalQty" | "subTotal" | "taxAmount" | "shippingCost" | "shippingMethod" | "totalPaid"> {
+  orderedItems: Pick<OrderedItem, "quantity" | "name" | "imageUrl" | "price" | "total" | "categoryName" | "subCategoryName">[];
+}
 
 interface CategoriesTreeView {
   label: string;

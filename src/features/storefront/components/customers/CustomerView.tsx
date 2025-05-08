@@ -86,12 +86,10 @@ export default async function CustomerView({ customer }: CustomerViewProps) {
           address
         </dt>
         <dd>
-          <p>{line1}</p>
-          <p>{line2}</p>
-          <p>{city}</p>
-          <p>
-            {state}, {postal_code}
-          </p>
+          {line1 && <p>{line1}</p>}
+          {line2 && <p>{line2}</p>}
+          {(city || state) && <p>{[city, state].filter(Boolean).join(", ")}</p>}
+          {postal_code && <p>{postal_code}</p>}
           {country && (
             <p className="text-2xl">
               <b>{country}</b>&nbsp;<span className="font-noto-color-emoji">{countryCodeToFlagEmoji(country)}</span>
