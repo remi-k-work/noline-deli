@@ -1,5 +1,6 @@
 secrets.txt
 .env
+/prisma/generated
 
 # dependencies
 /node_modules
