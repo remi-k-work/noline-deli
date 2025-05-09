@@ -7,6 +7,7 @@ import { newOrder } from "@/features/cart/db/orders";
 
 // other libraries
 import stripe from "@/services/stripe";
+import { sendOrderConfirmation } from "@/emails/sender";
 
 export async function POST(req: NextRequest) {
   // The incoming event
@@ -55,7 +56,10 @@ export async function POST(req: NextRequest) {
           // Place a new order for this customer
           const order = await newOrder(checkoutSession);
 
-          // Send an email with a order confirmation
+          // Try to send the order confirmation email and silently ignore any errors so that it does not stop the fulfillment process
+          try {
+            await sendOrderConfirmation(checkoutSession, order);
+          } catch {}
         }
       } catch {
         return new NextResponse(null, { status: 500 });

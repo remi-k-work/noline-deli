@@ -42,5 +42,6 @@ export async function newOrder(checkoutSession: Stripe.Checkout.Session) {
       // Create ordered items from the cart items by including only the most significant information
       orderedItems: { createMany: { data: createOrderedItemsFromCart(cartItems) } },
     },
+    include: { orderedItems: true },
   });
 }
