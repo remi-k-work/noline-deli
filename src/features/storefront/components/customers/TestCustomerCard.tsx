@@ -34,7 +34,7 @@ export default function TestCustomerCard({
       href={goingTo === "checkout" ? PathFinder.toSfCheckoutPage(id) : PathFinder.toSfCustomerAccount(id)}
       className={cn(styles["test-customer-card"], isPicked && styles["test-customer-card--is-picked"])}
     >
-      <img src={`https://doodleipsum.com/200x200/avatar-3?n=${name}`} width={200} height={200} alt="Avatar" />
+      <img src={`https://robohash.org/${name}?set=set2&size=200x200`} width={200} height={200} alt="Avatar" />
       <h2>{name}</h2>
       <dl>
         <dt>
