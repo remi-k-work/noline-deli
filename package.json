@@ -13,7 +13,8 @@
     "test:watch": "jest --watch",
     "db:seed": "tsx ./src/db/drop.ts && npx prisma db push && tsx ./src/db/seed.ts",
     "db:test": "tsx ./src/db/test.ts",
-    "email": "copy .env node_modules\\react-email && email dev --dir src/emails --port 3002"
+    "email": "copy .env node_modules\\react-email && email dev --dir src/emails --port 3002",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

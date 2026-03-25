@@ -162,7 +162,7 @@ export default class PathFinder {
       ? new URL(PathFinder.toResolvedProductImage(imageUrl), origin ?? undefined).href
       : PathFinder.toResolvedProductImage(imageUrl);
   static toResolvedBrandLogo = (logoUrl?: string | null) => PathFinder.toBrandLogo(logoUrl) ?? PathFinder.toImagePlaceholder();
-  static toMoreImageForCategory = (categoryId: string, imageNumber: string) => `${PathTo.moreImagesForCategory}/${categoryId}/${imageNumber}.jpg`;
+  static toMoreImageForCategory = (categoryId: string, imageNumber: string) => `${PathTo.moreImagesForCategory}/${categoryId}/${imageNumber}.webp`;
 
   static toProductImage = (imageUrl?: string) => {
     if (imageUrl && PathFinder.isImageSrcParsable(imageUrl)) {

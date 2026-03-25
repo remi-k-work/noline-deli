@@ -2,16 +2,16 @@
   {
     "id": "4f8cd287-f872-48a6-9abd-b34db0ee7f98",
     "name": "Wedel",
-    "logoUrl": "/wedel.png"
+    "logoUrl": "/wedel.webp"
   },
   {
     "id": "91d31cc6-3f7d-411c-8365-bad9dbf261ef",
     "name": "Montrose",
-    "logoUrl": "/montrose.jpg"
+    "logoUrl": "/montrose.webp"
   },
   {
     "id": "8721d47a-607f-4a8d-9109-8e7eafcbcde8",
     "name": "Nivea",
-    "logoUrl": "/nivea.jpeg"
+    "logoUrl": "/nivea.webp"
   }
 ]
